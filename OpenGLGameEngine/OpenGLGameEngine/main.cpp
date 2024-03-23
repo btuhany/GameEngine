@@ -20,6 +20,10 @@ float triOffset = 0.0f;
 float triMaxoffset = 1.0f;
 float triIncrement = 0.005f;
 float curAngle = 0.0f;
+float sizeDirection = true;
+float curSize = 0.5f;
+float maxSize = 1.0f;
+float minSize = 0.1f;
 
 // Vertex shader
 static const char* vShader = "										\n\
@@ -27,12 +31,14 @@ static const char* vShader = "										\n\
 																	\n\
 layout (location = 0) in vec3 pos;									\n\
 																	\n\
-uniform mat4 model;												\n\
+uniform mat4 model;													\n\
 																	\n\
 																	\n\
+out vec4 vCol;														\n\
 void main()															\n\
 {																	\n\
-	gl_Position = model * vec4(0.3f * pos.x, 0.3f * pos.y, pos.z, 1.0);       \n\
+	gl_Position = model * vec4( pos.x, pos.y, pos.z, 1.0);			\n\
+	vCol = vec4(clamp(pos, 0.0, 1.0), 1.0f);						\n\
 }																	\n\
 ";
 
@@ -42,9 +48,10 @@ static const char* fShader = "				\n\
 											\n\
 out vec4 colour;							\n\
 											\n\
+in vec4 vCol;								\n\
 void main()									\n\
 {											\n\
-	colour = vec4(1.0, 0.4, 0.0, 1.0);      \n\
+	colour = vCol;      \n\
 }											\n\
 ";
 void CreateTriangle()
@@ -67,11 +74,14 @@ void CreateTriangle()
 		//We want to bind the id of the vbo
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
+			//Buffering the data
 			//vertices to buffer data, pick the actual target to bind, 
 			//in this case you can use the sizeof, 
 			glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 			//location (layout = 0 in shader), size of each value going to past in (in vertices)
+			//each vertex position has three float value, so the size is 3. type is float.
+			//we could use "3*sizeof(float)" instead of 0 stride value and "(void*)0" instead of void pointer idk why.
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 			//enable location
 			glEnableVertexAttribArray(0);
@@ -177,11 +187,13 @@ int main()
 	glfwGetFramebufferSize(mainWindow, &bufferWidth, &bufferHeight); 
 
 	//Set context for GLEW to use (if you need multiple windows you can switch)
+	//Important!
 	glfwMakeContextCurrent(mainWindow);
 
 	//Allow modern extension features
 	glewExperimental = GL_TRUE;
 
+	// Check Glew
 	if (glewInit() != GLEW_OK)
 	{
 		printf("GLEW initialization failed!");
@@ -222,6 +234,20 @@ int main()
 			curAngle = 0.0f;
 		}
 
+		if (direction)
+		{
+			curSize += 0.001f;
+		}
+		else
+		{
+			curSize -= 0.001f;
+		}
+
+		if (curSize > maxSize || curSize < minSize)
+		{
+			sizeDirection = !sizeDirection;
+		}
+
 		//Clear window
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -229,8 +255,9 @@ int main()
 		glUseProgram(shader);
 
 		glm::mat4 model(1.0f);
-		model = glm::rotate(model, curAngle * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::translate(model, glm::vec3(triOffset, triOffset, 0.0f));
+		//model = glm::rotate(model, curAngle * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		//model = glm::translate(model, glm::vec3(triOffset, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(curSize, 0.4f, 1.0f));
 
 		//setting model matrix inside the shader
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -245,5 +272,10 @@ int main()
 	}
 
 	printf("Window closed!");
+
+	///* Clear */
+	//glfwDestroyWindow(mainWindow);
+	//glfwTerminate();
+
 	return 0;
 }
