@@ -1,0 +1,69 @@
+# Visual Studio
+.vs/
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.log
+*.lib
+*.sbr
+ipch/
+[Tt]humbs.db
+[Tt]est[Rr]esult*/
+[Bb]in/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Pp][Ii]/
+*.vcxproj
+*.vcxproj.filters
+*.pdb
+*.ilk
+*.aps
+*.exp
+*.vsix
+*.builds
+*.obj
+*.exe
+*.dll
+*.log
+*.manifest
+*.cache
+*.tmp
+
+# User-specific files
+*.sdf
+*.opensdf
+*.sln.docstates
+
+# CMake
+CMakeLists.txt.user
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+install_manifest.txt
+
+# macOS
+.DS_Store
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
