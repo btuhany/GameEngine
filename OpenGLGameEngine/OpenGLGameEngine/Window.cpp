@@ -5,6 +5,11 @@ Window::Window()
 	width = 800;
 	height = 600;
 
+	mouseLastXPosition = 0;
+	mouseLastYPosition = 0;
+	mouseDeltaX = 0;
+	mouseDeltaY = 0;
+
 	for (size_t i = 0; i < 1024; i++)
 	{
 		keys[i] = 0;
@@ -15,6 +20,11 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 {
 	width = windowWidth;
 	height = windowHeight;
+
+	mouseLastXPosition = 0;
+	mouseLastYPosition = 0;
+	mouseDeltaX = 0;
+	mouseDeltaY = 0;
 
 	for (size_t i = 0; i < 1024; i++)
 	{
@@ -85,12 +95,16 @@ int Window::Initialize()
 
 GLfloat Window::GetMouseDeltaX()
 {
-	return GLfloat();
+	GLfloat deltaX = mouseDeltaX;
+	mouseDeltaX = 0.0f;
+	return deltaX;
 }
 
 GLfloat Window::GetMouseDeltaY()
 {
-	return GLfloat();
+	GLfloat deltaY = mouseDeltaY;
+	mouseDeltaY = 0.0f;
+	return deltaY;
 }
 
 Window::~Window()
@@ -145,6 +159,6 @@ void Window::handleMouse(GLFWwindow* window, double xPos, double yPos)
 	theWindow->mouseLastXPosition = xPos;
 	theWindow->mouseLastYPosition = yPos;
 
-	printf("Mouse Pos X: %.6f\n", theWindow->mouseDeltaX);
+	//printf("Mouse Pos X: %.6f\n", theWindow->mouseDeltaX);
 	//printf("Mouse Pos Y: %.6f\n", yPos);
 }

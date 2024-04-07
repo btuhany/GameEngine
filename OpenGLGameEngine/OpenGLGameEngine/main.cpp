@@ -13,11 +13,16 @@
 #include "Mesh.h"
 #include "Shader.h"
 #include "Window.h"
+#include "Camera.h"
 
 const float toRadians = 3.14159265f / 180.0f;
 
 std::vector<Mesh*> meshList;
 std::vector<Shader*> shaderList;
+Camera mainCamera;
+
+GLfloat deltaTime = 0.0f;
+GLfloat lastTime = 0.0f;
 
 bool direction = true;
 float triOffset = 0.0f;
@@ -68,26 +73,35 @@ void CreateShaders()
 }
 int main()
 {
-	Window* mainWindow = new Window();
-	mainWindow->Initialize();
+	Window mainWindow = Window(1080, 720);
+	mainWindow.Initialize();
 
 	CreateObject();
-
 	CreateShaders();
-
+	mainCamera = Camera(glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 1.0f, 0.0f), 90.0f, 0.0f, 5.0f, 0.1f);
 
 	GLuint uniformModel = 0;
 	GLuint uniformProjection = 0;
+	GLuint uniformView = 0;
 
 	//unifrom value setted once
-	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow->GetBufferWidth() / mainWindow->GetBufferHeight(), 0.1f, 100.0f);
+	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.GetBufferWidth() / mainWindow.GetBufferHeight(), 0.1f, 100.0f);
 
 	
 	//Loop until window closed
-	while (!mainWindow->GetShouldClose())
+	while (!mainWindow.GetShouldClose())
 	{
+		GLfloat timeNow = glfwGetTime(); //SDL_GetPerformanceCounter();
+		deltaTime = timeNow - lastTime; // (timeNow - lastTime)*1000 / SDL_GetPerformanceFrequency();
+		lastTime = timeNow;
+
 		//Get and handle user inpu events
 		glfwPollEvents();
+
+		mainCamera.HandleKeys(mainWindow.GetKeys(), deltaTime);
+		mainCamera.HandleMouse(mainWindow.GetMouseDeltaX(), mainWindow.GetMouseDeltaY());
+
+		printf("Mouse Pos X: %.6f\n", mainWindow.GetMouseDeltaX());
 
 		if (direction)
 		{
@@ -129,30 +143,32 @@ int main()
 
 		uniformModel = shaderList[0]->GetModelLocation();
 		uniformProjection = shaderList[0]->GetProjectionLocation();
+		uniformView = shaderList[0]->GetViewLocation();
 
 		shaderList[0]->UseShader();
 
 		glm::mat4 model(1.0f);
 		model = glm::translate(model, glm::vec3(0.0f, triOffset, -2.0f));
-		model = glm::rotate(model, curAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.7f));
+		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
+		model = glm::rotate(model, 2 * curAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 
 		//setting model matrix inside the shader
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		//setting projection matrix 
 		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
+		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(mainCamera.CalculateViewMatrix()));
 
 		meshList[0]->RenderMesh();
 
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(triOffset, 0.0f, -2.0f));
-		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.7f));
+		model = glm::translate(model, glm::vec3(-triOffset, 0.0f, -4.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		meshList[1]->RenderMesh();
 
 		glUseProgram(0);
 
-		mainWindow->SwapBuffers();
+		mainWindow.SwapBuffers();
 	}
 
 	printf("Window closed!");

@@ -18,7 +18,7 @@ public:
 
 	bool GetShouldClose() { return glfwWindowShouldClose(mainWindow); }
 
-	bool GetKeys() { return keys; }
+	bool* GetKeys() { return keys; }
 	GLfloat GetMouseDeltaX();
 	GLfloat GetMouseDeltaY();
 
@@ -34,11 +34,11 @@ private:
 
 	bool keys[1024]; //covering the ascii characters
 
-	GLfloat mouseLastXPosition;
-	GLfloat mouseLastYPosition;
-	GLfloat mouseDeltaX;
-	GLfloat mouseDeltaY;
-	bool mouseFirstMoved;
+	GLfloat mouseLastXPosition = 0;
+	GLfloat mouseLastYPosition = 0;
+	GLfloat mouseDeltaX = 0;
+	GLfloat mouseDeltaY = 0;
+	bool mouseFirstMoved = true;
 
 	void createCallbacks();
 	static void handleKeys(GLFWwindow* window, int key, int code, int action, int mode);
