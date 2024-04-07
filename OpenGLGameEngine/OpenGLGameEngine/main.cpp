@@ -69,7 +69,7 @@ void CreateShaders()
 int main()
 {
 	Window* mainWindow = new Window();
-	mainWindow->Initialise();
+	mainWindow->Initialize();
 
 	CreateObject();
 
@@ -80,11 +80,11 @@ int main()
 	GLuint uniformProjection = 0;
 
 	//unifrom value setted once
-	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow->getBufferWidth() / mainWindow->getBufferHeight(), 0.1f, 100.0f);
+	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow->GetBufferWidth() / mainWindow->GetBufferHeight(), 0.1f, 100.0f);
 
 	
 	//Loop until window closed
-	while (!mainWindow->getShouldClose())
+	while (!mainWindow->GetShouldClose())
 	{
 		//Get and handle user inpu events
 		glfwPollEvents();
@@ -152,7 +152,7 @@ int main()
 
 		glUseProgram(0);
 
-		mainWindow->swapBuffers();
+		mainWindow->SwapBuffers();
 	}
 
 	printf("Window closed!");
