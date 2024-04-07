@@ -20,8 +20,8 @@ ipch/
 x64/
 x86/
 [Aa][Pp][Ii]/
-*.vcxproj
-*.vcxproj.filters
+
+
 *.pdb
 *.ilk
 *.aps
