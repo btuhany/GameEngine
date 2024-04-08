@@ -1,3 +1,4 @@
+#define STB_IMAGE_IMPLEMENTATION
 #include <stdio.h>
 #include <string.h>
 #include <cmath>
@@ -14,6 +15,7 @@
 #include "Shader.h"
 #include "Window.h"
 #include "Camera.h"
+#include "Texture.h"
 
 const float toRadians = 3.14159265f / 180.0f;
 
@@ -24,10 +26,13 @@ Camera mainCamera;
 GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
 
+Texture spidermanTexture;
+Texture learnopenglTexture;
+
 bool direction = true;
 float triOffset = 0.0f;
-float triMaxoffset = 1.0f;
-float triIncrement = 0.005f;
+float triMaxoffset = 3.0f;
+float triIncrement = 1.0f;
 float curAngle = 0.0f;
 float sizeDirection = true;
 float curSize = 0.5f;
@@ -43,76 +48,43 @@ static const char* fShaderLocation = "Shaders/shader.frag";
 void CreateObject()
 {
 	unsigned int indices[] = {
-		0, 1, 9,
-		0, 10, 9,
-		2, 3, 4,
+		0, 1, 2,
+		0, 3, 2,
 		2, 5, 4,
-		6, 7, 8,
-		6, 9, 8,
-		11, 12, 20,
-		11, 21, 20,
-		13, 14, 15,
-		13, 16, 15,
-		17, 18, 19,
-		17, 20, 19,
-		0, 10, 11,
-		11, 21, 10,
-		0, 1, 12,
-		0, 11, 12,
-		//1, 12, 13,
-		//1, 2, 13,
-		2, 3, 14,
-		2, 13, 14,
-		3, 4, 15,
-		14, 3, 15,
-		4, 15, 5,
-		5, 16, 15,
-		1, 6, 17, 
-		12, 1, 17,
-		6, 17, 18,
-		18, 7 , 6,
-		7, 8, 19,
-		19, 18, 7,
-		8, 19, 21,
-		21, 10, 8
+		2, 3, 4,
+		3, 7, 4,
+		3, 7, 0,
+		0, 1, 6,
+		0, 7, 6,
+		6, 1, 2,
+		6, 5, 2,
+		5, 6, 4,
+		6, 7, 4
 	};
 
 	
 
 	GLfloat vertices[] =
 	{
-		0.0f, 0.0f, 2.0f,
-		1.0f, 0.0f, 2.0f,
-		1.0f, 3.0f, 2.0f,
-		2.0f, 3.0f, 2.0f,
-		2.0f, 4.0f, 2.0f,
-		1.0f, 4.0f, 2.0f,
-		1.0f, 5.0f, 2.0f,
-		4.0f, 5.0f, 2.0f,
-		4.0f, 6.0f, 2.0f,
-		1.0f, 6.0f, 2.0f,
-		0.0f, 6.0f, 2.0f,
-		0.0f, 0.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
-		1.0f, 3.0f, 0.0f,
-		2.0f, 3.0f, 0.0f,
-		2.0f, 4.0f, 0.0f,
-		1.0f, 4.0f, 0.0f,
-		1.0f, 5.0f, 0.0f,
-		4.0f, 5.0f, 0.0f,
-		4.0f, 6.0f, 0.0f,
-		1.0f, 6.0f, 0.0f,
-		0.0f, 6.0f, 0.0f
+ 		//x      y     z     u     y
+		-1.0f, -1.0f, 1.0f, 1.0f, 0.0f,  //0
+		1.0f, -1.0f, 1.0f,  0.0f, 0.0f,
+		1.0f, -1.0f, -1.0f, 0.0f, 1.0f,
+		-1.0f, -1.0f, -1.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f, -1.0f, 1.0f, 0.0f,
+		1.0f, 1.0f, -1.0f, 0.0f, 0.0f,
+		1.0f, 1.0f, 1.0f,   1.0f, 0.0f,
+		-1.0f, 1.0f, 1.0f,  0.0f, 0.0f
 	};
 
 
 
 	Mesh* obj1 = new Mesh();
-	obj1->CreateMesh(vertices, indices, 66, 90);
+	obj1->CreateMesh(vertices, indices, 40, 36);
 	meshList.push_back(obj1);
 
 	Mesh* obj2 = new Mesh();
-	obj2->CreateMesh(vertices, indices, 66, 90);
+	obj2->CreateMesh(vertices, indices, 40, 36);
 	meshList.push_back(obj2);
 }
 void CreateShaders()
@@ -123,12 +95,17 @@ void CreateShaders()
 }
 int main()
 {
-	Window mainWindow = Window(1920, 1080);
+	Window mainWindow = Window(720, 720);
 	mainWindow.Initialize();
 
 	CreateObject();
 	CreateShaders();
-	mainCamera = Camera(glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 1.0f, 0.0f), 90.0f, 0.0f, 5.0f, 0.1f);
+	mainCamera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.0f, 0.1f);
+
+	spidermanTexture = Texture("Textures/spiderman.png");
+	spidermanTexture.LoadTexture();
+	learnopenglTexture = Texture("Textures/learnopengl.png");
+	learnopenglTexture.LoadTexture();
 
 	GLuint uniformModel = 0;
 	GLuint uniformProjection = 0;
@@ -155,11 +132,11 @@ int main()
 
 		if (direction)
 		{
-			triOffset += triIncrement;
+			triOffset += triIncrement * deltaTime;
 		}
 		else
 		{
-			triOffset -= triIncrement;
+			triOffset -= triIncrement * deltaTime;
 		}
 
 		if (abs(triOffset) >= triMaxoffset)
@@ -167,7 +144,7 @@ int main()
 			direction = !direction;
 		}
 
-		curAngle += 0.3f;
+		curAngle += 15.0f * deltaTime;;
 		//if (curAngle > 360)
 		{
 			//curAngle = 0.0f;
@@ -175,11 +152,11 @@ int main()
 
 		if (direction)
 		{
-			curSize += 0.001f;
+			curSize += 0.001f * deltaTime;;
 		}
 		else
 		{
-			curSize -= 0.001f;
+			curSize -= 0.001f * deltaTime;;
 		}
 
 		if (curSize > maxSize || curSize < minSize)
@@ -198,8 +175,8 @@ int main()
 		shaderList[0]->UseShader();
 
 		glm::mat4 model(1.0f);
-		model = glm::translate(model, glm::vec3(0.0f, triOffset, -2.0f));
-		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
+		model = glm::translate(model, glm::vec3(0.0f, triOffset, -5.0f));
+		model = glm::scale(model, glm::vec3(0.4f, 0.7f, 0.7f));
 		model = glm::rotate(model, 2 * curAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 
 		//setting model matrix inside the shader
@@ -207,13 +184,15 @@ int main()
 		//setting projection matrix 
 		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(mainCamera.CalculateViewMatrix()));
-
+		learnopenglTexture.UseTexture();
 		meshList[0]->RenderMesh();
 
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(-triOffset, 0.0f, -4.0f));
-		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
+		//model = glm::translate(model, glm::vec3(-triOffset, 0.0f, -10.0f));
+		//model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
+		model = glm::rotate(model, 0.6f * curAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		spidermanTexture.UseTexture();
 		meshList[1]->RenderMesh();
 
 		glUseProgram(0);
