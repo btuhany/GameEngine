@@ -20,21 +20,27 @@ Camera::Camera(glm::vec3 startPosition, glm::vec3 startUpVector, GLfloat startYa
 
 void Camera::HandleKeys(bool* keys, GLfloat deltaTime)
 {
+	GLfloat curMoveSpeed = moveSpeed;
+
+	if (keys[GLFW_KEY_LEFT_SHIFT])
+	{
+		curMoveSpeed *= 3.0f;
+	}
 	if (keys[GLFW_KEY_W])
 	{
-		position += front * moveSpeed * deltaTime;
+		position += front * curMoveSpeed * deltaTime;
 	}
 	if (keys[GLFW_KEY_D])
 	{
-		position += right * moveSpeed * deltaTime;
+		position += right * curMoveSpeed * deltaTime;
 	}
 	if (keys[GLFW_KEY_A])
 	{
-		position -= right * moveSpeed * deltaTime;
+		position -= right * curMoveSpeed * deltaTime;
 	}
 	if (keys[GLFW_KEY_S])
 	{
-		position -= front * moveSpeed * deltaTime;
+		position -= front * curMoveSpeed * deltaTime;
 	}
 }
 
