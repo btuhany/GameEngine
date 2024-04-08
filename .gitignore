@@ -9,7 +9,6 @@
 *.tlh
 *.bak
 *.log
-*.lib
 *.sbr
 ipch/
 [Tt]humbs.db
@@ -30,7 +29,6 @@ x86/
 *.builds
 *.obj
 *.exe
-*.dll
 *.log
 *.manifest
 *.cache
@@ -60,10 +58,8 @@ install_manifest.txt
 # Compiled Dynamic libraries
 *.so
 *.dylib
-*.dll
 
 # Compiled Static libraries
 *.lai
 *.la
 *.a
-*.lib
