@@ -17,6 +17,11 @@ public:
 	GLuint GetProjectionLocation();
 	GLuint GetModelLocation();
 	GLuint GetViewLocation();
+	GLuint GetAmbientIntensityLocation();
+	GLuint GetAmbientColourLocation();
+	GLuint GetDiffuseIntensityLocation();
+	GLuint GetDiffuseDirectionLocation();
+
 
 	void UseShader();
 	void ClearShader();
@@ -25,6 +30,7 @@ public:
 
 private:
 	GLuint shaderID, uniformProjection, uniformModel, uniformView;
+	GLuint uniformAmbientIntensity, uniformAmbientColour, uniformDiffuseIntensity, uniformDiffuseDirection;
 
 	std::string ReadFile(const char* fileLocation);
 	void CompileShader(const char* vertexCode, const char* fragmentCode);

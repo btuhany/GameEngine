@@ -16,6 +16,7 @@
 #include "Window.h"
 #include "Camera.h"
 #include "Texture.h"
+#include "Light.h"
 
 const float toRadians = 3.14159265f / 180.0f;
 
@@ -28,6 +29,8 @@ GLfloat lastTime = 0.0f;
 
 Texture spidermanTexture;
 Texture learnopenglTexture;
+
+Light directionalLight;
 
 bool direction = true;
 float triOffset = 0.0f;
@@ -44,6 +47,57 @@ static const char* vShaderLocation = "Shaders/shader.vert";
 
 // Fragment shader
 static const char* fShaderLocation = "Shaders/shader.frag";
+
+
+void CalculateAvarageNormals(unsigned int* indices, unsigned int indiceCount, GLfloat* verticesDataArr, unsigned int verticesDataArrCount, unsigned int vertexDataLength, unsigned int normalOffset)
+{
+	//Scan triangles
+	for (size_t i = 0; i < indiceCount; i += 3)
+	{
+		//x data of the vertex pos of the vertices array.
+		unsigned int in0 = indices[i] * vertexDataLength; 
+		unsigned int in1 = indices[i + 1] * vertexDataLength; 
+		unsigned int in2 = indices[i + 2] * vertexDataLength;
+
+		//vector1: v1 - v0
+		glm::vec3 vector1(verticesDataArr[in1] - verticesDataArr[in0], verticesDataArr[in1 + 1] - verticesDataArr[in0 + 1], verticesDataArr[in1 + 2] - verticesDataArr[in0 + 2]);
+		//vector1: v2 - v0
+		glm::vec3 vector2(verticesDataArr[in2] - verticesDataArr[in0], verticesDataArr[in2 + 1] - verticesDataArr[in0 + 1], verticesDataArr[in2 + 2] - verticesDataArr[in0 + 2]);
+		glm::vec3 normal = glm::cross(vector1, vector2);
+		normal = glm::normalize(normal);
+
+		//normal.x data indices at vertices array
+		in0 += normalOffset;
+		in1 += normalOffset;
+		in2 += normalOffset;
+
+		//ADDING normal values, we should normalize it after. Thus, we can calculate the AVARAGE.
+		verticesDataArr[in0] += normal.x;
+		verticesDataArr[in0 + 1] += normal.y;
+		verticesDataArr[in0 + 2] += normal.z;
+
+		verticesDataArr[in1] += normal.x;
+		verticesDataArr[in1 + 1] += normal.y;
+		verticesDataArr[in1 + 2] += normal.z;
+
+		verticesDataArr[in2] += normal.x;
+		verticesDataArr[in2 + 1] += normal.y;
+		verticesDataArr[in2 + 2] += normal.z;
+	}
+
+	//Normalizing normal vectors
+	for (size_t i = 0; i < verticesDataArrCount / vertexDataLength; i++)
+	{
+		unsigned int normalIndice = i * vertexDataLength + normalOffset;
+		glm::vec3 normalVector(verticesDataArr[normalIndice], verticesDataArr[normalIndice + 1], verticesDataArr[normalIndice + 2]);
+
+		normalVector = glm::normalize(normalVector);
+
+		verticesDataArr[normalIndice] = normalVector.x;
+		verticesDataArr[normalIndice + 1] = normalVector.y;
+		verticesDataArr[normalIndice + 2] = normalVector.z;
+	}
+}
 
 void CreateObject()
 {
@@ -62,29 +116,28 @@ void CreateObject()
 		6, 7, 4
 	};
 
-	
-
 	GLfloat vertices[] =
 	{
- 		//x      y     z     u     y
-		-1.0f, -1.0f, 1.0f, 1.0f, 0.0f,  //0
-		1.0f, -1.0f, 1.0f,  0.0f, 0.0f,
-		1.0f, -1.0f, -1.0f, 0.0f, 1.0f,
-		-1.0f, -1.0f, -1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f, -1.0f, 1.0f, 0.0f,
-		1.0f, 1.0f, -1.0f, 0.0f, 0.0f,
-		1.0f, 1.0f, 1.0f,   1.0f, 0.0f,
-		-1.0f, 1.0f, 1.0f,  0.0f, 0.0f
+ 		//x      y     z		 u     y			normals
+		-1.0f, -1.0f, 1.0f, 	1.0f, 0.0f,		0.0f, 0.0f, 0.0f,
+		1.0f, -1.0f, 1.0f,		0.0f, 0.0f,		0.0f, 0.0f, 0.0f,
+		1.0f, -1.0f, -1.0f,		0.0f, 1.0f,		0.0f, 0.0f, 0.0f,
+		-1.0f, -1.0f, -1.0f,	1.0f, 1.0f,		0.0f, 0.0f, 0.0f,
+		-1.0f, 1.0f, -1.0f,		1.0f, 0.0f,		0.0f, 0.0f, 0.0f,
+		1.0f, 1.0f, -1.0f,		0.0f, 0.0f,		0.0f, 0.0f, 0.0f,
+		1.0f, 1.0f, 1.0f,		1.0f, 0.0f,		0.0f, 0.0f, 0.0f,
+		-1.0f, 1.0f, 1.0f,		0.0f, 0.0f,		0.0f, 0.0f, 0.0f
 	};
 
 
+	CalculateAvarageNormals(indices, 36, vertices, 64, 8, 5);
 
 	Mesh* obj1 = new Mesh();
-	obj1->CreateMesh(vertices, indices, 40, 36);
+	obj1->CreateMesh(vertices, indices, 64, 36);
 	meshList.push_back(obj1);
 
 	Mesh* obj2 = new Mesh();
-	obj2->CreateMesh(vertices, indices, 40, 36);
+	obj2->CreateMesh(vertices, indices, 64, 36);
 	meshList.push_back(obj2);
 }
 void CreateShaders()
@@ -107,14 +160,29 @@ int main()
 	learnopenglTexture = Texture("Textures/learnopengl.png");
 	learnopenglTexture.LoadTexture();
 
+	directionalLight = Light(0.3f, 1.0f, 1.0f, 1.0f, 
+							0.0f, -10.0f, 0.0f, 1.0f);
+
 	GLuint uniformModel = 0;
 	GLuint uniformProjection = 0;
 	GLuint uniformView = 0;
+	GLuint uniformAmbientIntensity = 0;
+	GLuint uniformAmbientColour = 0;
+	GLuint uniformDiffuseIntensity = 0;
+	GLuint uniformDiffuseDirection = 0;
 
 	//unifrom value setted once
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.GetBufferWidth() / mainWindow.GetBufferHeight(), 0.1f, 100.0f);
 
-	
+	uniformModel = shaderList[0]->GetModelLocation();
+	uniformProjection = shaderList[0]->GetProjectionLocation();
+	uniformView = shaderList[0]->GetViewLocation();
+	uniformAmbientColour = shaderList[0]->GetAmbientColourLocation();
+	uniformAmbientIntensity = shaderList[0]->GetAmbientIntensityLocation();
+	uniformDiffuseDirection = shaderList[0]->GetDiffuseDirectionLocation();
+	uniformDiffuseIntensity = shaderList[0]->GetDiffuseIntensityLocation();
+
+
 	//Loop until window closed
 	while (!mainWindow.GetShouldClose())
 	{
@@ -128,7 +196,7 @@ int main()
 		mainCamera.HandleKeys(mainWindow.GetKeys(), deltaTime);
 		mainCamera.HandleMouse(mainWindow.GetMouseDeltaX(), mainWindow.GetMouseDeltaY());
 
-		printf("Mouse Pos X: %.6f\n", mainWindow.GetMouseDeltaX());
+		//printf("Mouse Pos X: %.6f\n", mainWindow.GetMouseDeltaX());
 
 		if (direction)
 		{
@@ -168,14 +236,12 @@ int main()
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		uniformModel = shaderList[0]->GetModelLocation();
-		uniformProjection = shaderList[0]->GetProjectionLocation();
-		uniformView = shaderList[0]->GetViewLocation();
 
 		shaderList[0]->UseShader();
+		directionalLight.UseLight(uniformAmbientIntensity, uniformAmbientColour, uniformDiffuseIntensity, uniformDiffuseDirection);
 
 		glm::mat4 model(1.0f);
-		model = glm::translate(model, glm::vec3(0.0f, triOffset, -5.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 5.0f));
 		model = glm::scale(model, glm::vec3(0.4f, 0.7f, 0.7f));
 		model = glm::rotate(model, 2 * curAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 
@@ -190,7 +256,7 @@ int main()
 		model = glm::mat4(1.0f);
 		//model = glm::translate(model, glm::vec3(-triOffset, 0.0f, -10.0f));
 		//model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
-		model = glm::rotate(model, 0.6f * curAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		//model = glm::rotate(model, 0.6f * curAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		spidermanTexture.UseTexture();
 		meshList[1]->RenderMesh();
