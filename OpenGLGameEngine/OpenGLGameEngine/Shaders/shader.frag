@@ -33,7 +33,7 @@ void main()
 	vec4 ambientColour = vec4(directionalLight.colour, 1.0f) * directionalLight.ambientIntensity;
 	//diffuse lighting
 	float diffuseFactor = max(dot(normalize(Normal), normalize(directionalLight.diffuseDirection)), 0.0f);  //0.0f - 1.0f
-	vec4 diffuseColour = vec4(directionalLight.colour, 1.0f) * directionalLight.diffuseIntensity * diffuseFactor;
+	vec4 diffuseColour = vec4(directionalLight.colour * directionalLight.diffuseIntensity * diffuseFactor, 1.0f);
 	
 	vec4 specularColour = vec4(0.0f);
 
