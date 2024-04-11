@@ -17,6 +17,7 @@
 #include "Camera.h"
 #include "Texture.h"
 #include "Light.h"
+#include "Material.h"
 
 const float toRadians = 3.14159265f / 180.0f;
 
@@ -29,6 +30,9 @@ GLfloat lastTime = 0.0f;
 
 Texture spidermanTexture;
 Texture learnopenglTexture;
+
+Material shinyMaterial;
+Material roughMaterial;
 
 Light directionalLight;
 
@@ -148,7 +152,7 @@ void CreateShaders()
 }
 int main()
 {
-	Window mainWindow = Window(720, 720);
+	Window mainWindow = Window(1366, 768);
 	mainWindow.Initialize();
 
 	CreateObject();
@@ -160,8 +164,11 @@ int main()
 	learnopenglTexture = Texture("Textures/learnopengl.png");
 	learnopenglTexture.LoadTexture();
 
-	directionalLight = Light(0.3f, 1.0f, 1.0f, 1.0f, 
-							0.0f, -10.0f, 0.0f, 1.0f);
+	shinyMaterial = Material(1.0f, 35.0f);
+	roughMaterial = Material(0.5f, 4.0f);
+
+	directionalLight = Light(0.1f, 1.0f, 1.0f, 1.0f, 
+							-10.0f, -10.0f, 0.0f, 0.5f);
 
 	GLuint uniformModel = 0;
 	GLuint uniformProjection = 0;
@@ -170,6 +177,9 @@ int main()
 	GLuint uniformAmbientColour = 0;
 	GLuint uniformDiffuseIntensity = 0;
 	GLuint uniformDiffuseDirection = 0;
+	GLuint uniformMatSpecularInstensity = 0;
+	GLuint uniformMatShininess = 0;
+	GLuint uniformCameraPosition = 0;
 
 	//unifrom value setted once
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.GetBufferWidth() / mainWindow.GetBufferHeight(), 0.1f, 100.0f);
@@ -181,7 +191,9 @@ int main()
 	uniformAmbientIntensity = shaderList[0]->GetAmbientIntensityLocation();
 	uniformDiffuseDirection = shaderList[0]->GetDiffuseDirectionLocation();
 	uniformDiffuseIntensity = shaderList[0]->GetDiffuseIntensityLocation();
-
+	uniformMatSpecularInstensity = shaderList[0]->GetMatSpecularIntensityLocation();
+	uniformMatShininess = shaderList[0]->GetMatShininessLocation();
+	uniformCameraPosition = shaderList[0]->GetCameraPositionLocation();
 
 	//Loop until window closed
 	while (!mainWindow.GetShouldClose())
@@ -240,17 +252,22 @@ int main()
 		shaderList[0]->UseShader();
 		directionalLight.UseLight(uniformAmbientIntensity, uniformAmbientColour, uniformDiffuseIntensity, uniformDiffuseDirection);
 
+		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
+		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(mainCamera.CalculateViewMatrix()));
+		glUniform3f(uniformCameraPosition, mainCamera.GetCameraPosition().x, mainCamera.GetCameraPosition().y, mainCamera.GetCameraPosition().z);
+
+
 		glm::mat4 model(1.0f);
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 5.0f));
-		model = glm::scale(model, glm::vec3(0.4f, 0.7f, 0.7f));
+		//model = glm::scale(model, glm::vec3(0.4f, 0.7f, 0.7f));
 		model = glm::rotate(model, 2 * curAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 
 		//setting model matrix inside the shader
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		//setting projection matrix 
-		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
-		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(mainCamera.CalculateViewMatrix()));
+
 		learnopenglTexture.UseTexture();
+		shinyMaterial.UseMaterial(uniformMatSpecularInstensity, uniformMatShininess);
 		meshList[0]->RenderMesh();
 
 		model = glm::mat4(1.0f);

@@ -58,6 +58,21 @@ GLuint Shader::GetDiffuseDirectionLocation()
 	return uniformDiffuseDirection;
 }
 
+GLuint Shader::GetMatSpecularIntensityLocation()
+{
+	return uniformMatSpecularIntensity;
+}
+
+GLuint Shader::GetMatShininessLocation()
+{
+	return uniformMatShininess;
+}
+
+GLuint Shader::GetCameraPositionLocation()
+{
+	return uniformCameraPosition;
+}
+
 void Shader::UseShader()
 {
 	glUseProgram(shaderID);
@@ -146,6 +161,9 @@ void Shader::CompileShader(const char* vertexCode, const char* fragmentCode)
 	uniformAmbientIntensity = glGetUniformLocation(shaderID, "directionalLight.ambientIntensity");
 	uniformDiffuseDirection = glGetUniformLocation(shaderID, "directionalLight.diffuseDirection");
 	uniformDiffuseIntensity = glGetUniformLocation(shaderID, "directionalLight.diffuseIntensity");
+	uniformMatShininess = glGetUniformLocation(shaderID, "material.shininess");
+	uniformMatSpecularIntensity = glGetUniformLocation(shaderID, "material.specularIntensity");
+	uniformCameraPosition = glGetUniformLocation(shaderID, "cameraPosition");
 }
 
 void Shader::AddShader(GLuint theProgram, const char* shaderCode, GLenum shaderType)

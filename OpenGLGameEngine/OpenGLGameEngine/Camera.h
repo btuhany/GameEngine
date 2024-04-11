@@ -13,6 +13,9 @@ public:
 
 	void HandleKeys(bool* keys, GLfloat deltaTime);
 	void HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY);
+
+	glm::vec3 GetCameraPosition();
+
 	glm::mat4 CalculateViewMatrix();
 
 	~Camera();
