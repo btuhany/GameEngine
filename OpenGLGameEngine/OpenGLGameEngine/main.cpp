@@ -95,7 +95,11 @@ void CalculateAvarageNormals(unsigned int* indices, unsigned int indiceCount, GL
 		unsigned int normalIndice = i * vertexDataLength + normalOffset;
 		glm::vec3 normalVector(verticesDataArr[normalIndice], verticesDataArr[normalIndice + 1], verticesDataArr[normalIndice + 2]);
 
-		normalVector = glm::normalize(normalVector);
+		//OpenGL normalize function does not work properly with zero vector
+		if (normalVector.x != 0 || normalVector.y != 0 || normalVector.z != 0)
+		{
+			normalVector = glm::normalize(normalVector);
+		}
 
 		verticesDataArr[normalIndice] = normalVector.x;
 		verticesDataArr[normalIndice + 1] = normalVector.y;
