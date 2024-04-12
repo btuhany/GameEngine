@@ -16,8 +16,10 @@
 #include "Window.h"
 #include "Camera.h"
 #include "Texture.h"
-#include "Light.h"
+#include "DirectionalLight.h"
 #include "Material.h"
+#include "ConstantValues.h"
+#include "PointLight.h"
 
 const float toRadians = 3.14159265f / 180.0f;
 
@@ -34,17 +36,8 @@ Texture learnopenglTexture;
 Material shinyMaterial;
 Material roughMaterial;
 
-Light directionalLight;
-
-bool direction = true;
-float triOffset = 0.0f;
-float triMaxoffset = 3.0f;
-float triIncrement = 1.0f;
-float curAngle = 0.0f;
-float sizeDirection = true;
-float curSize = 0.5f;
-float maxSize = 1.0f;
-float minSize = 0.1f;
+DirectionalLight directionalLight;
+PointLight pointLights[MAX_POINT_LIGHTS];
 
 // Vertex shader
 static const char* vShaderLocation = "Shaders/shader.vert";
@@ -127,18 +120,18 @@ void CreateObject()
 	GLfloat vertices[] =
 	{
  		//x      y     z		 u     y			normals
-		-1.0f, -1.0f, 1.0f, 	1.0f, 0.0f,		0.0f, 0.0f, 0.0f,
-		1.0f, -1.0f, 1.0f,		0.0f, 0.0f,		0.0f, 0.0f, 0.0f,
-		1.0f, -1.0f, -1.0f,		0.0f, 1.0f,		0.0f, 0.0f, 0.0f,
-		-1.0f, -1.0f, -1.0f,	1.0f, 1.0f,		0.0f, 0.0f, 0.0f,
-		-1.0f, 1.0f, -1.0f,		1.0f, 0.0f,		0.0f, 0.0f, 0.0f,
-		1.0f, 1.0f, -1.0f,		0.0f, 0.0f,		0.0f, 0.0f, 0.0f,
-		1.0f, 1.0f, 1.0f,		1.0f, 0.0f,		0.0f, 0.0f, 0.0f,
-		-1.0f, 1.0f, 1.0f,		0.0f, 0.0f,		0.0f, 0.0f, 0.0f
+		-1.0f, -1.0f, 1.0f, 	1.0f, 0.0f,		-1.0f, -1.0f, 1.0f,
+		1.0f, -1.0f, 1.0f,		0.0f, 0.0f,		1.0f, -1.0f, 1.0f,
+		1.0f, -1.0f, -1.0f,		0.0f, 1.0f,		1.0f, -1.0f, -1.0f,
+		-1.0f, -1.0f, -1.0f,	1.0f, 1.0f,		-1.0f, -1.0f, -1.0f,
+		-1.0f, 1.0f, -1.0f,		1.0f, 0.0f,		-1.0f, 1.0f, -1.0f,
+		1.0f, 1.0f, -1.0f,		0.0f, 0.0f,		1.0f, 1.0f, -1.0f,
+		1.0f, 1.0f, 1.0f,		1.0f, 0.0f,		1.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f, 1.0f,		0.0f, 0.0f,		-1.0f, 1.0f, 1.0f
 	};
 
 
-	CalculateAvarageNormals(indices, 36, vertices, 64, 8, 5);
+	//CalculateAvarageNormals(indices, 36, vertices, 64, 8, 5);
 
 	Mesh* obj1 = new Mesh();
 	obj1->CreateMesh(vertices, indices, 64, 36);
@@ -154,6 +147,57 @@ void CreateShaders()
 	shader1->CreateFromFiles(vShaderLocation, fShaderLocation);
 	shaderList.push_back(shader1);
 }
+
+bool direction = true;
+float triOffset = 0.0f;
+float triMaxoffset = 3.0f;
+float triIncrement = 1.0f;
+float curAngle = 0.0f;
+float sizeDirection = true;
+float curSize = 0.5f;
+float maxSize = 1.0f;
+float minSize = 0.1f;
+
+void HandleTransformActions()
+{
+	//printf("Mouse Pos X: %.6f\n", mainWindow.GetMouseDeltaX());
+
+	if (direction)
+	{
+		triOffset += triIncrement * deltaTime;
+	}
+	else
+	{
+		triOffset -= triIncrement * deltaTime;
+	}
+
+	if (abs(triOffset) >= triMaxoffset)
+	{
+		direction = !direction;
+	}
+
+	curAngle += 15.0f * deltaTime;;
+	//if (curAngle > 360)
+	{
+		//curAngle = 0.0f;
+	}
+
+	if (direction)
+	{
+		curSize += 0.001f * deltaTime;;
+	}
+	else
+	{
+		curSize -= 0.001f * deltaTime;;
+	}
+
+	if (curSize > maxSize || curSize < minSize)
+	{
+		sizeDirection = !sizeDirection;
+	}
+
+}
+
 int main()
 {
 	Window mainWindow = Window(1366, 768);
@@ -161,26 +205,35 @@ int main()
 
 	CreateObject();
 	CreateShaders();
-	mainCamera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.0f, 0.1f);
+	mainCamera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 90.0f, 0.0f, 5.0f, 0.1f);
 
 	spidermanTexture = Texture("Textures/spiderman.png");
 	spidermanTexture.LoadTexture();
 	learnopenglTexture = Texture("Textures/learnopengl.png");
 	learnopenglTexture.LoadTexture();
 
-	shinyMaterial = Material(1.0f, 35.0f);
+	shinyMaterial = Material(0.0f, 0.0f);
 	roughMaterial = Material(0.5f, 4.0f);
 
-	directionalLight = Light(0.1f, 1.0f, 1.0f, 1.0f, 
-							-10.0f, -10.0f, 0.0f, 0.5f);
+	directionalLight = DirectionalLight(0.05f, 0.5f, 1.0f, 1.0f, 1.0f,
+							-10.0f, 10.0f, 1.0f);
+	unsigned int pointLightCount = 0;
+	//pointLights[0] = PointLight(0.0f, 15.5f,
+	//	0.5f, 0.0f, 0.0f,
+	//	0.0f, 2.2f, 5.0f,
+	//	1.1f, 2.1f, 0.1f);
+	//pointLightCount++;
+	//pointLights[1] = PointLight(0.0f, 15.5f,
+	//	0.0f, 0.0f, 0.5f,
+	//	0.0f, 2.2f, 0.0f,
+	//	5.1f, 5.1f, 1.1f);
+	//pointLightCount++;
+
 
 	GLuint uniformModel = 0;
 	GLuint uniformProjection = 0;
 	GLuint uniformView = 0;
-	GLuint uniformAmbientIntensity = 0;
-	GLuint uniformAmbientColour = 0;
-	GLuint uniformDiffuseIntensity = 0;
-	GLuint uniformDiffuseDirection = 0;
+	
 	GLuint uniformMatSpecularInstensity = 0;
 	GLuint uniformMatShininess = 0;
 	GLuint uniformCameraPosition = 0;
@@ -188,16 +241,7 @@ int main()
 	//unifrom value setted once
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.GetBufferWidth() / mainWindow.GetBufferHeight(), 0.1f, 100.0f);
 
-	uniformModel = shaderList[0]->GetModelLocation();
-	uniformProjection = shaderList[0]->GetProjectionLocation();
-	uniformView = shaderList[0]->GetViewLocation();
-	uniformAmbientColour = shaderList[0]->GetAmbientColourLocation();
-	uniformAmbientIntensity = shaderList[0]->GetAmbientIntensityLocation();
-	uniformDiffuseDirection = shaderList[0]->GetDiffuseDirectionLocation();
-	uniformDiffuseIntensity = shaderList[0]->GetDiffuseIntensityLocation();
-	uniformMatSpecularInstensity = shaderList[0]->GetMatSpecularIntensityLocation();
-	uniformMatShininess = shaderList[0]->GetMatShininessLocation();
-	uniformCameraPosition = shaderList[0]->GetCameraPositionLocation();
+
 
 	//Loop until window closed
 	while (!mainWindow.GetShouldClose())
@@ -212,49 +256,24 @@ int main()
 		mainCamera.HandleKeys(mainWindow.GetKeys(), deltaTime);
 		mainCamera.HandleMouse(mainWindow.GetMouseDeltaX(), mainWindow.GetMouseDeltaY());
 
-		//printf("Mouse Pos X: %.6f\n", mainWindow.GetMouseDeltaX());
-
-		if (direction)
-		{
-			triOffset += triIncrement * deltaTime;
-		}
-		else
-		{
-			triOffset -= triIncrement * deltaTime;
-		}
-
-		if (abs(triOffset) >= triMaxoffset)
-		{
-			direction = !direction;
-		}
-
-		curAngle += 15.0f * deltaTime;;
-		//if (curAngle > 360)
-		{
-			//curAngle = 0.0f;
-		}
-
-		if (direction)
-		{
-			curSize += 0.001f * deltaTime;;
-		}
-		else
-		{
-			curSize -= 0.001f * deltaTime;;
-		}
-
-		if (curSize > maxSize || curSize < minSize)
-		{
-			sizeDirection = !sizeDirection;
-		}
+		HandleTransformActions();
 
 		//Clear window
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+		
 
 		shaderList[0]->UseShader();
-		directionalLight.UseLight(uniformAmbientIntensity, uniformAmbientColour, uniformDiffuseIntensity, uniformDiffuseDirection);
+		uniformModel = shaderList[0]->GetModelLocation();
+		uniformProjection = shaderList[0]->GetProjectionLocation();
+		uniformView = shaderList[0]->GetViewLocation();
+
+		uniformMatSpecularInstensity = shaderList[0]->GetMatSpecularIntensityLocation();
+		uniformMatShininess = shaderList[0]->GetMatShininessLocation();
+		uniformCameraPosition = shaderList[0]->GetCameraPositionLocation();
+		
+		shaderList[0]->SetDirectionalLight(&directionalLight);
+		shaderList[0]->SetPointLights(pointLights, pointLightCount);
 
 		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(mainCamera.CalculateViewMatrix()));

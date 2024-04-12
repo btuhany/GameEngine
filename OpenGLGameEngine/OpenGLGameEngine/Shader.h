@@ -6,6 +6,9 @@
 
 #include <GL\glew.h>
 
+#include "DirectionalLight.h"
+#include "PointLight.h"
+#include "ConstantValues.h"
 class Shader
 {
 public:
@@ -25,15 +28,38 @@ public:
 	GLuint GetMatShininessLocation();
 	GLuint GetCameraPositionLocation();
 
+	void SetDirectionalLight(DirectionalLight* dLight);
+	void SetPointLights(PointLight* pLight, unsigned int lightCount);
+
 	void UseShader();
 	void ClearShader();
 
 	~Shader();
 
 private:
+	int pointLightCount;
 	GLuint shaderID, uniformProjection, uniformModel, uniformView, uniformCameraPosition;
-	GLuint uniformAmbientIntensity, uniformAmbientColour, uniformDiffuseIntensity, uniformDiffuseDirection;
 	GLuint uniformMatSpecularIntensity, uniformMatShininess;
+
+	struct {
+		GLuint uniformColour;
+		GLuint uniformAmbientIntensity;
+		GLuint uniformDiffuseIntensity;
+		GLuint uniformDirection;
+	} uniformDirectionalLight;
+
+	GLuint uniformPointLightCount;
+
+	struct {
+		GLuint uniformColour;
+		GLuint uniformAmbientIntensity;
+		GLuint uniformDiffuseIntensity;
+
+		GLuint uniformPosition;
+		GLuint uniformConstant;
+		GLuint uniformLinear;
+		GLuint uniformExponent;
+	} uniformPointLights[MAX_POINT_LIGHTS];
 
 	std::string ReadFile(const char* fileLocation);
 	void CompileShader(const char* vertexCode, const char* fragmentCode);
