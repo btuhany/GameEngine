@@ -32,6 +32,7 @@ GLfloat lastTime = 0.0f;
 
 Texture spidermanTexture;
 Texture learnopenglTexture;
+Texture plainTexture;
 
 Material shinyMaterial;
 Material roughMaterial;
@@ -61,6 +62,7 @@ void CalculateAvarageNormals(unsigned int* indices, unsigned int indiceCount, GL
 		//vector1: v2 - v0
 		glm::vec3 vector2(verticesDataArr[in2] - verticesDataArr[in0], verticesDataArr[in2 + 1] - verticesDataArr[in0 + 1], verticesDataArr[in2 + 2] - verticesDataArr[in0 + 2]);
 		glm::vec3 normal = glm::cross(vector1, vector2);
+
 		normal = glm::normalize(normal);
 
 		//normal.x data indices at vertices array
@@ -94,6 +96,8 @@ void CalculateAvarageNormals(unsigned int* indices, unsigned int indiceCount, GL
 			normalVector = glm::normalize(normalVector);
 		}
 
+
+
 		verticesDataArr[normalIndice] = normalVector.x;
 		verticesDataArr[normalIndice + 1] = normalVector.y;
 		verticesDataArr[normalIndice + 2] = normalVector.z;
@@ -103,18 +107,18 @@ void CalculateAvarageNormals(unsigned int* indices, unsigned int indiceCount, GL
 void CreateObject()
 {
 	unsigned int indices[] = {
-		0, 2, 1,
-		0, 3, 2,
-		2, 4, 5,
-		2, 3, 4,
-		3, 7, 4,
-		3, 0, 7,
-		0, 1, 6,
-		0, 6, 7,
-		6, 1, 2,
-		6, 2, 5,
-		5, 4, 6,
-		6, 4, 7
+		2, 0, 1,
+		3, 0, 2,
+		4, 2, 5,
+		3, 2, 4,
+		7, 3, 4,
+		0, 3, 7,
+		1, 0, 6,
+		6, 0, 7,
+		1, 6, 2,
+		2, 6, 5,
+		4, 5, 6,
+		4, 6, 7
 	};
 
 	GLfloat vertices[] =
@@ -130,6 +134,17 @@ void CreateObject()
 		-1.0f, 1.0f, 1.0f,		0.0f, 0.0f,		-1.0f, 1.0f, 1.0f
 	};
 
+	unsigned int floorIndices[] = {
+		0, 2, 1,
+		1, 2, 3
+	};
+
+	GLfloat floorVertices[] = {
+		-20.0f, -10.0f, -20.0f,	0.0f, 0.0f,  0.0f, 1.0f, 0.0f,
+		20.0f, -10.0f, -20.0f,	20.0f, 0.0f,  0.0f, 1.0f, 0.0f,
+		-20.0f, -10.0f, 20.0f,	0.0f, 20.0f,  0.0f, 1.0f, 0.0f,
+		20.0f, -10.0f, 20.0f,	20.0f, 20.0f,  0.0f, 1.0f, 0.0f
+	};
 
 	CalculateAvarageNormals(indices, 36, vertices, 64, 8, 5);
 
@@ -140,6 +155,10 @@ void CreateObject()
 	Mesh* obj2 = new Mesh();
 	obj2->CreateMesh(vertices, indices, 64, 36);
 	meshList.push_back(obj2);
+
+	Mesh* obj3 = new Mesh();
+	obj3->CreateMesh(floorVertices, floorIndices, 32, 6);
+	meshList.push_back(obj3);
 }
 void CreateShaders()
 {
@@ -205,28 +224,31 @@ int main()
 
 	CreateObject();
 	CreateShaders();
-	mainCamera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 90.0f, 0.0f, 5.0f, 0.1f);
+	mainCamera = Camera(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.0f, 0.1f);
 
 	spidermanTexture = Texture("Textures/spiderman.png");
 	spidermanTexture.LoadTexture();
 	learnopenglTexture = Texture("Textures/learnopengl.png");
 	learnopenglTexture.LoadTexture();
+	plainTexture = Texture("Textures/plain.png");
+	plainTexture.LoadTexture();
 
-	shinyMaterial = Material(15.0f, 59.5f);
+	shinyMaterial = Material(5.0f, 45.5f);
 	roughMaterial = Material(0.5f, 4.0f);
 
-	directionalLight = DirectionalLight(0.01f, 0.005f, 1.0f, 1.0f, 1.0f,
-							0.0f, -10.0f, 5.0f);
+	directionalLight = DirectionalLight(0.0f, 0.2f, 0.2f, 1.0f, 0.0f,
+							10.0f, -10.0f, 0.0f);
+
 	unsigned int pointLightCount = 0;
-	pointLights[0] = PointLight(0.0f, 15.5f,
+	pointLights[0] = PointLight(0.1f, 15.5f,
 		1.0f, 0.0f, 1.0f,
-		0.0f, 3.2f, 5.0f,
+		0.0f, -9.2f, 5.0f,
 		0.0f, 0.0f, 0.5f);
 	pointLightCount++;
-	pointLights[1] = PointLight(0.0f, 15.5f,
-		1.0f, 1.0f, 1.5f,
-		0.0f, 2.2f, 0.0f,
-		5.1f, 5.1f, 1.1f);
+	pointLights[1] = PointLight(0.1f, 2.5f,
+		0.0f, 1.0f, 1.5f,
+		3.0f, 1.2f, 0.0f,
+		1.1f, 0.5f, 0.1f);
 	pointLightCount++;
 
 
@@ -281,8 +303,8 @@ int main()
 
 
 		glm::mat4 model(1.0f);
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 5.0f));
-		//model = glm::scale(model, glm::vec3(0.4f, 0.7f, 0.7f));
+		model = glm::translate(model, glm::vec3(5.0f, 0.0f, 0.0f));
+		//model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
 		model = glm::rotate(model, 2 * curAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 
 		//setting model matrix inside the shader
@@ -300,6 +322,16 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		spidermanTexture.UseTexture();
 		meshList[1]->RenderMesh();
+
+
+		model = glm::mat4(1.0f);
+		//model = glm::translate(model, glm::vec3(-triOffset, 0.0f, -10.0f));
+		//model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
+		//model = glm::rotate(model, 0.6f * curAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		plainTexture.UseTexture();
+		roughMaterial.UseMaterial(uniformMatSpecularInstensity, uniformMatShininess);
+		meshList[2]->RenderMesh();
 
 		glUseProgram(0);
 

@@ -57,7 +57,7 @@ vec4 CalcLightByDirection(Light light, vec3 direction)
 
 	if (diffuseFactor > 0.0f)
 	{
-		vec3 fragPosToEye = normalize(cameraPosition - FragPos);
+		vec3 fragPosToEye = normalize(FragPos - cameraPosition);  //for reflecting
 		vec3 reflectedVector = normalize(reflect(direction, normalize(Normal)));
 
 		float specularFactor = dot(reflectedVector, fragPosToEye);
@@ -74,7 +74,7 @@ vec4 CalcLightByDirection(Light light, vec3 direction)
 
 vec4 CalcDirectionalLight()
 {
-	return CalcLightByDirection(directionalLight.base, directionalLight.direction);
+	return CalcLightByDirection(directionalLight.base, -directionalLight.direction);  // 0 - directionalLight direction
 }
 
 vec4 CalcPointLights()
@@ -82,7 +82,7 @@ vec4 CalcPointLights()
 	vec4 totalColour = vec4(0.0, 0.0, 0.0, 1.0);
 	for(int i = 0; i < pointLightCount; i++)
 	{
-		vec3 direction = FragPos - pointLights[i].position;
+		vec3 direction = pointLights[i].position - FragPos;
 		float distance = length(direction);
 		direction = normalize(direction);
 
