@@ -98,4 +98,5 @@ void main()
 	vec4 finalColour = CalcDirectionalLight();
 	finalColour += CalcPointLights();
 	colour = texture(texture2D, TexCoords) * finalColour;     
+	//colour = vec4(normalize(Normal), 1.0);    
 }	

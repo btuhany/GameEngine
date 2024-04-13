@@ -103,35 +103,35 @@ void CalculateAvarageNormals(unsigned int* indices, unsigned int indiceCount, GL
 void CreateObject()
 {
 	unsigned int indices[] = {
-		0, 1, 2,
+		0, 2, 1,
 		0, 3, 2,
-		2, 5, 4,
+		2, 4, 5,
 		2, 3, 4,
 		3, 7, 4,
-		3, 7, 0,
+		3, 0, 7,
 		0, 1, 6,
-		0, 7, 6,
+		0, 6, 7,
 		6, 1, 2,
-		6, 5, 2,
-		5, 6, 4,
-		6, 7, 4
+		6, 2, 5,
+		5, 4, 6,
+		6, 4, 7
 	};
 
 	GLfloat vertices[] =
 	{
  		//x      y     z		 u     y			normals
 		-1.0f, -1.0f, 1.0f, 	1.0f, 0.0f,		-1.0f, -1.0f, 1.0f,
-		1.0f, -1.0f, 1.0f,		0.0f, 0.0f,		1.0f, -1.0f, 1.0f,
+		-1.0f, -1.0f, -1.0f,		0.0f, 0.0f,		-1.0f, -1.0f, -1.0f,
 		1.0f, -1.0f, -1.0f,		0.0f, 1.0f,		1.0f, -1.0f, -1.0f,
-		-1.0f, -1.0f, -1.0f,	1.0f, 1.0f,		-1.0f, -1.0f, -1.0f,
-		-1.0f, 1.0f, -1.0f,		1.0f, 0.0f,		-1.0f, 1.0f, -1.0f,
-		1.0f, 1.0f, -1.0f,		0.0f, 0.0f,		1.0f, 1.0f, -1.0f,
+		1.0f, -1.0f, 1.0f,	1.0f, 1.0f,		1.0f, -1.0f, 1.0f,
 		1.0f, 1.0f, 1.0f,		1.0f, 0.0f,		1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, -1.0f,		0.0f, 0.0f,		1.0f, 1.0f, -1.0f,
+		-1.0f, 1.0f, -1.0f,		1.0f, 0.0f,		-1.0f, 1.0f, -1.0f,
 		-1.0f, 1.0f, 1.0f,		0.0f, 0.0f,		-1.0f, 1.0f, 1.0f
 	};
 
 
-	//CalculateAvarageNormals(indices, 36, vertices, 64, 8, 5);
+	CalculateAvarageNormals(indices, 36, vertices, 64, 8, 5);
 
 	Mesh* obj1 = new Mesh();
 	obj1->CreateMesh(vertices, indices, 64, 36);
@@ -212,22 +212,22 @@ int main()
 	learnopenglTexture = Texture("Textures/learnopengl.png");
 	learnopenglTexture.LoadTexture();
 
-	shinyMaterial = Material(0.0f, 0.0f);
+	shinyMaterial = Material(15.0f, 59.5f);
 	roughMaterial = Material(0.5f, 4.0f);
 
-	directionalLight = DirectionalLight(0.05f, 0.5f, 1.0f, 1.0f, 1.0f,
-							-10.0f, 10.0f, 1.0f);
+	directionalLight = DirectionalLight(0.01f, 0.005f, 1.0f, 1.0f, 1.0f,
+							0.0f, -10.0f, 5.0f);
 	unsigned int pointLightCount = 0;
-	//pointLights[0] = PointLight(0.0f, 15.5f,
-	//	0.5f, 0.0f, 0.0f,
-	//	0.0f, 2.2f, 5.0f,
-	//	1.1f, 2.1f, 0.1f);
-	//pointLightCount++;
-	//pointLights[1] = PointLight(0.0f, 15.5f,
-	//	0.0f, 0.0f, 0.5f,
-	//	0.0f, 2.2f, 0.0f,
-	//	5.1f, 5.1f, 1.1f);
-	//pointLightCount++;
+	pointLights[0] = PointLight(0.0f, 15.5f,
+		1.0f, 0.0f, 1.0f,
+		0.0f, 3.2f, 5.0f,
+		0.0f, 0.0f, 0.5f);
+	pointLightCount++;
+	pointLights[1] = PointLight(0.0f, 15.5f,
+		1.0f, 1.0f, 1.5f,
+		0.0f, 2.2f, 0.0f,
+		5.1f, 5.1f, 1.1f);
+	pointLightCount++;
 
 
 	GLuint uniformModel = 0;
