@@ -8,7 +8,7 @@ public:
                GLfloat red, GLfloat green, GLfloat blue,
                GLfloat xPos, GLfloat yPos, GLfloat zPos,
                GLfloat constantVal, GLfloat linearVal, GLfloat expoValue);
-    void UseLight(GLuint ambientIntensityLocation, GLuint ambientColorLocation, GLuint diffuseIntensityLocation, GLfloat positionLocation, GLfloat constantLocation, GLfloat linearLocation, GLfloat exponentLocation);
+    void UseLight(GLuint ambientIntensityLocation, GLuint ambientColorLocation, GLuint diffuseIntensityLocation, GLuint positionLocation, GLuint constantLocation, GLuint linearLocation, GLuint exponentLocation);
     ~PointLight();
 
 private:

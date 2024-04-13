@@ -20,6 +20,7 @@
 #include "Material.h"
 #include "ConstantValues.h"
 #include "PointLight.h"
+#include "SpotLight.h"
 
 const float toRadians = 3.14159265f / 180.0f;
 
@@ -39,6 +40,7 @@ Material roughMaterial;
 
 DirectionalLight directionalLight;
 PointLight pointLights[MAX_POINT_LIGHTS];
+SpotLight spotLights[MAX_SPOT_LIGHTS];
 
 // Vertex shader
 static const char* vShaderLocation = "Shaders/shader.vert";
@@ -236,7 +238,7 @@ int main()
 	shinyMaterial = Material(5.0f, 45.5f);
 	roughMaterial = Material(0.5f, 4.0f);
 
-	directionalLight = DirectionalLight(0.0f, 0.2f, 0.2f, 1.0f, 0.0f,
+	directionalLight = DirectionalLight(0.01f, 0.1f, 0.2f, 0.0f, 1.0f,
 							10.0f, -10.0f, 0.0f);
 
 	unsigned int pointLightCount = 0;
@@ -251,6 +253,31 @@ int main()
 		1.1f, 0.5f, 0.1f);
 	pointLightCount++;
 
+	unsigned int spotLightCount = 0;
+	spotLights[0] = SpotLight(0.0f,7.5f,
+		1.0f, 0.5f, 0.0f,
+		0.0f, -6.0f, -5.0f,
+		0.9f, -0.4f, -0.8f,
+		2.0f, 0.7f, 0.01f,
+		70.0f);
+	spotLightCount++;
+
+	spotLights[1] = SpotLight(0.0f, 5.5f,
+		1.0f, 1.0f, 1.0f,
+		-5.0f, -6.0f, -5.0f,
+		0.0f, -1.0f, 0.0f,
+		0.0f, 0.0f, 0.5f,
+		60.0f);
+	spotLightCount++;
+
+
+	spotLights[2] = SpotLight(0.0f, 3.5f,
+		0.5f, 1.0f, 0.5f,
+		-1.0f, 3.0f, 0.0f,
+		0.3f, -1.0f, 0.0f,
+		2.0f, 0.7f, 0.01f,
+		25.0f);
+	spotLightCount++;
 
 	GLuint uniformModel = 0;
 	GLuint uniformProjection = 0;
@@ -296,6 +323,7 @@ int main()
 		
 		shaderList[0]->SetDirectionalLight(&directionalLight);
 		shaderList[0]->SetPointLights(pointLights, pointLightCount);
+		shaderList[0]->SetSpotLights(spotLights, spotLightCount);
 
 		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(mainCamera.CalculateViewMatrix()));
