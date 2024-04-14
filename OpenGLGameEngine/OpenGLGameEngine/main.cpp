@@ -23,12 +23,20 @@
 #include "SpotLight.h"
 #include "Model.h"
 
-#include <assimp\Importer.hpp>
-
 const float toRadians = 3.14159265f / 180.0f;
 
 std::vector<Mesh*> meshList;
 std::vector<Shader*> shaderList;
+Shader directionalShadowShader;
+
+GLuint uniformModel = 0;
+GLuint uniformProjection = 0;
+GLuint uniformView = 0;
+
+GLuint uniformMatSpecularInstensity = 0;
+GLuint uniformMatShininess = 0;
+GLuint uniformCameraPosition = 0;
+
 Camera mainCamera;
 
 GLfloat deltaTime = 0.0f;
@@ -54,6 +62,19 @@ static const char* vShaderLocation = "Shaders/shader.vert";
 // Fragment shader
 static const char* fShaderLocation = "Shaders/shader.frag";
 
+bool direction = true;
+float triOffset = -15.0f;
+float triMaxoffset = 15.0f;
+float triIncrement = 8.0f;
+float curAngle = 0.0f;
+float sizeDirection = true;
+float curSize = 0.5f;
+float maxSize = 1.0f;
+float minSize = 0.1f;
+
+unsigned int pointLightCount = 0;
+unsigned int spotLightCount = 0;
+glm::mat4 lightTransform;
 
 void CalculateAvarageNormals(unsigned int* indices, unsigned int indiceCount, GLfloat* verticesDataArr, unsigned int verticesDataArrCount, unsigned int vertexDataLength, unsigned int normalOffset)
 {
@@ -148,10 +169,10 @@ void CreateObject()
 	};
 
 	GLfloat floorVertices[] = {
-		-20.0f, -10.0f, -20.0f,	0.0f, 0.0f,  0.0f, 1.0f, 0.0f,
-		20.0f, -10.0f, -20.0f,	20.0f, 0.0f,  0.0f, 1.0f, 0.0f,
-		-20.0f, -10.0f, 20.0f,	0.0f, 20.0f,  0.0f, 1.0f, 0.0f,
-		20.0f, -10.0f, 20.0f,	20.0f, 20.0f,  0.0f, 1.0f, 0.0f
+		-50.0f, -10.0f, -50.0f,	0.0f, 0.0f,  0.0f, 1.0f, 0.0f,
+		50.0f, -10.0f, -50.0f,	20.0f, 0.0f,  0.0f, 1.0f, 0.0f,
+		-50.0f, -10.0f, 50.0f,	0.0f, 20.0f,  0.0f, 1.0f, 0.0f,
+		50.0f, -10.0f, 50.0f,	20.0f, 20.0f,  0.0f, 1.0f, 0.0f
 	};
 
 	CalculateAvarageNormals(indices, 36, vertices, 64, 8, 5);
@@ -168,22 +189,16 @@ void CreateObject()
 	obj3->CreateMesh(floorVertices, floorIndices, 32, 6);
 	meshList.push_back(obj3);
 }
+
 void CreateShaders()
 {
 	Shader* shader1 = new Shader();
 	shader1->CreateFromFiles(vShaderLocation, fShaderLocation);
 	shaderList.push_back(shader1);
-}
 
-bool direction = true;
-float triOffset = -15.0f;
-float triMaxoffset = 15.0f;
-float triIncrement = 8.0f;
-float curAngle = 0.0f;
-float sizeDirection = true;
-float curSize = 0.5f;
-float maxSize = 1.0f;
-float minSize = 0.1f;
+	directionalShadowShader = Shader();
+	directionalShadowShader.CreateFromFiles("Shaders/directional_shadow_map.vert", "Shaders/directional_shadow_map.frag");
+}
 
 void HandleTransformActions()
 {
@@ -225,6 +240,112 @@ void HandleTransformActions()
 
 }
 
+void RenderScene()
+{
+	glm::mat4 model(1.0f);
+	model = glm::translate(model, glm::vec3(5.0f, 0.0f, 0.0f));
+	//model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
+	model = glm::rotate(model, 2 * curAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+
+	//setting model matrix inside the shader
+	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+	//setting projection matrix 
+
+	learnopenglTexture.UseTexture();
+	shinyMaterial.UseMaterial(uniformMatSpecularInstensity, uniformMatShininess);
+	meshList[0]->RenderMesh();
+
+	model = glm::mat4(1.0f);
+	//model = glm::translate(model, glm::vec3(-triOffset, 0.0f, -10.0f));
+	//model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
+	//model = glm::rotate(model, 0.6f * curAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+	spidermanTexture.UseTexture();
+	meshList[1]->RenderMesh();
+
+
+	model = glm::mat4(1.0f);
+	//model = glm::translate(model, glm::vec3(-triOffset, 0.0f, -10.0f));
+	//model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
+	//model = glm::rotate(model, 0.6f * curAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+	plainTexture.UseTexture();
+	roughMaterial.UseMaterial(uniformMatSpecularInstensity, uniformMatShininess);
+	meshList[2]->RenderMesh();
+
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(20.0f, 0.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+	model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::rotate(model, -curAngle * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+	shinyMaterial.UseMaterial(uniformMatSpecularInstensity, uniformMatShininess);
+	helicopter.RenderModel();
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(20.0f, triOffset, -20.0f));
+	model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+	//model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::rotate(model, 290 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+	shinyMaterial.UseMaterial(uniformMatSpecularInstensity, uniformMatShininess);
+	ironMan.RenderModel();
+}
+
+void DirectionalShadowMapPass(DirectionalLight* dLight)
+{
+	directionalShadowShader.UseShader();
+
+	glViewport(0, 0, dLight->GetShadowMap()->GetShadowWidth(), dLight->GetShadowMap()->GetShadowHeight());
+
+	dLight->GetShadowMap()->Write();
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	uniformModel = directionalShadowShader.GetModelLocation();
+	lightTransform = dLight->CalculateLightTransform();
+	directionalShadowShader.SetDirectionalLightTransform(&lightTransform);
+
+	RenderScene();
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void RenderPass(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
+{
+	shaderList[0]->UseShader();
+	uniformModel = shaderList[0]->GetModelLocation();
+	uniformProjection = shaderList[0]->GetProjectionLocation();
+	uniformView = shaderList[0]->GetViewLocation();
+
+	uniformMatSpecularInstensity = shaderList[0]->GetMatSpecularIntensityLocation();
+	uniformMatShininess = shaderList[0]->GetMatShininessLocation();
+	uniformCameraPosition = shaderList[0]->GetCameraPositionLocation();
+
+	glViewport(0, 0, 1366, 768);
+
+	//Clear window
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+	glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+	glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+	glUniform3f(uniformCameraPosition, mainCamera.GetCameraPosition().x, mainCamera.GetCameraPosition().y, mainCamera.GetCameraPosition().z);
+
+	shaderList[0]->SetDirectionalLight(&directionalLight);
+	shaderList[0]->SetPointLights(pointLights, pointLightCount);
+	shaderList[0]->SetSpotLights(spotLights, spotLightCount);
+	shaderList[0]->SetDirectionalLightTransform(&lightTransform);
+
+	directionalLight.GetShadowMap()->Read(GL_TEXTURE1);
+	shaderList[0]->SetTexture(0);
+	shaderList[0]->SetDirectionalShadowMap(1);
+
+	RenderScene();
+
+}
+
 int main()
 {
 	Window mainWindow = Window(1366, 768);
@@ -249,70 +370,62 @@ int main()
 	helicopter = Model();
 	helicopter.LoadModel("Models/uh60.obj");
 
-	directionalLight = DirectionalLight(0.1f, 0.0f, 0.0f, 0.0f, 0.7f,
-							10.0f, -10.0f, 0.0f);
-
-	unsigned int pointLightCount = 0;
-	pointLights[0] = PointLight(0.0f, 15.5f,
-		1.0f, 0.0f, 1.0f,
-		0.0f, -9.2f, 5.0f,
-		0.0f, 0.0f, 0.5f);
-	pointLightCount++;
-	pointLights[1] = PointLight(0.0f, 2.5f,
-		0.0f, 1.0f, 1.5f,
-		3.0f, 1.2f, 0.0f,
-		1.1f, 0.5f, 0.1f);
-	pointLightCount++;
-	pointLights[2] = PointLight(0.0f, 30.1f,
-		0.3f, 0.6f, 0.2f,
-		30.0f, 20.0f, 5.0f,
-		1.0f, 1.7f, 0.01f);
-	pointLightCount++;
-
-	unsigned int spotLightCount = 0;
-	spotLights[0] = SpotLight(0.0f,7.5f,
-		1.0f, 0.5f, 0.0f,
-		0.0f, -6.0f, -5.0f,
-		0.9f, -0.4f, -0.8f,
-		2.0f, 0.7f, 0.01f,
-		70.0f);
-	spotLightCount++;
-
-	spotLights[1] = SpotLight(0.0f, 5.5f,
-		1.0f, 1.0f, 1.0f,
-		-5.0f, -6.0f, -5.0f,
-		0.0f, -1.0f, 0.0f,
-		0.0f, 0.0f, 0.5f,
-		60.0f);
-	spotLightCount++;
+	directionalLight = DirectionalLight(0.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+							0.5f, -0.9f, 0.5f, true, 2048, 2048);
 
 
-	spotLights[2] = SpotLight(0.0f, 3.5f,
-		0.5f, 1.0f, 0.5f,
-		-1.0f, 3.0f, 0.0f,
-		0.3f, -1.0f, 0.0f,
-		2.0f, 0.7f, 0.01f,
-		25.0f);
-	spotLightCount++;
+	//pointLights[0] = PointLight(0.0f, 15.5f,
+	//	1.0f, 0.0f, 1.0f,
+	//	0.0f, -9.2f, 5.0f,
+	//	0.0f, 0.0f, 0.5f);
+	//pointLightCount++;
+	//pointLights[1] = PointLight(0.0f, 2.5f,
+	//	0.0f, 1.0f, 1.5f,
+	//	3.0f, 1.2f, 0.0f,
+	//	1.1f, 0.5f, 0.1f);
+	//pointLightCount++;
+	//pointLights[2] = PointLight(0.0f, 30.1f,
+	//	0.3f, 0.6f, 0.2f,
+	//	30.0f, 20.0f, 5.0f,
+	//	1.0f, 1.7f, 0.01f);
+	//pointLightCount++;
 
 
-	spotLights[3] = SpotLight(0.0f, 330.5f,
-		1.0f, 0.0f, 0.0f,
-		24.0f, 40.0f,-23.0f,
-		0.0f, -1.0f, 0.0f,
-		2.0f, 0.7f, 0.01f,
-		20.0f);
-	spotLightCount++;
+	//spotLights[0] = SpotLight(0.0f,7.5f,
+	//	1.0f, 0.5f, 0.0f,
+	//	0.0f, -6.0f, -5.0f,
+	//	0.9f, -0.4f, -0.8f,
+	//	2.0f, 0.7f, 0.01f,
+	//	70.0f);
+	//spotLightCount++;
+
+	//spotLights[1] = SpotLight(0.0f, 5.5f,
+	//	1.0f, 1.0f, 1.0f,
+	//	-5.0f, -6.0f, -5.0f,
+	//	0.0f, -1.0f, 0.0f,
+	//	0.0f, 0.0f, 0.5f,
+	//	60.0f);
+	//spotLightCount++;
 
 
+	//spotLights[2] = SpotLight(0.0f, 3.5f,
+	//	0.5f, 1.0f, 0.5f,
+	//	-1.0f, 3.0f, 0.0f,
+	//	0.3f, -1.0f, 0.0f,
+	//	2.0f, 0.7f, 0.01f,
+	//	25.0f);
+	//spotLightCount++;
 
-	GLuint uniformModel = 0;
-	GLuint uniformProjection = 0;
-	GLuint uniformView = 0;
-	
-	GLuint uniformMatSpecularInstensity = 0;
-	GLuint uniformMatShininess = 0;
-	GLuint uniformCameraPosition = 0;
+
+	//spotLights[3] = SpotLight(0.0f, 330.5f,
+	//	1.0f, 0.0f, 0.0f,
+	//	24.0f, 40.0f,-23.0f,
+	//	0.0f, -1.0f, 0.0f,
+	//	2.0f, 0.7f, 0.01f,
+	//	20.0f);
+	//spotLightCount++;
+
+
 
 	//unifrom value setted once
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.GetBufferWidth() / mainWindow.GetBufferHeight(), 0.1f, 100.0f);
@@ -332,78 +445,8 @@ int main()
 
 		HandleTransformActions();
 
-		//Clear window
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		
-
-		shaderList[0]->UseShader();
-		uniformModel = shaderList[0]->GetModelLocation();
-		uniformProjection = shaderList[0]->GetProjectionLocation();
-		uniformView = shaderList[0]->GetViewLocation();
-
-		uniformMatSpecularInstensity = shaderList[0]->GetMatSpecularIntensityLocation();
-		uniformMatShininess = shaderList[0]->GetMatShininessLocation();
-		uniformCameraPosition = shaderList[0]->GetCameraPositionLocation();
-		
-		shaderList[0]->SetDirectionalLight(&directionalLight);
-		shaderList[0]->SetPointLights(pointLights, pointLightCount);
-		shaderList[0]->SetSpotLights(spotLights, spotLightCount);
-
-		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
-		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(mainCamera.CalculateViewMatrix()));
-		glUniform3f(uniformCameraPosition, mainCamera.GetCameraPosition().x, mainCamera.GetCameraPosition().y, mainCamera.GetCameraPosition().z);
-
-
-		glm::mat4 model(1.0f);
-		model = glm::translate(model, glm::vec3(5.0f, 0.0f, 0.0f));
-		//model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
-		model = glm::rotate(model, 2 * curAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-
-		//setting model matrix inside the shader
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		//setting projection matrix 
-
-		learnopenglTexture.UseTexture();
-		shinyMaterial.UseMaterial(uniformMatSpecularInstensity, uniformMatShininess);
-		meshList[0]->RenderMesh();
-
-		model = glm::mat4(1.0f);
-		//model = glm::translate(model, glm::vec3(-triOffset, 0.0f, -10.0f));
-		//model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
-		//model = glm::rotate(model, 0.6f * curAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		spidermanTexture.UseTexture();
-		meshList[1]->RenderMesh();
-
-
-		model = glm::mat4(1.0f);
-		//model = glm::translate(model, glm::vec3(-triOffset, 0.0f, -10.0f));
-		//model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
-		//model = glm::rotate(model, 0.6f * curAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		plainTexture.UseTexture();
-		roughMaterial.UseMaterial(uniformMatSpecularInstensity, uniformMatShininess);
-		meshList[2]->RenderMesh();
-
-
-		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(20.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
-		model = glm::rotate(model, -90 * toRadians ,glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, -curAngle * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		shinyMaterial.UseMaterial(uniformMatSpecularInstensity, uniformMatShininess);
-		helicopter.RenderModel();
-
-		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(20.0f, triOffset, -20.0f));
-		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		//model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, 290 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		shinyMaterial.UseMaterial(uniformMatSpecularInstensity, uniformMatShininess);
-		ironMan.RenderModel();
+		DirectionalShadowMapPass(&directionalLight);
+		RenderPass(projection, mainCamera.CalculateViewMatrix());
 
 		glUseProgram(0);
 

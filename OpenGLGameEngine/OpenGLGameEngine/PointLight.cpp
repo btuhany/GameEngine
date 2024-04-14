@@ -8,7 +8,7 @@ PointLight::PointLight()
 	exponent = 0.0f;
 }
 
-PointLight::PointLight(GLfloat ambientIntensityValue, GLfloat diffuseIntensityValue, GLfloat red, GLfloat green, GLfloat blue, GLfloat xPos, GLfloat yPos, GLfloat zPos, GLfloat constantVal, GLfloat linearVal, GLfloat expoValue) : Light(ambientIntensityValue, diffuseIntensityValue, red, green, blue)
+PointLight::PointLight(GLfloat ambientIntensityValue, GLfloat diffuseIntensityValue, GLfloat red, GLfloat green, GLfloat blue, GLfloat xPos, GLfloat yPos, GLfloat zPos, GLfloat constantVal, GLfloat linearVal, GLfloat expoValue) : Light(ambientIntensityValue, diffuseIntensityValue, red, green, blue, true, 1024, 1024)
 {
 	position = glm::vec3(xPos, yPos, zPos);
 	constant = constantVal;
