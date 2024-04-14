@@ -21,6 +21,9 @@
 #include "ConstantValues.h"
 #include "PointLight.h"
 #include "SpotLight.h"
+#include "Model.h"
+
+#include <assimp\Importer.hpp>
 
 const float toRadians = 3.14159265f / 180.0f;
 
@@ -37,6 +40,9 @@ Texture plainTexture;
 
 Material shinyMaterial;
 Material roughMaterial;
+
+Model ironMan;
+Model helicopter;
 
 DirectionalLight directionalLight;
 PointLight pointLights[MAX_POINT_LIGHTS];
@@ -170,9 +176,9 @@ void CreateShaders()
 }
 
 bool direction = true;
-float triOffset = 0.0f;
-float triMaxoffset = 3.0f;
-float triIncrement = 1.0f;
+float triOffset = -15.0f;
+float triMaxoffset = 15.0f;
+float triIncrement = 8.0f;
 float curAngle = 0.0f;
 float sizeDirection = true;
 float curSize = 0.5f;
@@ -229,28 +235,38 @@ int main()
 	mainCamera = Camera(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.0f, 0.1f);
 
 	spidermanTexture = Texture("Textures/spiderman.png");
-	spidermanTexture.LoadTexture();
+	spidermanTexture.LoadTextureWithAlpha();
 	learnopenglTexture = Texture("Textures/learnopengl.png");
-	learnopenglTexture.LoadTexture();
+	learnopenglTexture.LoadTextureWithAlpha();
 	plainTexture = Texture("Textures/plain.png");
-	plainTexture.LoadTexture();
+	plainTexture.LoadTextureWithAlpha();
 
 	shinyMaterial = Material(5.0f, 45.5f);
 	roughMaterial = Material(0.5f, 4.0f);
 
-	directionalLight = DirectionalLight(0.01f, 0.1f, 0.2f, 0.0f, 1.0f,
+	ironMan = Model();
+	ironMan.LoadModel("Models/IronMan.obj");
+	helicopter = Model();
+	helicopter.LoadModel("Models/uh60.obj");
+
+	directionalLight = DirectionalLight(0.1f, 0.0f, 0.0f, 0.0f, 0.7f,
 							10.0f, -10.0f, 0.0f);
 
 	unsigned int pointLightCount = 0;
-	pointLights[0] = PointLight(0.1f, 15.5f,
+	pointLights[0] = PointLight(0.0f, 15.5f,
 		1.0f, 0.0f, 1.0f,
 		0.0f, -9.2f, 5.0f,
 		0.0f, 0.0f, 0.5f);
 	pointLightCount++;
-	pointLights[1] = PointLight(0.1f, 2.5f,
+	pointLights[1] = PointLight(0.0f, 2.5f,
 		0.0f, 1.0f, 1.5f,
 		3.0f, 1.2f, 0.0f,
 		1.1f, 0.5f, 0.1f);
+	pointLightCount++;
+	pointLights[2] = PointLight(0.0f, 30.1f,
+		0.3f, 0.6f, 0.2f,
+		30.0f, 20.0f, 5.0f,
+		1.0f, 1.7f, 0.01f);
 	pointLightCount++;
 
 	unsigned int spotLightCount = 0;
@@ -279,6 +295,17 @@ int main()
 		25.0f);
 	spotLightCount++;
 
+
+	spotLights[3] = SpotLight(0.0f, 330.5f,
+		1.0f, 0.0f, 0.0f,
+		24.0f, 40.0f,-23.0f,
+		0.0f, -1.0f, 0.0f,
+		2.0f, 0.7f, 0.01f,
+		20.0f);
+	spotLightCount++;
+
+
+
 	GLuint uniformModel = 0;
 	GLuint uniformProjection = 0;
 	GLuint uniformView = 0;
@@ -289,8 +316,6 @@ int main()
 
 	//unifrom value setted once
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.GetBufferWidth() / mainWindow.GetBufferHeight(), 0.1f, 100.0f);
-
-
 
 	//Loop until window closed
 	while (!mainWindow.GetShouldClose())
@@ -360,6 +385,25 @@ int main()
 		plainTexture.UseTexture();
 		roughMaterial.UseMaterial(uniformMatSpecularInstensity, uniformMatShininess);
 		meshList[2]->RenderMesh();
+
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(20.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		model = glm::rotate(model, -90 * toRadians ,glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, -curAngle * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		shinyMaterial.UseMaterial(uniformMatSpecularInstensity, uniformMatShininess);
+		helicopter.RenderModel();
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(20.0f, triOffset, -20.0f));
+		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+		//model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 290 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		shinyMaterial.UseMaterial(uniformMatSpecularInstensity, uniformMatShininess);
+		ironMan.RenderModel();
 
 		glUseProgram(0);
 
