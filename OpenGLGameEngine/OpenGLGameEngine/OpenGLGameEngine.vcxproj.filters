@@ -106,10 +106,10 @@
     <None Include="Shaders\shader.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\directional_shadow_map.frag">
+    <None Include="Shaders\directional_shadow_map.vert">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\directional_shadow_map.vert">
+    <None Include="Shaders\directional_shadow_map.frag">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

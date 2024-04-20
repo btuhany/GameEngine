@@ -188,6 +188,10 @@ void CreateObject()
 	Mesh* obj3 = new Mesh();
 	obj3->CreateMesh(floorVertices, floorIndices, 32, 6);
 	meshList.push_back(obj3);
+
+	Mesh* obj4 = new Mesh();
+	obj4->CreateMesh(floorVertices, floorIndices, 32, 6);
+	meshList.push_back(obj4);
 }
 
 void CreateShaders()
@@ -218,7 +222,7 @@ void HandleTransformActions()
 		direction = !direction;
 	}
 
-	curAngle += 15.0f * deltaTime;;
+	curAngle += 35.0f * deltaTime;;
 	//if (curAngle > 360)
 	{
 		//curAngle = 0.0f;
@@ -272,6 +276,15 @@ void RenderScene()
 	plainTexture.UseTexture();
 	roughMaterial.UseMaterial(uniformMatSpecularInstensity, uniformMatShininess);
 	meshList[2]->RenderMesh();
+
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(-0.0, 0.3f, 0.0f));
+	model = glm::scale(model, glm::vec3(1.0f, 0.5f, 1.0f));
+	//model = glm::rotate(model, 0.6f * curAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+	spidermanTexture.UseTexture();
+	roughMaterial.UseMaterial(uniformMatSpecularInstensity, uniformMatShininess);
+	meshList[3]->RenderMesh();
 
 
 	model = glm::mat4(1.0f);
@@ -370,60 +383,60 @@ int main()
 	helicopter = Model();
 	helicopter.LoadModel("Models/uh60.obj");
 
-	directionalLight = DirectionalLight(0.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-							0.5f, -0.9f, 0.5f, true, 2048, 2048);
+	directionalLight = DirectionalLight(0.0f, 0.3f, 0.1f, 0.5f, 0.7f,
+							0.0001f, -1.0f, 0.0001f, true, 2048, 2048);
 
 
-	//pointLights[0] = PointLight(0.0f, 15.5f,
-	//	1.0f, 0.0f, 1.0f,
-	//	0.0f, -9.2f, 5.0f,
-	//	0.0f, 0.0f, 0.5f);
-	//pointLightCount++;
-	//pointLights[1] = PointLight(0.0f, 2.5f,
-	//	0.0f, 1.0f, 1.5f,
-	//	3.0f, 1.2f, 0.0f,
-	//	1.1f, 0.5f, 0.1f);
-	//pointLightCount++;
-	//pointLights[2] = PointLight(0.0f, 30.1f,
-	//	0.3f, 0.6f, 0.2f,
-	//	30.0f, 20.0f, 5.0f,
-	//	1.0f, 1.7f, 0.01f);
-	//pointLightCount++;
+	pointLights[0] = PointLight(0.0f, 15.5f,
+		1.0f, 0.0f, 1.0f,
+		0.0f, -9.2f, 5.0f,
+		0.0f, 0.0f, 0.5f);
+	pointLightCount++;
+	pointLights[1] = PointLight(0.0f, 5.5f,
+		0.0f, 1.0f, 1.5f,
+		3.0f, 1.2f, 0.0f,
+		1.1f, 0.5f, 0.1f);
+	pointLightCount++;
+	pointLights[2] = PointLight(0.0f, 30.1f,
+		0.3f, 0.6f, 0.2f,
+		30.0f, 20.0f, 5.0f,
+		1.0f, 1.7f, 0.01f);
+	pointLightCount++;
 
 
-	//spotLights[0] = SpotLight(0.0f,7.5f,
-	//	1.0f, 0.5f, 0.0f,
-	//	0.0f, -6.0f, -5.0f,
-	//	0.9f, -0.4f, -0.8f,
-	//	2.0f, 0.7f, 0.01f,
-	//	70.0f);
-	//spotLightCount++;
+	spotLights[0] = SpotLight(0.0f,7.5f,
+		1.0f, 0.5f, 0.0f,
+		0.0f, -6.0f, -5.0f,
+		0.9f, -0.4f, -0.8f,
+		2.0f, 0.7f, 0.01f,
+		70.0f);
+	spotLightCount++;
 
-	//spotLights[1] = SpotLight(0.0f, 5.5f,
-	//	1.0f, 1.0f, 1.0f,
-	//	-5.0f, -6.0f, -5.0f,
-	//	0.0f, -1.0f, 0.0f,
-	//	0.0f, 0.0f, 0.5f,
-	//	60.0f);
-	//spotLightCount++;
-
-
-	//spotLights[2] = SpotLight(0.0f, 3.5f,
-	//	0.5f, 1.0f, 0.5f,
-	//	-1.0f, 3.0f, 0.0f,
-	//	0.3f, -1.0f, 0.0f,
-	//	2.0f, 0.7f, 0.01f,
-	//	25.0f);
-	//spotLightCount++;
+	spotLights[1] = SpotLight(0.0f, 5.5f,
+		1.0f, 1.0f, 1.0f,
+		-5.0f, -6.0f, -5.0f,
+		0.0f, -1.0f, 0.0f,
+		0.0f, 0.0f, 0.5f,
+		60.0f);
+	spotLightCount++;
 
 
-	//spotLights[3] = SpotLight(0.0f, 330.5f,
-	//	1.0f, 0.0f, 0.0f,
-	//	24.0f, 40.0f,-23.0f,
-	//	0.0f, -1.0f, 0.0f,
-	//	2.0f, 0.7f, 0.01f,
-	//	20.0f);
-	//spotLightCount++;
+	spotLights[2] = SpotLight(0.0f, 3.5f,
+		0.5f, 1.0f, 0.5f,
+		-1.0f, 3.0f, 0.0f,
+		0.3f, -1.0f, 0.0f,
+		2.0f, 0.7f, 0.01f,
+		25.0f);
+	spotLightCount++;
+
+
+	spotLights[3] = SpotLight(0.0f, 330.5f,
+		1.0f, 0.0f, 0.0f,
+		24.0f, 40.0f,-23.0f,
+		0.0f, -1.0f, 0.0f,
+		2.0f, 0.7f, 0.01f,
+		20.0f);
+	spotLightCount++;
 
 
 
