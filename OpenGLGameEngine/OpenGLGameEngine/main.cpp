@@ -364,7 +364,7 @@ void RenderPass(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 	uniformMatShininess = shaderList[0]->GetMatShininessLocation();
 	uniformCameraPosition = shaderList[0]->GetCameraPositionLocation();
 
-	glViewport(0, 0, 1920, 1080);
+	glViewport(0, 0, 1366, 768);
 
 	//Clear window
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -392,7 +392,7 @@ void RenderPass(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 
 int main()
 {
-	Window mainWindow = Window(1920, 1080);
+	Window mainWindow = Window(1366, 768);
 	mainWindow.Initialize();
 
 	CreateObject();
