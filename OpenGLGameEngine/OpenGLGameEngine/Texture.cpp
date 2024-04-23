@@ -85,7 +85,8 @@ bool Texture::LoadTextureWithAlpha()
 void Texture::UseTexture()
 {
 	//you can pass this code because 0 is the default for most graphic cards
-	glActiveTexture(GL_TEXTURE0);
+	//GL_TEXTURE 0 is going to be used as empty texture unit
+	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 }
 

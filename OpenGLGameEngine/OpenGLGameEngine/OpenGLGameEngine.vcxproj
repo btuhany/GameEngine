@@ -26,6 +26,7 @@
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="OmniShadowMap.cpp" />
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShadowMap.cpp" />
@@ -41,6 +42,7 @@
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="OmniShadowMap.h" />
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShadowMap.h" />
@@ -51,6 +53,9 @@
   <ItemGroup>
     <None Include="Shaders\directional_shadow_map.frag" />
     <None Include="Shaders\directional_shadow_map.vert" />
+    <None Include="Shaders\omni_shadow_map.frag" />
+    <None Include="Shaders\omni_shadow_map.geom" />
+    <None Include="Shaders\omni_shadow_map.vert" />
     <None Include="Shaders\shader.frag" />
     <None Include="Shaders\shader.vert" />
   </ItemGroup>

@@ -10,7 +10,7 @@ class Light
 public:
 	Light();
 	Light(GLfloat ambientIntensityValue, GLfloat diffuseIntensityValue, GLfloat red, GLfloat green, GLfloat blue,
-		  bool useShadowMap, GLfloat shadowWidth, GLfloat shadowHeight);
+		GLuint shadowWidth, GLuint shadowHeight);
 
 	ShadowMap* GetShadowMap() { return shadowMap; }
 
@@ -19,6 +19,7 @@ public:
 protected:
 	void useLight(GLuint ambientIntensityLocation, GLuint ambientColorLocation, GLuint diffuseIntensityLocation);
 	glm::mat4 lightProjection;
+	ShadowMap* shadowMap;
 
 private:
 	glm::vec3 colour;
@@ -26,6 +27,6 @@ private:
 	GLfloat diffuseIntensity;
 
 
-	ShadowMap* shadowMap;
+
 };
 

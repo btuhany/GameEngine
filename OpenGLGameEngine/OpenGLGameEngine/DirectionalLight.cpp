@@ -8,8 +8,8 @@ DirectionalLight::DirectionalLight() : Light()
 DirectionalLight::DirectionalLight(GLfloat ambientIntensityValue, GLfloat diffuseIntensityValue, 
 	GLfloat red, GLfloat green, GLfloat blue, 
 	GLfloat xDir, GLfloat yDir, GLfloat zDir,
-	bool useShadowMap, GLfloat shadowWidth, GLfloat shadowHeight) :
-	Light(ambientIntensityValue, diffuseIntensityValue, red, green, blue, useShadowMap, shadowWidth, shadowHeight)
+	 GLfloat shadowWidth, GLfloat shadowHeight) :
+	Light(ambientIntensityValue, diffuseIntensityValue, red, green, blue, shadowWidth, shadowHeight)
 {
 	direction = glm::vec3(xDir, yDir, zDir);
 	lightProjection = glm::ortho(-155.0f, 155.0f, -155.0f, 155.0f, -200.0f, 155.0f);
