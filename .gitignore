@@ -27,7 +27,6 @@ x86/
 *.exp
 *.vsix
 *.builds
-*.obj
 *.exe
 *.log
 *.manifest
@@ -53,7 +52,6 @@ install_manifest.txt
 *.slo
 *.lo
 *.o
-*.obj
 
 # Compiled Dynamic libraries
 *.so
