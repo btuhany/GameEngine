@@ -3,26 +3,23 @@
 #include <string.h>
 #include <cmath>
 #include <vector>
-
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-
 #include <glm\glm.hpp>
 #include <glm/gtc\matrix_transform.hpp>
 #include <glm\gtc\type_ptr.hpp>
-
-#include "Mesh.h"
-#include "Shader.h"
-#include "Window.h"
-#include "Camera.h"
-#include "Texture.h"
-#include "DirectionalLight.h"
-#include "Material.h"
-#include "ConstantValues.h"
-#include "PointLight.h"
-#include "SpotLight.h"
-#include "Model.h"
-#include "Skybox.h"
+#include "Core/Mesh.h"
+#include "Core/Shader.h"
+#include "Core/Window.h"
+#include "Core/Camera.h"
+#include "Core/Texture.h"
+#include "Core/DirectionalLight.h"
+#include "Core/Material.h"
+#include "Core/ConstantValues.h"
+#include "Core/PointLight.h"
+#include "Core/SpotLight.h"
+#include "Core/Model.h"
+#include "Core/Skybox.h"
 
 const float toRadians = 3.14159265f / 180.0f;
 

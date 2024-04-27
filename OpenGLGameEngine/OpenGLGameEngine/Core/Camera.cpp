@@ -48,7 +48,7 @@ void Camera::HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY)
 {
 	mouseDeltaX *= rotateSpeed;
 	mouseDeltaY *= rotateSpeed;
-	
+
 	yaw += mouseDeltaX;
 	pitch += mouseDeltaY;
 
@@ -89,6 +89,3 @@ void Camera::update()
 	right = glm::normalize(glm::cross(front, worldUp));
 	up = glm::normalize(glm::cross(right, front));
 }
-
-
-

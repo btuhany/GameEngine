@@ -19,38 +19,40 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="DirectionalLight.cpp" />
-    <ClCompile Include="Light.cpp" />
+    <ClCompile Include="Core\Camera.cpp" />
+    <ClCompile Include="Core\DirectionalLight.cpp" />
+    <ClCompile Include="Core\Engine.cpp" />
+    <ClCompile Include="Core\Light.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Material.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="Model.cpp" />
-    <ClCompile Include="OmniShadowMap.cpp" />
-    <ClCompile Include="PointLight.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="ShadowMap.cpp" />
-    <ClCompile Include="Skybox.cpp" />
-    <ClCompile Include="SpotLight.cpp" />
-    <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Core\Material.cpp" />
+    <ClCompile Include="Core\Mesh.cpp" />
+    <ClCompile Include="Core\Model.cpp" />
+    <ClCompile Include="Core\OmniShadowMap.cpp" />
+    <ClCompile Include="Core\PointLight.cpp" />
+    <ClCompile Include="Core\Shader.cpp" />
+    <ClCompile Include="Core\ShadowMap.cpp" />
+    <ClCompile Include="Core\Skybox.cpp" />
+    <ClCompile Include="Core\SpotLight.cpp" />
+    <ClCompile Include="Core\Texture.cpp" />
+    <ClCompile Include="Core\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="ConstantValues.h" />
-    <ClInclude Include="DirectionalLight.h" />
-    <ClInclude Include="Light.h" />
-    <ClInclude Include="Material.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="Model.h" />
-    <ClInclude Include="OmniShadowMap.h" />
-    <ClInclude Include="PointLight.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="ShadowMap.h" />
-    <ClInclude Include="Skybox.h" />
-    <ClInclude Include="SpotLight.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="Window.h" />
+    <ClInclude Include="Core\Camera.h" />
+    <ClInclude Include="Core\ConstantValues.h" />
+    <ClInclude Include="Core\DirectionalLight.h" />
+    <ClInclude Include="Core\Engine.h" />
+    <ClInclude Include="Core\Light.h" />
+    <ClInclude Include="Core\Material.h" />
+    <ClInclude Include="Core\Mesh.h" />
+    <ClInclude Include="Core\Model.h" />
+    <ClInclude Include="Core\OmniShadowMap.h" />
+    <ClInclude Include="Core\PointLight.h" />
+    <ClInclude Include="Core\Shader.h" />
+    <ClInclude Include="Core\ShadowMap.h" />
+    <ClInclude Include="Core\Skybox.h" />
+    <ClInclude Include="Core\SpotLight.h" />
+    <ClInclude Include="Core\Texture.h" />
+    <ClInclude Include="Core\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\directional_shadow_map.frag" />
