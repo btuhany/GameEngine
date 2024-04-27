@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClCompile Include="Core\Camera.cpp" />
     <ClCompile Include="Core\DirectionalLight.cpp" />
-    <ClCompile Include="Core\Engine.cpp" />
     <ClCompile Include="Core\Light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Core\Material.cpp" />
@@ -40,7 +39,6 @@
     <ClInclude Include="Core\Camera.h" />
     <ClInclude Include="Core\ConstantValues.h" />
     <ClInclude Include="Core\DirectionalLight.h" />
-    <ClInclude Include="Core\Engine.h" />
     <ClInclude Include="Core\Light.h" />
     <ClInclude Include="Core\Material.h" />
     <ClInclude Include="Core\Mesh.h" />
