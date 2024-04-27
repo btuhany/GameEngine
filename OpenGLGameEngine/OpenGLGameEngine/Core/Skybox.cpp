@@ -7,14 +7,14 @@ Skybox::Skybox()
 Skybox::Skybox(std::vector<std::string> faceLocations)
 {
 	//Shader setup
-	skyShader = new Shader();
-	skyShader->CreateFromFiles("Shaders/skybox.vert", "Shaders/skybox.frag");
-	uniformProjection = skyShader->GetProjectionLocation();
-	uniformView = skyShader->GetViewLocation();
+	m_SkyShader = new Shader();
+	m_SkyShader->CreateFromFiles("Shaders/skybox.vert", "Shaders/skybox.frag");
+	m_UniformProjection = m_SkyShader->GetProjectionLocation();
+	m_UniformView = m_SkyShader->GetViewLocation();
 
 	//Texture setup
-	glGenTextures(1, &textureId);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, textureId);
+	glGenTextures(1, &m_TextureId);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, m_TextureId);
 
 	int width, height, bitDepth;
 
@@ -73,8 +73,8 @@ Skybox::Skybox(std::vector<std::string> faceLocations)
 		1.0f, -1.0f, 1.0f,		0.0f, 0.0f,		0.0f, 0.0f, 0.0f
 	};
 
-	skyMesh = new Mesh();
-	skyMesh->CreateMesh(skyboxVertices, skyboxIndices, 64, 36);
+	m_SkyMesh = new Mesh();
+	m_SkyMesh->CreateMesh(skyboxVertices, skyboxIndices, 64, 36);
 }
 
 void Skybox::DrawSkybox(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
@@ -83,15 +83,15 @@ void Skybox::DrawSkybox(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 
 	glDepthMask(GL_FALSE);
 
-	skyShader->UseShader();
-	glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-	glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+	m_SkyShader->UseShader();
+	glUniformMatrix4fv(m_UniformProjection, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+	glUniformMatrix4fv(m_UniformView, 1, GL_FALSE, glm::value_ptr(viewMatrix));
 
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, textureId);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, m_TextureId);
 
-	skyShader->Validate();
-	skyMesh->RenderMesh();
+	m_SkyShader->Validate();
+	m_SkyMesh->RenderMesh();
 
 	glDepthMask(GL_TRUE);
 }

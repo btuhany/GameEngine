@@ -22,9 +22,9 @@ protected:
 	ShadowMap* shadowMap;
 
 private:
-	glm::vec3 colour;
-	GLfloat ambientIntensity;
-	GLfloat diffuseIntensity;
+	glm::vec3 m_Colour;
+	GLfloat m_AmbientIntensity;
+	GLfloat m_DiffuseIntensity;
 
 
 

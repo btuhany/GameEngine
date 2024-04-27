@@ -13,32 +13,32 @@ public:
 
 	int Initialize();
 
-	GLfloat GetBufferWidth() { return bufferWidth; }
-	GLfloat GetBufferHeight() { return bufferHeight; }
+	GLfloat GetBufferWidth() { return m_BufferWidth; }
+	GLfloat GetBufferHeight() { return m_BufferHeight; }
 
-	bool GetShouldClose() { return glfwWindowShouldClose(mainWindow); }
+	bool GetShouldClose() { return glfwWindowShouldClose(m_MainWindow); }
 
-	bool* GetKeys() { return keys; }
+	bool* GetKeys() { return m_Keys; }
 	GLfloat GetMouseDeltaX();
 	GLfloat GetMouseDeltaY();
 
-	void SwapBuffers() { glfwSwapBuffers(mainWindow); }
+	void SwapBuffers() { glfwSwapBuffers(m_MainWindow); }
 
 	~Window();
 
 private:
-	GLFWwindow* mainWindow;
+	GLFWwindow* m_MainWindow;
 
-	GLint width, height;
-	GLint bufferWidth, bufferHeight;
+	GLint m_Width, m_Height;
+	GLint m_BufferWidth, m_BufferHeight;
 
-	bool keys[1024]; //covering the ascii characters
+	bool m_Keys[1024]; //covering the ascii characters
 
-	GLfloat mouseLastXPosition = 0;
-	GLfloat mouseLastYPosition = 0;
-	GLfloat mouseDeltaX = 0;
-	GLfloat mouseDeltaY = 0;
-	bool mouseFirstMoved = true;
+	GLfloat m_MouseLastXPosition = 0;
+	GLfloat m_MouseLastYPosition = 0;
+	GLfloat m_MouseDeltaX = 0;
+	GLfloat m_MouseDeltaY = 0;
+	bool m_MouseFirstMoved = true;
 
 	void createCallbacks();
 	static void handleKeys(GLFWwindow* window, int key, int code, int action, int mode);

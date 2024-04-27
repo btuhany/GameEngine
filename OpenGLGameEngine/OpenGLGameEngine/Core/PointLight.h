@@ -17,10 +17,10 @@ public:
     ~PointLight();
 
 private:
-    glm::vec3 position;
-    GLfloat constant, linear, exponent;
+    glm::vec3 m_Position;
+    GLfloat m_Constant, m_Linear, m_Exponent;
 
 protected:
-    GLfloat farPlane;
+    GLfloat m_FarPlane;
 };
 

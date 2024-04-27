@@ -13,6 +13,6 @@ public:
 
 	~DirectionalLight();
 private:
-	glm::vec3 direction;
+	glm::vec3 m_Direction;
 };
 

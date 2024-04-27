@@ -2,10 +2,10 @@
 
 Mesh::Mesh()
 {
-	VAO = 0;
-	VBO = 0;
-	IBO = 0;
-	indexCount = 0;
+	m_VAO = 0;
+	m_VBO = 0;
+	m_IBO = 0;
+	m_IndexCount = 0;
 }
 
 
@@ -27,21 +27,21 @@ Mesh::Mesh()
 //indices ptr value holds an array.
 void Mesh::CreateMesh(GLfloat* vertices, unsigned int* indices, unsigned int numOfVertices, unsigned int numOfIndices)
 {
-	indexCount = numOfIndices;
+	m_IndexCount = numOfIndices;
 
 	
-	glGenVertexArrays(1, &VAO);
+	glGenVertexArrays(1, &m_VAO);
 	
-	glBindVertexArray(VAO);
+	glBindVertexArray(m_VAO);
 
-	glGenBuffers(1, &IBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+	glGenBuffers(1, &m_IBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices[0]) * numOfIndices, indices, GL_STATIC_DRAW);
 
 	
-	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &m_VBO);
 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 
 	
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices[0]) * numOfVertices, vertices, GL_STATIC_DRAW);
@@ -67,35 +67,35 @@ void Mesh::CreateMesh(GLfloat* vertices, unsigned int* indices, unsigned int num
 void Mesh::RenderMesh()
 {
 	//if (indexcount == 0) do not render
-	glBindVertexArray(VAO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
-	glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(m_VAO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
+	glDrawElements(GL_TRIANGLES, m_IndexCount, GL_UNSIGNED_INT, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
 
 void Mesh::ClearMesh()
 {
-	if (IBO != 0)
+	if (m_IBO != 0)
 	{
 		//removing from the graphics card memory
-		glDeleteBuffers(1, &IBO);
-		IBO = 0;
+		glDeleteBuffers(1, &m_IBO);
+		m_IBO = 0;
 	}
-	if (VBO != 0)
+	if (m_VBO != 0)
 	{
 		//removing from the graphics card memory
-		glDeleteBuffers(1, &VBO);
-		VBO = 0;
+		glDeleteBuffers(1, &m_VBO);
+		m_VBO = 0;
 	}
-	if (VAO != 0)
+	if (m_VAO != 0)
 	{
 		//removing from the graphics card memory
-		glDeleteVertexArrays(1, &VAO);
-		VAO = 0;
+		glDeleteVertexArrays(1, &m_VAO);
+		m_VAO = 0;
 	}
 
-	indexCount = 0;
+	m_IndexCount = 0;
 }
 
 Mesh::~Mesh()

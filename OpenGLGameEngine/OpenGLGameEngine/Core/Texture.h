@@ -16,10 +16,10 @@ public:
 	void ClearTexture();
 
 private:
-	GLuint textureID;
-	int width, height, bitDepth;
+	GLuint m_TextureID;
+	int m_Width, m_Height, m_BitDepth;
 
-	const char* fileLocation;
+	const char* m_FileLocation;
 
 
 };

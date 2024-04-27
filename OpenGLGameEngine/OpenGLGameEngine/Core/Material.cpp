@@ -2,20 +2,20 @@
 
 Material::Material()
 {
-	specularIntensity = 0.0f;
-	shininess = 0.0f;
+	m_SpecularIntensity = 0.0f;
+	m_Shininess = 0.0f;
 }
 
 Material::Material(GLfloat specularIntensityValue, GLfloat shininessValue)
 {
-	specularIntensity = specularIntensityValue;
-	shininess = shininessValue;
+	m_SpecularIntensity = specularIntensityValue;
+	m_Shininess = shininessValue;
 }
 
 void Material::UseMaterial(GLuint specularIntensityLocation, GLuint shininessLocation)
 {
-	glUniform1f(specularIntensityLocation, specularIntensity);
-	glUniform1f(shininessLocation, shininess);
+	glUniform1f(specularIntensityLocation, m_SpecularIntensity);
+	glUniform1f(shininessLocation, m_Shininess);
 }
 
 Material::~Material()

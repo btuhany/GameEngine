@@ -62,44 +62,44 @@ private:
 	GLuint uniformLightMatrices[6];
 
 	struct {
-		GLuint uniformColour;
-		GLuint uniformAmbientIntensity;
-		GLuint uniformDiffuseIntensity;
-		GLuint uniformDirection;
-	} uniformDirectionalLight;
+		GLuint UniformColour;
+		GLuint UniformAmbientIntensity;
+		GLuint UniformDiffuseIntensity;
+		GLuint UniformDirection;
+	} m_UniformDirectionalLight;
 
-	GLuint uniformPointLightCount;
-
-	struct {
-		GLuint uniformColour;
-		GLuint uniformAmbientIntensity;
-		GLuint uniformDiffuseIntensity;
-
-		GLuint uniformPosition;
-		GLuint uniformConstant;
-		GLuint uniformLinear;
-		GLuint uniformExponent;
-	} uniformPointLights[MAX_POINT_LIGHTS];
-
-	GLuint uniformSpotLightCount;
-	struct {
-		GLuint uniformColour;
-		GLuint uniformAmbientIntensity;
-		GLuint uniformDiffuseIntensity;
-
-		GLuint uniformPosition;
-		GLuint uniformConstant;
-		GLuint uniformLinear;
-		GLuint uniformExponent;
-
-		GLuint uniformDirection;
-		GLuint uniformEdge;
-	} uniformSpotLights[MAX_SPOT_LIGHTS];
+	GLuint m_UniformPointLightCount;
 
 	struct {
-		GLuint shadowMap;
-		GLuint farPlane;
-	} uniformOmniShadowMap[MAX_POINT_LIGHTS + MAX_SPOT_LIGHTS];
+		GLuint UniformColour;
+		GLuint UniformAmbientIntensity;
+		GLuint UniformDiffuseIntensity;
+
+		GLuint UniformPosition;
+		GLuint UniformConstant;
+		GLuint UniformLinear;
+		GLuint UniformExponent;
+	} m_UniformPointLights[MAX_POINT_LIGHTS];
+
+	GLuint m_UniformSpotLightCount;
+	struct {
+		GLuint UniformColour;
+		GLuint UniformAmbientIntensity;
+		GLuint UniformDiffuseIntensity;
+
+		GLuint UniformPosition;
+		GLuint UniformConstant;
+		GLuint UniformLinear;
+		GLuint UniformExponent;
+
+		GLuint UniformDirection;
+		GLuint UniformEdge;
+	} m_UniformSpotLights[MAX_SPOT_LIGHTS];
+
+	struct {
+		GLuint ShadowMap;
+		GLuint FarPlane;
+	} m_UniformOmniShadowMap[MAX_POINT_LIGHTS + MAX_SPOT_LIGHTS];
 
 	std::string ReadFile(const char* fileLocation);
 	void CompileShader(const char* vertexCode, const char* fragmentCode);

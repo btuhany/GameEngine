@@ -18,7 +18,7 @@ public:
     ~SpotLight();
 
 private:
-    glm::vec3 direction;
-    GLfloat edge, procEdge;
+    glm::vec3 m_Direction;
+    GLfloat m_Edge, m_ProcEdge;
 };
 

@@ -23,35 +23,35 @@ void Model::LoadModel(const std::string& fileName)
 
 void Model::RenderModel()
 {
-	for (size_t i = 0; i < meshList.size(); i++)
+	for (size_t i = 0; i < m_MeshList.size(); i++)
 	{
-		unsigned int materialIndex = meshToTex[i];
+		unsigned int materialIndex = m_MeshToTex[i];
 
-		if (materialIndex < textureList.size() && textureList[materialIndex])
+		if (materialIndex < m_TextureList.size() && m_TextureList[materialIndex])
 		{
-			textureList[materialIndex]->UseTexture();
+			m_TextureList[materialIndex]->UseTexture();
 		}
 
-		meshList[i]->RenderMesh();
+		m_MeshList[i]->RenderMesh();
 	}
 }
 
 void Model::ClearModel()
 {
-	for (size_t i = 0; i < meshList.size(); i++)
+	for (size_t i = 0; i < m_MeshList.size(); i++)
 	{
-		if (meshList[i])
+		if (m_MeshList[i])
 		{
-			delete meshList[i];
-			meshList[i] = nullptr;
+			delete m_MeshList[i];
+			m_MeshList[i] = nullptr;
 		}
 	}
-	for (size_t i = 0; i < textureList.size(); i++)
+	for (size_t i = 0; i < m_TextureList.size(); i++)
 	{
-		if (textureList[i])
+		if (m_TextureList[i])
 		{
-			delete textureList[i];
-			textureList[i] = nullptr;
+			delete m_TextureList[i];
+			m_TextureList[i] = nullptr;
 		}
 	}
 }
@@ -105,19 +105,19 @@ void Model::loadMesh(aiMesh* mesh, const aiScene* scene)
 
 	Mesh* newMesh = new Mesh();
 	newMesh->CreateMesh(&vertices[0], &indices[0], vertices.size(), indices.size());
-	meshList.push_back(newMesh);
-	meshToTex.push_back(mesh->mMaterialIndex);
+	m_MeshList.push_back(newMesh);
+	m_MeshToTex.push_back(mesh->mMaterialIndex);
 }
 
 void Model::loadMaterials(const aiScene* scene)
 {
-	textureList.resize(scene->mNumMaterials);
+	m_TextureList.resize(scene->mNumMaterials);
 	
 	for (size_t i = 0; i < scene->mNumMaterials; i++)
 	{
 		aiMaterial* material = scene->mMaterials[i];
 
-		textureList[i] = nullptr;
+		m_TextureList[i] = nullptr;
 
 		if (material->GetTextureCount(aiTextureType_DIFFUSE))
 		{
@@ -129,21 +129,21 @@ void Model::loadMaterials(const aiScene* scene)
 
 				std::string texPath = std::string("Textures/") + fileName;
 
-				textureList[i] = new Texture(texPath.c_str());
+				m_TextureList[i] = new Texture(texPath.c_str());
 
-				if (!textureList[i]->LoadTexture())
+				if (!m_TextureList[i]->LoadTexture())
 				{
 					printf("Failed to load texture at %s\n", texPath);
-					delete textureList[i];
-					textureList[i] = nullptr;
+					delete m_TextureList[i];
+					m_TextureList[i] = nullptr;
 				}
 			}
 		}
 
-		if (!textureList[i])
+		if (!m_TextureList[i])
 		{
-			textureList[i] = new Texture("Textures/plain.png");
-			textureList[i]->LoadTextureWithAlpha();
+			m_TextureList[i] = new Texture("Textures/plain.png");
+			m_TextureList[i]->LoadTextureWithAlpha();
 		}
 	}
 

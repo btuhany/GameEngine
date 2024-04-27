@@ -2,21 +2,21 @@
 
 ShadowMap::ShadowMap()
 {
-    FBO = 0;
-    shadowMap = 0;
+    m_FBO = 0;
+    m_ShadowMap = 0;
 }
 
 bool ShadowMap::Init(GLuint width, GLuint height)
 {
-    shadowWidth = width;
-    shadowHeight = height;
+    m_ShadowWidth = width;
+    m_ShadowHeight = height;
 
-    glGenFramebuffers(1, &FBO);
+    glGenFramebuffers(1, &m_FBO);
 
 
-    glGenTextures(1, &shadowMap);
-    glBindTexture(GL_TEXTURE_2D, shadowMap);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, shadowWidth, shadowHeight, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+    glGenTextures(1, &m_ShadowMap);
+    glBindTexture(GL_TEXTURE_2D, m_ShadowMap);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, m_ShadowWidth, m_ShadowHeight, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -24,8 +24,8 @@ bool ShadowMap::Init(GLuint width, GLuint height)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
     float bColour[] = { 1.0f, 0.0f, 0.0f, 1.0f };
     glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, bColour);
-    glBindFramebuffer(GL_FRAMEBUFFER, FBO);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowMap, 0);
+    glBindFramebuffer(GL_FRAMEBUFFER, m_FBO);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_ShadowMap, 0);
 
     /*  A framebuffer object however is not complete without a color buffer 
     so we need to explicitly tell OpenGL we're not going to render any color data.
@@ -48,24 +48,24 @@ bool ShadowMap::Init(GLuint width, GLuint height)
 
 void ShadowMap::Write()
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, m_FBO);
 }
 
 void ShadowMap::Read(GLenum textureUnit)
 {
     glActiveTexture(textureUnit);
-    glBindTexture(GL_TEXTURE_2D, shadowMap);
+    glBindTexture(GL_TEXTURE_2D, m_ShadowMap);
 }
 
 ShadowMap::~ShadowMap()
 {
-    if (FBO)
+    if (m_FBO)
     {
-        glDeleteFramebuffers(1, &FBO);
+        glDeleteFramebuffers(1, &m_FBO);
     }
 
-    if (shadowMap)
+    if (m_ShadowMap)
     {
-        glDeleteTextures(1, &shadowMap);
+        glDeleteTextures(1, &m_ShadowMap);
     }
 }

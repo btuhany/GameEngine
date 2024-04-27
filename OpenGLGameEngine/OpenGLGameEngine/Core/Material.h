@@ -9,7 +9,7 @@ public:
 
 	void UseMaterial(GLuint specularIntensityLocation, GLuint shininessLocation);
 private:
-	GLfloat specularIntensity;
-	GLfloat shininess;
+	GLfloat m_SpecularIntensity;
+	GLfloat m_Shininess;
 };
 

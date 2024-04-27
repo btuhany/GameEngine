@@ -6,21 +6,21 @@ Camera::Camera()
 
 Camera::Camera(glm::vec3 startPosition, glm::vec3 startUpVector, GLfloat startYawVal, GLfloat startPitchVal, GLfloat startMoveSpeed, GLfloat startRotateSpeed)
 {
-	position = startPosition;
-	worldUp = startUpVector;
-	yaw = startYawVal;
-	pitch = startPitchVal;
-	front = glm::vec3(0.0f, 0.0f, -1.0f);
+	m_Position = startPosition;
+	m_WorldUp = startUpVector;
+	m_Yaw = startYawVal;
+	m_Pitch = startPitchVal;
+	m_Front = glm::vec3(0.0f, 0.0f, -1.0f);
 
-	moveSpeed = startMoveSpeed;
-	rotateSpeed = startRotateSpeed;
+	m_MoveSpeed = startMoveSpeed;
+	m_RotateSpeed = startRotateSpeed;
 
 	update();
 }
 
 void Camera::HandleKeys(bool* keys, GLfloat deltaTime)
 {
-	GLfloat curMoveSpeed = moveSpeed;
+	GLfloat curMoveSpeed = m_MoveSpeed;
 
 	if (keys[GLFW_KEY_LEFT_SHIFT])
 	{
@@ -28,37 +28,37 @@ void Camera::HandleKeys(bool* keys, GLfloat deltaTime)
 	}
 	if (keys[GLFW_KEY_W])
 	{
-		position += front * curMoveSpeed * deltaTime;
+		m_Position += m_Front * curMoveSpeed * deltaTime;
 	}
 	if (keys[GLFW_KEY_D])
 	{
-		position += right * curMoveSpeed * deltaTime;
+		m_Position += m_Right * curMoveSpeed * deltaTime;
 	}
 	if (keys[GLFW_KEY_A])
 	{
-		position -= right * curMoveSpeed * deltaTime;
+		m_Position -= m_Right * curMoveSpeed * deltaTime;
 	}
 	if (keys[GLFW_KEY_S])
 	{
-		position -= front * curMoveSpeed * deltaTime;
+		m_Position -= m_Front * curMoveSpeed * deltaTime;
 	}
 }
 
 void Camera::HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY)
 {
-	mouseDeltaX *= rotateSpeed;
-	mouseDeltaY *= rotateSpeed;
+	mouseDeltaX *= m_RotateSpeed;
+	mouseDeltaY *= m_RotateSpeed;
 
-	yaw += mouseDeltaX;
-	pitch += mouseDeltaY;
+	m_Yaw += mouseDeltaX;
+	m_Pitch += mouseDeltaY;
 
-	if (pitch > 89.0f)
+	if (m_Pitch > 89.0f)
 	{
-		pitch = 89.0f;
+		m_Pitch = 89.0f;
 	}
-	else if (pitch < -89.0f)
+	else if (m_Pitch < -89.0f)
 	{
-		pitch = -89.0f;
+		m_Pitch = -89.0f;
 	}
 
 	update();
@@ -66,12 +66,12 @@ void Camera::HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY)
 
 glm::vec3 Camera::GetCameraPosition()
 {
-	return position;
+	return m_Position;
 }
 
 glm::mat4 Camera::CalculateViewMatrix()
 {
-	return glm::lookAt(position, position + front, up);
+	return glm::lookAt(m_Position, m_Position + m_Front, m_Up);
 }
 
 Camera::~Camera()
@@ -80,12 +80,12 @@ Camera::~Camera()
 
 void Camera::update()
 {
-	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	front.y = sin(glm::radians(pitch));
-	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	front = glm::normalize(front);
+	m_Front.x = cos(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
+	m_Front.y = sin(glm::radians(m_Pitch));
+	m_Front.z = sin(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
+	m_Front = glm::normalize(m_Front);
 
 	//we need right vector first
-	right = glm::normalize(glm::cross(front, worldUp));
-	up = glm::normalize(glm::cross(right, front));
+	m_Right = glm::normalize(glm::cross(m_Front, m_WorldUp));
+	m_Up = glm::normalize(glm::cross(m_Right, m_Front));
 }

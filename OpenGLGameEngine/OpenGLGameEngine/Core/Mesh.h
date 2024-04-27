@@ -13,8 +13,8 @@ public:
 	~Mesh();
 
 private:
-	GLuint VAO, VBO, IBO;
-	GLsizei indexCount;
+	GLuint m_VAO, m_VBO, m_IBO;
+	GLsizei m_IndexCount;
 
 };
 

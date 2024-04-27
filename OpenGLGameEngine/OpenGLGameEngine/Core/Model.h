@@ -25,8 +25,8 @@ private:
 	void loadMesh(aiMesh* mesh, const aiScene* scene);
 	void loadMaterials(const aiScene* scene);
 
-	std::vector<Mesh*> meshList;
-	std::vector<Texture*> textureList;
-	std::vector<unsigned int> meshToTex;
+	std::vector<Mesh*> m_MeshList;
+	std::vector<Texture*> m_TextureList;
+	std::vector<unsigned int> m_MeshToTex;
 };
 

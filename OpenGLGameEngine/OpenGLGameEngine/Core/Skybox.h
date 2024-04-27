@@ -22,9 +22,9 @@ public:
 	~Skybox();
 
 private:
-	Mesh* skyMesh;
-	Shader* skyShader;
-	GLuint textureId;
-	GLuint uniformProjection, uniformView;
+	Mesh* m_SkyMesh;
+	Shader* m_SkyShader;
+	GLuint m_TextureId;
+	GLuint m_UniformProjection, m_UniformView;
 };
 

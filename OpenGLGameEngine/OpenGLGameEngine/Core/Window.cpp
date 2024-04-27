@@ -2,33 +2,33 @@
 
 Window::Window()
 {
-	width = 800;
-	height = 600;
+	m_Width = 800;
+	m_Height = 600;
 
-	mouseLastXPosition = 0;
-	mouseLastYPosition = 0;
-	mouseDeltaX = 0;
-	mouseDeltaY = 0;
+	m_MouseLastXPosition = 0;
+	m_MouseLastYPosition = 0;
+	m_MouseDeltaX = 0;
+	m_MouseDeltaY = 0;
 
 	for (size_t i = 0; i < 1024; i++)
 	{
-		keys[i] = 0;
+		m_Keys[i] = 0;
 	}
 }
 
 Window::Window(GLint windowWidth, GLint windowHeight)
 {
-	width = windowWidth;
-	height = windowHeight;
+	m_Width = windowWidth;
+	m_Height = windowHeight;
 
-	mouseLastXPosition = 0;
-	mouseLastYPosition = 0;
-	mouseDeltaX = 0;
-	mouseDeltaY = 0;
+	m_MouseLastXPosition = 0;
+	m_MouseLastYPosition = 0;
+	m_MouseDeltaX = 0;
+	m_MouseDeltaY = 0;
 
 	for (size_t i = 0; i < 1024; i++)
 	{
-		keys[i] = 0;
+		m_Keys[i] = 0;
 	}
 }
 
@@ -51,8 +51,8 @@ int Window::Initialize()
 	//Allow forward compatibility
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-	mainWindow = glfwCreateWindow(width, height, "Test Window", NULL, NULL);
-	if (!mainWindow)
+	m_MainWindow = glfwCreateWindow(m_Width, m_Height, "Test Window", NULL, NULL);
+	if (!m_MainWindow)
 	{
 		printf("GLFW window creation failed!");
 		glfwTerminate();
@@ -60,15 +60,15 @@ int Window::Initialize()
 	}
 
 	//Get buffer size information (Actual viewport)
-	glfwGetFramebufferSize(mainWindow, &bufferWidth, &bufferHeight);
+	glfwGetFramebufferSize(m_MainWindow, &m_BufferWidth, &m_BufferHeight);
 
 	//Set context for GLEW to use (if you need multiple windows you can switch)
 	//Important!
-	glfwMakeContextCurrent(mainWindow);
+	glfwMakeContextCurrent(m_MainWindow);
 
 	//Handle Key + Mouse Input
 	createCallbacks();
-	glfwSetInputMode(mainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(m_MainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	//Allow modern extension features
 	glewExperimental = GL_TRUE;
@@ -77,7 +77,7 @@ int Window::Initialize()
 	if (glewInit() != GLEW_OK)
 	{
 		printf("GLEW initialization failed!");
-		glfwDestroyWindow(mainWindow);  //window created by glew
+		glfwDestroyWindow(m_MainWindow);  //window created by glew
 		glfwTerminate();
 		return 1;
 	}
@@ -85,38 +85,38 @@ int Window::Initialize()
 	glEnable(GL_DEPTH_TEST);
 
 	//Setup viewport size
-	glViewport(0, 0, bufferWidth, bufferHeight);
+	glViewport(0, 0, m_BufferWidth, m_BufferHeight);
 
 	//For reading input
-	glfwSetWindowUserPointer(mainWindow, this);
+	glfwSetWindowUserPointer(m_MainWindow, this);
 	
 	return 0;
 }
 
 GLfloat Window::GetMouseDeltaX()
 {
-	GLfloat deltaX = mouseDeltaX;
-	mouseDeltaX = 0.0f;
+	GLfloat deltaX = m_MouseDeltaX;
+	m_MouseDeltaX = 0.0f;
 	return deltaX;
 }
 
 GLfloat Window::GetMouseDeltaY()
 {
-	GLfloat deltaY = mouseDeltaY;
-	mouseDeltaY = 0.0f;
+	GLfloat deltaY = m_MouseDeltaY;
+	m_MouseDeltaY = 0.0f;
 	return deltaY;
 }
 
 Window::~Window()
 {
-	glfwDestroyWindow(mainWindow);  //window created by glew
+	glfwDestroyWindow(m_MainWindow);  //window created by glew
 	glfwTerminate();
 }
 
 void Window::createCallbacks()
 {
-	glfwSetKeyCallback(mainWindow, handleKeys);
-	glfwSetCursorPosCallback(mainWindow, handleMouse);
+	glfwSetKeyCallback(m_MainWindow, handleKeys);
+	glfwSetCursorPosCallback(m_MainWindow, handleMouse);
 }
 
 void Window::handleKeys(GLFWwindow* window, int key, int code, int action, int mode)
@@ -132,12 +132,12 @@ void Window::handleKeys(GLFWwindow* window, int key, int code, int action, int m
 	{
 		if (action == GLFW_PRESS)
 		{
-			theWindow->keys[key] = true;
+			theWindow->m_Keys[key] = true;
 			printf("Pressed: %d\n", key);
 		}
 		else if (action == GLFW_RELEASE)
 		{
-			theWindow->keys[key] = false;
+			theWindow->m_Keys[key] = false;
 			printf("Released: %d\n", key);
 		}
 	}
@@ -147,17 +147,17 @@ void Window::handleMouse(GLFWwindow* window, double xPos, double yPos)
 {
 	Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
 
-	if (theWindow->mouseFirstMoved)
+	if (theWindow->m_MouseFirstMoved)
 	{
-		theWindow->mouseLastXPosition = xPos;
-		theWindow->mouseLastYPosition = yPos;
-		theWindow->mouseFirstMoved = false;
+		theWindow->m_MouseLastXPosition = xPos;
+		theWindow->m_MouseLastYPosition = yPos;
+		theWindow->m_MouseFirstMoved = false;
 	}
-	theWindow->mouseDeltaX = xPos - theWindow->mouseLastXPosition;
-	theWindow->mouseDeltaY = theWindow->mouseLastYPosition - yPos;
+	theWindow->m_MouseDeltaX = xPos - theWindow->m_MouseLastXPosition;
+	theWindow->m_MouseDeltaY = theWindow->m_MouseLastYPosition - yPos;
 
-	theWindow->mouseLastXPosition = xPos;
-	theWindow->mouseLastYPosition = yPos;
+	theWindow->m_MouseLastXPosition = xPos;
+	theWindow->m_MouseLastYPosition = yPos;
 
 	//printf("Mouse Pos X: %.6f\n", theWindow->mouseDeltaX);
 	//printf("Mouse Pos Y: %.6f\n", yPos);
