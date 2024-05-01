@@ -7,30 +7,23 @@ Renderer::Renderer()
 
 Renderer::~Renderer()
 {
-	m_Mesh = nullptr;
-	m_Texture = nullptr;
-	m_Material = nullptr;
-	m_Model = nullptr;
+
 }
 
-Renderer::Renderer(Model* model, Material* material, Shader* shader)
+Renderer::Renderer(Material* material, Shader* shader)
 {
-	m_Model = model;
 	m_Material = material;
 	m_Shader = shader;
 }
 
-Renderer::Renderer(Mesh* mesh, Texture* texture, Material* material, Shader* shader)
+void Renderer::Initialize(RenderableData* renderableData)
 {
-	m_Mesh = mesh;
-	m_Texture = texture;
-	m_Material = material;
-	m_Shader = shader;
+	m_RenderableData = renderableData;
 }
 
-void Renderer::RenderUpdate(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera)
+
+void Renderer::Draw(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera)
 {
-	m_Shader->UseShader();
 	GLuint uniformModel = m_Shader->GetModelLocation();
 	GLuint uniformProjection = m_Shader->GetProjectionLocation();
 	GLuint uniformView = m_Shader->GetViewLocation();
@@ -46,15 +39,14 @@ void Renderer::RenderUpdate(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, g
 	m_Shader->SetTextureUnit(1);
 	m_Shader->UseShader();
 
-	if (m_Model == nullptr)
-	{
-		m_Texture->UseTexture();
-		m_Material->UseMaterial(uniformMatSpecularInstensity, uniformMatShininess);
-		m_Mesh->RenderMesh();
-	}
-	else
-	{
-		m_Material->UseMaterial(uniformMatSpecularInstensity, uniformMatShininess);
-		m_Model->RenderModel();
-	}
+	m_Material->UseMaterial(uniformMatSpecularInstensity, uniformMatShininess);
+
+	RenderData();
 }
+
+void Renderer::RenderData()
+{
+	m_RenderableData->TextureData->UseTexture();
+	m_RenderableData->Renderable->Render();
+}
+

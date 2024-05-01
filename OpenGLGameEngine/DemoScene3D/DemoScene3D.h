@@ -1,5 +1,7 @@
 #pragma once
 #include "Core/Scene.h"
+#include "Core/Shader.h"
+
 class DemoScene3D : public Scene
 {
 public:

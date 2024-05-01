@@ -21,7 +21,7 @@ void Scene::Update(glm::mat4 projection, GLfloat deltaTime)
 	renderScene(projection);
 }
 
-void Scene::AddObject(Object* object)
+void Scene::AddObject(RenderableObject* object)
 {
 	m_ObjectList.push_back(object);
 }
@@ -35,7 +35,7 @@ void Scene::renderScene(glm::mat4 projection)
 {
 	for (size_t i = 0; i < m_ObjectList.size(); i++)
 	{
-		m_ObjectList[i]->RenderUpdate(projection, m_MainCamera.CalculateViewMatrix(), &m_MainCamera);
+		m_ObjectList[i]->Render(projection, m_MainCamera.CalculateViewMatrix(), &m_MainCamera);
 	}
 }
 

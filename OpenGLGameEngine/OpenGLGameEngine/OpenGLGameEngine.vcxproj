@@ -23,6 +23,7 @@
     <ClCompile Include="Core\DirectionalLight.cpp" />
     <ClCompile Include="Core\Light.cpp" />
     <ClCompile Include="Core\Engine.cpp" />
+    <ClCompile Include="Core\IRenderable.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Core\Material.cpp" />
     <ClCompile Include="Core\Mesh.cpp" />
@@ -36,8 +37,10 @@
     <ClCompile Include="Core\Texture.cpp" />
     <ClCompile Include="Core\Window.cpp" />
     <ClCompile Include="Core\Scene.cpp" />
-    <ClCompile Include="Core\Object.cpp" />
+    <ClCompile Include="Core\RenderableObject.cpp" />
     <ClCompile Include="Core\Renderer.cpp" />
+    <ClCompile Include="Core\ModelRenderer.cpp" />
+    <ClCompile Include="Core\RenderableData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Camera.h" />
@@ -58,8 +61,11 @@
     <ClInclude Include="Core\Window.h" />
     <ClInclude Include="Core\Engine.h" />
     <ClInclude Include="Core\Scene.h" />
-    <ClInclude Include="Core\Object.h" />
+    <ClInclude Include="Core\RenderableObject.h" />
     <ClInclude Include="Core\Renderer.h" />
+    <ClInclude Include="Core\ModelRenderer.h" />
+    <ClInclude Include="Core\RenderableData.h" />
+    <ClInclude Include="Core\IRenderable.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assimp-vc143-mt.dll" />

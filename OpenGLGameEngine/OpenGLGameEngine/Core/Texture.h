@@ -18,7 +18,6 @@ public:
 private:
 	GLuint m_TextureID;
 	int m_Width, m_Height, m_BitDepth;
-
 	const char* m_FileLocation;
 
 

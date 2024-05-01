@@ -21,7 +21,7 @@ void Model::LoadModel(const std::string& fileName)
 
 }
 
-void Model::RenderModel()
+void Model::Render()
 {
 	for (size_t i = 0; i < m_MeshList.size(); i++)
 	{
@@ -32,7 +32,7 @@ void Model::RenderModel()
 			m_TextureList[materialIndex]->UseTexture();
 		}
 
-		m_MeshList[i]->RenderMesh();
+		m_MeshList[i]->Render();
 	}
 }
 
