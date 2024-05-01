@@ -43,7 +43,7 @@ void Renderer::RenderUpdate(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, g
 	glUniform3f(uniformCameraPosition, mainCamera->GetCameraPosition().x, mainCamera->GetCameraPosition().y, mainCamera->GetCameraPosition().z);
 
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-	m_Shader->SetTexture(1);
+	m_Shader->SetTextureUnit(1);
 	m_Shader->UseShader();
 
 	if (m_Model == nullptr)

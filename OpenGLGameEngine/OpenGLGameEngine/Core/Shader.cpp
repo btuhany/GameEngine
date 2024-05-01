@@ -160,7 +160,7 @@ void Shader::SetSpotLights(SpotLight* sLight, unsigned int lightCount, unsigned 
 	}
 }
 
-void Shader::SetTexture(GLuint textureUnit)
+void Shader::SetTextureUnit(GLuint textureUnit)
 {
 	glUniform1i(uniformTexture, textureUnit);
 }

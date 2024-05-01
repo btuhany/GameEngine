@@ -386,7 +386,7 @@ void RenderPass(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 	shaderList[0]->SetDirectionalLightTransform(&lightTransform);
 
 	directionalLight.GetShadowMap()->Read(GL_TEXTURE2);
-	shaderList[0]->SetTexture(1);
+	shaderList[0]->SetTextureUnit(1);
 	shaderList[0]->SetDirectionalShadowMap(2);
 	shaderList[0]->Validate();
 
