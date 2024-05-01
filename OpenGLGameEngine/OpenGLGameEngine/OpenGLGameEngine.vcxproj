@@ -22,6 +22,7 @@
     <ClCompile Include="Core\Camera.cpp" />
     <ClCompile Include="Core\DirectionalLight.cpp" />
     <ClCompile Include="Core\Light.cpp" />
+    <ClCompile Include="Core\Engine.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Core\Material.cpp" />
     <ClCompile Include="Core\Mesh.cpp" />
@@ -34,6 +35,9 @@
     <ClCompile Include="Core\SpotLight.cpp" />
     <ClCompile Include="Core\Texture.cpp" />
     <ClCompile Include="Core\Window.cpp" />
+    <ClCompile Include="Core\Scene.cpp" />
+    <ClCompile Include="Core\Object.cpp" />
+    <ClCompile Include="Core\Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Camera.h" />
@@ -49,10 +53,18 @@
     <ClInclude Include="Core\ShadowMap.h" />
     <ClInclude Include="Core\Skybox.h" />
     <ClInclude Include="Core\SpotLight.h" />
+    <ClInclude Include="Core\stb_image.h" />
     <ClInclude Include="Core\Texture.h" />
     <ClInclude Include="Core\Window.h" />
+    <ClInclude Include="Core\Engine.h" />
+    <ClInclude Include="Core\Scene.h" />
+    <ClInclude Include="Core\Object.h" />
+    <ClInclude Include="Core\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assimp-vc143-mt.dll" />
+    <None Include="glew32.dll" />
+    <None Include="OpenGLGameEngine.aps" />
     <None Include="Shaders\directional_shadow_map.frag" />
     <None Include="Shaders\directional_shadow_map.vert" />
     <None Include="Shaders\omni_shadow_map.frag" />
@@ -72,7 +84,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -129,6 +141,11 @@
       <AdditionalLibraryDirectories>$(SolutionDir)/../ExternalLibs/GLEW/lib/Release/Win32;$(SolutionDir)/../ExternalLibs/GLFW/lib-vc2022;$(SolutionDir)/../ExternalLibs/ASSIMP/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)/OpenGLGameEngine;$(SolutionDir)/../ExternalLibs/GLEW/lib/Release/Win32;$(SolutionDir)/../ExternalLibs/GLFW/lib-vc2022;$(SolutionDir)/../ExternalLibs/ASSIMP/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

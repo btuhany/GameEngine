@@ -241,6 +241,7 @@ void Shader::CompileShader(const char* vertexCode, const char* fragmentCode)
 	AddShader(shaderID, vertexCode, GL_VERTEX_SHADER);
 	AddShader(shaderID, fragmentCode, GL_FRAGMENT_SHADER);
 
+
 	CompileProgram();
 }
 

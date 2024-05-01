@@ -51,8 +51,8 @@ int Window::Initialize()
 	//Allow forward compatibility
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-	m_MainWindow = glfwCreateWindow(m_Width, m_Height, "Test Window", NULL, NULL);
-	if (!m_MainWindow)
+	m_glWindow = glfwCreateWindow(m_Width, m_Height, "Test Window", NULL, NULL);
+	if (!m_glWindow)
 	{
 		printf("GLFW window creation failed!");
 		glfwTerminate();
@@ -60,15 +60,15 @@ int Window::Initialize()
 	}
 
 	//Get buffer size information (Actual viewport)
-	glfwGetFramebufferSize(m_MainWindow, &m_BufferWidth, &m_BufferHeight);
+	glfwGetFramebufferSize(m_glWindow, &m_BufferWidth, &m_BufferHeight);
 
 	//Set context for GLEW to use (if you need multiple windows you can switch)
 	//Important!
-	glfwMakeContextCurrent(m_MainWindow);
+	glfwMakeContextCurrent(m_glWindow);
 
 	//Handle Key + Mouse Input
 	createCallbacks();
-	glfwSetInputMode(m_MainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(m_glWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	//Allow modern extension features
 	glewExperimental = GL_TRUE;
@@ -77,7 +77,7 @@ int Window::Initialize()
 	if (glewInit() != GLEW_OK)
 	{
 		printf("GLEW initialization failed!");
-		glfwDestroyWindow(m_MainWindow);  //window created by glew
+		glfwDestroyWindow(m_glWindow);  //window created by glew
 		glfwTerminate();
 		return 1;
 	}
@@ -88,7 +88,7 @@ int Window::Initialize()
 	glViewport(0, 0, m_BufferWidth, m_BufferHeight);
 
 	//For reading input
-	glfwSetWindowUserPointer(m_MainWindow, this);
+	glfwSetWindowUserPointer(m_glWindow, this);
 	
 	return 0;
 }
@@ -109,14 +109,14 @@ GLfloat Window::GetMouseDeltaY()
 
 Window::~Window()
 {
-	glfwDestroyWindow(m_MainWindow);  //window created by glew
+	glfwDestroyWindow(m_glWindow);  //window created by glew
 	glfwTerminate();
 }
 
 void Window::createCallbacks()
 {
-	glfwSetKeyCallback(m_MainWindow, handleKeys);
-	glfwSetCursorPosCallback(m_MainWindow, handleMouse);
+	glfwSetKeyCallback(m_glWindow, handleKeys);
+	glfwSetCursorPosCallback(m_glWindow, handleMouse);
 }
 
 void Window::handleKeys(GLFWwindow* window, int key, int code, int action, int mode)

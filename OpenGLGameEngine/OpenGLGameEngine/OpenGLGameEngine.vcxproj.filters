@@ -63,6 +63,18 @@
     <ClCompile Include="Core\Skybox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Object.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Camera.h">
@@ -110,6 +122,21 @@
     <ClInclude Include="Core\Skybox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Engine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\shader.vert">
@@ -139,5 +166,8 @@
     <None Include="Shaders\skybox.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="glew32.dll" />
+    <None Include="assimp-vc143-mt.dll" />
+    <None Include="OpenGLGameEngine.aps" />
   </ItemGroup>
 </Project>

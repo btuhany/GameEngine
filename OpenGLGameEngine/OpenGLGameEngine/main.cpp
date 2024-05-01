@@ -394,7 +394,7 @@ void RenderPass(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 
 }
 
-int main()
+int main2()
 {
 	Window mainWindow = Window(1366, 768);
 	mainWindow.Initialize();
@@ -424,7 +424,7 @@ int main()
 
 	pointLights[0] = PointLight(0.0f, 55.5f,
 		1.0f, 0.0f, 0.0f,
-		0.0f, -9.2f, 5.0f,
+		0.0f, 4.2f, 5.0f,
 		1.0f, 1.0f, 1.5f, 
 		1024, 1024,
 		0.01f, 100.0f);

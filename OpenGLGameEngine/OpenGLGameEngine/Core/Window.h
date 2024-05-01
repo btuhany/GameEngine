@@ -16,18 +16,18 @@ public:
 	GLfloat GetBufferWidth() { return m_BufferWidth; }
 	GLfloat GetBufferHeight() { return m_BufferHeight; }
 
-	bool GetShouldClose() { return glfwWindowShouldClose(m_MainWindow); }
+	bool GetShouldClose() { return glfwWindowShouldClose(m_glWindow); }
 
 	bool* GetKeys() { return m_Keys; }
 	GLfloat GetMouseDeltaX();
 	GLfloat GetMouseDeltaY();
 
-	void SwapBuffers() { glfwSwapBuffers(m_MainWindow); }
+	void SwapBuffers() { glfwSwapBuffers(m_glWindow); }
 
 	~Window();
 
 private:
-	GLFWwindow* m_MainWindow;
+	GLFWwindow* m_glWindow;
 
 	GLint m_Width, m_Height;
 	GLint m_BufferWidth, m_BufferHeight;

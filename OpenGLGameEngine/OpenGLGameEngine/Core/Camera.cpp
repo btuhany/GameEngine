@@ -51,7 +51,6 @@ void Camera::HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY)
 
 	m_Yaw += mouseDeltaX;
 	m_Pitch += mouseDeltaY;
-
 	if (m_Pitch > 89.0f)
 	{
 		m_Pitch = 89.0f;
@@ -60,7 +59,6 @@ void Camera::HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY)
 	{
 		m_Pitch = -89.0f;
 	}
-
 	update();
 }
 
@@ -84,8 +82,8 @@ void Camera::update()
 	m_Front.y = sin(glm::radians(m_Pitch));
 	m_Front.z = sin(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
 	m_Front = glm::normalize(m_Front);
-
 	//we need right vector first
 	m_Right = glm::normalize(glm::cross(m_Front, m_WorldUp));
 	m_Up = glm::normalize(glm::cross(m_Right, m_Front));
+
 }
