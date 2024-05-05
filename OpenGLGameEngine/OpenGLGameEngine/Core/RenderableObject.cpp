@@ -13,9 +13,10 @@ RenderableObject::~RenderableObject()
 	m_Shader = nullptr;
 }
 
-RenderableObject::RenderableObject(Renderer* renderer)
+RenderableObject::RenderableObject(Renderer* renderer, RenderableData* renderableData)
 {
 	m_Renderer = renderer;
+	m_RenderableData = renderableData;
 	m_TransformModelMatrix = glm::mat4(1.0f);
 }
 
@@ -29,7 +30,7 @@ void RenderableObject::Tick()
 
 void RenderableObject::Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera)
 {
-	m_Renderer->Draw(m_TransformModelMatrix, projectionMatrix, viewMatrix, mainCamera);
+	m_Renderer->Draw(m_TransformModelMatrix, projectionMatrix, viewMatrix, mainCamera, m_RenderableData);
 }
 
 void RenderableObject::TranslateTransform(glm::vec3 translateVector)

@@ -16,13 +16,7 @@ Renderer::Renderer(Material* material, Shader* shader)
 	m_Shader = shader;
 }
 
-void Renderer::Initialize(RenderableData* renderableData)
-{
-	m_RenderableData = renderableData;
-}
-
-
-void Renderer::Draw(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera)
+void Renderer::Draw(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera, RenderableData* renderData)
 {
 	GLuint uniformModel = m_Shader->GetModelLocation();
 	GLuint uniformProjection = m_Shader->GetProjectionLocation();
@@ -41,12 +35,12 @@ void Renderer::Draw(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, glm::mat4
 
 	m_Material->UseMaterial(uniformMatSpecularInstensity, uniformMatShininess);
 
-	RenderData();
+	RenderData(renderData);
 }
 
-void Renderer::RenderData()
+void Renderer::RenderData(RenderableData* renderData)
 {
-	m_RenderableData->TextureData->UseTexture();
-	m_RenderableData->Renderable->Render();
+	renderData->TextureData->UseTexture();
+	renderData->Renderable->Render();
 }
 

@@ -59,8 +59,7 @@ int main()
 	mesh1->CreateMesh(vertices, indices, 64, 36);
 	Renderer renderer = Renderer(&shinyMaterial, shader);
 	RenderableData renderableData = RenderableData(&uh60, &spidermanTexture);
-	renderer.Initialize(&renderableData);
-	RenderableObject obj1 = RenderableObject(&renderer);
+	RenderableObject obj1 = RenderableObject(&renderer, &renderableData);
 	obj1.RotateTransform(90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 	obj1.RotateTransform(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 	obj1.ScaleTransform(glm::vec3(1.0f, 1.0f, 1.0f));
@@ -68,8 +67,7 @@ int main()
 
 	Renderer renderer2 = Renderer(&shinyMaterial, shader);
 	RenderableData renderableData2 = RenderableData(mesh1, &spidermanTexture);
-	renderer2.Initialize(&renderableData2);
-	RenderableObject obj2 = RenderableObject(&renderer2);
+	RenderableObject obj2 = RenderableObject(&renderer2, &renderableData2);
 	obj2.ScaleTransform(glm::vec3(10.0f, 10.0f, 10.0f));
 
 

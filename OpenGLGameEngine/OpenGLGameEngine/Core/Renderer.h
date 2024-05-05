@@ -12,14 +12,12 @@ class Renderer
 public:
 	Renderer();
 	Renderer(Material* material, Shader* shader);
-	void Initialize(RenderableData* renderableData);
-	void Draw(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera);	
+	void Draw(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera, RenderableData* renderData);
 	~Renderer();
 protected:
-	virtual void RenderData();
+	virtual void RenderData(RenderableData* renderData);
 private:
 	Material* m_Material;
 	Shader* m_Shader;
-	RenderableData* m_RenderableData;
 };
 

@@ -6,7 +6,7 @@ class RenderableObject
 public:
 	RenderableObject();
 	~RenderableObject();
-	RenderableObject(Renderer* renderer);
+	RenderableObject(Renderer* renderer, RenderableData* renderableData);
 	void Start();
 	void Tick();
 	void Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera);
@@ -15,6 +15,7 @@ public:
 	void ScaleTransform(glm::vec3 scaleVector);
 private:
 	Renderer* m_Renderer;
+	RenderableData* m_RenderableData;
 	Shader* m_Shader;
 	glm::mat4 m_TransformModelMatrix;
 };
