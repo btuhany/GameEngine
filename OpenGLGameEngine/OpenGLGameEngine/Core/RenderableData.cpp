@@ -9,3 +9,8 @@ RenderableData::RenderableData(IRenderable* renderable, Texture* texture)
 	Renderable = renderable;
 	TextureData = texture;
 }
+
+RenderableData::RenderableData(IRenderable* renderable)
+{
+	Renderable = renderable;
+}

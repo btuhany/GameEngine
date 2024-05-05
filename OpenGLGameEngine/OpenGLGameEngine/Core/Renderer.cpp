@@ -41,7 +41,10 @@ void Renderer::Draw(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, glm::mat4
 
 void Renderer::RenderData(RenderableData* renderData)
 {
-	renderData->TextureData->UseTexture();
+	if (renderData->TextureData != NULL)
+	{
+		renderData->TextureData->UseTexture();
+	}
 	renderData->Renderable->Render();
 }
 

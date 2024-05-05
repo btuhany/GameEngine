@@ -12,8 +12,9 @@ public:
 	void Update(glm::mat4 projection, GLfloat deltaTime) override;
 private:
 	Mesh* createCubeMesh();
-	Renderer shinyRenderer;
+	Mesh* createPlainMesh();
 
+	Renderer shinyRenderer;
 	Model ironmanModel;
 
 	Texture spidermanTexture;
@@ -24,5 +25,9 @@ private:
 
 	RenderableData helicopterRenderableData;
 	Shader shader;
+	
+	RenderableObject* helicopter;
+	RenderableObject* spidermanCube;
+	void initializeSkybox();
 };
 
