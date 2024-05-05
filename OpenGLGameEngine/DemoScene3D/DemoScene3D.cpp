@@ -15,8 +15,18 @@ void DemoScene3D::Initialize()
 	shader = Shader();
 	shader.CreateFromFiles(vShaderLocation, fShaderLocation);
 
-	m_MainCamera = new Camera(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.0f, 0.1f);
-
+	setCamera(new Camera(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.0f, 0.1f));
+	setBackgroundColor(glm::vec3(0.0f, 1.0f, 0.0f));
+	std::vector<std::string> skyboxFaces;
+	skyboxFaces.push_back("Textures/skybox/cupertin-lake_rt.tga");
+	skyboxFaces.push_back("Textures/skybox/cupertin-lake_lf.tga");
+	skyboxFaces.push_back("Textures/skybox/cupertin-lake_up.tga");
+	skyboxFaces.push_back("Textures/skybox/cupertin-lake_dn.tga");
+	skyboxFaces.push_back("Textures/skybox/cupertin-lake_bk.tga");
+	skyboxFaces.push_back("Textures/skybox/cupertin-lake_ft.tga");
+	Skybox* skybox = new Skybox(skyboxFaces);
+	setSkybox(skybox);
+	useSkybox(false);
 
 	ironmanModel = Model();
 	ironmanModel.LoadModel("Models/IronMan.obj");

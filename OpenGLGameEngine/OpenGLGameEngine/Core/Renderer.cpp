@@ -18,6 +18,7 @@ Renderer::Renderer(Material* material, Shader* shader)
 
 void Renderer::Draw(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera, RenderableData* renderData)
 {
+	m_Shader->UseShader();
 	GLuint uniformModel = m_Shader->GetModelLocation();
 	GLuint uniformProjection = m_Shader->GetProjectionLocation();
 	GLuint uniformView = m_Shader->GetViewLocation();

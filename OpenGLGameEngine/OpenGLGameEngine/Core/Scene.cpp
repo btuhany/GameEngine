@@ -2,6 +2,8 @@
 
 Scene::Scene()
 {
+	m_BackgroundColour = glm::vec3(0.0f, 0.0f, 0.0f);
+	m_UseSkybox = false;
 }
 
 Scene::~Scene()
@@ -31,6 +33,21 @@ Camera* Scene::GetCamera()
 	return m_MainCamera;
 }
 
+Skybox* Scene::GetSkybox()
+{
+	return m_Skybox;
+}
+
+glm::vec3 Scene::GetBackgroundColor()
+{
+	return m_BackgroundColour;
+}
+
+bool Scene::UseSkyboxActive()
+{
+	return m_UseSkybox;
+}
+
 void Scene::renderScene(glm::mat4 projection)
 {
 	for (size_t i = 0; i < m_ObjectList.size(); i++)
@@ -39,6 +56,25 @@ void Scene::renderScene(glm::mat4 projection)
 	}
 }
 
+void Scene::setBackgroundColor(glm::vec3 colour)
+{
+	m_BackgroundColour = colour;
+}
+
+void Scene::setSkybox(Skybox* skybox)
+{
+	m_Skybox = skybox;
+}
+
+void Scene::useSkybox(bool useSkybox)
+{
+	m_UseSkybox = useSkybox;
+}
+
+void Scene::setCamera(Camera* camera)
+{
+	m_MainCamera = camera;
+}
 void Scene::updateObjects()
 {
 	for (size_t i = 0; i < m_ObjectList.size(); i++)

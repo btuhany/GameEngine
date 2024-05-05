@@ -10,6 +10,7 @@
 #include "ConstantValues.h"
 #include "Mesh.h"
 #include "Shader.h"
+#include "Renderer.h"
 
 class Skybox
 {
@@ -24,6 +25,7 @@ public:
 private:
 	Mesh* m_SkyMesh;
 	Shader* m_SkyShader;
+	Renderer* m_Renderer;
 	GLuint m_TextureId;
 	GLuint m_UniformProjection, m_UniformView;
 };
