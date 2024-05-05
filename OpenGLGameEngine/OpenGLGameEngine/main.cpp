@@ -407,8 +407,7 @@
 //	spidermanTexture.LoadTextureWithAlpha();
 //	learnopenglTexture = Texture("Textures/learnopengl.png");
 //	learnopenglTexture.LoadTextureWithAlpha();
-//	plainTexture = Texture("Textures/plain.png");
-//	plainTexture.LoadTextureWithAlpha();
+//
 //
 //	shinyMaterial = Material(5.0f, 45.5f);
 //	roughMaterial = Material(0.5f, 4.0f);

@@ -14,11 +14,10 @@ public:
 	virtual void Update(glm::mat4 projection, GLfloat deltaTime);
 	void AddObject(RenderableObject* object);
 	Camera* GetCamera();
-	void setCamera(Camera camera);
 protected:
 	void renderScene(glm::mat4 projection);
+	Camera* m_MainCamera;
 private:
-	Camera m_MainCamera;
 	std::vector<RenderableObject*> m_ObjectList;
 	void updateObjects();
 	void startObjects();

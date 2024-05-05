@@ -5,8 +5,8 @@
 class RenderableData
 {
 public:
+	RenderableData();
 	RenderableData(IRenderable* renderable, Texture* texture);
-
 	IRenderable* Renderable;
 	Texture* TextureData;
 };

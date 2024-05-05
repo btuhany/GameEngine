@@ -12,70 +12,10 @@
 
 int main()
 {
-
 	DemoScene3D scene;
 	Engine engine = Engine(new Window(1366, 768));
 	engine.Initialize(&scene);
 	engine.Start();
-
-	static const char* vShaderLocation = "Shaders/shader.vert";
-	static const char* fShaderLocation = "Shaders/shader.frag";
-	Shader* shader = new Shader();
-	shader->CreateFromFiles(vShaderLocation, fShaderLocation);
-
-	GLfloat vertices[] =
-	{
-		//x      y     z		 u     y			normals
-		-1.0f, -1.0f, 1.0f, 	1.0f, 0.0f,		-1.0f, -1.0f, 1.0f,
-		-1.0f, -1.0f, -1.0f,		0.0f, 0.0f,		-1.0f, -1.0f, -1.0f,
-		1.0f, -1.0f, -1.0f,		0.0f, 1.0f,		1.0f, -1.0f, -1.0f,
-		1.0f, -1.0f, 1.0f,	1.0f, 1.0f,		1.0f, -1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,		1.0f, 0.0f,		1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f, -1.0f,		0.0f, 0.0f,		1.0f, 1.0f, -1.0f,
-		-1.0f, 1.0f, -1.0f,		1.0f, 0.0f,		-1.0f, 1.0f, -1.0f,
-		-1.0f, 1.0f, 1.0f,		0.0f, 0.0f,		-1.0f, 1.0f, 1.0f
-	};
-	unsigned int indices[] = {
-	2, 0, 1,
-	3, 0, 2,
-	4, 2, 5,
-	3, 2, 4,
-	7, 3, 4,
-	0, 3, 7,
-	1, 0, 6,
-	6, 0, 7,
-	1, 6, 2,
-	2, 6, 5,
-	4, 5, 6,
-	4, 6, 7
-	};
-	Model uh60;
-	uh60 = Model();
-	uh60.LoadModel("Models/uh60.obj");
-	Texture spidermanTexture = Texture("Textures/spiderman.png");
-	spidermanTexture.LoadTextureWithAlpha();
-	Material shinyMaterial = Material(5.0f, 45.5f);
-	Mesh* mesh1 = new Mesh();
-	mesh1->CreateMesh(vertices, indices, 64, 36);
-	Renderer renderer = Renderer(&shinyMaterial, shader);
-	RenderableData renderableData = RenderableData(&uh60, &spidermanTexture);
-	RenderableObject obj1 = RenderableObject(&renderer, &renderableData);
-	obj1.RotateTransform(90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-	obj1.RotateTransform(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-	obj1.ScaleTransform(glm::vec3(1.0f, 1.0f, 1.0f));
-
-
-	Renderer renderer2 = Renderer(&shinyMaterial, shader);
-	RenderableData renderableData2 = RenderableData(mesh1, &spidermanTexture);
-	RenderableObject obj2 = RenderableObject(&renderer2, &renderableData2);
-	obj2.ScaleTransform(glm::vec3(10.0f, 10.0f, 10.0f));
-
-
-
-
-	scene.AddObject(&obj1);
-	scene.AddObject(&obj2);
-
 	engine.Run();
 
 	return 0;

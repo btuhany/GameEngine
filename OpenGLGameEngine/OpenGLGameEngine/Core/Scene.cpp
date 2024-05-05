@@ -28,14 +28,14 @@ void Scene::AddObject(RenderableObject* object)
 
 Camera* Scene::GetCamera()
 {
-	return &m_MainCamera;
+	return m_MainCamera;
 }
 
 void Scene::renderScene(glm::mat4 projection)
 {
 	for (size_t i = 0; i < m_ObjectList.size(); i++)
 	{
-		m_ObjectList[i]->Render(projection, m_MainCamera.CalculateViewMatrix(), &m_MainCamera);
+		m_ObjectList[i]->Render(projection, m_MainCamera->CalculateViewMatrix(), m_MainCamera);
 	}
 }
 
@@ -53,9 +53,4 @@ void Scene::startObjects()
 	{
 		m_ObjectList[i]->Start();
 	}
-}
-
-void Scene::setCamera(Camera camera)
-{
-	m_MainCamera = camera;
 }
