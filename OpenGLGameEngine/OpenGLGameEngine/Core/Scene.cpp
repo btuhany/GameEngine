@@ -20,7 +20,7 @@ void Scene::Start()
 
 void Scene::Update(glm::mat4 projection, GLfloat deltaTime)
 {
-	renderScene(projection);
+	
 }
 
 void Scene::AddObject(RenderableObject* object)
@@ -79,7 +79,7 @@ void Scene::updateObjects()
 {
 	for (size_t i = 0; i < m_ObjectList.size(); i++)
 	{
-		m_ObjectList[i]->Tick();
+		//m_ObjectList[i]->Tick();
 	}
 }
 
@@ -87,6 +87,6 @@ void Scene::startObjects()
 {
 	for (size_t i = 0; i < m_ObjectList.size(); i++)
 	{
-		m_ObjectList[i]->Start();
+		//m_ObjectList[i]->Start();
 	}
 }

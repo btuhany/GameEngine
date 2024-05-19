@@ -20,14 +20,6 @@ RenderableObject::RenderableObject(Renderer* renderer, RenderableData* renderabl
 	m_TransformModelMatrix = glm::mat4(1.0f);
 }
 
-void RenderableObject::Start()
-{
-}
-
-void RenderableObject::Tick()
-{
-}
-
 void RenderableObject::Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera)
 {
 	m_Renderer->Draw(m_TransformModelMatrix, projectionMatrix, viewMatrix, mainCamera, m_RenderableData);

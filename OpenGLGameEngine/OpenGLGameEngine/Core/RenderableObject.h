@@ -7,8 +7,6 @@ public:
 	RenderableObject();
 	~RenderableObject();
 	RenderableObject(Renderer* renderer, RenderableData* renderableData);
-	void Start();
-	void Tick();
 	void Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera);
 	void TranslateTransform(glm::vec3 translateVector);
 	void RotateTransform(float angle, glm::vec3 rotateVector);
