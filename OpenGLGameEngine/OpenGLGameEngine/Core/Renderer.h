@@ -12,12 +12,17 @@ class Renderer
 public:
 	Renderer();
 	Renderer(Material* material, Shader* shader);
-	void Draw(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera, RenderableData* renderData);
+	void DrawData(GLuint uniformModel, glm::mat4 modelMatrix, glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera, RenderableData* renderData);
+	void RenderObjectWithShader(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera, RenderableData* renderData);
 	~Renderer();
-protected:
-	virtual void RenderData(RenderableData* renderData);
 private:
 	Material* m_Material;
 	Shader* m_Shader;
+	GLuint m_UniformModel;
+	GLuint m_UniformProjection;
+	GLuint m_UniformView;
+	GLuint m_UniformMatSpecularInstensity;
+	GLuint m_UniformMatShininess;
+	GLuint m_UniformCameraPosition;
 };
 

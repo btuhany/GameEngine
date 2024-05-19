@@ -18,7 +18,7 @@ void Scene::Start()
 {
 }
 
-void Scene::Update(glm::mat4 projection, GLfloat deltaTime)
+void Scene::Update(GLfloat deltaTime)
 {
 	
 }
@@ -48,11 +48,11 @@ bool Scene::UseSkyboxActive()
 	return m_UseSkybox;
 }
 
-void Scene::renderScene(glm::mat4 projection)
+void Scene::RenderScene(glm::mat4 projection, bool useShaders)
 {
 	for (size_t i = 0; i < m_ObjectList.size(); i++)
 	{
-		m_ObjectList[i]->Render(projection, m_MainCamera->CalculateViewMatrix(), m_MainCamera);
+		m_ObjectList[i]->Render(projection, m_MainCamera->CalculateViewMatrix(), m_MainCamera, useShaders);
 	}
 }
 

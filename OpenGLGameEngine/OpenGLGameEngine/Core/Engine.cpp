@@ -44,24 +44,14 @@ void Engine::Run()
 
 		glfwPollEvents();
 
-		glViewport(0, 0, 1366, 768);
-		//Clear window
-		glm::vec3 backgroundColor = m_Scene->GetBackgroundColor();
-		glClearColor(backgroundColor.x, backgroundColor.y, backgroundColor.z, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-
-		if (m_Scene->UseSkyboxActive() && m_Scene->GetSkybox() != NULL)
-		{
-			m_Scene->GetSkybox()->DrawSkybox(m_Scene->GetCamera()->CalculateViewMatrix(), projection);
-		}
+		
 
 		m_Scene->GetCamera()->HandleKeys(m_MainWindow->GetKeys(), deltaTime);
 		m_Scene->GetCamera()->HandleMouse(m_MainWindow->GetMouseDeltaX(), m_MainWindow->GetMouseDeltaY());
 
 
-
-		m_Scene->Update(projection, deltaTime);
+		m_Scene->Update(deltaTime);
+		renderPass(projection);
 
 		m_MainWindow->SwapBuffers();
 	}
@@ -70,4 +60,20 @@ void Engine::Run()
 void Engine::Stop()
 {
 
+}
+
+void Engine::renderPass(glm::mat4 projectionMatrix)
+{
+	glViewport(0, 0, 1366, 768);
+	//Clear window
+	glm::vec3 backgroundColor = m_Scene->GetBackgroundColor();
+	glClearColor(backgroundColor.x, backgroundColor.y, backgroundColor.z, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+	if (m_Scene->UseSkyboxActive() && m_Scene->GetSkybox() != NULL)
+	{
+		m_Scene->GetSkybox()->DrawSkybox(m_Scene->GetCamera()->CalculateViewMatrix(), projectionMatrix);
+	}
+	m_Scene->RenderScene(projectionMatrix, true);
 }

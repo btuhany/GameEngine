@@ -14,33 +14,21 @@ Renderer::Renderer(Material* material, Shader* shader)
 {
 	m_Material = material;
 	m_Shader = shader;
+	m_UniformModel = m_Shader->GetModelLocation();
+	m_UniformProjection = m_Shader->GetProjectionLocation();
+	m_UniformView = m_Shader->GetViewLocation();
+	m_UniformMatSpecularInstensity = m_Shader->GetMatSpecularIntensityLocation();
+	m_UniformMatShininess = m_Shader->GetMatShininessLocation();
+	m_UniformCameraPosition = m_Shader->GetCameraPositionLocation();
+
 }
 
-void Renderer::Draw(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera, RenderableData* renderData)
+void Renderer::DrawData(GLuint uniformModel, glm::mat4 modelMatrix, glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera, RenderableData* renderData)
 {
-	m_Shader->UseShader();
-	GLuint uniformModel = m_Shader->GetModelLocation();
-	GLuint uniformProjection = m_Shader->GetProjectionLocation();
-	GLuint uniformView = m_Shader->GetViewLocation();
-	GLuint uniformMatSpecularInstensity = m_Shader->GetMatSpecularIntensityLocation();
-	GLuint uniformMatShininess = m_Shader->GetMatShininessLocation();
-	GLuint uniformCameraPosition = m_Shader->GetCameraPositionLocation();
-
-	glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-	glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(viewMatrix));
-	glUniform3f(uniformCameraPosition, mainCamera->GetCameraPosition().x, mainCamera->GetCameraPosition().y, mainCamera->GetCameraPosition().z);
-
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-	m_Shader->SetTextureUnit(1);
-	m_Shader->UseShader();
 
-	m_Material->UseMaterial(uniformMatSpecularInstensity, uniformMatShininess);
+	m_Material->UseMaterial(m_UniformMatSpecularInstensity, m_UniformMatShininess);
 
-	RenderData(renderData);
-}
-
-void Renderer::RenderData(RenderableData* renderData)
-{
 	if (renderData->TextureData != NULL)
 	{
 		renderData->TextureData->UseTexture();
@@ -48,3 +36,14 @@ void Renderer::RenderData(RenderableData* renderData)
 	renderData->Renderable->Render();
 }
 
+void Renderer::RenderObjectWithShader(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera, RenderableData* renderData)
+{
+	m_Shader->SetTextureUnit(1);
+	m_Shader->UseShader();
+
+	glUniform3f(m_UniformCameraPosition, mainCamera->GetCameraPosition().x, mainCamera->GetCameraPosition().y, mainCamera->GetCameraPosition().z);
+	glUniformMatrix4fv(m_UniformProjection, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+	glUniformMatrix4fv(m_UniformView, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+
+	DrawData(m_UniformModel, modelMatrix, projectionMatrix, viewMatrix, mainCamera, renderData);
+}

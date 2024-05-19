@@ -9,7 +9,7 @@ public:
 	~DemoScene3D();
 	void Initialize() override;
 	void Start() override;
-	void Update(glm::mat4 projection, GLfloat deltaTime) override;
+	void Update(GLfloat deltaTime) override;
 private:
 	Mesh* createCubeMesh();
 	Mesh* createPlainMesh();

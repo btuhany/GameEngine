@@ -52,9 +52,9 @@ void DemoScene3D::Start()
 	AddObject(spidermanCube);
 }
 
-void DemoScene3D::Update(glm::mat4 projection, GLfloat deltaTime)
+void DemoScene3D::Update(GLfloat deltaTime)
 {
-	renderScene(projection);
+
 }
 
 Mesh* DemoScene3D::createCubeMesh()
@@ -122,7 +122,7 @@ void DemoScene3D::initializeSkybox()
 	skyboxFaces.push_back("Textures/skybox/cupertin-lake_ft.tga");
 	Skybox* skybox = new Skybox(skyboxFaces);
 	setSkybox(skybox);
-	useSkybox(false);
+	useSkybox(true);
 }
 
 
