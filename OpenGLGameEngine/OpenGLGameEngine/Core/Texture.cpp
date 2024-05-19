@@ -86,7 +86,7 @@ void Texture::UseTexture()
 {
 	//you can pass this code because 0 is the default for most graphic cards
 	//GL_TEXTURE 0 is going to be used as empty texture unit
-	glActiveTexture(GL_TEXTURE1);
+	glActiveTexture(GL_TEXTURE2);
 	glBindTexture(GL_TEXTURE_2D, m_TextureID);
 }
 

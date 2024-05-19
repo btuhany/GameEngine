@@ -16,6 +16,7 @@ void Engine::Initialize(Scene* scene)
 {
 	m_MainWindow->Initialize();
 	m_Scene = scene;
+	m_Scene->setDirectionalLight(new DirectionalLight(0.1f, 0.1f, 1.0f, 1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 2048, 2048));
 	m_Scene->Initialize();
 	m_IsInitialized = true;
 }
@@ -75,5 +76,9 @@ void Engine::renderPass(glm::mat4 projectionMatrix)
 	{
 		m_Scene->GetSkybox()->DrawSkybox(m_Scene->GetCamera()->CalculateViewMatrix(), projectionMatrix);
 	}
-	m_Scene->RenderScene(projectionMatrix, true);
+	m_Scene->RenderScene(projectionMatrix);
+}
+
+void Engine::directionalShadowPass()
+{
 }

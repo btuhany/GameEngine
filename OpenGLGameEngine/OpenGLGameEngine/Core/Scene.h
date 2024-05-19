@@ -2,6 +2,7 @@
 #include "Camera.h"
 #include "Window.h"
 #include "Skybox.h"
+#include "DirectionalLight.h"
 #include <vector>
 #include "RenderableObject.h"
 
@@ -18,11 +19,13 @@ public:
 	Skybox* GetSkybox();
 	glm::vec3 GetBackgroundColor();
 	bool UseSkyboxActive();
-	void RenderScene(glm::mat4 projection, bool useShaders);
+	void RenderScene(glm::mat4 projection);
+	void setDirectionalLight(DirectionalLight* dLight);
 protected:
 	void setBackgroundColor(glm::vec3 colour);
 	void setCamera(Camera* camera);
 	void setSkybox(Skybox* skybox);
+	void setDirectionalShadowShader(Shader* dirShadowShader);
 	void useSkybox(bool useSkybox);
 private:
 	std::vector<RenderableObject*> m_ObjectList;
@@ -31,7 +34,8 @@ private:
 	glm::vec3 m_BackgroundColour = glm::vec3(0.0f, 0.0f, 0.0f);
 	Camera* m_MainCamera;
 	Skybox* m_Skybox;
-	DirectionalLight* m_DirectionalLight;
+	Shader* m_directionalShadowShader;
 	bool m_UseSkybox = false;
+	DirectionalLight* m_DirectionalLight;
 };
 

@@ -20,9 +20,9 @@ RenderableObject::RenderableObject(Renderer* renderer, RenderableData* renderabl
 	m_TransformModelMatrix = glm::mat4(1.0f);
 }
 
-void RenderableObject::Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera, bool useShaders)
+void RenderableObject::Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera, DirectionalLight* dirLight)
 {
-	m_Renderer->RenderObjectWithShader(m_TransformModelMatrix, projectionMatrix, viewMatrix, mainCamera, m_RenderableData);
+	m_Renderer->RenderObjectWithShader(m_TransformModelMatrix, projectionMatrix, viewMatrix, mainCamera, m_RenderableData, dirLight);
 }
 
 void RenderableObject::TranslateTransform(glm::vec3 translateVector)

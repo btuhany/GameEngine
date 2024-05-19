@@ -15,6 +15,7 @@ bool ShadowMap::Init(GLuint width, GLuint height)
 
 
     glGenTextures(1, &m_ShadowMap);
+
     glBindTexture(GL_TEXTURE_2D, m_ShadowMap);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, m_ShadowWidth, m_ShadowHeight, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
 
@@ -41,7 +42,8 @@ bool ShadowMap::Init(GLuint width, GLuint height)
         return false;
     }
 
-    //glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     return true;
 }
@@ -59,13 +61,15 @@ void ShadowMap::Read(GLenum textureUnit)
 
 ShadowMap::~ShadowMap()
 {
-    if (m_FBO)
+    if (m_FBO != 0)
     {
         glDeleteFramebuffers(1, &m_FBO);
+        m_FBO = 0;
     }
 
-    if (m_ShadowMap)
+    if (m_ShadowMap != 0)
     {
         glDeleteTextures(1, &m_ShadowMap);
+        m_ShadowMap = 0;
     }
 }

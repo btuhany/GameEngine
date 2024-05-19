@@ -1,6 +1,6 @@
 #include "DemoScene3D.h"
 
-DemoScene3D::DemoScene3D()
+DemoScene3D::DemoScene3D() : Scene()
 {
 }
 
@@ -15,8 +15,11 @@ void DemoScene3D::Initialize()
 	shader = Shader();
 	shader.CreateFromFiles(vShaderLocation, fShaderLocation);
 
+	//setDirectionalLight(new DirectionalLight(0.1f, 0.1f, 1.0f, 1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 2048, 2048));
+
 	setCamera(new Camera(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.0f, 0.1f));
 	setBackgroundColor(glm::vec3(0.0f, 1.0f, 0.0f));
+
 	initializeSkybox();
 
 	shinyMaterial = Material(5.0f, 45.5f);
@@ -41,6 +44,7 @@ void DemoScene3D::Initialize()
 
 void DemoScene3D::Start()
 {
+
 	helicopter->RotateTransform(90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 	helicopter->RotateTransform(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 	helicopter->ScaleTransform(glm::vec3(1.0f, 1.0f, 1.0f));

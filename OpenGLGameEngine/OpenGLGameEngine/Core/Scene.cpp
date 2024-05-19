@@ -8,10 +8,12 @@ Scene::Scene()
 
 Scene::~Scene()
 {
+	delete m_DirectionalLight;
 }
 
 void Scene::Initialize()
 {
+	printf("scene");
 }
 
 void Scene::Start()
@@ -48,11 +50,11 @@ bool Scene::UseSkyboxActive()
 	return m_UseSkybox;
 }
 
-void Scene::RenderScene(glm::mat4 projection, bool useShaders)
+void Scene::RenderScene(glm::mat4 projection)
 {
 	for (size_t i = 0; i < m_ObjectList.size(); i++)
 	{
-		m_ObjectList[i]->Render(projection, m_MainCamera->CalculateViewMatrix(), m_MainCamera, useShaders);
+		m_ObjectList[i]->Render(projection, m_MainCamera->CalculateViewMatrix(), m_MainCamera, m_DirectionalLight);
 	}
 }
 
@@ -64,6 +66,11 @@ void Scene::setBackgroundColor(glm::vec3 colour)
 void Scene::setSkybox(Skybox* skybox)
 {
 	m_Skybox = skybox;
+}
+
+void Scene::setDirectionalLight(DirectionalLight* dLight)
+{
+	m_DirectionalLight = dLight;
 }
 
 void Scene::useSkybox(bool useSkybox)

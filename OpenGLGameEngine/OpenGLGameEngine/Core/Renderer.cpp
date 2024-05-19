@@ -36,10 +36,14 @@ void Renderer::DrawData(GLuint uniformModel, glm::mat4 modelMatrix, glm::mat4 pr
 	renderData->Renderable->Render();
 }
 
-void Renderer::RenderObjectWithShader(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera, RenderableData* renderData)
+void Renderer::RenderObjectWithShader(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera, RenderableData* renderData, DirectionalLight* directionalLight)
 {
-	m_Shader->SetTextureUnit(1);
 	m_Shader->UseShader();
+	m_Shader->SetTextureUnit(2);
+	if (directionalLight != nullptr)
+	{
+		m_Shader->SetDirectionalLight(directionalLight);
+	}
 
 	glUniform3f(m_UniformCameraPosition, mainCamera->GetCameraPosition().x, mainCamera->GetCameraPosition().y, mainCamera->GetCameraPosition().z);
 	glUniformMatrix4fv(m_UniformProjection, 1, GL_FALSE, glm::value_ptr(projectionMatrix));

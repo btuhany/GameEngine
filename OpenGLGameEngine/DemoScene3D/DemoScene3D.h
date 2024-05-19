@@ -22,10 +22,9 @@ private:
 
 	Material shinyMaterial;
 	Material roughMaterial;
+	Shader shader;
 
 	RenderableData helicopterRenderableData;
-	Shader shader;
-	
 	RenderableObject* helicopter;
 	RenderableObject* spidermanCube;
 	void initializeSkybox();
