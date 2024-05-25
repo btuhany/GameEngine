@@ -9,8 +9,8 @@ Light::Light()
 Light::Light(GLfloat ambientIntensityValue, GLfloat diffuseIntensityValue, GLfloat red, GLfloat green, GLfloat blue,
 	GLuint shadowWidth, GLuint shadowHeight)
 {
-	/*shadowMap = new ShadowMap();
-	shadowMap->Init(shadowWidth, shadowHeight);*/
+	shadowMap = new ShadowMap();
+	shadowMap->Init(shadowWidth, shadowHeight);
 	m_Colour = glm::vec3(red, green, blue);
 	m_AmbientIntensity = ambientIntensityValue;
 	m_DiffuseIntensity = diffuseIntensityValue;
@@ -18,7 +18,7 @@ Light::Light(GLfloat ambientIntensityValue, GLfloat diffuseIntensityValue, GLflo
 
 Light::~Light()
 {
-	//delete shadowMap;
+	delete shadowMap;
 }
 
 void Light::useLight(GLuint ambientIntensityLocation, GLuint ambientColorLocation, GLuint diffuseIntensityLocaiton)

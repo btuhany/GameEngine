@@ -58,6 +58,14 @@ void Scene::RenderScene(glm::mat4 projection)
 	}
 }
 
+void Scene::RenderSceneShadowMap()
+{
+	for (size_t i = 0; i < m_ObjectList.size(); i++)
+	{
+		m_ObjectList[i]->RenderShadowMap(m_DirectionalLight);
+	}
+}
+
 void Scene::setBackgroundColor(glm::vec3 colour)
 {
 	m_BackgroundColour = colour;
@@ -71,6 +79,11 @@ void Scene::setSkybox(Skybox* skybox)
 void Scene::setDirectionalLight(DirectionalLight* dLight)
 {
 	m_DirectionalLight = dLight;
+}
+
+DirectionalLight* Scene::getDirectionalLight()
+{
+	return m_DirectionalLight;
 }
 
 void Scene::useSkybox(bool useSkybox)

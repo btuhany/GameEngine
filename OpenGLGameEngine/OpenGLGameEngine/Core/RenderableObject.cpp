@@ -25,6 +25,11 @@ void RenderableObject::Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix, 
 	m_Renderer->RenderObjectWithShader(m_TransformModelMatrix, projectionMatrix, viewMatrix, mainCamera, m_RenderableData, dirLight);
 }
 
+void RenderableObject::RenderShadowMap(DirectionalLight* dirLight)
+{
+	m_Renderer->RenderObjectForDirectionalShadow(m_TransformModelMatrix, dirLight, m_RenderableData);
+}
+
 void RenderableObject::TranslateTransform(glm::vec3 translateVector)
 {
 	m_TransformModelMatrix = glm::translate(m_TransformModelMatrix, translateVector);

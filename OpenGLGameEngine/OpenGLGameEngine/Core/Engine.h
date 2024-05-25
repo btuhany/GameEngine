@@ -17,7 +17,7 @@ public:
 	void Stop();
 private:
 	void renderPass(glm::mat4 projectionMatrix);
-	void directionalShadowPass();
+	void directionalShadowPass(DirectionalLight* dLight);
 	Window* m_MainWindow;
 	Scene* m_Scene;
 	bool m_IsInitialized;

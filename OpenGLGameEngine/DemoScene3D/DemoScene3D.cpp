@@ -12,19 +12,23 @@ void DemoScene3D::Initialize()
 {
 	static const char* vShaderLocation = "Shaders/shader.vert";
 	static const char* fShaderLocation = "Shaders/shader.frag";
-	shader = Shader();
-	shader.CreateFromFiles(vShaderLocation, fShaderLocation);
+	m_Shader = new Shader();
+	m_Shader->CreateFromFiles(vShaderLocation, fShaderLocation);
 
-	//setDirectionalLight(new DirectionalLight(0.1f, 0.1f, 1.0f, 1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 2048, 2048));
+	m_DirectionalShadowShader = new Shader();
+	m_DirectionalShadowShader->CreateFromFiles("Shaders/directional_shadow_map.vert", "Shaders/directional_shadow_map.frag");
 
+
+
+	setDirectionalLight(new DirectionalLight(0.0f, 0.8f, 1.0f, 1.0f, 1.0f, 0.3f, -1.0f, 0.01f, 2048, 2048));
 	setCamera(new Camera(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.0f, 0.1f));
 	setBackgroundColor(glm::vec3(0.0f, 1.0f, 0.0f));
 
 	initializeSkybox();
 
-	shinyMaterial = Material(5.0f, 45.5f);
+	shinyMaterial = Material(0.5f, 10.5f);
 	roughMaterial = Material(0.5f, 4.0f);
-	shinyRenderer = Renderer(&shinyMaterial, &shader);
+	shinyRenderer = Renderer(&shinyMaterial, m_Shader, m_DirectionalShadowShader);
 
 	ironmanModel = Model();
 	ironmanModel.LoadModel("Models/IronMan.obj");
@@ -56,9 +60,11 @@ void DemoScene3D::Start()
 	AddObject(spidermanCube);
 }
 
+float rotate = 0.0f;
 void DemoScene3D::Update(GLfloat deltaTime)
 {
-
+	rotate = deltaTime * 12.5f;
+	helicopter->RotateTransform(rotate, glm::vec3(0.0f, 0.0, 1.0f));
 }
 
 Mesh* DemoScene3D::createCubeMesh()

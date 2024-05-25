@@ -20,7 +20,10 @@ public:
 	glm::vec3 GetBackgroundColor();
 	bool UseSkyboxActive();
 	void RenderScene(glm::mat4 projection);
+	void RenderSceneShadowMap();
 	void setDirectionalLight(DirectionalLight* dLight);
+	DirectionalLight* getDirectionalLight();
+	Shader* m_DirectionalShadowShader;
 protected:
 	void setBackgroundColor(glm::vec3 colour);
 	void setCamera(Camera* camera);

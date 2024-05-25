@@ -22,7 +22,7 @@ private:
 
 	Material shinyMaterial;
 	Material roughMaterial;
-	Shader shader;
+	Shader* m_Shader;
 
 	RenderableData helicopterRenderableData;
 	RenderableObject* helicopter;
