@@ -133,9 +133,12 @@ void Shader::SetPointLights(PointLight* pLight, unsigned int lightCount, unsigne
 		pLight[i].UseLight(m_UniformPointLights[i].UniformAmbientIntensity, m_UniformPointLights[i].UniformColour, m_UniformPointLights[i].UniformDiffuseIntensity,
 			m_UniformPointLights[i].UniformPosition, m_UniformPointLights[i].UniformConstant, m_UniformPointLights[i].UniformLinear, m_UniformPointLights[i].UniformExponent);
 
-		pLight[i].GetShadowMap()->Read(GL_TEXTURE0 + textureUnit + i);
-		glUniform1i(m_UniformOmniShadowMap[i + offset].ShadowMap, textureUnit + i);
-		glUniform1f(m_UniformOmniShadowMap[i + offset].FarPlane, pLight[i].GetFarPlane());
+		if (textureUnit > -1)
+		{
+			pLight[i].GetShadowMap()->Read(GL_TEXTURE0 + textureUnit + i);
+			glUniform1i(m_UniformOmniShadowMap[i + offset].ShadowMap, textureUnit + i);
+			glUniform1f(m_UniformOmniShadowMap[i + offset].FarPlane, pLight[i].GetFarPlane());
+		}
 	}
 }
 

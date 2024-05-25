@@ -76,6 +76,8 @@ void Engine::renderPass(glm::mat4 projectionMatrix)
 	{
 		m_Scene->GetSkybox()->DrawSkybox(m_Scene->GetCamera()->CalculateViewMatrix(), projectionMatrix);
 	}
+	
+	m_Scene->SetPointLights();
 	m_Scene->RenderScene(projectionMatrix);
 }
 

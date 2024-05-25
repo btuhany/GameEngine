@@ -4,6 +4,7 @@ Scene::Scene()
 {
 	m_BackgroundColour = glm::vec3(0.0f, 0.0f, 0.0f);
 	m_UseSkybox = false;
+
 }
 
 Scene::~Scene()
@@ -58,6 +59,15 @@ void Scene::RenderScene(glm::mat4 projection)
 	}
 }
 
+void Scene::SetPointLights()
+{
+	for (size_t x = 0; x < m_RenderShaders.size(); x++)
+	{
+		m_RenderShaders[x]->UseShader();
+		m_RenderShaders[x]->SetPointLights(m_PointLightList, m_PointLightCount, -1, -1);
+	}	
+}
+
 void Scene::RenderSceneShadowMap()
 {
 	for (size_t i = 0; i < m_ObjectList.size(); i++)
@@ -86,9 +96,19 @@ DirectionalLight* Scene::getDirectionalLight()
 	return m_DirectionalLight;
 }
 
+int Scene::GetPointLightCount()
+{
+	return m_PointLightCount;
+}
+
 void Scene::useSkybox(bool useSkybox)
 {
 	m_UseSkybox = useSkybox;
+}
+
+void Scene::registerRenderShader(Shader* shader)
+{
+	m_RenderShaders.push_back(shader);
 }
 
 void Scene::setCamera(Camera* camera)
@@ -108,5 +128,18 @@ void Scene::startObjects()
 	for (size_t i = 0; i < m_ObjectList.size(); i++)
 	{
 		//m_ObjectList[i]->Start();
+	}
+}
+
+void Scene::AddPointLight(const PointLight* pLight)
+{
+	if (m_PointLightCount < MAX_POINT_LIGHTS)
+	{
+		m_PointLightList[m_PointLightCount] = *pLight;
+		m_PointLightCount++;
+	}
+	else
+	{
+		printf("Error: Exceeded maximum point lights.\n");
 	}
 }
