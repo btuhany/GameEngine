@@ -52,6 +52,7 @@ void Engine::Run()
 
 		m_Scene->Update(deltaTime);
 		directionalShadowPass(m_Scene->getDirectionalLight());
+		omniShadowPass();
 		renderPass(projection);
 
 		m_MainWindow->SwapBuffers();
@@ -77,7 +78,7 @@ void Engine::renderPass(glm::mat4 projectionMatrix)
 		m_Scene->GetSkybox()->DrawSkybox(m_Scene->GetCamera()->CalculateViewMatrix(), projectionMatrix);
 	}
 	
-	m_Scene->SetPointLights();
+	m_Scene->SetPointLights();  //Use Shader
 	m_Scene->RenderScene(projectionMatrix);
 }
 
@@ -87,4 +88,9 @@ void Engine::directionalShadowPass(DirectionalLight* dLight)
 	dLight->GetShadowMap()->Write();
 	glClear(GL_DEPTH_BUFFER_BIT);
 	m_Scene->RenderSceneShadowMap();
+}
+
+void Engine::omniShadowPass()
+{
+	m_Scene->RenderSceneOmniShadowMap();
 }

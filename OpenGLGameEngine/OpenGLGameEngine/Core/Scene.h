@@ -22,6 +22,7 @@ public:
 	void RenderScene(glm::mat4 projection);
 	void SetPointLights();
 	void RenderSceneShadowMap();
+	void RenderSceneOmniShadowMap();
 	void setDirectionalLight(DirectionalLight* dLight);
 	DirectionalLight* getDirectionalLight();
 	Shader* m_DirectionalShadowShader;
@@ -33,6 +34,7 @@ protected:
 	void useSkybox(bool useSkybox);
 	void registerRenderShader(Shader* shader);
 	void AddPointLight(const PointLight* pLight);
+	Shader* m_OmniShadowShader;
 private:
 	std::vector<RenderableObject*> m_ObjectList;
 	void updateObjects();
@@ -42,7 +44,6 @@ private:
 	glm::vec3 m_BackgroundColour = glm::vec3(0.0f, 0.0f, 0.0f);
 	Camera* m_MainCamera;
 	Skybox* m_Skybox;
-	Shader* m_directionalShadowShader;
 	std::vector<Shader*> m_RenderShaders;
 	bool m_UseSkybox = false;
 	DirectionalLight* m_DirectionalLight;

@@ -18,6 +18,7 @@ public:
 private:
 	void renderPass(glm::mat4 projectionMatrix);
 	void directionalShadowPass(DirectionalLight* dLight);
+	void omniShadowPass();
 	Window* m_MainWindow;
 	Scene* m_Scene;
 	bool m_IsInitialized;

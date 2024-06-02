@@ -10,11 +10,12 @@ Renderer::~Renderer()
 
 }
 
-Renderer::Renderer(Material* material, Shader* shader, Shader* dirShadowShader)
+Renderer::Renderer(Material* material, Shader* shader, Shader* dirShadowShader, Shader* omniShadowShader)
 {
 	m_Material = material;
 	m_Shader = shader;
 	m_DirShadowShader = dirShadowShader;
+	m_OmniShadowShader = omniShadowShader;
 	m_UniformModel = m_Shader->GetModelLocation();
 	m_UniformProjection = m_Shader->GetProjectionLocation();
 	m_UniformView = m_Shader->GetViewLocation();
@@ -54,6 +55,8 @@ void Renderer::RenderObjectWithShader(glm::mat4 modelMatrix, glm::mat4 projectio
 		m_Shader->SetDirectionalShadowMap(3);
 	}
 
+
+
 	m_Shader->Validate();
 
 
@@ -72,4 +75,17 @@ void Renderer::RenderObjectForDirectionalShadow(glm::mat4 modelMatrix, Direction
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	
+}
+
+void Renderer::RenderObjectForOmniShadow(glm::mat4 modelMatrix, PointLight* pointLight, RenderableData* renderData)
+{
+	m_OmniShadowShader->UseShader();
+
+	glUniform3f(m_OmniShadowShader->GetOmniLightPosLocation(), pointLight->GetPosition().x, pointLight->GetPosition().y, pointLight->GetPosition().z);
+	glUniform1f(m_OmniShadowShader->GetFarPlaneLocation(), pointLight->GetFarPlane());
+	m_OmniShadowShader->SetLightMatrices(pointLight->CalculateLightTransform());
+
+	DrawData(m_OmniShadowShader->GetModelLocation(), modelMatrix, renderData);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

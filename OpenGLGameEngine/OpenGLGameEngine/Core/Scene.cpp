@@ -64,7 +64,7 @@ void Scene::SetPointLights()
 	for (size_t x = 0; x < m_RenderShaders.size(); x++)
 	{
 		m_RenderShaders[x]->UseShader();
-		m_RenderShaders[x]->SetPointLights(m_PointLightList, m_PointLightCount, -1, -1);
+		m_RenderShaders[x]->SetPointLights(m_PointLightList, m_PointLightCount, 4, 0);
 	}	
 }
 
@@ -73,6 +73,20 @@ void Scene::RenderSceneShadowMap()
 	for (size_t i = 0; i < m_ObjectList.size(); i++)
 	{
 		m_ObjectList[i]->RenderShadowMap(m_DirectionalLight);
+	}
+}
+
+void Scene::RenderSceneOmniShadowMap()
+{
+	for (size_t i = 0; i < m_PointLightCount; i++)
+	{
+		glViewport(0, 0, m_PointLightList[i].GetShadowMap()->GetShadowWidth(), m_PointLightList[i].GetShadowMap()->GetShadowHeight());
+		m_PointLightList[i].GetShadowMap()->Write();
+		glClear(GL_DEPTH_BUFFER_BIT);
+		for (size_t j = 0; j < m_ObjectList.size(); j++)
+		{
+			m_ObjectList[j]->RenderOmniShadowMap(&m_PointLightList[i]);
+		}
 	}
 }
 

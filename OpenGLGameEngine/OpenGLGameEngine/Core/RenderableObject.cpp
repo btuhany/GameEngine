@@ -30,6 +30,11 @@ void RenderableObject::RenderShadowMap(DirectionalLight* dirLight)
 	m_Renderer->RenderObjectForDirectionalShadow(m_TransformModelMatrix, dirLight, m_RenderableData);
 }
 
+void RenderableObject::RenderOmniShadowMap(PointLight* pointLight)
+{
+	m_Renderer->RenderObjectForOmniShadow(m_TransformModelMatrix, pointLight, m_RenderableData);
+}
+
 void RenderableObject::TranslateTransform(glm::vec3 translateVector)
 {
 	m_TransformModelMatrix = glm::translate(m_TransformModelMatrix, translateVector);

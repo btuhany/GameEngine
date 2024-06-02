@@ -20,8 +20,8 @@ PointLight::PointLight(GLfloat ambientIntensityValue, GLfloat diffuseIntensityVa
 	float aspect = (float)shadowWidth / (float)shadowHeight;
 	lightProjection = glm::perspective(glm::radians(90.0f), aspect, nearPlaneVal, farPlaneVal);
 
-	//shadowMap = new OmniShadowMap();
-	//shadowMap->Init(shadowWidth, shadowHeight);
+	shadowMap = new OmniShadowMap();
+	shadowMap->Init(shadowWidth, shadowHeight);
 }
 
 void PointLight::UseLight(GLuint ambientIntensityLocation, GLuint ambientColorLocation, GLuint diffuseIntensityLocation, GLuint positionLocation, GLuint constantLocation, GLuint linearLocation, GLuint exponentLocation)

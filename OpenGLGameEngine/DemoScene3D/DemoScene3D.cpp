@@ -20,8 +20,11 @@ void DemoScene3D::Initialize()
 	m_DirectionalShadowShader = new Shader();
 	m_DirectionalShadowShader->CreateFromFiles("Shaders/directional_shadow_map.vert", "Shaders/directional_shadow_map.frag");
 
-	setDirectionalLight(new DirectionalLight(0.0f, 0.1f, 
-		1.0f, 1.0f, 1.0f, 
+	m_OmniShadowShader = new Shader();
+	m_OmniShadowShader->CreateFromFiles("Shaders/omni_shadow_map.vert", "Shaders/omni_shadow_map.geom", "Shaders/omni_shadow_map.frag");
+
+	setDirectionalLight(new DirectionalLight(0.05f, 0.05f, 
+		0.1f, 0.1f, 0.1f, 
 		0.3f, -1.0f, 0.01f,
 		2048, 2048));
 	setCamera(new Camera(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.0f, 0.1f));
@@ -31,7 +34,7 @@ void DemoScene3D::Initialize()
 
 	shinyMaterial = Material(0.5f, 10.5f);
 	roughMaterial = Material(0.5f, 4.0f);
-	shinyRenderer = Renderer(&shinyMaterial, m_Shader, m_DirectionalShadowShader);
+	shinyRenderer = Renderer(&shinyMaterial, m_Shader, m_DirectionalShadowShader, m_OmniShadowShader);
 
 	ironmanModel = Model();
 	ironmanModel.LoadModel("Models/IronMan.obj");
@@ -48,24 +51,24 @@ void DemoScene3D::Initialize()
 	RenderableData* spidermanCubeData = new RenderableData(createPlainMesh(), &spidermanTexture);
 	spidermanCube = new RenderableObject(&shinyRenderer, spidermanCubeData);
 
-	AddPointLight(new PointLight(0.0f, 555.5f,
-		0.0f, 0.0f, 1.0f,
-		0.0f, 3.0f, 0.0f,
-		1.0f, 1.0f, 1.5f,
-		1024, 1024,
-		0.01f, 100.0f));
+	//AddPointLight(new PointLight(0.0f, 555.5f,
+	//	0.0f, 0.0f, 1.0f,
+	//	0.0f, 3.0f, 0.0f,
+	//	1.0f, 1.0f, 1.5f,
+	//	2048, 2048,
+	//	0.01f, 100.0f));
 	AddPointLight(new PointLight(0.0f, 555.5f,
 		 1.0f, 1.0f, 0.0f,
-		0.0f, -8.0f, 0.0f,
+		0.0f, 10.0f, 0.0f,
 		1.0f, 1.0f, 1.5f,
-		1024, 1024,
+		2048, 2048,
 		0.01f, 100.0f));
-	AddPointLight(new PointLight(0.0f, 555.5f,
-		1.0f, 0.0f, 0.0f,
-		0.0f, -10.0f, 0.0f,
-		1.0f, 0.5f, 1.5f,
-		1024, 1024,
-		0.01f, 100.0f));
+	//AddPointLight(new PointLight(0.0f, 555.5f,
+	//	1.0f, 0.0f, 0.0f,
+	//	0.0f, -10.0f, 0.0f,
+	//	1.0f, 0.5f, 1.5f,
+	//	1024, 1024,
+	//	0.01f, 100.0f));
 
 }
 
