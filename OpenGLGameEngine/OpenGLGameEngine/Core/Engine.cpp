@@ -79,6 +79,7 @@ void Engine::renderPass(glm::mat4 projectionMatrix)
 	}
 	
 	m_Scene->SetPointLights();  //Use Shader
+	m_Scene->SetSpotLights();
 	m_Scene->RenderScene(projectionMatrix);
 }
 

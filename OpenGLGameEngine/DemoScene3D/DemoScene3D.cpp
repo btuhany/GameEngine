@@ -56,16 +56,18 @@ void DemoScene3D::Initialize()
 	RenderableData* spidermanCubeData = new RenderableData(createPlainMesh(), spidermanTexture);
 	spidermanCube = new RenderableObject(&shinyRenderer, spidermanCubeData);
 
-	AddPointLight(new PointLight(0.0f, 555.5f,
-		0.0f, 0.0f, 1.0f,
+	AddPointLight(new PointLight(0.0f, 155.5f,
+		0.0f, 1.0f, 0.0f,
 		7.0f, 15.0f, 5.0f,
 		1.0f, 1.0f, 0.5f,
 		2048, 2048,
 		0.01f, 100.0f));
-	AddPointLight(new PointLight(0.0f, 555.5f,
+	AddSpotLight(new SpotLight(0.0f, 700.5f,
 		 1.0f, 0.0f, 0.0f,
-		0.0f, 10.0f, 5.0f,
-		1.0f, 1.0f, 0.5f,
+		-30.0f, 0.0f, 15.0f,
+		0.0f, -1.0f, 0.6f,
+		5.0f, 1.0f, 1.0f,
+		60.0f,
 		2048, 2048,
 		0.01f, 100.0f));
 	AddPointLight(new PointLight(0.0f, 255.5f,
@@ -74,6 +76,14 @@ void DemoScene3D::Initialize()
 		0.5f, 0.5f, 0.1f,
 		4096, 4096,
 		0.01f, 300.0f));
+	AddSpotLight(new SpotLight(0.0f, 255.0f,
+		0.0f, 0.5f, 1.0f,
+		-5.0, 20.0f, -20.0f,
+		0.0f, -0.2f, 1.0f,
+		0.5f, 0.5f, 0.1f, 
+		70.0f,
+		2048, 2048,
+		0.01f, 200.0f));
 }
 
 void DemoScene3D::Start()

@@ -68,6 +68,15 @@ void Scene::SetPointLights()
 	}	
 }
 
+void Scene::SetSpotLights()
+{
+	for (size_t x = 0; x < m_RenderShaders.size(); x++)
+	{
+		m_RenderShaders[x]->UseShader();
+		m_RenderShaders[x]->SetSpotLights(m_SpotLightList, m_SpotLightCount, 4 + m_PointLightCount, m_PointLightCount);
+	}
+}
+
 void Scene::RenderSceneShadowMap()
 {
 	for (size_t i = 0; i < m_ObjectList.size(); i++)
@@ -78,15 +87,27 @@ void Scene::RenderSceneShadowMap()
 
 void Scene::RenderSceneOmniShadowMap()
 {
+	m_OmniShadowShader->UseShader();
+
 	for (size_t i = 0; i < m_PointLightCount; i++)
 	{
-		m_OmniShadowShader->UseShader();
 		glViewport(0, 0, m_PointLightList[i].GetShadowMap()->GetShadowWidth(), m_PointLightList[i].GetShadowMap()->GetShadowHeight());
-		m_PointLightList[i].GetShadowMap()->Write();
+		m_PointLightList[i].GetShadowMap()->Write(); //Bind framebuffer
 		glClear(GL_DEPTH_BUFFER_BIT);
 		for (size_t j = 0; j < m_ObjectList.size(); j++)
 		{
 			m_ObjectList[j]->RenderOmniShadowMap(&m_PointLightList[i]);
+		}
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+	for (size_t i = 0; i < m_SpotLightCount; i++)
+	{
+		glViewport(0, 0, m_SpotLightList[i].GetShadowMap()->GetShadowWidth(), m_SpotLightList[i].GetShadowMap()->GetShadowHeight());
+		m_SpotLightList[i].GetShadowMap()->Write();  //Bind framebuffer
+		glClear(GL_DEPTH_BUFFER_BIT);
+		for (size_t j = 0; j < m_ObjectList.size(); j++)
+		{
+			m_ObjectList[j]->RenderOmniShadowMap(&m_SpotLightList[i]);
 		}
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
@@ -153,6 +174,19 @@ void Scene::AddPointLight(const PointLight* pLight)
 	{
 		m_PointLightList[m_PointLightCount] = *pLight;
 		m_PointLightCount++;
+	}
+	else
+	{
+		printf("Error: Exceeded maximum point lights.\n");
+	}
+}
+
+void Scene::AddSpotLight(const SpotLight* sLight)
+{
+	if (m_SpotLightCount < MAX_SPOT_LIGHTS)
+	{
+		m_SpotLightList[m_SpotLightCount] = *sLight;
+		m_SpotLightCount++;
 	}
 	else
 	{
