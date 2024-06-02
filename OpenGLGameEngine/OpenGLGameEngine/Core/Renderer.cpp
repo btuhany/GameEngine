@@ -87,5 +87,5 @@ void Renderer::RenderObjectForOmniShadow(glm::mat4 modelMatrix, PointLight* poin
 
 	DrawData(m_OmniShadowShader->GetModelLocation(), modelMatrix, renderData);
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 }

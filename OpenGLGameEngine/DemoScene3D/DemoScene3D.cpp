@@ -68,18 +68,17 @@ void DemoScene3D::Initialize()
 		1.0f, 1.0f, 0.5f,
 		2048, 2048,
 		0.01f, 100.0f));
-	//AddPointLight(new PointLight(0.0f, 555.5f,
-	//	1.0f, 0.0f, 0.0f,
-	//	0.0f, -10.0f, 0.0f,
-	//	1.0f, 0.5f, 1.5f,
-	//	1024, 1024,
-	//	0.01f, 100.0f));
-
+	AddPointLight(new PointLight(0.0f, 255.5f,
+		1.0f, 0.7f, 0.7f,
+		0.0f, 30.0f, -20.0f,
+		0.5f, 0.5f, 0.1f,
+		4096, 4096,
+		0.01f, 300.0f));
 }
 
 void DemoScene3D::Start()
 {
-	ironman->TranslateTransform(glm::vec3(20.0f, -25.0f, -30.0f));
+	ironman->TranslateTransform(glm::vec3(20.0f, -25.0f, -10.0f));
 	ironman->ScaleTransform(glm::vec3(0.2f, 0.2f, 0.2f));
 
 	helicopter->RotateTransform(90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
@@ -89,9 +88,9 @@ void DemoScene3D::Start()
 	spidermanCube->TranslateTransform(glm::vec3(0.0f, -10.0f, 0.0f));
 	spidermanCube->ScaleTransform(glm::vec3(1.0f, 1.0f, 1.0f));
 
+	AddObject(ironman);
 	AddObject(helicopter);
 	AddObject(spidermanCube);
-	AddObject(ironman);
 }
 
 float rotate = 0.0f;

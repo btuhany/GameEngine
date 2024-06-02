@@ -88,6 +88,7 @@ void Scene::RenderSceneOmniShadowMap()
 		{
 			m_ObjectList[j]->RenderOmniShadowMap(&m_PointLightList[i]);
 		}
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 }
 
