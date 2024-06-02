@@ -62,7 +62,7 @@ void DemoScene3D::Initialize()
 		1.0f, 1.0f, 0.5f,
 		2048, 2048,
 		0.01f, 100.0f));
-	AddPointLight(new PointLight(0.0f, 355.5f,
+	AddPointLight(new PointLight(0.0f, 555.5f,
 		 1.0f, 0.0f, 0.0f,
 		0.0f, 10.0f, 5.0f,
 		1.0f, 1.0f, 0.5f,
@@ -78,8 +78,9 @@ void DemoScene3D::Initialize()
 
 void DemoScene3D::Start()
 {
-	ironman->TranslateTransform(glm::vec3(20.0f, -25.0f, -10.0f));
+	ironman->TranslateTransform(glm::vec3(20.0f, 10.0f, -10.0f));
 	ironman->ScaleTransform(glm::vec3(0.2f, 0.2f, 0.2f));
+	ironman->RotateTransform(-60.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
 	helicopter->RotateTransform(90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 	helicopter->RotateTransform(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
@@ -94,10 +95,24 @@ void DemoScene3D::Start()
 }
 
 float rotate = 0.0f;
+float positionY = 0.0f;
+float increaseValue = 1.5f;
 void DemoScene3D::Update(GLfloat deltaTime)
 {
 	rotate = deltaTime * 12.5f;
+	positionY += deltaTime * increaseValue;
+	if (positionY > 4)
+	{
+		increaseValue = -1.5f;
+	}
+	if (positionY < 1)
+	{
+		increaseValue = 1.5f;
+	}
+
 	helicopter->RotateTransform(rotate, glm::vec3(0.0f, 0.0, 1.0f));
+	ironman->TranslateTransform(glm::vec3(0.0f, increaseValue, 0.0f));
+
 }
 
 Mesh* DemoScene3D::createCubeMesh()
