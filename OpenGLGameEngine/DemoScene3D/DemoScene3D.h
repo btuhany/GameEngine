@@ -13,10 +13,17 @@ public:
 private:
 	Mesh* createCubeMesh();
 	Mesh* createPlainMesh();
+
 	Model* helicopterModelData;
+	RenderableData* helicopterRenderableData;
+	RenderableObject* helicopter;
+
+	Model* ironmanModelData;
+	RenderableData* ironmanRenderableData;
+	RenderableObject* ironman;
 
 	Renderer shinyRenderer;
-	Model ironmanModel;
+	Renderer roughRenderer;
 
 	Texture* spidermanTexture;
 	Texture* plainTexture;
@@ -25,8 +32,7 @@ private:
 	Material roughMaterial;
 	Shader* m_Shader;
 
-	RenderableData helicopterRenderableData;
-	RenderableObject* helicopter;
+
 	RenderableObject* spidermanCube;
 	void initializeSkybox();
 };
