@@ -13,12 +13,13 @@ public:
 private:
 	Mesh* createCubeMesh();
 	Mesh* createPlainMesh();
+	Model* helicopterModelData;
 
 	Renderer shinyRenderer;
 	Model ironmanModel;
 
-	Texture spidermanTexture;
-	Texture plainTexture;
+	Texture* spidermanTexture;
+	Texture* plainTexture;
 
 	Material shinyMaterial;
 	Material roughMaterial;

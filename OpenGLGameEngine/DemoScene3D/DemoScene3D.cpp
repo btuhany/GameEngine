@@ -38,17 +38,17 @@ void DemoScene3D::Initialize()
 
 	ironmanModel = Model();
 	ironmanModel.LoadModel("Models/IronMan.obj");
-	spidermanTexture = Texture("Textures/spiderman.png");
-	spidermanTexture.LoadTextureWithAlpha();
-	plainTexture = Texture("Textures/plain.png");
-	plainTexture.LoadTextureWithAlpha();
+	spidermanTexture = new Texture("Textures/spiderman.png");
+	spidermanTexture->LoadTextureWithAlpha();
+	plainTexture = new Texture("Textures/plain.png");
+	plainTexture->LoadTextureWithAlpha();
 
-	Model* helicopterModelData = new Model();
+	helicopterModelData = new Model();
 	helicopterModelData->LoadModel("Models/uh60.obj");
 	helicopterRenderableData = RenderableData(helicopterModelData);
 	helicopter = new RenderableObject(&shinyRenderer, &helicopterRenderableData);
 
-	RenderableData* spidermanCubeData = new RenderableData(createPlainMesh(), &spidermanTexture);
+	RenderableData* spidermanCubeData = new RenderableData(createPlainMesh(), spidermanTexture);
 	spidermanCube = new RenderableObject(&shinyRenderer, spidermanCubeData);
 
 	AddPointLight(new PointLight(0.0f, 555.5f,
