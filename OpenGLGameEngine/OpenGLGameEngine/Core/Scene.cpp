@@ -80,6 +80,7 @@ void Scene::RenderSceneOmniShadowMap()
 {
 	for (size_t i = 0; i < m_PointLightCount; i++)
 	{
+		m_OmniShadowShader->UseShader();
 		glViewport(0, 0, m_PointLightList[i].GetShadowMap()->GetShadowWidth(), m_PointLightList[i].GetShadowMap()->GetShadowHeight());
 		m_PointLightList[i].GetShadowMap()->Write();
 		glClear(GL_DEPTH_BUFFER_BIT);

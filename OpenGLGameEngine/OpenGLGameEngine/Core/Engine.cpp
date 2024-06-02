@@ -87,6 +87,7 @@ void Engine::directionalShadowPass(DirectionalLight* dLight)
 	glViewport(0, 0, dLight->GetShadowMap()->GetShadowWidth(), dLight->GetShadowMap()->GetShadowHeight());
 	dLight->GetShadowMap()->Write();
 	glClear(GL_DEPTH_BUFFER_BIT);
+
 	m_Scene->RenderSceneShadowMap();
 }
 

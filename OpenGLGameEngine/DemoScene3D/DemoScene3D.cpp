@@ -23,8 +23,8 @@ void DemoScene3D::Initialize()
 	m_OmniShadowShader = new Shader();
 	m_OmniShadowShader->CreateFromFiles("Shaders/omni_shadow_map.vert", "Shaders/omni_shadow_map.geom", "Shaders/omni_shadow_map.frag");
 
-	setDirectionalLight(new DirectionalLight(0.05f, 0.05f, 
-		0.1f, 0.1f, 0.1f, 
+	setDirectionalLight(new DirectionalLight(0.1f, 0.5f, 
+		0.0f, 1.0f, 0.0f, 
 		0.3f, -1.0f, 0.01f,
 		2048, 2048));
 	setCamera(new Camera(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.0f, 0.1f));
@@ -51,16 +51,16 @@ void DemoScene3D::Initialize()
 	RenderableData* spidermanCubeData = new RenderableData(createPlainMesh(), &spidermanTexture);
 	spidermanCube = new RenderableObject(&shinyRenderer, spidermanCubeData);
 
-	//AddPointLight(new PointLight(0.0f, 555.5f,
-	//	0.0f, 0.0f, 1.0f,
-	//	0.0f, 3.0f, 0.0f,
-	//	1.0f, 1.0f, 1.5f,
-	//	2048, 2048,
-	//	0.01f, 100.0f));
 	AddPointLight(new PointLight(0.0f, 555.5f,
-		 1.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 1.0f,
+		5.0f, 15.0f, 0.0f,
+		1.0f, 1.0f, 0.5f,
+		2048, 2048,
+		0.01f, 100.0f));
+	AddPointLight(new PointLight(0.0f, 555.5f,
+		 1.0f, 1.0f, 1.0f,
 		0.0f, 10.0f, 0.0f,
-		1.0f, 1.0f, 1.5f,
+		1.0f, 1.0f, 0.5f,
 		2048, 2048,
 		0.01f, 100.0f));
 	//AddPointLight(new PointLight(0.0f, 555.5f,

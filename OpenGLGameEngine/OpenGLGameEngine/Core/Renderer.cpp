@@ -45,7 +45,7 @@ void Renderer::RenderObjectWithShader(glm::mat4 modelMatrix, glm::mat4 projectio
 	glUniform3f(m_Shader->GetCameraPositionLocation(), mainCamera->GetCameraPosition().x, mainCamera->GetCameraPosition().y, mainCamera->GetCameraPosition().z);
 	glUniformMatrix4fv(m_Shader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 	glUniformMatrix4fv(m_Shader->GetViewLocation(), 1, GL_FALSE, glm::value_ptr(viewMatrix));
-
+	
 	m_Shader->SetTextureUnit(2);
 	if (directionalLight != nullptr)
 	{
@@ -79,7 +79,7 @@ void Renderer::RenderObjectForDirectionalShadow(glm::mat4 modelMatrix, Direction
 
 void Renderer::RenderObjectForOmniShadow(glm::mat4 modelMatrix, PointLight* pointLight, RenderableData* renderData)
 {
-	m_OmniShadowShader->UseShader();
+	//m_OmniShadowShader->UseShader();
 
 	glUniform3f(m_OmniShadowShader->GetOmniLightPosLocation(), pointLight->GetPosition().x, pointLight->GetPosition().y, pointLight->GetPosition().z);
 	glUniform1f(m_OmniShadowShader->GetFarPlaneLocation(), pointLight->GetFarPlane());
