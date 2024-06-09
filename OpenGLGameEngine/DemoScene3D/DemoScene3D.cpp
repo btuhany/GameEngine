@@ -32,7 +32,7 @@ void DemoScene3D::Initialize()
 
 	initializeSkybox();
 
-	shinyMaterial = Material(0.5f, 10.5f);
+	shinyMaterial = Material(0.5f, 50.5f);
 	roughMaterial = Material(0.5f, 4.0f);
 
 	shinyRenderer = Renderer(&shinyMaterial, m_Shader, m_DirectionalShadowShader, m_OmniShadowShader);
@@ -54,7 +54,7 @@ void DemoScene3D::Initialize()
 	ironman = new RenderableObject(&shinyRenderer, ironmanRenderableData);
 
 	RenderableData* spidermanCubeData = new RenderableData(createPlainMesh(), spidermanTexture);
-	spidermanCube = new RenderableObject(&shinyRenderer, spidermanCubeData);
+	spidermanCube = new RenderableObject(&roughRenderer, spidermanCubeData);
 
 	AddPointLight(new PointLight(0.0f, 155.5f,
 		0.0f, 1.0f, 0.0f,
@@ -62,26 +62,26 @@ void DemoScene3D::Initialize()
 		1.0f, 1.0f, 0.5f,
 		2048, 2048,
 		0.01f, 100.0f));
-	AddSpotLight(new SpotLight(0.0f, 700.5f,
+	AddSpotLight(new SpotLight(0.0f, 900.5f,
 		 1.0f, 0.0f, 0.0f,
-		-30.0f, 0.0f, 15.0f,
+		0.0f, 20.0f, 0.0f,
 		0.0f, -1.0f, 0.6f,
 		5.0f, 1.0f, 1.0f,
 		60.0f,
 		2048, 2048,
 		0.01f, 100.0f));
-	AddPointLight(new PointLight(0.0f, 255.5f,
-		1.0f, 0.7f, 0.7f,
-		0.0f, 30.0f, -20.0f,
-		0.5f, 0.5f, 0.1f,
-		4096, 4096,
-		0.01f, 300.0f));
-	AddSpotLight(new SpotLight(0.0f, 255.0f,
+	//AddPointLight(new PointLight(0.0f, 455.5f,
+	//	0.0f, 0.7f, 1.0f,
+	//	-10.0f, 5.0f, -20.0f,
+	//	1.5f, 1.5f, 2.1f,
+	//	4096, 4096,
+	//	0.01f, 300.0f));
+	AddSpotLight(new SpotLight(0.0f, 155.0f,
 		0.0f, 0.5f, 1.0f,
-		-5.0, 20.0f, -20.0f,
-		0.0f, -0.2f, 1.0f,
-		0.5f, 0.5f, 0.1f, 
-		70.0f,
+		0.0f, -10.0f, 0.0f,
+		0.0f, 0.5f, 0.0f,
+		0.1f, 0.1f, 0.1f, 
+		100.0f,
 		2048, 2048,
 		0.01f, 200.0f));
 }
