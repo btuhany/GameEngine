@@ -10,9 +10,8 @@ Renderer::~Renderer()
 
 }
 
-Renderer::Renderer(Material* material, Shader* shader, Shader* dirShadowShader, Shader* omniShadowShader)
+Renderer::Renderer(Shader* shader, Shader* dirShadowShader, Shader* omniShadowShader)
 {
-	m_Material = material;
 	m_Shader = shader;
 	m_DirShadowShader = dirShadowShader;
 	m_OmniShadowShader = omniShadowShader;
@@ -29,7 +28,7 @@ void Renderer::DrawData(GLuint uniformModel, glm::mat4 modelMatrix, RenderableDa
 {
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
-	m_Material->UseMaterial(m_UniformMatSpecularInstensity, m_UniformMatShininess);
+	renderData->MaterialData->UseMaterial(m_UniformMatSpecularInstensity, m_UniformMatShininess);
 
 	if (renderData->TextureData != NULL)
 	{

@@ -32,11 +32,10 @@ void DemoScene3D::Initialize()
 
 	initializeSkybox();
 
-	shinyMaterial = Material(0.5f, 50.5f);
-	roughMaterial = Material(0.5f, 4.0f);
+	shinyMaterial = Material(590.0f, 475.5f);
+	roughMaterial = Material(0.1f, 3.0f);
 
-	shinyRenderer = Renderer(&shinyMaterial, m_Shader, m_DirectionalShadowShader, m_OmniShadowShader);
-	roughRenderer = Renderer(&roughMaterial, m_Shader, m_DirectionalShadowShader, m_OmniShadowShader);
+	mainRenderer = Renderer(m_Shader, m_DirectionalShadowShader, m_OmniShadowShader);
 
 	spidermanTexture = new Texture("Textures/spiderman.png");
 	spidermanTexture->LoadTextureWithAlpha();
@@ -45,19 +44,23 @@ void DemoScene3D::Initialize()
 
 	helicopterModelData = new Model();
 	helicopterModelData->LoadModel("Models/uh60.obj");
-	helicopterRenderableData = new RenderableData(helicopterModelData);
-	helicopter = new RenderableObject(&shinyRenderer, helicopterRenderableData);
+	helicopterRenderableData = new RenderableData(helicopterModelData, &shinyMaterial);
+	helicopter = new RenderableObject(&mainRenderer, helicopterRenderableData);
 
 	ironmanModelData = new Model();
 	ironmanModelData->LoadModel("Models/IronMan.obj");
-	ironmanRenderableData = new RenderableData(ironmanModelData);
-	ironman = new RenderableObject(&shinyRenderer, ironmanRenderableData);
+	ironmanRenderableData = new RenderableData(ironmanModelData, &shinyMaterial);
+	ironman = new RenderableObject(&mainRenderer, ironmanRenderableData);
 
-	RenderableData* spidermanCubeData = new RenderableData(createPlainMesh(), spidermanTexture);
-	spidermanCube = new RenderableObject(&roughRenderer, spidermanCubeData);
+	RenderableData* spidermanPlainData = new RenderableData(createPlainMesh(), spidermanTexture, &roughMaterial);
+	spidermanPlain = new RenderableObject(&mainRenderer, spidermanPlainData);
+
+	RenderableData* spidermanCubeData = new RenderableData(createCubeMesh(), spidermanTexture, &shinyMaterial);
+	spidermanCube = new RenderableObject(&mainRenderer, spidermanCubeData);
+	
 
 	AddPointLight(new PointLight(0.0f, 155.5f,
-		0.0f, 1.0f, 0.0f,
+		0.3f, 0.7f, 0.0f,
 		7.0f, 15.0f, 5.0f,
 		1.0f, 1.0f, 0.5f,
 		2048, 2048,
@@ -70,12 +73,12 @@ void DemoScene3D::Initialize()
 		60.0f,
 		2048, 2048,
 		0.01f, 100.0f));
-	//AddPointLight(new PointLight(0.0f, 455.5f,
-	//	0.0f, 0.7f, 1.0f,
-	//	-10.0f, 5.0f, -20.0f,
-	//	1.5f, 1.5f, 2.1f,
-	//	4096, 4096,
-	//	0.01f, 300.0f));
+	AddPointLight(new PointLight(0.0f, 355.5f,
+		1.0f, 1.0f, 1.0f,
+		15.0f, 35.0f, 30.0f,
+		0.5f, 0.1f, 0.3f,
+		4096, 4096,
+		0.01f, 300.0f));
 	AddSpotLight(new SpotLight(0.0f, 155.0f,
 		0.0f, 0.5f, 1.0f,
 		0.0f, -10.0f, 0.0f,
@@ -96,11 +99,16 @@ void DemoScene3D::Start()
 	helicopter->RotateTransform(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 	helicopter->ScaleTransform(glm::vec3(1.0f, 1.0f, 1.0f));
 
-	spidermanCube->TranslateTransform(glm::vec3(0.0f, -10.0f, 0.0f));
-	spidermanCube->ScaleTransform(glm::vec3(1.0f, 1.0f, 1.0f));
+	spidermanPlain->TranslateTransform(glm::vec3(0.0f, -10.0f, 0.0f));
+	spidermanPlain->ScaleTransform(glm::vec3(1.0f, 1.0f, 1.0f));
+
+
+	spidermanCube->TranslateTransform(glm::vec3(15.0f, 10.0f, 15.0f));
+	spidermanCube->ScaleTransform(glm::vec3(3.0f, 3.0f, 3.0f));
 
 	AddObject(ironman);
 	AddObject(helicopter);
+	AddObject(spidermanPlain);
 	AddObject(spidermanCube);
 }
 

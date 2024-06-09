@@ -22,8 +22,7 @@ private:
 	RenderableData* ironmanRenderableData;
 	RenderableObject* ironman;
 
-	Renderer shinyRenderer;
-	Renderer roughRenderer;
+	Renderer mainRenderer;
 
 	Texture* spidermanTexture;
 	Texture* plainTexture;
@@ -33,6 +32,7 @@ private:
 	Shader* m_Shader;
 
 
+	RenderableObject* spidermanPlain;
 	RenderableObject* spidermanCube;
 	void initializeSkybox();
 };

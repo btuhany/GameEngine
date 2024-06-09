@@ -4,13 +4,15 @@ RenderableData::RenderableData()
 {
 }
 
-RenderableData::RenderableData(IRenderable* renderable, Texture* texture)
+RenderableData::RenderableData(IRenderable* renderable, Texture* texture, Material* material)
 {
 	Renderable = renderable;
 	TextureData = texture;
+	MaterialData = material;
 }
 
-RenderableData::RenderableData(IRenderable* renderable)
+RenderableData::RenderableData(IRenderable* renderable, Material* material)
 {
 	Renderable = renderable;
+	MaterialData = material;
 }
