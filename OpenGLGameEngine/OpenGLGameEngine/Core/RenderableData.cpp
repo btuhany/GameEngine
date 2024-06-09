@@ -16,3 +16,11 @@ RenderableData::RenderableData(IRenderable* renderable, Material* material)
 	Renderable = renderable;
 	MaterialData = material;
 }
+
+RenderableData::~RenderableData()
+{
+	printf("deleted RenderableData!");
+	delete TextureData;
+	delete MaterialData;
+	delete Renderable;
+}

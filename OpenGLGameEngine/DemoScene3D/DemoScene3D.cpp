@@ -32,31 +32,31 @@ void DemoScene3D::Initialize()
 
 	initializeSkybox();
 
-	shinyMaterial = Material(590.0f, 475.5f);
-	roughMaterial = Material(0.1f, 3.0f);
+	Material* shinyMaterial = new Material(590.0f, 475.5f);
+	Material* roughMaterial = new Material(0.1f, 3.0f);
 
-	mainRenderer = Renderer(m_Shader, m_DirectionalShadowShader, m_OmniShadowShader);
+	Renderer* mainRenderer = new Renderer(m_Shader, m_DirectionalShadowShader, m_OmniShadowShader);
 
-	spidermanTexture = new Texture("Textures/spiderman.png");
+	Texture* spidermanTexture = new Texture("Textures/spiderman.png");
 	spidermanTexture->LoadTextureWithAlpha();
-	plainTexture = new Texture("Textures/plain.png");
+	Texture* plainTexture = new Texture("Textures/plain.png");
 	plainTexture->LoadTextureWithAlpha();
 
-	helicopterModelData = new Model();
+	Model* helicopterModelData = new Model();
 	helicopterModelData->LoadModel("Models/uh60.obj");
-	helicopterRenderableData = new RenderableData(helicopterModelData, &shinyMaterial);
-	helicopter = new RenderableObject(&mainRenderer, helicopterRenderableData);
+	RenderableData*  helicopterRenderableData = new RenderableData(helicopterModelData, shinyMaterial);
+	helicopter = RenderableObject(mainRenderer, helicopterRenderableData);
 
-	ironmanModelData = new Model();
+	Model* ironmanModelData = new Model();
 	ironmanModelData->LoadModel("Models/IronMan.obj");
-	ironmanRenderableData = new RenderableData(ironmanModelData, &shinyMaterial);
-	ironman = new RenderableObject(&mainRenderer, ironmanRenderableData);
+	RenderableData*  ironmanRenderableData = new RenderableData(ironmanModelData, shinyMaterial);
+	ironman = RenderableObject(mainRenderer, ironmanRenderableData);
 
-	RenderableData* spidermanPlainData = new RenderableData(createPlainMesh(), spidermanTexture, &roughMaterial);
-	spidermanPlain = new RenderableObject(&mainRenderer, spidermanPlainData);
+	RenderableData* spidermanPlainData = new RenderableData(createPlainMesh(), spidermanTexture, roughMaterial);
+	spidermanPlain = RenderableObject(mainRenderer, spidermanPlainData);
 
-	RenderableData* spidermanCubeData = new RenderableData(createCubeMesh(), spidermanTexture, &shinyMaterial);
-	spidermanCube = new RenderableObject(&mainRenderer, spidermanCubeData);
+	RenderableData* spidermanCubeData = new RenderableData(createCubeMesh(), spidermanTexture, shinyMaterial);
+	spidermanCube = RenderableObject(mainRenderer, spidermanCubeData);
 	
 
 	AddPointLight(new PointLight(0.0f, 155.5f,
@@ -91,25 +91,25 @@ void DemoScene3D::Initialize()
 
 void DemoScene3D::Start()
 {
-	ironman->TranslateTransform(glm::vec3(20.0f, 10.0f, -10.0f));
-	ironman->ScaleTransform(glm::vec3(0.2f, 0.2f, 0.2f));
-	ironman->RotateTransform(-60.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	ironman.TranslateTransform(glm::vec3(20.0f, 10.0f, -10.0f));
+	ironman.ScaleTransform(glm::vec3(0.2f, 0.2f, 0.2f));
+	ironman.RotateTransform(-60.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-	helicopter->RotateTransform(90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-	helicopter->RotateTransform(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-	helicopter->ScaleTransform(glm::vec3(1.0f, 1.0f, 1.0f));
+	helicopter.RotateTransform(90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+	helicopter.RotateTransform(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	helicopter.ScaleTransform(glm::vec3(1.0f, 1.0f, 1.0f));
 
-	spidermanPlain->TranslateTransform(glm::vec3(0.0f, -10.0f, 0.0f));
-	spidermanPlain->ScaleTransform(glm::vec3(1.0f, 1.0f, 1.0f));
+	spidermanPlain.TranslateTransform(glm::vec3(0.0f, -10.0f, 0.0f));
+	spidermanPlain.ScaleTransform(glm::vec3(1.0f, 1.0f, 1.0f));
 
 
-	spidermanCube->TranslateTransform(glm::vec3(15.0f, 10.0f, 15.0f));
-	spidermanCube->ScaleTransform(glm::vec3(3.0f, 3.0f, 3.0f));
+	spidermanCube.TranslateTransform(glm::vec3(15.0f, 10.0f, 15.0f));
+	spidermanCube.ScaleTransform(glm::vec3(3.0f, 3.0f, 3.0f));
 
-	AddObject(ironman);
-	AddObject(helicopter);
-	AddObject(spidermanPlain);
-	AddObject(spidermanCube);
+	AddObject(&ironman);
+	AddObject(&helicopter);
+	AddObject(&spidermanPlain);
+	AddObject(&spidermanCube);
 }
 
 float rotate = 0.0f;
@@ -128,8 +128,8 @@ void DemoScene3D::Update(GLfloat deltaTime)
 		increaseValue = 1.5f;
 	}
 
-	helicopter->RotateTransform(rotate, glm::vec3(0.0f, 0.0, 1.0f));
-	ironman->TranslateTransform(glm::vec3(0.0f, increaseValue, 0.0f));
+	helicopter.RotateTransform(rotate, glm::vec3(0.0f, 0.0, 1.0f));
+	ironman.TranslateTransform(glm::vec3(0.0f, increaseValue, 0.0f));
 
 }
 
