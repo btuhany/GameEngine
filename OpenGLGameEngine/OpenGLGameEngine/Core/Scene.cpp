@@ -13,11 +13,18 @@ Scene::~Scene()
 	delete m_DirectionalLight;
 	delete m_MainCamera;
 	delete m_Skybox;
+	delete m_OmniShadowShader;
+	delete m_DirectionalShadowShader;
 	for (int i = 0; i < m_RenderShaders.size();i++)
 	{
 		delete (m_RenderShaders[i]);
 	}
 	m_RenderShaders.clear();
+	for (size_t i = 0; i < m_ObjectList.size(); i++)
+	{
+		delete m_ObjectList[i];
+	}
+	m_ObjectList.clear();
 }
 
 void Scene::Initialize()
