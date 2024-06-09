@@ -7,7 +7,10 @@ Renderer::Renderer()
 
 Renderer::~Renderer()
 {
-
+	printf("deleted renderer");
+	delete m_Shader;
+	delete m_DirShadowShader;
+	delete m_OmniShadowShader;
 }
 
 Renderer::Renderer(Shader* shader, Shader* dirShadowShader, Shader* omniShadowShader)

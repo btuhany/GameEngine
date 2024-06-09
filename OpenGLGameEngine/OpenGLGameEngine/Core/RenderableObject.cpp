@@ -9,8 +9,10 @@ RenderableObject::RenderableObject()
 
 RenderableObject::~RenderableObject()
 {
-	m_Renderer = nullptr;
-	m_Shader = nullptr;
+	printf("deleted renderable object!");
+	//delete m_Renderer;
+	//delete m_RenderableData;
+	//delete m_Shader;
 }
 
 RenderableObject::RenderableObject(Renderer* renderer, RenderableData* renderableData)

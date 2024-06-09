@@ -75,9 +75,6 @@
     <ClCompile Include="Core\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\ModelRenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Core\RenderableData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -144,9 +141,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\Renderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\ModelRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\RenderableData.h">

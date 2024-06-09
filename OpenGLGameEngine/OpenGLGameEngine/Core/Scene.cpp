@@ -9,7 +9,15 @@ Scene::Scene()
 
 Scene::~Scene()
 {
+	printf("\n deleted scene \n");
 	delete m_DirectionalLight;
+	delete m_MainCamera;
+	delete m_Skybox;
+	for (int i = 0; i < m_RenderShaders.size();i++)
+	{
+		delete (m_RenderShaders[i]);
+	}
+	m_RenderShaders.clear();
 }
 
 void Scene::Initialize()

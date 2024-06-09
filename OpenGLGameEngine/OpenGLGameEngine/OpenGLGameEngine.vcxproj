@@ -39,7 +39,6 @@
     <ClCompile Include="Core\Scene.cpp" />
     <ClCompile Include="Core\RenderableObject.cpp" />
     <ClCompile Include="Core\Renderer.cpp" />
-    <ClCompile Include="Core\ModelRenderer.cpp" />
     <ClCompile Include="Core\RenderableData.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -63,7 +62,6 @@
     <ClInclude Include="Core\Scene.h" />
     <ClInclude Include="Core\RenderableObject.h" />
     <ClInclude Include="Core\Renderer.h" />
-    <ClInclude Include="Core\ModelRenderer.h" />
     <ClInclude Include="Core\RenderableData.h" />
     <ClInclude Include="Core\IRenderable.h" />
   </ItemGroup>

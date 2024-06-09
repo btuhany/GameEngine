@@ -15,10 +15,10 @@ private:
 	Mesh* createPlainMesh();
 	Shader* m_Shader;
 
-	RenderableObject helicopter;
-	RenderableObject ironman;
-	RenderableObject spidermanPlain;
-	RenderableObject spidermanCube;
+	RenderableObject* helicopter;
+	RenderableObject* ironman;
+	RenderableObject* spidermanPlain;
+	RenderableObject* spidermanCube;
 	void initializeSkybox();
 };
 
