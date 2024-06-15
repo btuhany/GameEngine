@@ -38,7 +38,7 @@ protected:
 	void AddSpotLight(const SpotLight* sLight);
 	Shader* m_OmniShadowShader;
 private:
-	std::vector<RenderableObject*> m_ObjectList;
+	std::vector<RenderableObject*> m_RenderableObjectList;
 	void updateObjects();
 	void startObjects();
 	PointLight m_PointLightList[MAX_POINT_LIGHTS];

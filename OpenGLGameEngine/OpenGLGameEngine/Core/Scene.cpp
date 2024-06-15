@@ -20,11 +20,10 @@ Scene::~Scene()
 		delete (m_RenderShaders[i]);
 	}
 	m_RenderShaders.clear();
-	for (size_t i = 0; i < m_ObjectList.size(); i++)
-	{
-		delete m_ObjectList[i];
-	}
-	m_ObjectList.clear();
+	//for (auto obj : m_RenderableObjectList) {
+	//	delete obj;
+	//}
+	//m_RenderableObjectList.clear();
 }
 
 void Scene::Initialize()
@@ -43,7 +42,7 @@ void Scene::Update(GLfloat deltaTime)
 
 void Scene::AddObject(RenderableObject* object)
 {
-	m_ObjectList.push_back(object);
+	m_RenderableObjectList.push_back(object);
 }
 
 Camera* Scene::GetCamera()
@@ -68,9 +67,9 @@ bool Scene::UseSkyboxActive()
 
 void Scene::RenderScene(glm::mat4 projection)
 {
-	for (size_t i = 0; i < m_ObjectList.size(); i++)
+	for (size_t i = 0; i < m_RenderableObjectList.size(); i++)
 	{
-		m_ObjectList[i]->Render(projection, m_MainCamera->CalculateViewMatrix(), m_MainCamera, m_DirectionalLight);
+		m_RenderableObjectList[i]->Render(projection, m_MainCamera->CalculateViewMatrix(), m_MainCamera, m_DirectionalLight);
 	}
 }
 
@@ -94,9 +93,9 @@ void Scene::SetSpotLights()
 
 void Scene::RenderSceneShadowMap()
 {
-	for (size_t i = 0; i < m_ObjectList.size(); i++)
+	for (size_t i = 0; i < m_RenderableObjectList.size(); i++)
 	{
-		m_ObjectList[i]->RenderShadowMap(m_DirectionalLight);
+		m_RenderableObjectList[i]->RenderShadowMap(m_DirectionalLight);
 	}
 }
 
@@ -109,9 +108,9 @@ void Scene::RenderSceneOmniShadowMap()
 		glViewport(0, 0, m_PointLightList[i].GetShadowMap()->GetShadowWidth(), m_PointLightList[i].GetShadowMap()->GetShadowHeight());
 		m_PointLightList[i].GetShadowMap()->Write(); //Bind framebuffer
 		glClear(GL_DEPTH_BUFFER_BIT);
-		for (size_t j = 0; j < m_ObjectList.size(); j++)
+		for (size_t j = 0; j < m_RenderableObjectList.size(); j++)
 		{
-			m_ObjectList[j]->RenderOmniShadowMap(&m_PointLightList[i]);
+			m_RenderableObjectList[j]->RenderOmniShadowMap(&m_PointLightList[i]);
 		}
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
@@ -120,9 +119,9 @@ void Scene::RenderSceneOmniShadowMap()
 		glViewport(0, 0, m_SpotLightList[i].GetShadowMap()->GetShadowWidth(), m_SpotLightList[i].GetShadowMap()->GetShadowHeight());
 		m_SpotLightList[i].GetShadowMap()->Write();  //Bind framebuffer
 		glClear(GL_DEPTH_BUFFER_BIT);
-		for (size_t j = 0; j < m_ObjectList.size(); j++)
+		for (size_t j = 0; j < m_RenderableObjectList.size(); j++)
 		{
-			m_ObjectList[j]->RenderOmniShadowMap(&m_SpotLightList[i]);
+			m_RenderableObjectList[j]->RenderOmniShadowMap(&m_SpotLightList[i]);
 		}
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
@@ -169,7 +168,7 @@ void Scene::setCamera(Camera* camera)
 }
 void Scene::updateObjects()
 {
-	for (size_t i = 0; i < m_ObjectList.size(); i++)
+	for (size_t i = 0; i < m_RenderableObjectList.size(); i++)
 	{
 		//m_ObjectList[i]->Tick();
 	}
@@ -177,7 +176,7 @@ void Scene::updateObjects()
 
 void Scene::startObjects()
 {
-	for (size_t i = 0; i < m_ObjectList.size(); i++)
+	for (size_t i = 0; i < m_RenderableObjectList.size(); i++)
 	{
 		//m_ObjectList[i]->Start();
 	}

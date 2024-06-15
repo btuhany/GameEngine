@@ -9,7 +9,7 @@ RenderableObject::RenderableObject()
 
 RenderableObject::~RenderableObject()
 {
-	printf("deleted renderable object!");
+	printf("deleted renderable object! \n");
 	//delete m_Renderer;
 	//delete m_RenderableData;
 	//delete m_Shader;
