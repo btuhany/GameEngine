@@ -18,9 +18,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameEngine\Core\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -175,15 +172,8 @@
     <None Include="src\GameEngine\Shaders\omni_shadow_map.vert">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="skybox.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="skybox.vert">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="glew32.dll" />
     <None Include="assimp-vc143-mt.dll" />
-    <None Include="OpenGLGameEngine.aps" />
     <None Include="src\GameEngine\Shaders\skybox.frag" />
     <None Include="src\GameEngine\Shaders\skybox.vert" />
   </ItemGroup>
