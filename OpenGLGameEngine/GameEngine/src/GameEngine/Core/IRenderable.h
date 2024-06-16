@@ -1,7 +1,8 @@
 #pragma once
-class IRenderable
-{
-public:
-	virtual void Render() = 0;
-};
-
+namespace GameEngine {
+	class IRenderable
+	{
+	public:
+		virtual void Render() = 0;
+	};
+}

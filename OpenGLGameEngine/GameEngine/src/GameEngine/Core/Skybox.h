@@ -11,22 +11,22 @@
 #include "Mesh.h"
 #include "Shader.h"
 #include "Renderer.h"
+namespace GameEngine {
+	class Skybox
+	{
+	public:
+		Skybox();
 
-class Skybox
-{
-public:
-	Skybox();
+		Skybox(std::vector<std::string> faceLocations, const char* vertexLocation, const char* fragmentLocation);
+		void DrawSkybox(glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
 
-	Skybox(std::vector<std::string> faceLocations, const char* vertexLocation, const char* fragmentLocation);
-	void DrawSkybox(glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
-	
-	~Skybox();
+		~Skybox();
 
-private:
-	Mesh* m_SkyMesh;
-	Shader* m_SkyShader;
-	Renderer* m_Renderer;
-	GLuint m_TextureId;
-	GLuint m_UniformProjection, m_UniformView;
-};
-
+	private:
+		Mesh* m_SkyMesh;
+		Shader* m_SkyShader;
+		Renderer* m_Renderer;
+		GLuint m_TextureId;
+		GLuint m_UniformProjection, m_UniformView;
+	};
+}

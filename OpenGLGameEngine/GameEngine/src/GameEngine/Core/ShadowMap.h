@@ -2,23 +2,23 @@
 
 #include <stdio.h>
 #include <GL\glew.h>
+namespace GameEngine {
+	class ShadowMap
+	{
+	public:
+		ShadowMap();
 
-class ShadowMap
-{
-public:
-	ShadowMap();
+		virtual bool Init(GLuint width, GLuint height);
+		virtual void Write();
+		virtual void Read(GLenum textureUnit);
 
-	virtual bool Init(GLuint width, GLuint height);
-	virtual void Write();
-	virtual void Read(GLenum textureUnit);
+		GLuint GetShadowWidth() { return m_ShadowWidth; }
+		GLuint GetShadowHeight() { return m_ShadowHeight; }
 
-	GLuint GetShadowWidth() { return m_ShadowWidth; }
-	GLuint GetShadowHeight() { return m_ShadowHeight; }
+		~ShadowMap();
 
-	~ShadowMap();
-
-protected:
-	GLuint m_FBO, m_ShadowMap;
-	GLuint m_ShadowWidth, m_ShadowHeight;
-};
-
+	protected:
+		GLuint m_FBO, m_ShadowMap;
+		GLuint m_ShadowWidth, m_ShadowHeight;
+	};
+}

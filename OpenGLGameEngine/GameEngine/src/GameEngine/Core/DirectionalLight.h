@@ -1,18 +1,18 @@
 #pragma once
 #include "Light.h"
+namespace GameEngine {
+	class DirectionalLight : public Light
+	{
+	public:
+		DirectionalLight();
+		DirectionalLight(GLfloat ambientIntensityValue, GLfloat diffuseIntensityValue, GLfloat red, GLfloat green, GLfloat blue, GLfloat xDir, GLfloat yDir, GLfloat zDir,
+			GLfloat shadowWidth, GLfloat shadowHeight);
+		void UseLight(GLuint ambientIntensityLocation, GLuint ambientColorLocation, GLuint diffuseIntensityLocation, GLuint directionLocation);
 
-class DirectionalLight : public Light
-{
-public:
-	DirectionalLight();
-	DirectionalLight(GLfloat ambientIntensityValue, GLfloat diffuseIntensityValue, GLfloat red, GLfloat green, GLfloat blue, GLfloat xDir, GLfloat yDir, GLfloat zDir,
-					GLfloat shadowWidth, GLfloat shadowHeight);
-	void UseLight(GLuint ambientIntensityLocation, GLuint ambientColorLocation, GLuint diffuseIntensityLocation, GLuint directionLocation);
+		glm::mat4 CalculateLightTransform();
 
-	glm::mat4 CalculateLightTransform();
-
-	~DirectionalLight();
-private:
-	glm::vec3 m_Direction;
-};
-
+		~DirectionalLight();
+	private:
+		glm::vec3 m_Direction;
+	};
+}
