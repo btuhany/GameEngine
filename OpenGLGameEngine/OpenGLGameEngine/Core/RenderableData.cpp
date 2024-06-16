@@ -20,5 +20,8 @@ RenderableData::RenderableData(IRenderable* renderable, Material* material)
 RenderableData::~RenderableData()
 {
 	printf("deleted renderable data \n");
-	delete Renderable;
+	//we will not delete the asset data in this class due to multiple usages
+	/*delete Renderable;
+	delete TextureData;
+	delete MaterialData;*/
 }
