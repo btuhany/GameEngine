@@ -13,10 +13,10 @@ public:
 	void TranslateTransform(glm::vec3 translateVector);
 	void RotateTransform(float angle, glm::vec3 rotateVector);
 	void ScaleTransform(glm::vec3 scaleVector);
+	Shader* GetRenderShader();
 private:
 	Renderer* m_Renderer;
 	RenderableData* m_RenderableData;
-	Shader* m_Shader;
 	glm::mat4 m_TransformModelMatrix;
 };
 

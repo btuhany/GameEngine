@@ -13,7 +13,7 @@ public:
 private:
 	Mesh* createCubeMesh();
 	Mesh* createPlainMesh();
-	Shader* m_Shader;
+	Shader m_Shader;
 
 	RenderableObject helicopter;
 	RenderableObject ironman;

@@ -13,10 +13,9 @@ void DemoScene3D::Initialize()
 {
 	static const char* vShaderLocation = "Shaders/shader.vert";
 	static const char* fShaderLocation = "Shaders/shader.frag";
-	m_Shader = new Shader();
-	m_Shader->CreateFromFiles(vShaderLocation, fShaderLocation);
+	m_Shader = Shader();
+	m_Shader.CreateFromFiles(vShaderLocation, fShaderLocation);
 
-	registerRenderShader(m_Shader);
 
 	m_DirectionalShadowShader = new Shader();
 	m_DirectionalShadowShader->CreateFromFiles("Shaders/directional_shadow_map.vert", "Shaders/directional_shadow_map.frag");
@@ -36,7 +35,7 @@ void DemoScene3D::Initialize()
 	Material* shinyMaterial = new Material(590.0f, 475.5f);
 	Material* roughMaterial = new Material(0.1f, 3.0f);
 
-	Renderer* mainRenderer = new Renderer(m_Shader, m_DirectionalShadowShader, m_OmniShadowShader);
+	Renderer* mainRenderer = new Renderer(&m_Shader, m_DirectionalShadowShader, m_OmniShadowShader);
 
 	Texture* spidermanTexture = new Texture("Textures/spiderman.png");
 	spidermanTexture->LoadTextureWithAlpha();
@@ -66,6 +65,12 @@ void DemoScene3D::Initialize()
 		1.0f, 1.0f, 0.5f,
 		2048, 2048,
 		0.01f, 100.0f));
+	AddPointLight(new PointLight(0.0f, 355.5f,
+		1.0f, 1.0f, 1.0f,
+		15.0f, 35.0f, 30.0f,
+		0.5f, 0.1f, 0.3f,
+		4096, 4096,
+		0.01f, 300.0f));
 	AddSpotLight(new SpotLight(0.0f, 900.5f,
 		 1.0f, 0.0f, 0.0f,
 		0.0f, 20.0f, 0.0f,
@@ -74,12 +79,6 @@ void DemoScene3D::Initialize()
 		60.0f,
 		2048, 2048,
 		0.01f, 100.0f));
-	AddPointLight(new PointLight(0.0f, 355.5f,
-		1.0f, 1.0f, 1.0f,
-		15.0f, 35.0f, 30.0f,
-		0.5f, 0.1f, 0.3f,
-		4096, 4096,
-		0.01f, 300.0f));
 	AddSpotLight(new SpotLight(0.0f, 155.0f,
 		0.0f, 0.5f, 1.0f,
 		0.0f, -10.0f, 0.0f,
@@ -88,6 +87,7 @@ void DemoScene3D::Initialize()
 		100.0f,
 		2048, 2048,
 		0.01f, 200.0f));
+
 }
 
 void DemoScene3D::Start()

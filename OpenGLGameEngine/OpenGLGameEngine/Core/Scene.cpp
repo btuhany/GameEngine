@@ -15,11 +15,11 @@ Scene::~Scene()
 	delete m_Skybox;
 	delete m_OmniShadowShader;
 	delete m_DirectionalShadowShader;
-	for (int i = 0; i < m_RenderShaders.size();i++)
-	{
-		delete (m_RenderShaders[i]);
-	}
-	m_RenderShaders.clear();
+	//for (int i = 0; i < m_RenderShaders.size();i++)
+	//{
+	//	delete (m_RenderShaders[i]);
+	//}
+	//m_RenderShaders.clear();
 	//for (auto obj : m_RenderableObjectList) {
 	//	delete obj;
 	//}
@@ -75,19 +75,19 @@ void Scene::RenderScene(glm::mat4 projection)
 
 void Scene::SetPointLights()
 {
-	for (size_t x = 0; x < m_RenderShaders.size(); x++)
+	for (size_t i = 0; i < m_RenderableObjectList.size(); i++)
 	{
-		m_RenderShaders[x]->UseShader();
-		m_RenderShaders[x]->SetPointLights(m_PointLightList, m_PointLightCount, 4, 0);
+		m_RenderableObjectList[i]->GetRenderShader()->UseShader();
+		m_RenderableObjectList[i]->GetRenderShader()->SetPointLights(m_PointLightList, m_PointLightCount, 4, 0);
 	}	
 }
 
 void Scene::SetSpotLights()
 {
-	for (size_t x = 0; x < m_RenderShaders.size(); x++)
+	for (size_t x = 0; x < m_RenderableObjectList.size(); x++)
 	{
-		m_RenderShaders[x]->UseShader();
-		m_RenderShaders[x]->SetSpotLights(m_SpotLightList, m_SpotLightCount, 4 + m_PointLightCount, m_PointLightCount);
+		m_RenderableObjectList[x]->GetRenderShader()->UseShader();
+		m_RenderableObjectList[x]->GetRenderShader()->SetSpotLights(m_SpotLightList, m_SpotLightCount, 4 + m_PointLightCount, m_PointLightCount);
 	}
 }
 
@@ -157,10 +157,6 @@ void Scene::useSkybox(bool useSkybox)
 	m_UseSkybox = useSkybox;
 }
 
-void Scene::registerRenderShader(Shader* shader)
-{
-	m_RenderShaders.push_back(shader);
-}
 
 void Scene::setCamera(Camera* camera)
 {

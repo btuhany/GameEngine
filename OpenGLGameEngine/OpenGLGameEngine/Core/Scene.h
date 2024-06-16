@@ -33,7 +33,6 @@ protected:
 	void setCamera(Camera* camera);
 	void setSkybox(Skybox* skybox);
 	void useSkybox(bool useSkybox);
-	void registerRenderShader(Shader* shader);
 	void AddPointLight(const PointLight* pLight);
 	void AddSpotLight(const SpotLight* sLight);
 	Shader* m_OmniShadowShader;
@@ -48,7 +47,6 @@ private:
 	glm::vec3 m_BackgroundColour = glm::vec3(0.0f, 0.0f, 0.0f);
 	Camera* m_MainCamera;
 	Skybox* m_Skybox;
-	std::vector<Shader*> m_RenderShaders;
 	bool m_UseSkybox = false;
 	DirectionalLight* m_DirectionalLight;
 };

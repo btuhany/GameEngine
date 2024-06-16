@@ -52,3 +52,8 @@ void RenderableObject::ScaleTransform(glm::vec3 scaleVector)
 {
 	m_TransformModelMatrix = glm::scale(m_TransformModelMatrix, scaleVector);
 }
+
+Shader* RenderableObject::GetRenderShader()
+{
+	return m_Renderer->GetRenderShader();
+}

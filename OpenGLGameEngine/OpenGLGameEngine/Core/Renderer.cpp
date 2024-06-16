@@ -91,3 +91,8 @@ void Renderer::RenderObjectForOmniShadow(glm::mat4 modelMatrix, PointLight* poin
 
 
 }
+
+Shader* Renderer::GetRenderShader()
+{
+	return m_Shader;
+}
