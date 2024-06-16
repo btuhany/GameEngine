@@ -128,9 +128,6 @@
     <ClInclude Include="src\GameEngine\Core\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\stb_image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\GameEngine\Core\RenderableObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
