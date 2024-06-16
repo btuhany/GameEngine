@@ -184,5 +184,7 @@
     <None Include="glew32.dll" />
     <None Include="assimp-vc143-mt.dll" />
     <None Include="OpenGLGameEngine.aps" />
+    <None Include="src\GameEngine\Shaders\skybox.frag" />
+    <None Include="src\GameEngine\Shaders\skybox.vert" />
   </ItemGroup>
 </Project>

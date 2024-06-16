@@ -84,7 +84,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)OpenGLGameEngine\src;$(SolutionDir)/../ExternalLibs/GLEW/include;$(SolutionDir)/../ExternalLibs/GLM;$(SolutionDir)/../ExternalLibs/GLFW/include;$(SolutionDir)/../ExternalLibs/ASSIMP/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)GameEngine\src;$(SolutionDir)/../ExternalLibs/GLEW/include;$(SolutionDir)/../ExternalLibs/GLM;$(SolutionDir)/../ExternalLibs/GLFW/include;$(SolutionDir)/../ExternalLibs/ASSIMP/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -101,7 +101,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)OpenGLGameEngine\src;$(SolutionDir)/../ExternalLibs/GLEW/include;$(SolutionDir)/../ExternalLibs/GLM;$(SolutionDir)/../ExternalLibs/GLFW/include;$(SolutionDir)/../ExternalLibs/ASSIMP/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)GameEngine\src;$(SolutionDir)/../ExternalLibs/GLEW/include;$(SolutionDir)/../ExternalLibs/GLM;$(SolutionDir)/../ExternalLibs/GLFW/include;$(SolutionDir)/../ExternalLibs/ASSIMP/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,11 +145,6 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OpenGLGameEngine\OpenGLGameEngine.vcxproj">
-      <Project>{53e9686b-044e-44d3-9f08-810ed6271c53}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="assimp-vc143-mt.dll" />
     <None Include="glew32.dll" />
     <None Include="src\DemoScene3D\Shaders\directional_shadow_map.frag" />
@@ -167,6 +162,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\DemoScene3D\DemoScene3D.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameEngine\GameEngine.vcxproj">
+      <Project>{53e9686b-044e-44d3-9f08-810ed6271c53}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

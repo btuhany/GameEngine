@@ -79,6 +79,8 @@
     <None Include="src\GameEngine\Shaders\shader.vert" />
     <None Include="skybox.frag" />
     <None Include="skybox.vert" />
+    <None Include="src\GameEngine\Shaders\skybox.frag" />
+    <None Include="src\GameEngine\Shaders\skybox.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
