@@ -5,6 +5,8 @@
 
 int main()
 {
+	Log::Init();
+
 	DemoScene3D scene;
 	Engine engine = Engine(new Window(1366, 768));
 	engine.Initialize(&scene);

@@ -1,10 +1,10 @@
 #pragma once
 #include <stdio.h>
 #include <iostream>
-
 #include "Scene.h"
 #include "Window.h"
 #include "Camera.h"
+
 namespace GameEngine {
 	class Engine
 	{

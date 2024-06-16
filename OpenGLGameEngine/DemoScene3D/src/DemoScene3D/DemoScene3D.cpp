@@ -16,7 +16,7 @@ void DemoScene3D::Initialize()
 	Shader* rendererShader = new Shader();
 	rendererShader->CreateFromFiles(vShaderLocation, fShaderLocation);
 
-
+	
 	Shader* directionalShadowShader = new Shader();
 	directionalShadowShader->CreateFromFiles("src/DemoScene3D/Shaders/directional_shadow_map.vert", "src/DemoScene3D/Shaders/directional_shadow_map.frag");
 
