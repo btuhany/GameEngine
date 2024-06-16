@@ -19,8 +19,6 @@ RenderableData::RenderableData(IRenderable* renderable, Material* material)
 
 RenderableData::~RenderableData()
 {
-	printf("deleted RenderableData!");
-	delete TextureData;
-	delete MaterialData;
+	printf("deleted renderable data \n");
 	delete Renderable;
 }

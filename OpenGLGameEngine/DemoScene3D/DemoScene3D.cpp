@@ -13,19 +13,20 @@ void DemoScene3D::Initialize()
 {
 	static const char* vShaderLocation = "Shaders/shader.vert";
 	static const char* fShaderLocation = "Shaders/shader.frag";
-	m_Shader = Shader();
-	m_Shader.CreateFromFiles(vShaderLocation, fShaderLocation);
+	Shader* rendererShader = new Shader();
+	rendererShader->CreateFromFiles(vShaderLocation, fShaderLocation);
 
 
-	m_DirectionalShadowShader = new Shader();
-	m_DirectionalShadowShader->CreateFromFiles("Shaders/directional_shadow_map.vert", "Shaders/directional_shadow_map.frag");
+	Shader* directionalShadowShader = new Shader();
+	directionalShadowShader->CreateFromFiles("Shaders/directional_shadow_map.vert", "Shaders/directional_shadow_map.frag");
 
-	m_OmniShadowShader = new Shader();
-	m_OmniShadowShader->CreateFromFiles("Shaders/omni_shadow_map.vert", "Shaders/omni_shadow_map.geom", "Shaders/omni_shadow_map.frag");
+	Shader* omniShadowShader = new Shader();
+	omniShadowShader->CreateFromFiles("Shaders/omni_shadow_map.vert", "Shaders/omni_shadow_map.geom", "Shaders/omni_shadow_map.frag");
+	setOmniShadowShader(omniShadowShader);
 
-	setDirectionalLight(new DirectionalLight(0.1f, 0.1f, 
-		0.0f, 0.0f, 0.0f, 
-		0.3f, -1.0f, 0.01f,
+	setDirectionalLight(new DirectionalLight(0.0f, 0.3f, 
+		0.1f, 0.1f, 0.7f, 
+		0.3f, -0.8f, 0.01f,
 		2048, 2048));
 	setCamera(new Camera(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.0f, 0.1f));
 	setBackgroundColor(glm::vec3(0.0f, 1.0f, 0.0f));
@@ -35,7 +36,7 @@ void DemoScene3D::Initialize()
 	Material* shinyMaterial = new Material(590.0f, 475.5f);
 	Material* roughMaterial = new Material(0.1f, 3.0f);
 
-	Renderer* mainRenderer = new Renderer(&m_Shader, m_DirectionalShadowShader, m_OmniShadowShader);
+	Renderer* mainRenderer = new Renderer(rendererShader, directionalShadowShader, omniShadowShader);
 
 	Texture* spidermanTexture = new Texture("Textures/spiderman.png");
 	spidermanTexture->LoadTextureWithAlpha();
@@ -107,10 +108,11 @@ void DemoScene3D::Start()
 	spidermanCube.TranslateTransform(glm::vec3(15.0f, 10.0f, 15.0f));
 	spidermanCube.ScaleTransform(glm::vec3(3.0f, 3.0f, 3.0f));
 
-	AddObject(&ironman);
+
 	AddObject(&helicopter);
 	AddObject(&spidermanPlain);
 	AddObject(&spidermanCube);
+	AddObject(&ironman);
 }
 
 float rotate = 0.0f;

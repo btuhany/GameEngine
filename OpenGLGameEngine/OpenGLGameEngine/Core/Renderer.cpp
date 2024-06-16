@@ -1,5 +1,6 @@
 #include "Renderer.h"
 
+std::vector<Renderer*> Renderer::m_RendererList;
 
 Renderer::Renderer()
 {
@@ -7,7 +8,7 @@ Renderer::Renderer()
 
 Renderer::~Renderer()
 {
-	printf("deleted renderer");
+	printf("deleted renderer \n");
 	delete m_Shader;
 	delete m_DirShadowShader;
 	delete m_OmniShadowShader;
@@ -24,7 +25,7 @@ Renderer::Renderer(Shader* shader, Shader* dirShadowShader, Shader* omniShadowSh
 	m_UniformMatSpecularInstensity = m_Shader->GetMatSpecularIntensityLocation();
 	m_UniformMatShininess = m_Shader->GetMatShininessLocation();
 	m_UniformCameraPosition = m_Shader->GetCameraPositionLocation();
-
+	m_RendererList.push_back(this);
 }
 
 void Renderer::DrawData(GLuint uniformModel, glm::mat4 modelMatrix, RenderableData* renderData)
@@ -75,7 +76,7 @@ void Renderer::RenderObjectForDirectionalShadow(glm::mat4 modelMatrix, Direction
 
 	DrawData(m_DirShadowShader->GetModelLocation(), modelMatrix, renderData);
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 	
 }
 
@@ -95,4 +96,13 @@ void Renderer::RenderObjectForOmniShadow(glm::mat4 modelMatrix, PointLight* poin
 Shader* Renderer::GetRenderShader()
 {
 	return m_Shader;
+}
+
+void Renderer::ClearRenderers()
+{
+	for (int i = 0; i < m_RendererList.size();i++)
+	{
+		delete (m_RendererList[i]);
+	}
+	m_RendererList.clear();
 }

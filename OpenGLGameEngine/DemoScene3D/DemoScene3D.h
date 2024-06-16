@@ -11,14 +11,13 @@ public:
 	void Start() override;
 	void Update(GLfloat deltaTime) override;
 private:
+	void initializeSkybox();
 	Mesh* createCubeMesh();
 	Mesh* createPlainMesh();
-	Shader m_Shader;
-
 	RenderableObject helicopter;
 	RenderableObject ironman;
 	RenderableObject spidermanPlain;
 	RenderableObject spidermanCube;
-	void initializeSkybox();
+
 };
 

@@ -26,18 +26,18 @@ public:
 	void RenderSceneOmniShadowMap();
 	void setDirectionalLight(DirectionalLight* dLight);
 	DirectionalLight* getDirectionalLight();
-	Shader* m_DirectionalShadowShader;
 	int GetPointLightCount();
 protected:
 	void setBackgroundColor(glm::vec3 colour);
 	void setCamera(Camera* camera);
 	void setSkybox(Skybox* skybox);
 	void useSkybox(bool useSkybox);
+	void setOmniShadowShader(Shader* omniShadowShader);
 	void AddPointLight(const PointLight* pLight);
 	void AddSpotLight(const SpotLight* sLight);
-	Shader* m_OmniShadowShader;
 private:
 	std::vector<RenderableObject*> m_RenderableObjectList;
+	Shader* m_OmniShadowShader;
 	void updateObjects();
 	void startObjects();
 	PointLight m_PointLightList[MAX_POINT_LIGHTS];

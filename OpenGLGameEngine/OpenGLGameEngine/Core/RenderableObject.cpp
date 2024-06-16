@@ -12,7 +12,6 @@ RenderableObject::~RenderableObject()
 	printf("deleted renderable object! \n");
 	//delete m_Renderer;
 	//delete m_RenderableData;
-	//delete m_Shader;
 }
 
 RenderableObject::RenderableObject(Renderer* renderer, RenderableData* renderableData)
@@ -56,4 +55,9 @@ void RenderableObject::ScaleTransform(glm::vec3 scaleVector)
 Shader* RenderableObject::GetRenderShader()
 {
 	return m_Renderer->GetRenderShader();
+}
+
+void RenderableObject::ClearRenderableObject()
+{
+	delete m_RenderableData;
 }

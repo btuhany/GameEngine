@@ -17,8 +17,10 @@ public:
 	void RenderObjectForDirectionalShadow(glm::mat4 modelMatrix, DirectionalLight* directionalLight, RenderableData* renderData);
 	void RenderObjectForOmniShadow(glm::mat4 modelMatrix, PointLight* pointLight, RenderableData* renderData);
 	Shader* GetRenderShader();
+	static void ClearRenderers();
 	~Renderer();
 private:
+	static std::vector<Renderer*> m_RendererList;
 	Shader* m_Shader;
 	Shader* m_DirShadowShader;
 	Shader* m_OmniShadowShader;

@@ -13,17 +13,13 @@ Scene::~Scene()
 	delete m_DirectionalLight;
 	delete m_MainCamera;
 	delete m_Skybox;
-	delete m_OmniShadowShader;
-	delete m_DirectionalShadowShader;
-	//for (int i = 0; i < m_RenderShaders.size();i++)
-	//{
-	//	delete (m_RenderShaders[i]);
-	//}
-	//m_RenderShaders.clear();
-	//for (auto obj : m_RenderableObjectList) {
-	//	delete obj;
-	//}
-	//m_RenderableObjectList.clear();
+
+
+	for (auto obj : m_RenderableObjectList) {
+		obj->ClearRenderableObject();
+	}
+	m_RenderableObjectList.clear();
+	Renderer::ClearRenderers();
 }
 
 void Scene::Initialize()
@@ -97,6 +93,7 @@ void Scene::RenderSceneShadowMap()
 	{
 		m_RenderableObjectList[i]->RenderShadowMap(m_DirectionalLight);
 	}
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void Scene::RenderSceneOmniShadowMap()
@@ -155,6 +152,11 @@ int Scene::GetPointLightCount()
 void Scene::useSkybox(bool useSkybox)
 {
 	m_UseSkybox = useSkybox;
+}
+
+void Scene::setOmniShadowShader(Shader* omniShadowShader)
+{
+	m_OmniShadowShader = omniShadowShader;
 }
 
 

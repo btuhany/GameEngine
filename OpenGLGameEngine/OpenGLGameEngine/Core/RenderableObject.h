@@ -14,6 +14,7 @@ public:
 	void RotateTransform(float angle, glm::vec3 rotateVector);
 	void ScaleTransform(glm::vec3 scaleVector);
 	Shader* GetRenderShader();
+	void ClearRenderableObject();
 private:
 	Renderer* m_Renderer;
 	RenderableData* m_RenderableData;
