@@ -199,7 +199,7 @@ void DemoScene3D::initializeSkybox()
 	skyboxFaces.push_back("src/DemoScene3D/Textures/skybox/cupertin-lake_dn.tga");
 	skyboxFaces.push_back("src/DemoScene3D/Textures/skybox/cupertin-lake_bk.tga");
 	skyboxFaces.push_back("src/DemoScene3D/Textures/skybox/cupertin-lake_ft.tga");
-	Skybox* skybox = new Skybox(skyboxFaces);
+	Skybox* skybox = new Skybox(skyboxFaces, "src/DemoScene3D/Shaders/skybox.vert", "src/DemoScene3D/Shaders/skybox.frag");
 	setSkybox(skybox);
 	useSkybox(true);
 }

@@ -4,11 +4,11 @@ Skybox::Skybox()
 {
 }
 
-Skybox::Skybox(std::vector<std::string> faceLocations)
+Skybox::Skybox(std::vector<std::string> faceLocations, const char* vertexLocation, const char* fragmentLocation)
 {
 	//Shader setup
 	m_SkyShader = new Shader();
-	m_SkyShader->CreateFromFiles("src/DemoScene3D/Shaders/skybox.vert", "src/DemoScene3D/Shaders/skybox.frag");
+	m_SkyShader->CreateFromFiles(vertexLocation, fragmentLocation);
 	m_UniformProjection = m_SkyShader->GetProjectionLocation();
 	m_UniformView = m_SkyShader->GetViewLocation();
 

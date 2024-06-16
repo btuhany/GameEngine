@@ -17,7 +17,7 @@ class Skybox
 public:
 	Skybox();
 
-	Skybox(std::vector<std::string> faceLocations);
+	Skybox(std::vector<std::string> faceLocations, const char* vertexLocation, const char* fragmentLocation);
 	void DrawSkybox(glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
 	
 	~Skybox();
