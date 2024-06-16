@@ -1,14 +1,7 @@
 #pragma once
 #define STB_IMAGE_IMPLEMENTATION
-#include "Core/Engine.h"
-#include "Core/Camera.h"
-#include "Core/RenderableObject.h"
-#include "DemoScene3D.h"
-#include "Core/RenderableData.h"
-#include "Core/ConstantValues.h"
-
-
-
+#include <GameEngine.h>
+#include "DemoScene3D/DemoScene3D.h"
 
 int main()
 {

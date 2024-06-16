@@ -11,17 +11,17 @@ DemoScene3D::~DemoScene3D()
 
 void DemoScene3D::Initialize()
 {
-	static const char* vShaderLocation = "Shaders/shader.vert";
-	static const char* fShaderLocation = "Shaders/shader.frag";
+	static const char* vShaderLocation = "src/DemoScene3D/Shaders/shader.vert";
+	static const char* fShaderLocation = "src/DemoScene3D/Shaders/shader.frag";
 	Shader* rendererShader = new Shader();
 	rendererShader->CreateFromFiles(vShaderLocation, fShaderLocation);
 
 
 	Shader* directionalShadowShader = new Shader();
-	directionalShadowShader->CreateFromFiles("Shaders/directional_shadow_map.vert", "Shaders/directional_shadow_map.frag");
+	directionalShadowShader->CreateFromFiles("src/DemoScene3D/Shaders/directional_shadow_map.vert", "src/DemoScene3D/Shaders/directional_shadow_map.frag");
 
 	Shader* omniShadowShader = new Shader();
-	omniShadowShader->CreateFromFiles("Shaders/omni_shadow_map.vert", "Shaders/omni_shadow_map.geom", "Shaders/omni_shadow_map.frag");
+	omniShadowShader->CreateFromFiles("src/DemoScene3D/Shaders/omni_shadow_map.vert", "src/DemoScene3D/Shaders/omni_shadow_map.geom", "src/DemoScene3D/Shaders/omni_shadow_map.frag");
 	setOmniShadowShader(omniShadowShader);
 
 	setDirectionalLight(new DirectionalLight(0.0f, 0.3f, 
@@ -38,18 +38,18 @@ void DemoScene3D::Initialize()
 
 	Renderer* mainRenderer = new Renderer(rendererShader, directionalShadowShader, omniShadowShader);
 
-	Texture* spidermanTexture = new Texture("Textures/spiderman.png");
+	Texture* spidermanTexture = new Texture("src/DemoScene3D/Textures/spiderman.png");
 	spidermanTexture->LoadTextureWithAlpha();
-	Texture* plainTexture = new Texture("Textures/plain.png");
+	Texture* plainTexture = new Texture("src/DemoScene3D/Textures/plain.png");
 	plainTexture->LoadTextureWithAlpha();
 
 	Model* helicopterModelData = new Model();
-	helicopterModelData->LoadModel("Models/uh60.obj");
+	helicopterModelData->LoadModel("src/DemoScene3D/Models/uh60.obj");
 	RenderableData*  helicopterRenderableData = new RenderableData(helicopterModelData, shinyMaterial);
 	helicopter = RenderableObject(mainRenderer, helicopterRenderableData);
 
 	Model* ironmanModelData = new Model();
-	ironmanModelData->LoadModel("Models/IronMan.obj");
+	ironmanModelData->LoadModel("src/DemoScene3D/Models/IronMan.obj");
 	RenderableData*  ironmanRenderableData = new RenderableData(ironmanModelData, shinyMaterial);
 	ironman = RenderableObject(mainRenderer, ironmanRenderableData);
 
@@ -193,12 +193,12 @@ Mesh* DemoScene3D::createPlainMesh()
 void DemoScene3D::initializeSkybox()
 {
 	std::vector<std::string> skyboxFaces;
-	skyboxFaces.push_back("Textures/skybox/cupertin-lake_rt.tga");
-	skyboxFaces.push_back("Textures/skybox/cupertin-lake_lf.tga");
-	skyboxFaces.push_back("Textures/skybox/cupertin-lake_up.tga");
-	skyboxFaces.push_back("Textures/skybox/cupertin-lake_dn.tga");
-	skyboxFaces.push_back("Textures/skybox/cupertin-lake_bk.tga");
-	skyboxFaces.push_back("Textures/skybox/cupertin-lake_ft.tga");
+	skyboxFaces.push_back("src/DemoScene3D/Textures/skybox/cupertin-lake_rt.tga");
+	skyboxFaces.push_back("src/DemoScene3D/Textures/skybox/cupertin-lake_lf.tga");
+	skyboxFaces.push_back("src/DemoScene3D/Textures/skybox/cupertin-lake_up.tga");
+	skyboxFaces.push_back("src/DemoScene3D/Textures/skybox/cupertin-lake_dn.tga");
+	skyboxFaces.push_back("src/DemoScene3D/Textures/skybox/cupertin-lake_bk.tga");
+	skyboxFaces.push_back("src/DemoScene3D/Textures/skybox/cupertin-lake_ft.tga");
 	Skybox* skybox = new Skybox(skyboxFaces);
 	setSkybox(skybox);
 	useSkybox(true);

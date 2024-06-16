@@ -15,31 +15,33 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DemoScene3D.cpp">
+    <ClCompile Include="src\DemoScene3D\DemoScene3D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\directional_shadow_map.frag" />
-    <None Include="Shaders\directional_shadow_map.vert" />
-    <None Include="Shaders\omni_shadow_map.frag" />
-    <None Include="Shaders\omni_shadow_map.geom" />
-    <None Include="Shaders\omni_shadow_map.vert" />
-    <None Include="Shaders\shader.frag" />
-    <None Include="Shaders\shader.vert" />
-    <None Include="Shaders\skybox.frag" />
-    <None Include="Shaders\skybox.vert" />
+    <None Include="src\DemoScene3D\Shaders\directional_shadow_map.frag" />
+    <None Include="src\DemoScene3D\Shaders\directional_shadow_map.vert" />
+    <None Include="src\DemoScene3D\Shaders\omni_shadow_map.frag" />
+    <None Include="src\DemoScene3D\Shaders\omni_shadow_map.geom" />
+    <None Include="src\DemoScene3D\Shaders\omni_shadow_map.vert" />
+    <None Include="src\DemoScene3D\Shaders\shader.frag" />
+    <None Include="src\DemoScene3D\Shaders\shader.vert" />
+    <None Include="src\DemoScene3D\Shaders\skybox.frag" />
+    <None Include="src\DemoScene3D\Shaders\skybox.vert" />
+    <None Include="glew32.dll" />
+    <None Include="assimp-vc143-mt.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Textures\spiderman.PNG">
+    <Image Include="src\DemoScene3D\Textures\spiderman.PNG">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DemoScene3D.h">
+    <ClInclude Include="src\DemoScene3D\DemoScene3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,5 @@
 #pragma once
-#include "Core/Scene.h"
-#include "Core/Shader.h"
+#include <GameEngine.h>
 
 class DemoScene3D : public Scene
 {

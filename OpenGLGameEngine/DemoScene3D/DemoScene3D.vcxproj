@@ -84,7 +84,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)/OpenGLGameEngine;$(SolutionDir)/../ExternalLibs/GLEW/include;$(SolutionDir)/../ExternalLibs/GLM;$(SolutionDir)/../ExternalLibs/GLFW/include;$(SolutionDir)/../ExternalLibs/ASSIMP/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)OpenGLGameEngine\src;$(SolutionDir)/../ExternalLibs/GLEW/include;$(SolutionDir)/../ExternalLibs/GLM;$(SolutionDir)/../ExternalLibs/GLFW/include;$(SolutionDir)/../ExternalLibs/ASSIMP/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -101,6 +101,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)OpenGLGameEngine\src;$(SolutionDir)/../ExternalLibs/GLEW/include;$(SolutionDir)/../ExternalLibs/GLM;$(SolutionDir)/../ExternalLibs/GLFW/include;$(SolutionDir)/../ExternalLibs/ASSIMP/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,8 +141,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DemoScene3D.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\DemoScene3D\DemoScene3D.cpp" />
+    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OpenGLGameEngine\OpenGLGameEngine.vcxproj">
@@ -149,21 +150,23 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\directional_shadow_map.frag" />
-    <None Include="Shaders\directional_shadow_map.vert" />
-    <None Include="Shaders\omni_shadow_map.frag" />
-    <None Include="Shaders\omni_shadow_map.geom" />
-    <None Include="Shaders\omni_shadow_map.vert" />
-    <None Include="Shaders\shader.frag" />
-    <None Include="Shaders\shader.vert" />
-    <None Include="Shaders\skybox.frag" />
-    <None Include="Shaders\skybox.vert" />
+    <None Include="assimp-vc143-mt.dll" />
+    <None Include="glew32.dll" />
+    <None Include="src\DemoScene3D\Shaders\directional_shadow_map.frag" />
+    <None Include="src\DemoScene3D\Shaders\directional_shadow_map.vert" />
+    <None Include="src\DemoScene3D\Shaders\omni_shadow_map.frag" />
+    <None Include="src\DemoScene3D\Shaders\omni_shadow_map.geom" />
+    <None Include="src\DemoScene3D\Shaders\omni_shadow_map.vert" />
+    <None Include="src\DemoScene3D\Shaders\shader.frag" />
+    <None Include="src\DemoScene3D\Shaders\shader.vert" />
+    <None Include="src\DemoScene3D\Shaders\skybox.frag" />
+    <None Include="src\DemoScene3D\Shaders\skybox.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Textures\spiderman.PNG" />
+    <Image Include="src\DemoScene3D\Textures\spiderman.PNG" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DemoScene3D.h" />
+    <ClInclude Include="src\DemoScene3D\DemoScene3D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

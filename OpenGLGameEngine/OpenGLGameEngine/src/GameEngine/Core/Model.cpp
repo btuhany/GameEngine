@@ -127,7 +127,7 @@ void Model::loadMaterials(const aiScene* scene)
 				int index = std::string(path.data).rfind("\\"); //or \ ?
 				std::string fileName = std::string(path.data).substr(index + 1);
 
-				std::string texPath = std::string("Textures/") + fileName;
+				std::string texPath = std::string("src/DemoScene3D/Textures/") + fileName;
 
 				m_TextureList[i] = new Texture(texPath.c_str());
 
@@ -142,7 +142,7 @@ void Model::loadMaterials(const aiScene* scene)
 
 		if (!m_TextureList[i])
 		{
-			m_TextureList[i] = new Texture("Textures/plain.png");
+			m_TextureList[i] = new Texture("src/DemoScene3D/Textures/plain.png");
 			m_TextureList[i]->LoadTextureWithAlpha();
 		}
 	}

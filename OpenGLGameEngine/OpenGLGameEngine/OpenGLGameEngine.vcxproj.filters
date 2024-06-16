@@ -21,161 +21,164 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Camera.cpp">
+    <ClCompile Include="src\GameEngine\Core\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Mesh.cpp">
+    <ClCompile Include="src\GameEngine\Core\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Shader.cpp">
+    <ClCompile Include="src\GameEngine\Core\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Window.cpp">
+    <ClCompile Include="src\GameEngine\Core\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Texture.cpp">
+    <ClCompile Include="src\GameEngine\Core\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Light.cpp">
+    <ClCompile Include="src\GameEngine\Core\Light.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Material.cpp">
+    <ClCompile Include="src\GameEngine\Core\Material.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\DirectionalLight.cpp">
+    <ClCompile Include="src\GameEngine\Core\DirectionalLight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\PointLight.cpp">
+    <ClCompile Include="src\GameEngine\Core\PointLight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\SpotLight.cpp">
+    <ClCompile Include="src\GameEngine\Core\SpotLight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Model.cpp">
+    <ClCompile Include="src\GameEngine\Core\Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\ShadowMap.cpp">
+    <ClCompile Include="src\GameEngine\Core\ShadowMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\OmniShadowMap.cpp">
+    <ClCompile Include="src\GameEngine\Core\OmniShadowMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Skybox.cpp">
+    <ClCompile Include="src\GameEngine\Core\Skybox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Engine.cpp">
+    <ClCompile Include="src\GameEngine\Core\Engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Scene.cpp">
+    <ClCompile Include="src\GameEngine\Core\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\RenderableObject.cpp">
+    <ClCompile Include="src\GameEngine\Core\RenderableObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Renderer.cpp">
+    <ClCompile Include="src\GameEngine\Core\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\RenderableData.cpp">
+    <ClCompile Include="src\GameEngine\Core\RenderableData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\IRenderable.cpp">
+    <ClCompile Include="src\GameEngine\Core\IRenderable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Core\Camera.h">
+    <ClInclude Include="src\GameEngine\Core\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Mesh.h">
+    <ClInclude Include="src\GameEngine\Core\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Shader.h">
+    <ClInclude Include="src\GameEngine\Core\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Window.h">
+    <ClInclude Include="src\GameEngine\Core\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Texture.h">
+    <ClInclude Include="src\GameEngine\Core\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Light.h">
+    <ClInclude Include="src\GameEngine\Core\Light.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Material.h">
+    <ClInclude Include="src\GameEngine\Core\Material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\DirectionalLight.h">
+    <ClInclude Include="src\GameEngine\Core\DirectionalLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\PointLight.h">
+    <ClInclude Include="src\GameEngine\Core\PointLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\ConstantValues.h">
+    <ClInclude Include="src\GameEngine\Core\ConstantValues.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\SpotLight.h">
+    <ClInclude Include="src\GameEngine\Core\SpotLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Model.h">
+    <ClInclude Include="src\GameEngine\Core\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\ShadowMap.h">
+    <ClInclude Include="src\GameEngine\Core\ShadowMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\OmniShadowMap.h">
+    <ClInclude Include="src\GameEngine\Core\OmniShadowMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Skybox.h">
+    <ClInclude Include="src\GameEngine\Core\Skybox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Engine.h">
+    <ClInclude Include="src\GameEngine\Core\Engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Scene.h">
+    <ClInclude Include="src\GameEngine\Core\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\stb_image.h">
+    <ClInclude Include="src\GameEngine\Core\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\RenderableObject.h">
+    <ClInclude Include="src\GameEngine\Core\RenderableObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Renderer.h">
+    <ClInclude Include="src\GameEngine\Core\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\RenderableData.h">
+    <ClInclude Include="src\GameEngine\Core\RenderableData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\IRenderable.h">
+    <ClInclude Include="src\GameEngine\Core\IRenderable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\shader.vert">
+    <None Include="src\GameEngine\Shaders\shader.vert">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\shader.frag">
+    <None Include="src\GameEngine\Shaders\shader.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\directional_shadow_map.vert">
+    <None Include="src\GameEngine\Shaders\directional_shadow_map.vert">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\directional_shadow_map.frag">
+    <None Include="src\GameEngine\Shaders\directional_shadow_map.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\omni_shadow_map.frag">
+    <None Include="src\GameEngine\Shaders\omni_shadow_map.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\omni_shadow_map.geom">
+    <None Include="src\GameEngine\Shaders\omni_shadow_map.geom">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\omni_shadow_map.vert">
+    <None Include="src\GameEngine\Shaders\omni_shadow_map.vert">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\skybox.frag">
+    <None Include="skybox.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\skybox.vert">
+    <None Include="skybox.vert">
       <Filter>Shaders</Filter>
     </None>
     <None Include="glew32.dll" />
