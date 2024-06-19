@@ -1,6 +1,6 @@
 #pragma once
 namespace GameEngine {
-	class IRenderable
+	class ENGINE_API IRenderable
 	{
 	public:
 		virtual void Render() = 0;

@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Core.h"
 #include <vector>
 #include <string>
 #include <GL\glew.h>
@@ -12,7 +12,7 @@
 #include "Shader.h"
 #include "Renderer.h"
 namespace GameEngine {
-	class Skybox
+	class ENGINE_API Skybox
 	{
 	public:
 		Skybox();

@@ -1,4 +1,5 @@
 #pragma once
+#include "Core.h"
 #include <stdio.h>
 #include <string>
 #include <iostream>
@@ -13,7 +14,7 @@
 #include "SpotLight.h"
 #include "ConstantValues.h"
 namespace GameEngine {
-	class Shader
+	class ENGINE_API Shader
 	{
 	public:
 		Shader();

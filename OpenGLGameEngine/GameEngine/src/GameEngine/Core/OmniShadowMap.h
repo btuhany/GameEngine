@@ -1,7 +1,8 @@
 #pragma once
+#include "Core.h"
 #include "ShadowMap.h"
 namespace GameEngine {
-	class OmniShadowMap : public ShadowMap
+	class ENGINE_API OmniShadowMap : public ShadowMap
 	{
 	public:
 		OmniShadowMap();

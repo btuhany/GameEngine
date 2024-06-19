@@ -1,7 +1,8 @@
 #pragma once
+#include "Core.h"
 #include "Renderer.h"
 namespace GameEngine {
-	class RenderableObject
+	class ENGINE_API RenderableObject
 	{
 	public:
 		RenderableObject();

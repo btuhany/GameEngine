@@ -11,6 +11,7 @@ DemoScene3D::~DemoScene3D()
 
 void DemoScene3D::Initialize()
 {
+	LOG_INFO("Demo scene initialized!");
 	static const char* vShaderLocation = "src/DemoScene3D/Shaders/shader.vert";
 	static const char* fShaderLocation = "src/DemoScene3D/Shaders/shader.frag";
 	Shader* rendererShader = new Shader();

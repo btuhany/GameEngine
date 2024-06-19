@@ -1,7 +1,8 @@
 #pragma once
+#include "Core.h"
 #include "PointLight.h"
 namespace GameEngine {
-    class SpotLight :
+    class ENGINE_API SpotLight :
         public PointLight
     {
     public:

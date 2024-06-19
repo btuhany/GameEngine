@@ -1,9 +1,10 @@
 #pragma once
+#include "Core.h"
 #include "Mesh.h"
 #include "Texture.h"
 #include "Material.h"
 namespace GameEngine {
-	class RenderableData
+	class ENGINE_API RenderableData
 	{
 	public:
 		RenderableData();

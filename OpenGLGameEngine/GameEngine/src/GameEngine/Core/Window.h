@@ -1,11 +1,11 @@
 #pragma once
-
+#include "Core.h"
 #include <stdio.h>
 
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
 namespace GameEngine {
-	class Window
+	class ENGINE_API Window
 	{
 	public:
 		Window();

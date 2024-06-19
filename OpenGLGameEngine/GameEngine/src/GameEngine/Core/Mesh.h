@@ -1,8 +1,9 @@
 #pragma once
+#include "Core.h"
 #include <GL\glew.h>
 #include "IRenderable.h"
 namespace GameEngine {
-	class Mesh : public IRenderable
+	class ENGINE_API Mesh : public IRenderable
 	{
 	public:
 		Mesh();

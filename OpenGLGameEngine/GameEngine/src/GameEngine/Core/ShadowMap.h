@@ -1,9 +1,9 @@
 #pragma once
-
+#include "Core.h"
 #include <stdio.h>
 #include <GL\glew.h>
 namespace GameEngine {
-	class ShadowMap
+	class ENGINE_API ShadowMap
 	{
 	public:
 		ShadowMap();

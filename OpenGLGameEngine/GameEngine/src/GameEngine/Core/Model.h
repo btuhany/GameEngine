@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Core.h"
 #include <vector>
 #include <string>
 
@@ -9,7 +9,7 @@
 #include "Mesh.h"
 #include "Texture.h"
 namespace GameEngine {
-	class Model : public IRenderable
+	class ENGINE_API Model : public IRenderable
 	{
 	public:
 		Model();

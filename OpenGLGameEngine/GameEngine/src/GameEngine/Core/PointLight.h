@@ -1,9 +1,10 @@
 #pragma once
+#include "Core.h"
 #include "Light.h"
 #include "OmniShadowMap.h"
 #include <vector>
 namespace GameEngine {
-    class PointLight :public Light
+    class ENGINE_API PointLight :public Light
     {
     public:
         PointLight();

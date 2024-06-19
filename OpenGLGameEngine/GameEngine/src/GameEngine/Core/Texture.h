@@ -1,9 +1,9 @@
 #pragma once
-
+#include "Core.h"
 #include <GL/glew.h>
 #include "ConstantValues.h"
 namespace GameEngine {
-	class Texture
+	class ENGINE_API Texture
 	{
 	public:
 		Texture();

@@ -14,13 +14,14 @@ ipch/
 [Tt]humbs.db
 [Tt]est[Rr]esult*/
 [Bb]in/
+[Bb]in-int/
 [Dd]ebug/
 [Rr]elease/
 x64/
 x86/
 [Aa][Pp][Ii]/
 
-
+*.tlog
 *.pdb
 *.ilk
 *.aps

@@ -1,7 +1,8 @@
 #pragma once
+#include "Core.h"
 #include <GL/glew.h>
 namespace GameEngine {
-	class Material
+	class ENGINE_API Material
 	{
 	public:
 		Material();

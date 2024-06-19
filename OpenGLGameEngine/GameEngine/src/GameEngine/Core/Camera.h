@@ -1,4 +1,5 @@
 #pragma once
+#include "Core.h"
 #include <GL\glew.h>
 #include <glm\glm.hpp>
 #include <glm\gtc\matrix_transform.hpp>
@@ -6,7 +7,7 @@
 
 namespace GameEngine
 {
-	class Camera
+	class ENGINE_API Camera
 	{
 	public:
 		Camera();

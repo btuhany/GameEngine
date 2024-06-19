@@ -1,9 +1,9 @@
 #pragma once
-
+#include "Core.h"
 #include <memory>
 #include "spdlog/spdlog.h"
 namespace GameEngine {
-	class Log
+	class ENGINE_API Log
 	{
 	public:
 		Log();

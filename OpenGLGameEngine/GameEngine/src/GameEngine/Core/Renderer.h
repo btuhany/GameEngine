@@ -1,4 +1,5 @@
 #pragma once
+#include "Core.h"
 #include "Material.h"
 #include "Mesh.h"
 #include "Texture.h"
@@ -7,7 +8,7 @@
 #include "Camera.h"
 #include "RenderableData.h"
 namespace GameEngine {
-	class Renderer
+	class ENGINE_API Renderer
 	{
 	public:
 		Renderer();

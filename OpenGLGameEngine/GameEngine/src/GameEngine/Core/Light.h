@@ -1,11 +1,11 @@
 #pragma once
-
+#include "Core.h"
 #include <GL\glew.h>
 #include <glm\glm.hpp>
 #include "ShadowMap.h"
 #include <glm/gtc\matrix_transform.hpp>
 namespace GameEngine {
-	class Light
+	class ENGINE_API Light
 	{
 	public:
 		Light();

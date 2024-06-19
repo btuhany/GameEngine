@@ -1,4 +1,5 @@
 #pragma once
+#include "Core.h"
 #include <stdio.h>
 #include <iostream>
 #include "Scene.h"
@@ -6,7 +7,7 @@
 #include "Camera.h"
 
 namespace GameEngine {
-	class Engine
+	class ENGINE_API Engine
 	{
 	public:
 		Engine(Window* window);

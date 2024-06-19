@@ -6,7 +6,7 @@
 #include <vector>
 #include "RenderableObject.h"
 namespace GameEngine {
-	class Scene
+	class ENGINE_API Scene
 	{
 	public:
 		Scene();
