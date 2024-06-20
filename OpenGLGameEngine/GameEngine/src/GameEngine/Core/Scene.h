@@ -51,5 +51,5 @@ namespace GameEngine {
 		DirectionalLight* m_DirectionalLight;
 	};
 
-	Scene* CreateScene();
+
 }
