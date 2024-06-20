@@ -34,8 +34,8 @@ namespace GameEngine {
 		void setSkybox(Skybox* skybox);
 		void useSkybox(bool useSkybox);
 		void setOmniShadowShader(Shader* omniShadowShader);
-		void AddPointLight(const PointLight* pLight);
-		void AddSpotLight(const SpotLight* sLight);
+		void addPointLight(const PointLight* pLight);
+		void addSpotLight(const SpotLight* sLight);
 	private:
 		std::vector<RenderableObject*> m_RenderableObjectList;
 		Shader* m_OmniShadowShader;

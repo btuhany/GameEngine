@@ -188,7 +188,7 @@ namespace GameEngine {
 		}
 	}
 
-	void Scene::AddPointLight(const PointLight* pLight)
+	void Scene::addPointLight(const PointLight* pLight)
 	{
 		if (m_PointLightCount < MAX_POINT_LIGHTS)
 		{
@@ -201,7 +201,7 @@ namespace GameEngine {
 		}
 	}
 
-	void Scene::AddSpotLight(const SpotLight* sLight)
+	void Scene::addSpotLight(const SpotLight* sLight)
 	{
 		if (m_SpotLightCount < MAX_SPOT_LIGHTS)
 		{
