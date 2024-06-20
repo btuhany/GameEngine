@@ -137,12 +137,12 @@ namespace GameEngine {
 		m_Skybox = skybox;
 	}
 
-	void Scene::setDirectionalLight(DirectionalLight* dLight)
+	void Scene::SetDirectionalLight(DirectionalLight* dLight)
 	{
 		m_DirectionalLight = dLight;
 	}
 
-	DirectionalLight* Scene::getDirectionalLight()
+	DirectionalLight* Scene::GetDirectionalLight()
 	{
 		return m_DirectionalLight;
 	}

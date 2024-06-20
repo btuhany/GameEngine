@@ -25,7 +25,7 @@ void DemoScene3D::Initialize()
 	omniShadowShader->CreateFromFiles("src/DemoScene3D/Shaders/omni_shadow_map.vert", "src/DemoScene3D/Shaders/omni_shadow_map.geom", "src/DemoScene3D/Shaders/omni_shadow_map.frag");
 	setOmniShadowShader(omniShadowShader);
 
-	setDirectionalLight(new DirectionalLight(0.0f, 0.3f, 
+	SetDirectionalLight(new DirectionalLight(0.0f, 0.3f, 
 		0.1f, 0.1f, 0.7f, 
 		0.3f, -0.8f, 0.01f,
 		2048, 2048));

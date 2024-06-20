@@ -24,8 +24,8 @@ namespace GameEngine {
 		void SetSpotLights();
 		void RenderSceneShadowMap();
 		void RenderSceneOmniShadowMap();
-		void setDirectionalLight(DirectionalLight* dLight);
-		DirectionalLight* getDirectionalLight();
+		void SetDirectionalLight(DirectionalLight* dLight);
+		DirectionalLight* GetDirectionalLight();
 		int GetPointLightCount();
 		int GetSpotLightCount();
 	protected:

@@ -63,7 +63,7 @@ namespace GameEngine {
 
 
 			m_Scene->Update(deltaTime);
-			directionalShadowPass(m_Scene->getDirectionalLight());
+			directionalShadowPass(m_Scene->GetDirectionalLight());
 			omniShadowPass();
 			renderPass(projection);
 
