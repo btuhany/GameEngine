@@ -9,8 +9,8 @@ namespace GameEngine {
 	Light::Light(GLfloat ambientIntensityValue, GLfloat diffuseIntensityValue, GLfloat red, GLfloat green, GLfloat blue,
 		GLuint shadowWidth, GLuint shadowHeight)
 	{
-		shadowMap = new ShadowMap();
-		shadowMap->Init(shadowWidth, shadowHeight);
+		m_ShadowMap = new ShadowMap();
+		m_ShadowMap->Init(shadowWidth, shadowHeight);
 		m_Colour = glm::vec3(red, green, blue);
 		m_AmbientIntensity = ambientIntensityValue;
 		m_DiffuseIntensity = diffuseIntensityValue;
@@ -18,7 +18,7 @@ namespace GameEngine {
 
 	Light::~Light()
 	{
-		delete shadowMap;
+		delete m_ShadowMap;
 	}
 
 	void Light::useLight(GLuint ambientIntensityLocation, GLuint ambientColorLocation, GLuint diffuseIntensityLocaiton)

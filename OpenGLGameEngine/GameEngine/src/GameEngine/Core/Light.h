@@ -12,14 +12,14 @@ namespace GameEngine {
 		Light(GLfloat ambientIntensityValue, GLfloat diffuseIntensityValue, GLfloat red, GLfloat green, GLfloat blue,
 			GLuint shadowWidth, GLuint shadowHeight);
 
-		ShadowMap* GetShadowMap() { return shadowMap; }
+		ShadowMap* GetShadowMap() { return m_ShadowMap; }
 
 		~Light();
 
 	protected:
 		void useLight(GLuint ambientIntensityLocation, GLuint ambientColorLocation, GLuint diffuseIntensityLocation);
-		glm::mat4 lightProjection;
-		ShadowMap* shadowMap;
+		glm::mat4 m_LightProjection;
+		ShadowMap* m_ShadowMap;
 
 	private:
 		glm::vec3 m_Colour;

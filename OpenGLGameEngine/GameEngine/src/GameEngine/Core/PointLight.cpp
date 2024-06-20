@@ -18,10 +18,10 @@ namespace GameEngine {
 		m_FarPlane = farPlaneVal;
 
 		float aspect = (float)shadowWidth / (float)shadowHeight;
-		lightProjection = glm::perspective(glm::radians(90.0f), aspect, nearPlaneVal, farPlaneVal);
+		m_LightProjection = glm::perspective(glm::radians(90.0f), aspect, nearPlaneVal, farPlaneVal);
 
-		shadowMap = new OmniShadowMap();
-		shadowMap->Init(shadowWidth, shadowHeight);
+		m_ShadowMap = new OmniShadowMap();
+		m_ShadowMap->Init(shadowWidth, shadowHeight);
 	}
 
 	void PointLight::UseLight(GLuint ambientIntensityLocation, GLuint ambientColorLocation, GLuint diffuseIntensityLocation, GLuint positionLocation, GLuint constantLocation, GLuint linearLocation, GLuint exponentLocation)
@@ -37,14 +37,14 @@ namespace GameEngine {
 	{
 		std::vector<glm::mat4> lightMatrices;
 		//+x, -x
-		lightMatrices.push_back(lightProjection * glm::lookAt(m_Position, m_Position + glm::vec3(1.0, 0.0, 0.0), glm::vec3(0.0, -1.0, 0.0)));
-		lightMatrices.push_back(lightProjection * glm::lookAt(m_Position, m_Position + glm::vec3(-1.0, 0.0, 0.0), glm::vec3(0.0, -1.0, 0.0)));
+		lightMatrices.push_back(m_LightProjection * glm::lookAt(m_Position, m_Position + glm::vec3(1.0, 0.0, 0.0), glm::vec3(0.0, -1.0, 0.0)));
+		lightMatrices.push_back(m_LightProjection * glm::lookAt(m_Position, m_Position + glm::vec3(-1.0, 0.0, 0.0), glm::vec3(0.0, -1.0, 0.0)));
 		//+y, -y
-		lightMatrices.push_back(lightProjection * glm::lookAt(m_Position, m_Position + glm::vec3(0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 1.0)));
-		lightMatrices.push_back(lightProjection * glm::lookAt(m_Position, m_Position + glm::vec3(0.0, -1.0, 0.0), glm::vec3(0.0, 0.0, -1.0)));
+		lightMatrices.push_back(m_LightProjection * glm::lookAt(m_Position, m_Position + glm::vec3(0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 1.0)));
+		lightMatrices.push_back(m_LightProjection * glm::lookAt(m_Position, m_Position + glm::vec3(0.0, -1.0, 0.0), glm::vec3(0.0, 0.0, -1.0)));
 		//+z, -z
-		lightMatrices.push_back(lightProjection * glm::lookAt(m_Position, m_Position + glm::vec3(0.0, 0.0, 1.0), glm::vec3(0.0, -1.0, 0.0)));
-		lightMatrices.push_back(lightProjection * glm::lookAt(m_Position, m_Position + glm::vec3(0.0, 0.0, -1.0), glm::vec3(0.0, -1.0, 0.0)));
+		lightMatrices.push_back(m_LightProjection * glm::lookAt(m_Position, m_Position + glm::vec3(0.0, 0.0, 1.0), glm::vec3(0.0, -1.0, 0.0)));
+		lightMatrices.push_back(m_LightProjection * glm::lookAt(m_Position, m_Position + glm::vec3(0.0, 0.0, -1.0), glm::vec3(0.0, -1.0, 0.0)));
 
 		return lightMatrices;
 	}

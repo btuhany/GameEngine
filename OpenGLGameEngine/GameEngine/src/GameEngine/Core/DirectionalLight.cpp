@@ -13,7 +13,7 @@ namespace GameEngine {
 		Light(ambientIntensityValue, diffuseIntensityValue, red, green, blue, shadowWidth, shadowHeight)
 	{
 		m_Direction = glm::vec3(xDir, yDir, zDir);
-		lightProjection = glm::ortho(-100.0f, 100.0f, -100.0f, 100.0f, -200.0f, 155.0f);
+		m_LightProjection = glm::ortho(-100.0f, 100.0f, -100.0f, 100.0f, -200.0f, 155.0f);
 	}
 
 	void DirectionalLight::UseLight(GLuint ambientIntensityLocation, GLuint ambientColorLocation, GLuint diffuseIntensityLocation, GLuint directionLocation)
@@ -24,7 +24,7 @@ namespace GameEngine {
 
 	glm::mat4 DirectionalLight::CalculateLightTransform()
 	{
-		return lightProjection * glm::lookAt(-m_Direction, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));  // projection * view
+		return m_LightProjection * glm::lookAt(-m_Direction, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));  // projection * view
 	}
 
 
