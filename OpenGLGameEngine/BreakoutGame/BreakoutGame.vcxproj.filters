@@ -15,12 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BreakoutApp.h">
+    <ClInclude Include="src\BreakoutGame\BreakoutApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BreakoutApp.cpp">
+    <ClCompile Include="src\BreakoutGame\BreakoutApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

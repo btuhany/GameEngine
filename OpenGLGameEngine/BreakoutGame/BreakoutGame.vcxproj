@@ -164,10 +164,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BreakoutApp.h" />
+    <ClInclude Include="src\BreakoutGame\BreakoutApp.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BreakoutApp.cpp" />
+    <ClCompile Include="src\BreakoutGame\BreakoutApp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameEngine\GameEngine.vcxproj">
