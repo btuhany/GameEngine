@@ -6,6 +6,7 @@ namespace GameEngine {
 	{
 		m_MainWindow = window;
 		m_IsInitialized = false;
+		m_ShouldStop = false;
 	}
 
 	Engine::~Engine()
@@ -29,10 +30,19 @@ namespace GameEngine {
 			return;
 		}
 		m_Scene->Start();
+
+		if (m_Scene->GetCamera() == nullptr)
+		{
+			LOG_CORE_ERROR("Camera is not initialized!");
+			m_ShouldStop = true;
+		}
 	}
 
 	void Engine::Run()
 	{
+		if (m_ShouldStop)
+			return;
+
 		GLfloat deltaTime = 0.0f;
 		GLfloat lastTime = 0.0f;
 		glm::mat4 projection = glm::perspective(glm::radians(60.0f), (GLfloat)m_MainWindow->GetBufferWidth() / m_MainWindow->GetBufferHeight(), 0.1f, 100.0f);
@@ -45,11 +55,8 @@ namespace GameEngine {
 
 			glfwPollEvents();
 
-			if (m_Scene->GetCamera() == nullptr)
-			{
-				LOG_CORE_ERROR("Camera is not initialized!");
-				break;
-			}
+			if (m_ShouldStop)
+				return; //break;
 
 			m_Scene->GetCamera()->HandleKeys(m_MainWindow->GetKeys(), deltaTime);
 			m_Scene->GetCamera()->HandleMouse(m_MainWindow->GetMouseDeltaX(), m_MainWindow->GetMouseDeltaY());
@@ -66,7 +73,7 @@ namespace GameEngine {
 
 	void Engine::Stop()
 	{
-
+		m_ShouldStop = true;
 	}
 
 	void Engine::renderPass(glm::mat4 projectionMatrix)
@@ -78,7 +85,7 @@ namespace GameEngine {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
-		if (m_Scene->UseSkyboxActive() && m_Scene->GetSkybox() != NULL)
+		if (m_Scene->UseSkyboxActive() && m_Scene->GetSkybox() != nullptr)
 		{
 			m_Scene->GetSkybox()->DrawSkybox(m_Scene->GetCamera()->CalculateViewMatrix(), projectionMatrix);
 		}

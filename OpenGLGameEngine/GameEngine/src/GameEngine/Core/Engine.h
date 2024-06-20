@@ -24,5 +24,6 @@ namespace GameEngine {
 		Window* m_MainWindow;
 		Scene* m_Scene;
 		bool m_IsInitialized;
+		bool m_ShouldStop;
 	};
 }

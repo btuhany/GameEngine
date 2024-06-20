@@ -5,6 +5,8 @@ namespace GameEngine {
 		m_BackgroundColour = glm::vec3(0.0f, 0.0f, 0.0f);
 		m_UseSkybox = false;
 		m_MainCamera = nullptr;
+		m_DirectionalLight = nullptr;
+		m_Skybox = nullptr;
 	}
 
 	Scene::~Scene()
@@ -65,6 +67,7 @@ namespace GameEngine {
 	{
 		for (size_t i = 0; i < m_RenderableObjectList.size(); i++)
 		{
+			m_RenderableObjectList[i]->GetRenderShader()->UseShader();
 			m_RenderableObjectList[i]->Render(projection, m_MainCamera->CalculateViewMatrix(), m_MainCamera, m_DirectionalLight);
 		}
 	}
