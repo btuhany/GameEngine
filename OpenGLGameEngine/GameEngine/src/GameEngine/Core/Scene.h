@@ -27,6 +27,7 @@ namespace GameEngine {
 		void setDirectionalLight(DirectionalLight* dLight);
 		DirectionalLight* getDirectionalLight();
 		int GetPointLightCount();
+		int GetSpotLightCount();
 	protected:
 		void setBackgroundColor(glm::vec3 colour);
 		void setCamera(Camera* camera);

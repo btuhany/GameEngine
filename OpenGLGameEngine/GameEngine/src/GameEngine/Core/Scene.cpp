@@ -152,6 +152,11 @@ namespace GameEngine {
 		return m_PointLightCount;
 	}
 
+	int Scene::GetSpotLightCount()
+	{
+		return m_SpotLightCount;
+	}
+
 	void Scene::useSkybox(bool useSkybox)
 	{
 		m_UseSkybox = useSkybox;

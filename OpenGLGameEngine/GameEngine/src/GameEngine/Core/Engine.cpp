@@ -90,13 +90,25 @@ namespace GameEngine {
 			m_Scene->GetSkybox()->DrawSkybox(m_Scene->GetCamera()->CalculateViewMatrix(), projectionMatrix);
 		}
 
-		m_Scene->SetPointLights();  //Use Shader
-		m_Scene->SetSpotLights();
+		if (m_Scene->GetPointLightCount() > 0)
+		{
+			m_Scene->SetPointLights();  //Use Shader
+		}
+		if (m_Scene->GetSpotLightCount() > 0)
+		{
+			m_Scene->SetSpotLights();
+		}
 		m_Scene->RenderScene(projectionMatrix);
 	}
 
 	void Engine::directionalShadowPass(DirectionalLight* dLight)
 	{
+		if (dLight == nullptr)
+		{
+			LOG_CORE_WARN("Directional light not initialized!");
+			return;
+		}
+
 		glViewport(0, 0, dLight->GetShadowMap()->GetShadowWidth(), dLight->GetShadowMap()->GetShadowHeight());
 		dLight->GetShadowMap()->Write();
 		glClear(GL_DEPTH_BUFFER_BIT);
@@ -106,6 +118,11 @@ namespace GameEngine {
 
 	void Engine::omniShadowPass()
 	{
+		if (m_Scene->GetPointLightCount() + m_Scene->GetSpotLightCount() == 0)
+		{
+			LOG_CORE_WARN("There aren't any lights to render omni shadows!");
+			return;
+		}
 		m_Scene->RenderSceneOmniShadowMap();
 	}
 }
