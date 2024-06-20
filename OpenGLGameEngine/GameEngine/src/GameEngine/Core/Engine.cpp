@@ -1,3 +1,4 @@
+#define STB_IMAGE_IMPLEMENTATION
 #include "Engine.h"
 
 namespace GameEngine {

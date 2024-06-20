@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameEngine\Core\EntryPoint.cpp" />
     <ClCompile Include="src\GameEngine\Core\Log.cpp" />
     <ClCompile Include="src\GameEngine\Core\Camera.cpp" />
     <ClCompile Include="src\GameEngine\Core\DirectionalLight.cpp" />
@@ -49,6 +50,7 @@
     <ClCompile Include="src\GameEngine\Core\RenderableData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameEngine\Core\EntryPoint.h" />
     <ClInclude Include="src\GameEngine\Core\Log.h" />
     <ClInclude Include="src\GameEngine\Core\Camera.h" />
     <ClInclude Include="src\GameEngine\Core\ConstantValues.h" />
@@ -196,6 +198,7 @@
       <PreprocessorDefinitions>WIN32;GAME_ENGINE_WINDOWS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)/../ExternalLibs/GLEW/include;$(SolutionDir)/../ExternalLibs/GLM;$(SolutionDir)/../ExternalLibs/GLFW/include;$(SolutionDir)/../ExternalLibs/ASSIMP/include;$(SolutionDir)/../ExternalLibs/STB_IMAGE;$(SolutionDir)/../ExternalLibs/SPDLOG/spdlog-1.x/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -207,6 +210,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)/OpenGLGameEngine;$(SolutionDir)/../ExternalLibs/GLEW/lib/Release/Win32;$(SolutionDir)/../ExternalLibs/GLFW/lib-vc2022;$(SolutionDir)/../ExternalLibs/ASSIMP/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>
       </AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>msvcrt.lib</IgnoreSpecificDefaultLibraries>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
