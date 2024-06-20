@@ -185,8 +185,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)/OpenGLGameEngine;$(SolutionDir)/../ExternalLibs/GLEW/lib/Release/Win32;$(SolutionDir)/../ExternalLibs/GLFW/lib-vc2022;$(SolutionDir)/../ExternalLibs/ASSIMP/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>
-      </IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>msvcrt.lib</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -266,7 +265,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\DemoScene3D\DemoScene3D.cpp" />
-    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assimp-vc143-mt.dll" />

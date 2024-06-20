@@ -50,4 +50,6 @@ namespace GameEngine {
 		bool m_UseSkybox = false;
 		DirectionalLight* m_DirectionalLight;
 	};
+
+	Scene* CreateScene();
 }

@@ -205,5 +205,8 @@ void DemoScene3D::initializeSkybox()
 	useSkybox(true);
 }
 
-
+GameEngine::Scene* GameEngine::CreateScene()
+{
+	return new DemoScene3D();
+}
 
