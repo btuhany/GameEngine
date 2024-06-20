@@ -16,10 +16,11 @@ namespace GameEngine {
 		}
 	}
 
-	Window::Window(GLint windowWidth, GLint windowHeight)
+	Window::Window(GLint windowWidth, GLint windowHeight, const char* windowName)
 	{
 		m_Width = windowWidth;
 		m_Height = windowHeight;
+		m_WindowName = windowName;
 
 		m_MouseLastXPosition = 0;
 		m_MouseLastYPosition = 0;
@@ -51,7 +52,7 @@ namespace GameEngine {
 		//Allow forward compatibility
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-		m_glWindow = glfwCreateWindow(m_Width, m_Height, "Test Window", NULL, NULL);
+		m_glWindow = glfwCreateWindow(m_Width, m_Height, m_WindowName, NULL, NULL);
 		if (!m_glWindow)
 		{
 			printf("GLFW window creation failed!");

@@ -9,7 +9,7 @@ namespace GameEngine {
 	{
 	public:
 		Window();
-		Window(GLint windowWidth, GLint windowHeight);
+		Window(GLint windowWidth, GLint windowHeight, const char* windowName);
 
 		int Initialize();
 
@@ -39,6 +39,8 @@ namespace GameEngine {
 		GLfloat m_MouseDeltaX = 0;
 		GLfloat m_MouseDeltaY = 0;
 		bool m_MouseFirstMoved = true;
+
+		const char* m_WindowName;
 
 		void createCallbacks();
 		static void handleKeys(GLFWwindow* window, int key, int code, int action, int mode);

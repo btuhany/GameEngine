@@ -13,11 +13,10 @@ DemoApp::~DemoApp()
 void DemoApp::Run()
 {
 	GameEngine::Log::Init();
-	GameEngine::Engine engine = GameEngine::Engine(new GameEngine::Window(1366, 768));
+	GameEngine::Engine engine = GameEngine::Engine(new GameEngine::Window(1366, 768, "DemoApp"));
 	engine.Initialize(new DemoScene3D());
 	engine.Start();
 	engine.Run();
-	printf("run exit");
 }
 
 GameEngine::Application* GameEngine::CreateApplication()
