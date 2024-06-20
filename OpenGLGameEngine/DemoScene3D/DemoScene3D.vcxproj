@@ -145,6 +145,7 @@
       <PreprocessorDefinitions>WIN32;GAME_ENGINE_WINDOWS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)GameEngine\src;$(SolutionDir)/../ExternalLibs/GLEW/include;$(SolutionDir)/../ExternalLibs/GLM;$(SolutionDir)/../ExternalLibs/GLFW/include;$(SolutionDir)/../ExternalLibs/ASSIMP/include;$(SolutionDir)/../ExternalLibs/STB_IMAGE;$(SolutionDir)/../ExternalLibs/SPDLOG/spdlog-1.x/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,6 +162,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)GameEngine\src;$(SolutionDir)/../ExternalLibs/GLEW/include;$(SolutionDir)/../ExternalLibs/GLM;$(SolutionDir)/../ExternalLibs/GLFW/include;$(SolutionDir)/../ExternalLibs/ASSIMP/include;$(SolutionDir)/../ExternalLibs/STB_IMAGE;$(SolutionDir)/../ExternalLibs/SPDLOG/spdlog-1.x/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -179,6 +181,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)GameEngine\src;$(SolutionDir)/../ExternalLibs/GLEW/include;$(SolutionDir)/../ExternalLibs/GLM;$(SolutionDir)/../ExternalLibs/GLFW/include;$(SolutionDir)/../ExternalLibs/ASSIMP/include;$(SolutionDir)/../ExternalLibs/STB_IMAGE;$(SolutionDir)/../ExternalLibs/SPDLOG/spdlog-1.x/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -197,6 +200,7 @@
       <PreprocessorDefinitions>WIN32;GAME_ENGINE_WINDOWS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)GameEngine\src;$(SolutionDir)/../ExternalLibs/GLEW/include;$(SolutionDir)/../ExternalLibs/GLM;$(SolutionDir)/../ExternalLibs/GLFW/include;$(SolutionDir)/../ExternalLibs/ASSIMP/include;$(SolutionDir)/../ExternalLibs/STB_IMAGE;$(SolutionDir)/../ExternalLibs/SPDLOG/spdlog-1.x/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -212,6 +216,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)/OpenGLGameEngine</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -226,6 +231,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)/OpenGLGameEngine</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -240,6 +246,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)/OpenGLGameEngine</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -255,6 +262,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

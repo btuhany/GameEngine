@@ -8,5 +8,6 @@
 #include "GameEngine/Core/ConstantValues.h"
 #include "GameEngine/Core/Shader.h"
 #include "GameEngine/Core/Log.h"
+#include "GameEngine/Core/EntryPoint.h"
 
 using namespace GameEngine;
