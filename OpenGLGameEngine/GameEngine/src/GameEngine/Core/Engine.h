@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "Window.h"
 #include "Camera.h"
+#include "Log.h"
 
 namespace GameEngine {
 	class ENGINE_API Engine

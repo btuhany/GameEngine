@@ -45,7 +45,11 @@ namespace GameEngine {
 
 			glfwPollEvents();
 
-
+			if (m_Scene->GetCamera() == nullptr)
+			{
+				LOG_CORE_ERROR("Camera is not initialized!");
+				break;
+			}
 
 			m_Scene->GetCamera()->HandleKeys(m_MainWindow->GetKeys(), deltaTime);
 			m_Scene->GetCamera()->HandleMouse(m_MainWindow->GetMouseDeltaX(), m_MainWindow->GetMouseDeltaY());

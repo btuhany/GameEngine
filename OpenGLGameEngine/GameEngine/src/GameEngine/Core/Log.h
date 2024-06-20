@@ -19,10 +19,10 @@ namespace GameEngine {
 }
 
 // Core Logging
-#define LOG_CORE_TRACE(...)		::Log::GetCoreLogger()->trace(__VA_ARGS__)
-#define LOG_CORE_INFO(...)		::Log::GetCoreLogger()->info(__VA_ARGS__)
-#define LOG_CORE_WARN(...)		::Log::GetCoreLogger()->warn(__VA_ARGS__)
-#define LOG_CORE_ERROR(...)		::Log::GetCoreLogger()->error(__VA_ARGS__)
+#define LOG_CORE_TRACE(...)		GameEngine::Log::GetCoreLogger()->trace(__VA_ARGS__)
+#define LOG_CORE_INFO(...)		GameEngine::Log::GetCoreLogger()->info(__VA_ARGS__)
+#define LOG_CORE_WARN(...)		GameEngine::Log::GetCoreLogger()->warn(__VA_ARGS__)
+#define LOG_CORE_ERROR(...)		GameEngine::Log::GetCoreLogger()->error(__VA_ARGS__)
 //#define LOG_CORE_FATAL(...)		::Log::GetCoreLogger()->fatal(__VA_ARGS__)
 
 // Client logging

@@ -18,9 +18,15 @@
     <ClInclude Include="src\BreakoutGame\BreakoutApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\BreakoutGame\BreakoutScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BreakoutGame\BreakoutApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BreakoutGame\BreakoutScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
