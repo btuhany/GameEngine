@@ -84,6 +84,7 @@ namespace GameEngine {
 
 	void Engine::renderPass(glm::mat4 projectionMatrix)
 	{
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glViewport(0, 0, 1366, 768);
 		//Clear window
 		glm::vec3 backgroundColor = m_Scene->GetBackgroundColor();
