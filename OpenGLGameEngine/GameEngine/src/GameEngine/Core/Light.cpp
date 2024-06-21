@@ -16,6 +16,14 @@ namespace GameEngine {
 		m_DiffuseIntensity = diffuseIntensityValue;
 	}
 
+	Light::Light(GLfloat ambientIntensityValue, GLfloat diffuseIntensityValue, GLfloat red, GLfloat green, GLfloat blue)
+	{
+		m_ShadowMap = nullptr;
+		m_Colour = glm::vec3(red, green, blue);
+		m_AmbientIntensity = ambientIntensityValue;
+		m_DiffuseIntensity = diffuseIntensityValue;
+	}
+
 	Light::~Light()
 	{
 		delete m_ShadowMap;

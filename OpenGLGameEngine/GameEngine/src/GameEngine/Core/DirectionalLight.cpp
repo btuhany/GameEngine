@@ -16,6 +16,13 @@ namespace GameEngine {
 		m_LightProjection = glm::ortho(-100.0f, 100.0f, -100.0f, 100.0f, -200.0f, 155.0f);
 	}
 
+	DirectionalLight::DirectionalLight(GLfloat ambientIntensityValue, GLfloat diffuseIntensityValue, GLfloat red, GLfloat green, GLfloat blue, GLfloat xDir, GLfloat yDir, GLfloat zDir) :
+		Light(ambientIntensityValue, diffuseIntensityValue, red, green, blue)
+	{
+		m_Direction = glm::vec3(xDir, yDir, zDir);
+		m_LightProjection = glm::ortho(-100.0f, 100.0f, -100.0f, 100.0f, -200.0f, 155.0f);
+	}
+
 	void DirectionalLight::UseLight(GLuint ambientIntensityLocation, GLuint ambientColorLocation, GLuint diffuseIntensityLocation, GLuint directionLocation)
 	{
 		Light::useLight(ambientIntensityLocation, ambientColorLocation, diffuseIntensityLocation);
