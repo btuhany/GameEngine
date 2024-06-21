@@ -45,6 +45,7 @@ namespace GameEngine {
 		void SetDirectionalShadowMap(GLuint textureUnit);
 		void SetDirectionalLightTransform(glm::mat4* lightTransform);
 		void SetLightMatrices(std::vector<glm::mat4> lightMatrices);
+		void SetUseDirLightShadow(bool active);
 
 		void UseShader();
 		void ClearShader();

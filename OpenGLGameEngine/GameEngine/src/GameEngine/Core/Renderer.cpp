@@ -54,8 +54,12 @@ namespace GameEngine {
 		{
 			m_Shader->SetDirectionalLight(directionalLight);
 			m_Shader->SetDirectionalLightTransform(&m_LightTransform);
-			directionalLight->GetShadowMap()->Read(GL_TEXTURE3);
-			m_Shader->SetDirectionalShadowMap(3);
+			if (directionalLight->GetShadowMap() != nullptr)
+			{
+				directionalLight->GetShadowMap()->Read(GL_TEXTURE3);
+				m_Shader->SetDirectionalShadowMap(3);
+			}
+
 		}
 
 
@@ -83,7 +87,7 @@ namespace GameEngine {
 	void Renderer::RenderObjectForOmniShadow(glm::mat4 modelMatrix, PointLight* pointLight, RenderableData* renderData)
 	{
 		//m_OmniShadowShader->UseShader();
-
+		return;
 		glUniform3f(m_OmniShadowShader->GetOmniLightPosLocation(), pointLight->GetPosition().x, pointLight->GetPosition().y, pointLight->GetPosition().z);
 		glUniform1f(m_OmniShadowShader->GetFarPlaneLocation(), pointLight->GetFarPlane());
 		m_OmniShadowShader->SetLightMatrices(pointLight->CalculateLightTransform());

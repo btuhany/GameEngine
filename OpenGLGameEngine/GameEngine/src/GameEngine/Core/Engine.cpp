@@ -109,6 +109,12 @@ namespace GameEngine {
 			return;
 		}
 
+		if (dLight->GetShadowMap() == nullptr)
+		{
+			LOG_CORE_INFO("Directional light has no shadow map");
+			return;
+		}
+
 		glViewport(0, 0, dLight->GetShadowMap()->GetShadowWidth(), dLight->GetShadowMap()->GetShadowHeight());
 		dLight->GetShadowMap()->Write();
 		glClear(GL_DEPTH_BUFFER_BIT);

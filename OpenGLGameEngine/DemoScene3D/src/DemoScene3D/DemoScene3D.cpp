@@ -16,7 +16,7 @@ void DemoScene3D::Initialize()
 	static const char* fShaderLocation = "src/DemoScene3D/Shaders/shader.frag";
 	Shader* rendererShader = new Shader();
 	rendererShader->CreateFromFiles(vShaderLocation, fShaderLocation);
-
+	rendererShader->SetUseDirLightShadow(false);
 	
 	Shader* directionalShadowShader = new Shader();
 	directionalShadowShader->CreateFromFiles("src/DemoScene3D/Shaders/directional_shadow_map.vert", "src/DemoScene3D/Shaders/directional_shadow_map.frag");
@@ -25,10 +25,9 @@ void DemoScene3D::Initialize()
 	omniShadowShader->CreateFromFiles("src/DemoScene3D/Shaders/omni_shadow_map.vert", "src/DemoScene3D/Shaders/omni_shadow_map.geom", "src/DemoScene3D/Shaders/omni_shadow_map.frag");
 	setOmniShadowShader(omniShadowShader);
 
-	SetDirectionalLight(new DirectionalLight(0.0f, 0.3f, 
-		0.1f, 0.1f, 0.7f, 
-		0.3f, -0.8f, 0.01f,
-		2048, 2048));
+	SetDirectionalLight(new DirectionalLight(0.0f, 0.9f, 
+		1.0f, 0.6f, 0.7f, 
+		0.3f, -0.8f, 0.01f));
 	setCamera(new Camera(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.0f, 0.1f));
 	setBackgroundColor(glm::vec3(0.0f, 1.0f, 0.0f));
 
@@ -67,28 +66,28 @@ void DemoScene3D::Initialize()
 		1.0f, 1.0f, 0.5f,
 		2048, 2048,
 		0.01f, 100.0f));
-	addPointLight(new PointLight(0.0f, 355.5f,
-		1.0f, 1.0f, 1.0f,
-		15.0f, 35.0f, 30.0f,
-		0.5f, 0.1f, 0.3f,
-		4096, 4096,
-		0.01f, 300.0f));
-	addSpotLight(new SpotLight(0.0f, 900.5f,
-		 1.0f, 0.0f, 0.0f,
-		0.0f, 20.0f, 0.0f,
-		0.0f, -1.0f, 0.6f,
-		5.0f, 1.0f, 1.0f,
-		60.0f,
-		2048, 2048,
-		0.01f, 100.0f));
-	addSpotLight(new SpotLight(0.0f, 155.0f,
-		0.0f, 0.5f, 1.0f,
-		0.0f, -10.0f, 0.0f,
-		0.0f, 0.5f, 0.0f,
-		0.1f, 0.1f, 0.1f, 
-		100.0f,
-		2048, 2048,
-		0.01f, 200.0f));
+	//addPointLight(new PointLight(0.0f, 355.5f,
+	//	1.0f, 1.0f, 1.0f,
+	//	15.0f, 35.0f, 30.0f,
+	//	0.5f, 0.1f, 0.3f,
+	//	4096, 4096,
+	//	0.01f, 300.0f));
+	//addSpotLight(new SpotLight(0.0f, 900.5f,
+	//	 1.0f, 0.0f, 0.0f,
+	//	0.0f, 20.0f, 0.0f,
+	//	0.0f, -1.0f, 0.6f,
+	//	5.0f, 1.0f, 1.0f,
+	//	60.0f,
+	//	2048, 2048,
+	//	0.01f, 100.0f));
+	//addSpotLight(new SpotLight(0.0f, 155.0f,
+	//	0.0f, 0.5f, 1.0f,
+	//	0.0f, -10.0f, 0.0f,
+	//	0.0f, 0.5f, 0.0f,
+	//	0.1f, 0.1f, 0.1f, 
+	//	100.0f,
+	//	2048, 2048,
+	//	0.01f, 200.0f));
 
 }
 

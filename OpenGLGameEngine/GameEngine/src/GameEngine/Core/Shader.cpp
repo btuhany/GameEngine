@@ -184,6 +184,12 @@ namespace GameEngine {
 		}
 	}
 
+	void Shader::SetUseDirLightShadow(bool active)
+	{
+		UseShader();
+		glUniform1i(glGetUniformLocation(shaderID, "useDirLightShadow"), (int)active);
+	}
+
 	void Shader::UseShader()
 	{
 		glUseProgram(shaderID);
