@@ -47,6 +47,11 @@ namespace GameEngine {
 		GLfloat lastTime = 0.0f;
 		glm::mat4 projection = glm::perspective(glm::radians(60.0f), (GLfloat)m_MainWindow->GetBufferWidth() / m_MainWindow->GetBufferHeight(), 0.1f, 100.0f);
 
+		bool renderDirLightShadow = m_Scene->GetDirectionalLight()->GetShadowMap() != nullptr;
+		if (!renderDirLightShadow)
+		{
+			LOG_CORE_INFO("Directional light has no shadow map, make sure correct dir light constructor (with shadowmaps) is used if you want to render dir light shadows!");
+		}
 		while (!m_MainWindow->GetShouldClose())
 		{
 			GLfloat timeNow = glfwGetTime(); //SDL_GetPerformanceCounter();
@@ -63,7 +68,8 @@ namespace GameEngine {
 
 
 			m_Scene->Update(deltaTime);
-			directionalShadowPass(m_Scene->GetDirectionalLight());
+			if (renderDirLightShadow)
+				directionalShadowPass(m_Scene->GetDirectionalLight());
 			omniShadowPass();
 			renderPass(projection);
 
@@ -111,7 +117,7 @@ namespace GameEngine {
 
 		if (dLight->GetShadowMap() == nullptr)
 		{
-			LOG_CORE_INFO("Directional light has no shadow map");
+			LOG_CORE_WARN("Directional light has no shadow map");
 			return;
 		}
 
