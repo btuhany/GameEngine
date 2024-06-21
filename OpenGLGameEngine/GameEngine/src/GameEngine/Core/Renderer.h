@@ -7,12 +7,14 @@
 #include "Shader.h"
 #include "Camera.h"
 #include "RenderableData.h"
+#include "Log.h"
 namespace GameEngine {
 	class ENGINE_API Renderer
 	{
 	public:
 		Renderer();
 		Renderer(Shader* shader, Shader* dirShadowShader, Shader* omniShadowShader);
+		Renderer(Shader* shader, Shader* omniShadowShader);
 		void DrawData(GLuint uniformModel, glm::mat4 modelMatrix, RenderableData* renderData);
 		void RenderObjectWithShader(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera, RenderableData* renderData, DirectionalLight* directionalLight);
 		void RenderObjectForDirectionalShadow(glm::mat4 modelMatrix, DirectionalLight* directionalLight, RenderableData* renderData);

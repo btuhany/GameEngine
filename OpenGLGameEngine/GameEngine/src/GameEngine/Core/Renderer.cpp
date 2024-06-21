@@ -17,7 +17,24 @@ namespace GameEngine {
 	Renderer::Renderer(Shader* shader, Shader* dirShadowShader, Shader* omniShadowShader)
 	{
 		m_Shader = shader;
+		m_Shader->SetUseDirLightShadow(true);
 		m_DirShadowShader = dirShadowShader;
+		m_OmniShadowShader = omniShadowShader;
+		m_UniformModel = m_Shader->GetModelLocation();
+		m_UniformProjection = m_Shader->GetProjectionLocation();
+		m_UniformView = m_Shader->GetViewLocation();
+		m_UniformMatSpecularInstensity = m_Shader->GetMatSpecularIntensityLocation();
+		m_UniformMatShininess = m_Shader->GetMatShininessLocation();
+		m_UniformCameraPosition = m_Shader->GetCameraPositionLocation();
+		m_RendererList.push_back(this);
+	}
+
+	Renderer::Renderer(Shader* shader, Shader* omniShadowShader)
+	{
+		m_Shader = shader;
+		m_Shader->SetUseDirLightShadow(false);
+		m_Shader->SetDirectionalShadowMap(3); //setting the uniform sampler2D to texture unit 3 (texture unit 0 is default and causes to not render properly)
+		m_DirShadowShader = nullptr;
 		m_OmniShadowShader = omniShadowShader;
 		m_UniformModel = m_Shader->GetModelLocation();
 		m_UniformProjection = m_Shader->GetProjectionLocation();
@@ -72,6 +89,11 @@ namespace GameEngine {
 
 	void Renderer::RenderObjectForDirectionalShadow(glm::mat4 modelMatrix, DirectionalLight* directionalLight, RenderableData* renderData)
 	{
+		if (m_DirShadowShader == nullptr)
+		{
+			LOG_CORE_ERROR("Directional shadow shader is null!");
+			return;
+		}
 		m_DirShadowShader->UseShader();
 
 		m_LightTransform = directionalLight->CalculateLightTransform();
@@ -79,9 +101,6 @@ namespace GameEngine {
 		m_DirShadowShader->Validate();
 
 		DrawData(m_DirShadowShader->GetModelLocation(), modelMatrix, renderData);
-
-
-
 	}
 
 	void Renderer::RenderObjectForOmniShadow(glm::mat4 modelMatrix, PointLight* pointLight, RenderableData* renderData)

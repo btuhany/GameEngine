@@ -11,6 +11,7 @@ namespace GameEngine {
 		Light();
 		Light(GLfloat ambientIntensityValue, GLfloat diffuseIntensityValue, GLfloat red, GLfloat green, GLfloat blue,
 			GLuint shadowWidth, GLuint shadowHeight);
+		//shadow map constructor shouldn't be used if shadow is not desired and shadow shaders won't be used
 		Light(GLfloat ambientIntensityValue, GLfloat diffuseIntensityValue, GLfloat red, GLfloat green, GLfloat blue);
 
 		ShadowMap* GetShadowMap() { return m_ShadowMap; }
