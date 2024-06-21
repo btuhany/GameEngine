@@ -19,6 +19,13 @@ namespace GameEngine {
 		m_ProcEdge = cosf(glm::radians(m_Edge));
 	}
 
+	SpotLight::SpotLight(GLfloat ambientIntensityValue, GLfloat diffuseIntensityValue, GLfloat red, GLfloat green, GLfloat blue, GLfloat xPos, GLfloat yPos, GLfloat zPos, GLfloat xDir, GLfloat yDir, GLfloat zDir, GLfloat constantVal, GLfloat linearVal, GLfloat expoValue, GLfloat edgeValue, GLfloat nearPlaneVal, GLfloat farPlaneVal) : PointLight(ambientIntensityValue, diffuseIntensityValue, red, green, blue, xPos, yPos, zPos, constantVal, linearVal, expoValue, nearPlaneVal, farPlaneVal)
+	{
+		m_Direction = glm::normalize(glm::vec3(xDir, yDir, zDir));
+		m_Edge = edgeValue;
+		m_ProcEdge = cosf(glm::radians(m_Edge));
+	}
+
 	void SpotLight::UseLight(GLuint ambientIntensityLocation, GLuint ambientColorLocation, GLuint diffuseIntensityLocation, GLuint positionLocation, GLuint directionLocation, GLuint constantLocation, GLuint linearLocation, GLuint exponentLocation, GLuint edgeLocation)
 	{
 		PointLight::UseLight(ambientIntensityLocation, ambientColorLocation, diffuseIntensityLocation, positionLocation, constantLocation, linearLocation, exponentLocation);

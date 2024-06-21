@@ -24,6 +24,20 @@ namespace GameEngine {
 		m_ShadowMap->Init(shadowWidth, shadowHeight);
 	}
 
+	PointLight::PointLight(GLfloat ambientIntensityValue, GLfloat diffuseIntensityValue, GLfloat red, GLfloat green, GLfloat blue, GLfloat xPos, GLfloat yPos, GLfloat zPos, GLfloat constantVal, GLfloat linearVal, GLfloat expoValue, GLfloat nearPlaneVal, GLfloat farPlaneVal) : Light(ambientIntensityValue, diffuseIntensityValue, red, green, blue)
+	{
+		m_Position = glm::vec3(xPos, yPos, zPos);
+		m_Constant = constantVal;
+		m_Linear = linearVal;
+		m_Exponent = expoValue;
+
+		m_FarPlane = farPlaneVal;
+
+		m_LightProjection = glm::perspective(glm::radians(90.0f), 1.0f, nearPlaneVal, farPlaneVal);
+
+		m_ShadowMap = nullptr;
+	}
+
 	void PointLight::UseLight(GLuint ambientIntensityLocation, GLuint ambientColorLocation, GLuint diffuseIntensityLocation, GLuint positionLocation, GLuint constantLocation, GLuint linearLocation, GLuint exponentLocation)
 	{
 		Light::useLight(ambientIntensityLocation, ambientColorLocation, diffuseIntensityLocation);

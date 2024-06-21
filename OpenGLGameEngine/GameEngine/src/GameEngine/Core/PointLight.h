@@ -12,6 +12,10 @@ namespace GameEngine {
             GLfloat red, GLfloat green, GLfloat blue,
             GLfloat xPos, GLfloat yPos, GLfloat zPos,
             GLfloat constantVal, GLfloat linearVal, GLfloat expoValue, GLuint shadowWidth, GLuint shadowHeight, GLfloat nearPlaneVal, GLfloat farPlaneVal);
+        PointLight(GLfloat ambientIntensityValue, GLfloat diffuseIntensityValue,
+            GLfloat red, GLfloat green, GLfloat blue,
+            GLfloat xPos, GLfloat yPos, GLfloat zPos,
+            GLfloat constantVal, GLfloat linearVal, GLfloat expoValue, GLfloat nearPlaneVal, GLfloat farPlaneVal);
         void UseLight(GLuint ambientIntensityLocation, GLuint ambientColorLocation, GLuint diffuseIntensityLocation, GLuint positionLocation, GLuint constantLocation, GLuint linearLocation, GLuint exponentLocation);
         std::vector<glm::mat4> CalculateLightTransform();
         GLfloat GetFarPlane();
