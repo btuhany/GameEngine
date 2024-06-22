@@ -24,6 +24,7 @@ struct PointLight
 	float constant;
 	float linear;
 	float exponent;
+	bool useOmniShadow;
 };
 struct SpotLight
 {
@@ -113,6 +114,10 @@ float CalcDirectionalShadowFactor(DirectionalLight dLight)
 
 float CalcOmniShadowFactor(PointLight light, int shadowIndex)
 {
+	if (!light.useOmniShadow)
+	{
+		return 0.0f;
+	}
 	vec3 fragToLight = FragPos - light.position;
 	float currentDepth = length(fragToLight);
 

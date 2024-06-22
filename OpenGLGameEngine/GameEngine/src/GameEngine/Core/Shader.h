@@ -81,6 +81,8 @@ namespace GameEngine {
 			GLuint UniformConstant;
 			GLuint UniformLinear;
 			GLuint UniformExponent;
+			GLuint UniformUseOmniShadow;
+
 		} m_UniformPointLights[MAX_POINT_LIGHTS];
 
 		GLuint m_UniformSpotLightCount;
@@ -93,6 +95,7 @@ namespace GameEngine {
 			GLuint UniformConstant;
 			GLuint UniformLinear;
 			GLuint UniformExponent;
+			GLuint UniformUseOmniShadow;
 
 			GLuint UniformDirection;
 			GLuint UniformEdge;

@@ -24,9 +24,9 @@ void DemoScene3D::Initialize()
 	omniShadowShader->CreateFromFiles("src/DemoScene3D/Shaders/omni_shadow_map.vert", "src/DemoScene3D/Shaders/omni_shadow_map.geom", "src/DemoScene3D/Shaders/omni_shadow_map.frag");
 	setOmniShadowShader(omniShadowShader);
 
-	SetDirectionalLight(new DirectionalLight(0.0f, 0.3f,
-		0.1f, 0.1f, 0.7f,
-		0.3f, -0.8f, 0.01f));
+	SetDirectionalLight(new DirectionalLight(0.0f, 0.1f,
+		1.0f, 0.5f, 0.5f,
+		0.4f, -0.8f, 0.01f));
 	setCamera(new Camera(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.0f, 0.1f));
 	setBackgroundColor(glm::vec3(0.0f, 1.0f, 0.0f));
 
@@ -59,25 +59,24 @@ void DemoScene3D::Initialize()
 	spidermanCube = RenderableObject(mainRenderer, spidermanCubeData);
 	
 
-	addPointLight(new PointLight(0.0f, 155.5f,
+	addPointLight(new PointLight(0.0f, 85.5f,
 		0.3f, 0.7f, 0.0f,
 		7.0f, 15.0f, 5.0f,
-		1.0f, 1.0f, 0.5f,
-		2048, 2048,
+		0.03f, 1.0f, 1.0f,
 		0.01f, 100.0f));
-	addPointLight(new PointLight(0.0f, 355.5f,
-		1.0f, 1.0f, 1.0f,
+	addPointLight(new PointLight(0.0f, 255.5f,
+		1.0f, 0.0f, 1.0f,
 		15.0f, 35.0f, 30.0f,
 		0.5f, 0.1f, 0.3f,
 		4096, 4096,
 		0.01f, 300.0f));
-	addSpotLight(new SpotLight(0.0f, 900.5f,
+	addSpotLight(new SpotLight(0.0f, 600.5f,
 		 1.0f, 0.0f, 0.0f,
 		0.0f, 20.0f, 0.0f,
 		0.0f, -1.0f, 0.6f,
-		5.0f, 1.0f, 1.0f,
+		1.1f, 25.0f, 0.01f,
 		60.0f,
-		2048, 2048,
+		1024,1024,
 		0.01f, 100.0f));
 	addSpotLight(new SpotLight(0.0f, 155.0f,
 		0.0f, 0.5f, 1.0f,
@@ -85,9 +84,15 @@ void DemoScene3D::Initialize()
 		0.0f, 0.5f, 0.0f,
 		0.1f, 0.1f, 0.1f, 
 		100.0f,
-		2048, 2048,
 		0.01f, 200.0f));
-
+	addSpotLight(new SpotLight(0.0f, 500.0f,
+		0.0f, 1.0f, 1.0f,
+		-7.0f, 12.0f, 8.0f,
+		0.7f, -0.6f, 0.3f,
+		0.8f, 0.01f, 0.8f,
+		100.0f,
+		1024, 1024,
+		0.01f, 200.0f));
 }
 
 void DemoScene3D::Start()

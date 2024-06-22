@@ -131,11 +131,14 @@ namespace GameEngine {
 		for (size_t i = 0; i < lightCount; i++)
 		{
 			pLight[i].UseLight(m_UniformPointLights[i].UniformAmbientIntensity, m_UniformPointLights[i].UniformColour, m_UniformPointLights[i].UniformDiffuseIntensity,
-				m_UniformPointLights[i].UniformPosition, m_UniformPointLights[i].UniformConstant, m_UniformPointLights[i].UniformLinear, m_UniformPointLights[i].UniformExponent);
+				m_UniformPointLights[i].UniformPosition, m_UniformPointLights[i].UniformConstant, m_UniformPointLights[i].UniformLinear, m_UniformPointLights[i].UniformExponent, m_UniformPointLights[i].UniformUseOmniShadow);
 
-			pLight[i].GetShadowMap()->Read(GL_TEXTURE0 + textureUnit + i);
-			glUniform1i(m_UniformOmniShadowMap[i + offset].ShadowMap, textureUnit + i);
-			glUniform1f(m_UniformOmniShadowMap[i + offset].FarPlane, pLight[i].GetFarPlane());
+			if (pLight[i].GetShadowMap() != nullptr)
+			{
+				pLight[i].GetShadowMap()->Read(GL_TEXTURE0 + textureUnit + i);
+				glUniform1i(m_UniformOmniShadowMap[i + offset].ShadowMap, textureUnit + i);
+				glUniform1f(m_UniformOmniShadowMap[i + offset].FarPlane, pLight[i].GetFarPlane());
+			}
 
 		}
 	}
@@ -153,11 +156,14 @@ namespace GameEngine {
 		for (size_t i = 0; i < lightCount; i++)
 		{
 			sLight[i].UseLight(m_UniformSpotLights[i].UniformAmbientIntensity, m_UniformSpotLights[i].UniformColour, m_UniformSpotLights[i].UniformDiffuseIntensity,
-				m_UniformSpotLights[i].UniformPosition, m_UniformSpotLights[i].UniformDirection, m_UniformSpotLights[i].UniformConstant, m_UniformSpotLights[i].UniformLinear, m_UniformSpotLights[i].UniformExponent, m_UniformSpotLights[i].UniformEdge);
+				m_UniformSpotLights[i].UniformPosition, m_UniformSpotLights[i].UniformDirection, m_UniformSpotLights[i].UniformConstant, m_UniformSpotLights[i].UniformLinear, m_UniformSpotLights[i].UniformExponent, m_UniformSpotLights[i].UniformUseOmniShadow, m_UniformSpotLights[i].UniformEdge);
 
-			sLight[i].GetShadowMap()->Read(GL_TEXTURE0 + textureUnit + i);
-			glUniform1i(m_UniformOmniShadowMap[i + offset].ShadowMap, textureUnit + i);
-			glUniform1f(m_UniformOmniShadowMap[i + offset].FarPlane, sLight[i].GetFarPlane());
+			if (sLight[i].GetShadowMap() != nullptr)
+			{
+				sLight[i].GetShadowMap()->Read(GL_TEXTURE0 + textureUnit + i);
+				glUniform1i(m_UniformOmniShadowMap[i + offset].ShadowMap, textureUnit + i);
+				glUniform1f(m_UniformOmniShadowMap[i + offset].FarPlane, sLight[i].GetFarPlane());
+			}
 		}
 	}
 
@@ -357,6 +363,9 @@ namespace GameEngine {
 
 			snprintf(locBuff, sizeof(locBuff), "pointLights[%d].exponent", i);
 			m_UniformPointLights[i].UniformExponent = glGetUniformLocation(shaderID, locBuff);
+
+			snprintf(locBuff, sizeof(locBuff), "pointLights[%d].useOmniShadow", i);
+			m_UniformPointLights[i].UniformUseOmniShadow = glGetUniformLocation(shaderID, locBuff);
 		}
 
 		m_UniformSpotLightCount = glGetUniformLocation(shaderID, "spotLightCount");
@@ -385,6 +394,9 @@ namespace GameEngine {
 
 			snprintf(locBuff, sizeof(locBuff), "spotLights[%d].base.exponent", i);
 			m_UniformSpotLights[i].UniformExponent = glGetUniformLocation(shaderID, locBuff);
+
+			snprintf(locBuff, sizeof(locBuff), "spotLights[%d].base.useOmniShadow", i);
+			m_UniformSpotLights[i].UniformUseOmniShadow = glGetUniformLocation(shaderID, locBuff);
 
 			snprintf(locBuff, sizeof(locBuff), "spotLights[%d].direction", i);
 			m_UniformSpotLights[i].UniformDirection = glGetUniformLocation(shaderID, locBuff);

@@ -38,13 +38,15 @@ namespace GameEngine {
 		m_ShadowMap = nullptr;
 	}
 
-	void PointLight::UseLight(GLuint ambientIntensityLocation, GLuint ambientColorLocation, GLuint diffuseIntensityLocation, GLuint positionLocation, GLuint constantLocation, GLuint linearLocation, GLuint exponentLocation)
+	void PointLight::UseLight(GLuint ambientIntensityLocation, GLuint ambientColorLocation, GLuint diffuseIntensityLocation, GLuint positionLocation, GLuint constantLocation, GLuint linearLocation, GLuint exponentLocation, GLuint useOmniShadow)
 	{
 		Light::useLight(ambientIntensityLocation, ambientColorLocation, diffuseIntensityLocation);
 		glUniform3f(positionLocation, m_Position.x, m_Position.y, m_Position.z);
 		glUniform1f(constantLocation, m_Constant);
 		glUniform1f(linearLocation, m_Linear);
 		glUniform1f(exponentLocation, m_Exponent);
+		bool useOmniShadowValue = (m_ShadowMap != nullptr);
+		glUniform1i(useOmniShadow, (int)useOmniShadowValue);
 	}
 
 	std::vector<glm::mat4> PointLight::CalculateLightTransform()

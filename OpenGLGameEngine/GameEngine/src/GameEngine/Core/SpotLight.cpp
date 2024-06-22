@@ -26,9 +26,9 @@ namespace GameEngine {
 		m_ProcEdge = cosf(glm::radians(m_Edge));
 	}
 
-	void SpotLight::UseLight(GLuint ambientIntensityLocation, GLuint ambientColorLocation, GLuint diffuseIntensityLocation, GLuint positionLocation, GLuint directionLocation, GLuint constantLocation, GLuint linearLocation, GLuint exponentLocation, GLuint edgeLocation)
+	void SpotLight::UseLight(GLuint ambientIntensityLocation, GLuint ambientColorLocation, GLuint diffuseIntensityLocation, GLuint positionLocation, GLuint directionLocation, GLuint constantLocation, GLuint linearLocation, GLuint exponentLocation, GLuint useOmniShadowLoc, GLuint edgeLocation)
 	{
-		PointLight::UseLight(ambientIntensityLocation, ambientColorLocation, diffuseIntensityLocation, positionLocation, constantLocation, linearLocation, exponentLocation);
+		PointLight::UseLight(ambientIntensityLocation, ambientColorLocation, diffuseIntensityLocation, positionLocation, constantLocation, linearLocation, exponentLocation, useOmniShadowLoc);
 		glUniform3f(directionLocation, m_Direction.x, m_Direction.y, m_Direction.z);
 		glUniform1f(edgeLocation, m_ProcEdge);
 	}

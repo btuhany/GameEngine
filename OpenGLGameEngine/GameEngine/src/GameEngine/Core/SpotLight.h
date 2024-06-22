@@ -22,7 +22,7 @@ namespace GameEngine {
             GLfloat constantVal, GLfloat linearVal, GLfloat expoValue,
             GLfloat edgeValue, GLfloat nearPlaneVal, GLfloat farPlaneVal);
 
-        void UseLight(GLuint ambientIntensityLocation, GLuint ambientColorLocation, GLuint diffuseIntensityLocation, GLuint positionLocation, GLuint directionLocation, GLuint constantLocation, GLuint linearLocation, GLuint exponentLocation, GLuint edgeLocation);
+        void UseLight(GLuint ambientIntensityLocation, GLuint ambientColorLocation, GLuint diffuseIntensityLocation, GLuint positionLocation, GLuint directionLocation, GLuint constantLocation, GLuint linearLocation, GLuint exponentLocation, GLuint useOmniShadowLoc, GLuint edgeLocation);
 
         ~SpotLight();
 
