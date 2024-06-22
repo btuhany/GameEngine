@@ -7,6 +7,7 @@ namespace GameEngine {
 		m_MainCamera = nullptr;
 		m_DirectionalLight = nullptr;
 		m_Skybox = nullptr;
+		m_OmniShadowShader = nullptr;
 	}
 
 	Scene::~Scene()

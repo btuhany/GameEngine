@@ -59,7 +59,7 @@ void DemoScene3D::Initialize()
 	spidermanCube = RenderableObject(mainRenderer, spidermanCubeData);
 	
 
-	addPointLight(new PointLight(0.0f, 85.5f,
+	addPointLight(new PointLight(0.0f, 80.5f,
 		0.3f, 0.7f, 0.0f,
 		7.0f, 15.0f, 5.0f,
 		0.03f, 1.0f, 1.0f,
@@ -68,15 +68,13 @@ void DemoScene3D::Initialize()
 		1.0f, 0.0f, 1.0f,
 		15.0f, 35.0f, 30.0f,
 		0.5f, 0.1f, 0.3f,
-		4096, 4096,
 		0.01f, 300.0f));
-	addSpotLight(new SpotLight(0.0f, 600.5f,
+	addSpotLight(new SpotLight(0.0f, 80.5f,
 		 1.0f, 0.0f, 0.0f,
 		0.0f, 20.0f, 0.0f,
 		0.0f, -1.0f, 0.6f,
-		1.1f, 25.0f, 0.01f,
+		1.1f, 1.0f, 0.01f,
 		60.0f,
-		1024,1024,
 		0.01f, 100.0f));
 	addSpotLight(new SpotLight(0.0f, 155.0f,
 		0.0f, 0.5f, 1.0f,
@@ -91,7 +89,6 @@ void DemoScene3D::Initialize()
 		0.7f, -0.6f, 0.3f,
 		0.8f, 0.01f, 0.8f,
 		100.0f,
-		1024, 1024,
 		0.01f, 200.0f));
 }
 
