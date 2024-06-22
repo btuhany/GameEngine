@@ -52,6 +52,11 @@ namespace GameEngine {
 		{
 			LOG_CORE_INFO("Directional light has no shadow map, make sure correct dir light constructor (with shadowmaps) is used if you want to render dir light shadows!");
 		}
+		bool renderOmniLightShadow = m_Scene->IsOmniShadowShaderSet();
+		if (!renderOmniLightShadow)
+		{
+			LOG_CORE_INFO("Omni light shadow is not set.");
+		}
 		while (!m_MainWindow->GetShouldClose())
 		{
 			GLfloat timeNow = glfwGetTime(); //SDL_GetPerformanceCounter();
@@ -70,7 +75,8 @@ namespace GameEngine {
 			m_Scene->Update(deltaTime);
 			if (renderDirLightShadow)
 				directionalShadowPass(m_Scene->GetDirectionalLight());
-			omniShadowPass();
+			if (renderOmniLightShadow)
+				omniShadowPass();
 			renderPass(projection);
 
 			m_MainWindow->SwapBuffers();

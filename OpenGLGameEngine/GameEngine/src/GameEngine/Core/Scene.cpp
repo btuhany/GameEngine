@@ -102,6 +102,12 @@ namespace GameEngine {
 
 	void Scene::RenderSceneOmniShadowMap()
 	{
+		if (!IsOmniShadowShaderSet())
+		{
+			LOG_CORE_WARN("Trying to render the omni shadow map, but the shadow shader isn't set!");
+			return;
+		}
+
 		m_OmniShadowShader->UseShader();
 
 		for (size_t i = 0; i < m_PointLightCount; i++)
@@ -166,6 +172,11 @@ namespace GameEngine {
 	int Scene::GetSpotLightCount()
 	{
 		return m_SpotLightCount;
+	}
+
+	bool Scene::IsOmniShadowShaderSet()
+	{
+		return m_OmniShadowShader != nullptr;
 	}
 
 	void Scene::useSkybox(bool useSkybox)

@@ -45,6 +45,22 @@ namespace GameEngine {
 		m_RendererList.push_back(this);
 	}
 
+	Renderer::Renderer(Shader* shader)
+	{
+		m_Shader = shader;
+		m_Shader->SetUseDirLightShadow(false);
+		m_Shader->SetDirectionalShadowMap(3); //setting the uniform sampler2D to texture unit 3 (texture unit 0 is default and causes to not render properly)
+		m_DirShadowShader = nullptr;
+		m_OmniShadowShader = nullptr;
+		m_UniformModel = m_Shader->GetModelLocation();
+		m_UniformProjection = m_Shader->GetProjectionLocation();
+		m_UniformView = m_Shader->GetViewLocation();
+		m_UniformMatSpecularInstensity = m_Shader->GetMatSpecularIntensityLocation();
+		m_UniformMatShininess = m_Shader->GetMatShininessLocation();
+		m_UniformCameraPosition = m_Shader->GetCameraPositionLocation();
+		m_RendererList.push_back(this);
+	}
+
 	void Renderer::DrawData(GLuint uniformModel, glm::mat4 modelMatrix, RenderableData* renderData)
 	{
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelMatrix));

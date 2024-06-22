@@ -28,6 +28,7 @@ namespace GameEngine {
 		DirectionalLight* GetDirectionalLight();
 		int GetPointLightCount();
 		int GetSpotLightCount();
+		bool IsOmniShadowShaderSet();
 	protected:
 		void setBackgroundColor(glm::vec3 colour);
 		void setCamera(Camera* camera);
