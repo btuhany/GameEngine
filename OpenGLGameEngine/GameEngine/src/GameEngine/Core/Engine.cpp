@@ -67,7 +67,7 @@ namespace GameEngine {
 		bool renderOmniLightShadow = m_Scene->IsOmniShadowShaderSet();
 		if (!renderOmniLightShadow)
 		{
-			LOG_CORE_INFO("Omni light shadow is not set.");
+			LOG_CORE_INFO("Omni light shadow shader is not set, make sure point and spot lights don't have shadow maps!");
 		}
 		while (!m_MainWindow->GetShouldClose())
 		{

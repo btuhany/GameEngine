@@ -1,0 +1,2 @@
+- In order to enabe light shadows, shadow map constructor must be used and shadow shader must set.
+- If shadow maps are going to be used, shadow shaders must be set.
