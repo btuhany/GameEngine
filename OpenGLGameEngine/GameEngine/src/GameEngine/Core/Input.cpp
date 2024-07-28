@@ -1,19 +1,21 @@
 #include "Input.h"
-
-GameEngine::Input::Input()
+namespace GameEngine
 {
+	Input::Input()
+	{
 
-}
+	}
 
-GameEngine::Input::~Input()
-{
+	Input::~Input()
+	{
 
-}
+	}
 
-void GameEngine::Input::HandleKeys(int* keys, GLfloat deltaTime)
-{
-}
+	void Input::HandleKeys(int* keys, GLfloat deltaTime)
+	{
+	}
 
-void GameEngine::Input::HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY)
-{
+	void Input::HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY)
+	{
+	}
 }
