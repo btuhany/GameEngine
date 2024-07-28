@@ -21,6 +21,9 @@
     <ClCompile Include="src\DemoScene3D\DemoApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\DemoScene3D\DemoSceneInputHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\DemoScene3D\Shaders\directional_shadow_map.frag" />
@@ -45,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\DemoScene3D\DemoApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DemoScene3D\DemoSceneInputHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

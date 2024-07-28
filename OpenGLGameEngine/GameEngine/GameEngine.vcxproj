@@ -35,6 +35,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameEngine\Core\SimpleEvent.cpp" />
+    <ClCompile Include="src\GameEngine\Core\Input.cpp" />
     <ClCompile Include="src\GameEngine\Core\Application.cpp" />
     <ClCompile Include="src\GameEngine\Core\EntryPoint.cpp" />
     <ClCompile Include="src\GameEngine\Core\Log.cpp" />
@@ -59,6 +61,8 @@
     <ClCompile Include="src\GameEngine\Core\RenderableData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameEngine\Core\SimpleEvent.h" />
+    <ClInclude Include="src\GameEngine\Core\Input.h" />
     <ClInclude Include="src\GameEngine\Core\Application.h" />
     <ClInclude Include="src\EntryPoint.h" />
     <ClInclude Include="src\GameEngine\Core\Log.h" />

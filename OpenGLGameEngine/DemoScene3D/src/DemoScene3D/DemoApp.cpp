@@ -13,8 +13,11 @@ DemoApp::~DemoApp()
 void DemoApp::Run()
 {
 	GameEngine::Log::Init();
-	GameEngine::Engine engine = GameEngine::Engine(new GameEngine::Window(1366, 768, "DemoApp"));
-	engine.Initialize(new DemoScene3D());
+	DemoSceneInputHandler inputHandler = DemoSceneInputHandler();
+	GameEngine::Engine engine = GameEngine::Engine(new GameEngine::Window(1366, 768, "DemoApp"), &inputHandler);
+	DemoScene3D demoScene = DemoScene3D(&inputHandler);
+
+	engine.Initialize(&demoScene);
 	engine.Start();
 	engine.Run();
 }

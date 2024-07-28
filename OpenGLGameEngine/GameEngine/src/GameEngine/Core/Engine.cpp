@@ -9,6 +9,14 @@ namespace GameEngine {
 		m_ShouldStop = false;
 	}
 
+	Engine::Engine(Window* window, Input* input)
+	{
+		m_MainWindow = window;
+		m_InputHandler = input;
+		m_IsInitialized = false;
+		m_ShouldStop = false;
+	}
+
 	Engine::~Engine()
 	{
 		m_Scene = nullptr;
@@ -69,22 +77,29 @@ namespace GameEngine {
 		{
 			LOG_CORE_INFO("Omni light shadow shader is not set, make sure point and spot lights don't have shadow maps!");
 		}
+		
+		if (m_InputHandler == nullptr)
+		{
+			LOG_CORE_INFO("Engine input handler is not set!");
+		}
+		
 		while (!m_MainWindow->GetShouldClose())
 		{
+			if (m_ShouldStop)
+				continue; //break;
+
 			GLfloat timeNow = glfwGetTime(); //SDL_GetPerformanceCounter();
 			deltaTime = timeNow - lastTime; // (timeNow - lastTime)*1000 / SDL_GetPerformanceFrequency();
 			lastTime = timeNow;
 
+			m_Scene->Update(deltaTime);
+
 			glfwPollEvents();
 
-			if (m_ShouldStop)
-				return; //break;
-
-			m_Scene->GetCamera()->HandleKeys(m_MainWindow->GetKeys(), deltaTime);
+			m_InputHandler->HandleKeys(m_MainWindow->GetKeys(), deltaTime);
 			m_Scene->GetCamera()->HandleMouse(m_MainWindow->GetMouseDeltaX(), m_MainWindow->GetMouseDeltaY());
 
 
-			m_Scene->Update(deltaTime);
 			if (renderDirLightShadow)
 				directionalShadowPass(m_Scene->GetDirectionalLight());
 			if (renderOmniLightShadow)

@@ -5,6 +5,7 @@
 #include "DirectionalLight.h"
 #include <vector>
 #include "RenderableObject.h"
+#include "Input.h"
 namespace GameEngine {
 	class ENGINE_API Scene
 	{
@@ -37,6 +38,7 @@ namespace GameEngine {
 		void setOmniShadowShader(Shader* omniShadowShader);
 		void addPointLight(const PointLight* pLight);
 		void addSpotLight(const SpotLight* sLight);
+		Camera* m_MainCamera;
 	private:
 		std::vector<RenderableObject*> m_RenderableObjectList;
 		Shader* m_OmniShadowShader;
@@ -47,7 +49,6 @@ namespace GameEngine {
 		SpotLight m_SpotLightList[MAX_SPOT_LIGHTS];
 		int m_SpotLightCount = 0;
 		glm::vec3 m_BackgroundColour = glm::vec3(0.0f, 0.0f, 0.0f);
-		Camera* m_MainCamera;
 		Skybox* m_Skybox;
 		bool m_UseSkybox = false;
 		DirectionalLight* m_DirectionalLight;

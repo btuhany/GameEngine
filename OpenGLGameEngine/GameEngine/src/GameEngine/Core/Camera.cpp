@@ -20,32 +20,6 @@ namespace GameEngine {
 		update();
 	}
 
-	void Camera::HandleKeys(bool* keys, GLfloat deltaTime)
-	{
-		GLfloat curMoveSpeed = m_MoveSpeed;
-
-		if (keys[GLFW_KEY_LEFT_SHIFT])
-		{
-			curMoveSpeed *= 3.0f;
-		}
-		if (keys[GLFW_KEY_W])
-		{
-			m_Position += m_Front * curMoveSpeed * deltaTime;
-		}
-		if (keys[GLFW_KEY_D])
-		{
-			m_Position += m_Right * curMoveSpeed * deltaTime;
-		}
-		if (keys[GLFW_KEY_A])
-		{
-			m_Position -= m_Right * curMoveSpeed * deltaTime;
-		}
-		if (keys[GLFW_KEY_S])
-		{
-			m_Position -= m_Front * curMoveSpeed * deltaTime;
-		}
-	}
-
 	void Camera::HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY)
 	{
 		mouseDeltaX *= m_RotateSpeed;
@@ -72,6 +46,27 @@ namespace GameEngine {
 	glm::mat4 Camera::CalculateViewMatrix()
 	{
 		return glm::lookAt(m_Position, m_Position + m_Front, m_Up);
+	}
+
+	void Camera::MoveForward(float value)
+	{
+		m_Position += m_Front * value;
+	}
+
+	void Camera::MoveBack(float value)
+	{
+		m_Position -= m_Front * value;
+	}
+
+	void Camera::MoveRight(float value)
+	{
+		m_Position += m_Right * value;
+	}
+
+	void Camera::MoveLeft(float value)
+	{
+		m_Position -= m_Right * value;
+
 	}
 
 	Camera::~Camera()

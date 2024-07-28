@@ -13,13 +13,15 @@ namespace GameEngine
 		Camera();
 		Camera(glm::vec3 startPosition, glm::vec3 startUpVector, GLfloat startYawVal, GLfloat startPitchVal, GLfloat startMoveSpeed, GLfloat startRotateSpeed);
 
-		void HandleKeys(bool* keys, GLfloat deltaTime);
 		void HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY);
 
 		glm::vec3 GetCameraPosition();
 
 		glm::mat4 CalculateViewMatrix();
-
+		void MoveForward(float value);
+		void MoveBack(float value);
+		void MoveRight(float value);
+		void MoveLeft(float value);
 		~Camera();
 
 	private:

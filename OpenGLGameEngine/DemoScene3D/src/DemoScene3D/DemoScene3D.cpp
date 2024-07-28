@@ -4,6 +4,11 @@ DemoScene3D::DemoScene3D() : Scene()
 {
 }
 
+DemoScene3D::DemoScene3D(DemoSceneInputHandler* input) : Scene()
+{
+	m_InputReader = input;
+}
+
 DemoScene3D::~DemoScene3D()
 {
 	printf("deleted demoscnee");
@@ -12,6 +17,10 @@ DemoScene3D::~DemoScene3D()
 void DemoScene3D::Initialize()
 {
 	LOG_INFO("Demo scene initialized!");
+	m_InputReader->OnPresssedRightEvent.AddHandler([this]() {handleOnRightKey();});
+	m_InputReader->OnPresssedDownEvent.AddHandler([this]() {handleOnDownKey();});
+	m_InputReader->OnPresssedLeftEvent.AddHandler([this]() {handleOnLeftKey();});
+	m_InputReader->OnPresssedUpEvent.AddHandler([this]() {handleOnUpKey();});
 	static const char* vShaderLocation = "src/DemoScene3D/Shaders/shader.vert";
 	static const char* fShaderLocation = "src/DemoScene3D/Shaders/shader.frag";
 	Shader* rendererShader = new Shader();
@@ -27,7 +36,8 @@ void DemoScene3D::Initialize()
 	SetDirectionalLight(new DirectionalLight(0.0f, 0.15f,
 		0.0f, 0.5f, 1.0f,
 		0.4f, -0.8f, 0.01f, 1024, 1024));
-	setCamera(new Camera(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.0f, 0.1f));
+	m_CameraSpeed = 5.0f;
+	setCamera(new Camera(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, m_CameraSpeed, 0.1f));
 	setBackgroundColor(glm::vec3(0.0f, 1.0f, 0.0f));
 
 	initializeSkybox();
@@ -124,6 +134,7 @@ float positionY = 0.0f;
 float increaseValue = 1.5f;
 void DemoScene3D::Update(GLfloat deltaTime)
 {
+	m_DeltaTime = deltaTime;
 	rotate = deltaTime * 12.5f;
 	positionY += deltaTime * increaseValue;
 	if (positionY > 4)
@@ -192,6 +203,30 @@ Mesh* DemoScene3D::createPlainMesh()
 	Mesh* plainMesh = new Mesh();
 	plainMesh->CreateMesh(floorVertices, floorIndices, 32, 6);
 	return plainMesh;
+}
+
+void DemoScene3D::handleOnRightKey()
+{
+	m_MainCamera->MoveRight(m_CameraSpeed * m_DeltaTime);
+}
+
+void DemoScene3D::handleOnLeftKey()
+{
+	m_MainCamera->MoveLeft(m_CameraSpeed * m_DeltaTime);
+}
+
+void DemoScene3D::handleOnUpKey()
+{
+	m_MainCamera->MoveForward(m_CameraSpeed * m_DeltaTime);
+}
+
+void DemoScene3D::handleOnDownKey()
+{
+	m_MainCamera->MoveBack(m_CameraSpeed * m_DeltaTime);
+}
+
+void DemoScene3D::handleOnShiftKey()
+{
 }
 
 void DemoScene3D::initializeSkybox()

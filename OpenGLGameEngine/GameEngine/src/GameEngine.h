@@ -9,5 +9,7 @@
 #include "GameEngine/Core/Shader.h"
 #include "GameEngine/Core/Log.h"
 #include "GameEngine/Core/Application.h"
+#include "GameEngine/Core/Input.h"
+#include "GameEngine/Core/SimpleEvent.h"
 
 using namespace GameEngine;
