@@ -4,6 +4,7 @@
 
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
+#include <vector>
 namespace GameEngine {
 	class ENGINE_API Window
 	{
@@ -18,21 +19,24 @@ namespace GameEngine {
 
 		bool GetShouldClose() { return glfwWindowShouldClose(m_glWindow); }
 
-		bool* GetKeys() { return m_Keys; }
+		int* GetKeys() { return m_Keys; }
 		GLfloat GetMouseDeltaX();
 		GLfloat GetMouseDeltaY();
 
 		void SwapBuffers() { glfwSwapBuffers(m_glWindow); }
 
-		~Window();
+		void ClearKeyCache();
 
+
+		~Window();
 	private:
 		GLFWwindow* m_glWindow;
 
 		GLint m_Width, m_Height;
 		GLint m_BufferWidth, m_BufferHeight;
 
-		bool m_Keys[1024]; //covering the ascii characters
+		int m_Keys[1024]; //covering the ascii characters
+		std::vector<int> m_KeysCache; //to reset key states
 
 		GLfloat m_MouseLastXPosition = 0;
 		GLfloat m_MouseLastYPosition = 0;
@@ -45,5 +49,12 @@ namespace GameEngine {
 		void createCallbacks();
 		static void handleKeys(GLFWwindow* window, int key, int code, int action, int mode);
 		static void handleMouse(GLFWwindow* window, double xPos, double yPos);
+	};
+
+	enum KeyState {
+		KEY_STATE_NONE = 0,
+		KEY_STATE_PRESS = 1,
+		KEY_STATE_RELEASE = 2,
+		KEY_STATE_HELD = 3
 	};
 }

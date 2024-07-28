@@ -10,7 +10,7 @@ GameEngine::Input::~Input()
 
 }
 
-void GameEngine::Input::HandleKeys(bool* keys, GLfloat deltaTime)
+void GameEngine::Input::HandleKeys(int* keys, GLfloat deltaTime)
 {
 }
 

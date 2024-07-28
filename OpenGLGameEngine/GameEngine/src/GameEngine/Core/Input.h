@@ -1,4 +1,5 @@
 #pragma once
+#include "Window.h"
 #include <GLFW\glfw3.h>
 namespace GameEngine
 {
@@ -7,7 +8,7 @@ namespace GameEngine
 	public:
 		Input();
 		~Input();
-		virtual void HandleKeys(bool* keys, GLfloat deltaTime);
+		virtual void HandleKeys(int* keys, GLfloat deltaTime);
 		virtual void HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY);
 	};
 }

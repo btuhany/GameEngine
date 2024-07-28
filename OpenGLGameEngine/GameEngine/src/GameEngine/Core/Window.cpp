@@ -9,11 +9,6 @@ namespace GameEngine {
 		m_MouseLastYPosition = 0;
 		m_MouseDeltaX = 0;
 		m_MouseDeltaY = 0;
-
-		for (size_t i = 0; i < 1024; i++)
-		{
-			m_Keys[i] = 0;
-		}
 	}
 
 	Window::Window(GLint windowWidth, GLint windowHeight, const char* windowName)
@@ -27,10 +22,6 @@ namespace GameEngine {
 		m_MouseDeltaX = 0;
 		m_MouseDeltaY = 0;
 
-		for (size_t i = 0; i < 1024; i++)
-		{
-			m_Keys[i] = 0;
-		}
 	}
 
 	int Window::Initialize()
@@ -128,18 +119,25 @@ namespace GameEngine {
 		{
 			glfwSetWindowShouldClose(window, GL_TRUE);
 		}
-
 		if (key >= 0 && key < 1024)
 		{
 			if (action == GLFW_PRESS)
 			{
-				theWindow->m_Keys[key] = true;
+				theWindow->m_Keys[key] = KEY_STATE_PRESS;
+				theWindow->m_KeysCache.push_back(key);
 				printf("Pressed: %d\n", key);
 			}
 			else if (action == GLFW_RELEASE)
 			{
-				theWindow->m_Keys[key] = false;
+				theWindow->m_Keys[key] = KEY_STATE_RELEASE;
+				theWindow->m_KeysCache.push_back(key);
 				printf("Released: %d\n", key);
+			}
+			else if (action == GLFW_REPEAT)
+			{
+				theWindow->m_Keys[key] = KEY_STATE_HELD;
+				theWindow->m_KeysCache.push_back(key);
+				printf("Hold: %d\n", key);
 			}
 		}
 	}
@@ -162,5 +160,12 @@ namespace GameEngine {
 
 		//printf("Mouse Pos X: %.6f\n", theWindow->mouseDeltaX);
 		//printf("Mouse Pos Y: %.6f\n", yPos);
+	}
+	void Window::ClearKeyCache()
+	{
+		for (size_t i = 0; i < m_KeysCache.size(); i++)
+		{
+			m_Keys[m_KeysCache[i]] = KEY_STATE_NONE;
+		}
 	}
 }
