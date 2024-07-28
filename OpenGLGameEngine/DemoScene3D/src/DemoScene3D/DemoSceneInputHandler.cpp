@@ -14,6 +14,10 @@ void DemoSceneInputHandler::HandleKeys(int* keys, GLfloat deltaTime)
 	{
 		OnPressedShiftEvent.Trigger();
 	}
+	else if (keys[GLFW_KEY_LEFT_SHIFT] == KEY_STATE_RELEASE)
+	{
+		OnReleasedShiftEvent.Trigger();
+	}
 	if (keys[GLFW_KEY_W] == KEY_STATE_PRESS || keys[GLFW_KEY_W] == KEY_STATE_HELD)
 	{
 		OnPresssedUpEvent.Trigger();

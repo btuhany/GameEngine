@@ -23,6 +23,7 @@ private:
 	void handleOnUpKey();
 	void handleOnDownKey();
 	void handleOnShiftKey();
+	void handleOnShiftReleasedKey();
 	DemoSceneInputHandler* m_InputReader;
 	float m_CameraSpeed;
 	float m_DeltaTime;

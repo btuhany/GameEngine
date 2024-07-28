@@ -21,6 +21,8 @@ void DemoScene3D::Initialize()
 	m_InputReader->OnPresssedDownEvent.AddHandler([this]() {handleOnDownKey();});
 	m_InputReader->OnPresssedLeftEvent.AddHandler([this]() {handleOnLeftKey();});
 	m_InputReader->OnPresssedUpEvent.AddHandler([this]() {handleOnUpKey();});
+	m_InputReader->OnPressedShiftEvent.AddHandler([this]() {handleOnShiftKey();});
+	m_InputReader->OnReleasedShiftEvent.AddHandler([this]() {handleOnShiftReleasedKey();});
 	static const char* vShaderLocation = "src/DemoScene3D/Shaders/shader.vert";
 	static const char* fShaderLocation = "src/DemoScene3D/Shaders/shader.frag";
 	Shader* rendererShader = new Shader();
@@ -227,6 +229,12 @@ void DemoScene3D::handleOnDownKey()
 
 void DemoScene3D::handleOnShiftKey()
 {
+	m_CameraSpeed = 15.0f;
+}
+
+void DemoScene3D::handleOnShiftReleasedKey()
+{
+	m_CameraSpeed = 5.0f;
 }
 
 void DemoScene3D::initializeSkybox()

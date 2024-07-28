@@ -12,6 +12,7 @@ public:
 	SimpleEvent OnPresssedUpEvent;
 	SimpleEvent OnPresssedDownEvent;
 	SimpleEvent OnPressedShiftEvent;
+	SimpleEvent OnReleasedShiftEvent;
 	void HandleKeys(int* keys, GLfloat deltaTime) override;
 	void HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY) override;
 
