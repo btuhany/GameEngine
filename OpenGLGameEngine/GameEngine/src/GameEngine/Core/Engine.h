@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Log.h"
 #include "Input.h"
+#include "CameraTypeEnum.h"
 
 namespace GameEngine {
 	class ENGINE_API Engine

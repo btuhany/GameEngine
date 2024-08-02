@@ -11,5 +11,6 @@
 #include "GameEngine/Core/Application.h"
 #include "GameEngine/Core/Input.h"
 #include "GameEngine/Core/SimpleEvent.h"
+#include "GameEngine/Core/CameraTypeEnum.h"
 
 using namespace GameEngine;

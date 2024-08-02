@@ -176,6 +176,9 @@
     <ClInclude Include="src\GameEngine\Core\SimpleEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\Core\CameraTypeEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\GameEngine\Shaders\shader.vert">

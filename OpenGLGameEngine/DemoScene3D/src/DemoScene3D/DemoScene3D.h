@@ -1,6 +1,7 @@
 #pragma once
 #include <GameEngine.h>
 #include "DemoSceneInputHandler.h"
+
 class DemoScene3D : public Scene
 {
 public:

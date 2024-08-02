@@ -1,0 +1,5 @@
+#pragma once
+enum CameraType {
+	CAMERA_TYPE_PERSPECTIVE = 0,
+	CAMERA_TYPE_ORTHOGONAL
+};

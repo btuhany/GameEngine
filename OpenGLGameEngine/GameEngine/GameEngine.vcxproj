@@ -61,6 +61,7 @@
     <ClCompile Include="src\GameEngine\Core\RenderableData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameEngine\Core\CameraTypeEnum.h" />
     <ClInclude Include="src\GameEngine\Core\SimpleEvent.h" />
     <ClInclude Include="src\GameEngine\Core\Input.h" />
     <ClInclude Include="src\GameEngine\Core\Application.h" />

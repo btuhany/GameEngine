@@ -53,7 +53,7 @@ namespace GameEngine {
 
 		GLfloat deltaTime = 0.0f;
 		GLfloat lastTime = 0.0f;
-		glm::mat4 projection = glm::perspective(glm::radians(60.0f), (GLfloat)m_MainWindow->GetBufferWidth() / m_MainWindow->GetBufferHeight(), 0.1f, 100.0f);
+		glm::mat4 projection = m_Scene->GetCamera()->CalcGetProjectionMatrix((GLfloat)m_MainWindow->GetBufferWidth() / m_MainWindow->GetBufferHeight());
 
 		DirectionalLight* sceneDirLight = m_Scene->GetDirectionalLight();
 

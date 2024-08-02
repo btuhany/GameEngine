@@ -6,7 +6,7 @@ namespace GameEngine {
 	{
 	}
 
-	Camera::Camera(glm::vec3 startPosition, glm::vec3 startUpVector, GLfloat startYawVal, GLfloat startPitchVal, GLfloat startMoveSpeed, GLfloat startRotateSpeed)
+	Camera::Camera(glm::vec3 startPosition, glm::vec3 startUpVector, GLfloat startYawVal, GLfloat startPitchVal, GLfloat startMoveSpeed, GLfloat startRotateSpeed, float fov, float nearValue, float farValue, CameraType type)
 	{
 		m_Position = startPosition;
 		m_WorldUp = startUpVector;
@@ -17,6 +17,10 @@ namespace GameEngine {
 		m_MoveSpeed = startMoveSpeed;
 		m_RotateSpeed = startRotateSpeed;
 
+		m_Fov = fov;
+		m_NearPlane = nearValue;
+		m_FarPlane = farValue;
+		m_Type = type;
 		update();
 	}
 
@@ -67,6 +71,23 @@ namespace GameEngine {
 	{
 		m_Position -= m_Right * value;
 
+	}
+
+	glm::mat4 Camera::CalcGetProjectionMatrix(GLfloat aspectRatio)
+	{
+		if (m_Type == CAMERA_TYPE_PERSPECTIVE)
+		{
+			m_Projection = glm::perspective(glm::radians(m_Fov), aspectRatio, m_NearPlane, m_FarPlane);
+		}
+		else if (m_Type == CAMERA_TYPE_ORTHOGONAL)
+		{
+			m_Projection = glm::ortho(-80.0f, 80.0f, -80.0f, 80.0f, m_NearPlane, m_FarPlane);
+		}
+		else
+		{
+			LOG_CORE_ERROR("Camera type has not been set, projection matrix couldn't calculated");
+		}
+		return m_Projection;
 	}
 
 	Camera::~Camera()
