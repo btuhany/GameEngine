@@ -1,23 +1,22 @@
 #pragma once
-#include <functional>
 #include <vector>
 
 namespace GameEngine
 {
-	template<typename... Args>
 	//temp event system for inputs
 	class SimpleEvent
 	{
 	public:
-		void AddHandler(std::function<void(Args...)> handler)
+		void AddHandler(std::function<void()> handler)
 		{
 			m_Handlers.push_back(handler);
 		}
-		void Trigger(Args... args)
+
+		void Trigger()
 		{
 			for (size_t i = 0; i < m_Handlers.size(); i++)
 			{
-				m_Handlers[i](std::forward<Args>(args)...);
+				m_Handlers[i]();
 			}
 		}
 	private:

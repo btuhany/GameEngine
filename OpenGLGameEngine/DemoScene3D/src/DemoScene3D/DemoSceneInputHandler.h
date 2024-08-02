@@ -7,12 +7,12 @@ public:
 	DemoSceneInputHandler();
 	~DemoSceneInputHandler();
 
-	SimpleEvent<> OnPresssedRightEvent;
-	SimpleEvent<> OnPresssedLeftEvent;
-	SimpleEvent<> OnPresssedUpEvent;
-	SimpleEvent<> OnPresssedDownEvent;
-	SimpleEvent<> OnPressedShiftEvent;
-	SimpleEvent<> OnReleasedShiftEvent;
+	SimpleEvent OnPresssedRightEvent;
+	SimpleEvent OnPresssedLeftEvent;
+	SimpleEvent OnPresssedUpEvent;
+	SimpleEvent OnPresssedDownEvent;
+	SimpleEvent OnPressedShiftEvent;
+	SimpleEvent OnReleasedShiftEvent;
 	void HandleKeys(int* keys, GLfloat deltaTime) override;
 	void HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY) override;
 
