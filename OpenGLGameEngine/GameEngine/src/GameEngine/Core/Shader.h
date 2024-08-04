@@ -21,6 +21,7 @@ namespace GameEngine {
 
 		void CreateFromString(const char* vertexCode, const char* fragmentCode);
 		void CreateFromFiles(const char* vertexLocation, const char* fragmentLocation);
+		void CreateFromFiles2D(const char* vertexLocation, const char* fragmentLocation);
 		void CreateFromFiles(const char* vertexLocation, const char* geometryLocation, const char* fragmentLocation);
 		void Validate();
 
@@ -108,10 +109,12 @@ namespace GameEngine {
 
 		std::string ReadFile(const char* fileLocation);
 		void CompileShader(const char* vertexCode, const char* fragmentCode);
+		void CompileShader2D(const char* vertexCode, const char* fragmentCode);
 		void CompileShader(const char* vertexCode, const char* geometryCode, const char* fragmentCode);
 		void AddShader(GLuint theProgram, const char* shaderCode, GLenum shaderType);
 
 
 		void CompileProgram();
+		void CompileProgram2D();
 	};
 }

@@ -33,5 +33,7 @@
   <ItemGroup>
     <None Include="assimp-vc143-mt.dll" />
     <None Include="glew32.dll" />
+    <None Include="src\BreakoutGame\Shaders\shader.frag" />
+    <None Include="src\BreakoutGame\Shaders\shader.vert" />
   </ItemGroup>
 </Project>

@@ -77,10 +77,12 @@ namespace GameEngine {
 		{
 			LOG_CORE_INFO("Omni light shadow shader is not set, make sure point and spot lights don't have shadow maps!");
 		}
-		
+
+		bool handleInputs = true;
 		if (m_InputHandler == nullptr)
 		{
 			LOG_CORE_INFO("Engine input handler is not set!");
+			handleInputs = false;
 		}
 		
 		while (!m_MainWindow->GetShouldClose())
@@ -96,7 +98,8 @@ namespace GameEngine {
 
 			glfwPollEvents();
 
-			m_InputHandler->HandleKeys(m_MainWindow->GetKeys(), deltaTime);
+			if (handleInputs)
+				m_InputHandler->HandleKeys(m_MainWindow->GetKeys(), deltaTime);
 			m_Scene->GetCamera()->HandleMouse(m_MainWindow->GetMouseDeltaX(), m_MainWindow->GetMouseDeltaY());
 
 

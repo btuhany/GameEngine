@@ -26,6 +26,16 @@ namespace GameEngine {
 		CompileShader(vertexCode, fragmentCode);
 	}
 
+	void Shader::CreateFromFiles2D(const char* vertexLocation, const char* fragmentLocation)
+	{
+		std::string vertexString = ReadFile(vertexLocation);
+		std::string fragmentString = ReadFile(fragmentLocation);
+		const char* vertexCode = vertexString.c_str();
+		const char* fragmentCode = fragmentString.c_str();
+
+		CompileShader2D(vertexCode, fragmentCode);
+	}
+
 	void Shader::CreateFromFiles(const char* vertexLocation, const char* geometryLocation, const char* fragmentLocation)
 	{
 		std::string vertexString = ReadFile(vertexLocation);
@@ -258,6 +268,23 @@ namespace GameEngine {
 		CompileProgram();
 	}
 
+	void Shader::CompileShader2D(const char* vertexCode, const char* fragmentCode)
+	{
+		shaderID = glCreateProgram();
+
+		if (!shaderID)
+		{
+			printf("Error creating shader program!\n");
+			return;
+		}
+
+		AddShader(shaderID, vertexCode, GL_VERTEX_SHADER);
+		AddShader(shaderID, fragmentCode, GL_FRAGMENT_SHADER);
+
+
+		CompileProgram2D();
+	}
+
 	void Shader::CompileShader(const char* vertexCode, const char* geometryCode, const char* fragmentCode)
 	{
 		shaderID = glCreateProgram();
@@ -427,6 +454,20 @@ namespace GameEngine {
 
 			snprintf(locBuff, sizeof(locBuff), "omniShadowMaps[%d].farPlane", i);
 			m_UniformOmniShadowMap[i].FarPlane = glGetUniformLocation(shaderID, locBuff);
+		}
+	}
+	void Shader::CompileProgram2D()
+	{
+		GLint result = 0;
+		GLchar eLog[1024] = { 0 };
+
+		glLinkProgram(shaderID);
+		glGetProgramiv(shaderID, GL_LINK_STATUS, &result);
+		if (!result)
+		{
+			glGetProgramInfoLog(shaderID, sizeof(eLog), NULL, eLog);
+			printf("Error linking program: '%s'\n", eLog);
+			return;
 		}
 	}
 }
