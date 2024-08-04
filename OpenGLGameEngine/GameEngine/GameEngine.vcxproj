@@ -35,6 +35,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameEngine\Core\IShadowMapRenderable.cpp" />
+    <ClCompile Include="src\GameEngine\Core\Sprite.cpp" />
     <ClCompile Include="src\GameEngine\Core\Renderer.cpp" />
     <ClCompile Include="src\GameEngine\Core\SimpleEvent.cpp" />
     <ClCompile Include="src\GameEngine\Core\Input.cpp" />
@@ -57,11 +59,13 @@
     <ClCompile Include="src\GameEngine\Core\Texture.cpp" />
     <ClCompile Include="src\GameEngine\Core\Window.cpp" />
     <ClCompile Include="src\GameEngine\Core\Scene.cpp" />
-    <ClCompile Include="src\GameEngine\Core\RenderableObject.cpp" />
+    <ClCompile Include="src\GameEngine\Core\Renderable3DObject.cpp" />
     <ClCompile Include="src\GameEngine\Core\MeshRenderer.cpp" />
     <ClCompile Include="src\GameEngine\Core\RenderableData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameEngine\Core\IShadowMapRenderable.h" />
+    <ClInclude Include="src\GameEngine\Core\Sprite.h" />
     <ClInclude Include="src\GameEngine\Core\Renderer.h" />
     <ClInclude Include="src\GameEngine\Core\CameraTypeEnum.h" />
     <ClInclude Include="src\GameEngine\Core\SimpleEvent.h" />
@@ -88,7 +92,7 @@
     <ClInclude Include="src\GameEngine\Core\Window.h" />
     <ClInclude Include="src\GameEngine\Core\Engine.h" />
     <ClInclude Include="src\GameEngine\Core\Scene.h" />
-    <ClInclude Include="src\GameEngine\Core\RenderableObject.h" />
+    <ClInclude Include="src\GameEngine\Core\Renderable3DObject.h" />
     <ClInclude Include="src\GameEngine\Core\MeshRenderer.h" />
     <ClInclude Include="src\GameEngine\Core\RenderableData.h" />
     <ClInclude Include="src\GameEngine\Core\IRenderable.h" />

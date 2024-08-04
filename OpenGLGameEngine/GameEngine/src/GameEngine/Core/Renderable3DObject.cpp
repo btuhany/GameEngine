@@ -1,63 +1,63 @@
-#include "RenderableObject.h"
+#include "Renderable3DObject.h"
 
 
 namespace GameEngine {
-	RenderableObject::RenderableObject()
+	Renderable3DObject::Renderable3DObject()
 	{
 		m_TransformModelMatrix = glm::mat4(1.0f);
 	}
 
-	RenderableObject::~RenderableObject()
+	Renderable3DObject::~Renderable3DObject()
 	{
 		printf("deleted renderable object! \n");
 		//delete m_Renderer;
 		//delete m_RenderableData;
 	}
 
-	RenderableObject::RenderableObject(MeshRenderer* renderer, RenderableData* renderableData)
+	Renderable3DObject::Renderable3DObject(MeshRenderer* renderer, RenderableData* renderableData)
 	{
 		m_Renderer = renderer;
 		m_RenderableData = renderableData;
 		m_TransformModelMatrix = glm::mat4(1.0f);
 	}
 
-	void RenderableObject::Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera, DirectionalLight* dirLight)
+	void Renderable3DObject::Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera, DirectionalLight* dirLight)
 	{
 		m_Renderer->RenderObjectWithShader(m_TransformModelMatrix, projectionMatrix, m_RenderableData);
 	}
 
-	void RenderableObject::RenderDirectionalShadowMap(DirectionalLight* dirLight)
+	void Renderable3DObject::RenderDirectionalShadowMap(DirectionalLight* dirLight)
 	{
 		m_Renderer->RenderObjectForDirectionalShadow(m_TransformModelMatrix, dirLight, m_RenderableData);
 	}
 
-	void RenderableObject::RenderOmniShadowMap(PointLight* pointLight)
+	void Renderable3DObject::RenderOmniShadowMap(PointLight* pointLight)
 	{
 		m_Renderer->RenderObjectForOmniShadow(m_TransformModelMatrix, pointLight, m_RenderableData);
 	}
 
-	void RenderableObject::TranslateTransform(glm::vec3 translateVector)
+	void Renderable3DObject::TranslateTransform(glm::vec3 translateVector)
 	{
 		m_TransformModelMatrix = glm::translate(m_TransformModelMatrix, translateVector);
 	}
 
-	void RenderableObject::RotateTransform(float angle, glm::vec3 rotateVector)
+	void Renderable3DObject::RotateTransform(float angle, glm::vec3 rotateVector)
 	{
 		const float toRadians = 3.14159265f / 180.0f;
 		m_TransformModelMatrix = glm::rotate(m_TransformModelMatrix, angle * toRadians, rotateVector);
 	}
 
-	void RenderableObject::ScaleTransform(glm::vec3 scaleVector)
+	void Renderable3DObject::ScaleTransform(glm::vec3 scaleVector)
 	{
 		m_TransformModelMatrix = glm::scale(m_TransformModelMatrix, scaleVector);
 	}
 
-	Shader* RenderableObject::GetRenderShader()
+	Shader* Renderable3DObject::GetRenderShader()
 	{
 		return m_Renderer->GetRenderShader();
 	}
 
-	void RenderableObject::ClearRenderableObject()
+	void Renderable3DObject::ClearRenderableObject()
 	{
 		delete m_RenderableData;
 	}

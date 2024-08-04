@@ -58,18 +58,18 @@ void DemoScene3D::Initialize()
 	Model* helicopterModelData = new Model();
 	helicopterModelData->LoadModel("src/DemoScene3D/Models/uh60.obj");
 	RenderableData*  helicopterRenderableData = new RenderableData(helicopterModelData, shinyMaterial);
-	helicopter = RenderableObject(mainRenderer, helicopterRenderableData);
+	helicopter = Renderable3DObject(mainRenderer, helicopterRenderableData);
 
 	Model* ironmanModelData = new Model();
 	ironmanModelData->LoadModel("src/DemoScene3D/Models/IronMan.obj");
 	RenderableData*  ironmanRenderableData = new RenderableData(ironmanModelData, shinyMaterial);
-	ironman = RenderableObject(mainRenderer, ironmanRenderableData);
+	ironman = Renderable3DObject(mainRenderer, ironmanRenderableData);
 
 	RenderableData* spidermanPlainData = new RenderableData(createPlainMesh(), spidermanTexture, roughMaterial);
-	spidermanPlain = RenderableObject(mainRenderer, spidermanPlainData);
+	spidermanPlain = Renderable3DObject(mainRenderer, spidermanPlainData);
 
 	RenderableData* spidermanCubeData = new RenderableData(createCubeMesh(), spidermanTexture, shinyMaterial);
-	spidermanCube = RenderableObject(mainRenderer, spidermanCubeData);
+	spidermanCube = Renderable3DObject(mainRenderer, spidermanCubeData);
 	
 
 	addPointLight(new PointLight(0.0f, 500.5f,

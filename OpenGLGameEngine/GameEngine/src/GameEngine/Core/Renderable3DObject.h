@@ -3,12 +3,12 @@
 #include "MeshRenderer.h"
 #include "IShadowMapRenderable.h"
 namespace GameEngine {
-	class ENGINE_API RenderableObject : public IShadowMapRenderable
+	class ENGINE_API Renderable3DObject : public IShadowMapRenderable
 	{
 	public:
-		RenderableObject();
-		~RenderableObject();
-		RenderableObject(MeshRenderer* renderer, RenderableData* renderableData);
+		Renderable3DObject();
+		~Renderable3DObject();
+		Renderable3DObject(MeshRenderer* renderer, RenderableData* renderableData);
 		void Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera, DirectionalLight* dirLight);
 		void RenderDirectionalShadowMap(DirectionalLight* dirLight);
 		void RenderOmniShadowMap(PointLight* pointLight);

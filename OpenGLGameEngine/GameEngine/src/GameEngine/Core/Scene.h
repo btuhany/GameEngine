@@ -4,7 +4,7 @@
 #include "Skybox.h"
 #include "DirectionalLight.h"
 #include <vector>
-#include "RenderableObject.h"
+#include "Renderable3DObject.h"
 #include "Input.h"
 namespace GameEngine {
 	class ENGINE_API Scene
@@ -15,7 +15,7 @@ namespace GameEngine {
 		virtual void Initialize();
 		virtual void Start();
 		virtual void Update(GLfloat deltaTime);
-		void AddObject(RenderableObject* object);
+		void AddObject(Renderable3DObject* object);
 		void AddShadowMapRenderableObject(IShadowMapRenderable* object);
 		Camera* GetCamera();
 		Skybox* GetSkybox();
@@ -41,7 +41,7 @@ namespace GameEngine {
 		void addSpotLight(const SpotLight* sLight);
 		Camera* m_MainCamera;
 	private:
-		std::vector<RenderableObject*> m_RenderableObjectList;
+		std::vector<Renderable3DObject*> m_RenderableObjectList;
 		std::vector<IShadowMapRenderable*> m_ShadowMapRenderableList;
 		Shader* m_OmniShadowShader;
 		void updateObjects();

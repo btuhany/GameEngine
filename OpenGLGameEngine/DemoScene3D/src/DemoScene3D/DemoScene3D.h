@@ -15,10 +15,10 @@ private:
 	void initializeSkybox();
 	Mesh* createCubeMesh();
 	Mesh* createPlainMesh();
-	RenderableObject helicopter;
-	RenderableObject ironman;
-	RenderableObject spidermanPlain;
-	RenderableObject spidermanCube;
+	Renderable3DObject helicopter;
+	Renderable3DObject ironman;
+	Renderable3DObject spidermanPlain;
+	Renderable3DObject spidermanCube;
 	void handleOnRightKey();
 	void handleOnLeftKey();
 	void handleOnUpKey();

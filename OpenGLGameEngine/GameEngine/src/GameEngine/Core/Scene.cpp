@@ -39,7 +39,7 @@ namespace GameEngine {
 
 	}
 
-	void Scene::AddObject(RenderableObject* object)
+	void Scene::AddObject(Renderable3DObject* object)
 	{
 		m_RenderableObjectList.push_back(object);
 	}
