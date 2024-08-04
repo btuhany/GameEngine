@@ -16,6 +16,7 @@ namespace GameEngine {
 		virtual void Start();
 		virtual void Update(GLfloat deltaTime);
 		void AddObject(RenderableObject* object);
+		void AddShadowMapRenderableObject(IShadowMapRenderable* object);
 		Camera* GetCamera();
 		Skybox* GetSkybox();
 		glm::vec3 GetBackgroundColor();
@@ -41,6 +42,7 @@ namespace GameEngine {
 		Camera* m_MainCamera;
 	private:
 		std::vector<RenderableObject*> m_RenderableObjectList;
+		std::vector<IShadowMapRenderable*> m_ShadowMapRenderableList;
 		Shader* m_OmniShadowShader;
 		void updateObjects();
 		void startObjects();

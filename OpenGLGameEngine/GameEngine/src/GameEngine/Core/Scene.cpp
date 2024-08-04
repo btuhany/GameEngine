@@ -17,7 +17,7 @@ namespace GameEngine {
 		delete m_MainCamera;
 		delete m_Skybox;
 
-
+		//TODO: m_ShadowMapRenderableObject clear?
 		for (auto obj : m_RenderableObjectList) {
 			obj->ClearRenderableObject();
 		}
@@ -42,6 +42,11 @@ namespace GameEngine {
 	void Scene::AddObject(RenderableObject* object)
 	{
 		m_RenderableObjectList.push_back(object);
+	}
+
+	void Scene::AddShadowMapRenderableObject(IShadowMapRenderable* object)
+	{
+		m_ShadowMapRenderableList.push_back(object);
 	}
 
 	Camera* Scene::GetCamera()
@@ -93,9 +98,9 @@ namespace GameEngine {
 
 	void Scene::RenderSceneShadowMap()
 	{
-		for (size_t i = 0; i < m_RenderableObjectList.size(); i++)
+		for (size_t i = 0; i < m_ShadowMapRenderableList.size(); i++)
 		{
-			m_RenderableObjectList[i]->RenderShadowMap(m_DirectionalLight);
+			m_ShadowMapRenderableList[i]->RenderDirectionalShadowMap(m_DirectionalLight);
 		}
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
@@ -120,9 +125,9 @@ namespace GameEngine {
 			glViewport(0, 0, m_PointLightList[i].GetShadowMap()->GetShadowWidth(), m_PointLightList[i].GetShadowMap()->GetShadowHeight());
 			m_PointLightList[i].GetShadowMap()->Write(); //Bind framebuffer
 			glClear(GL_DEPTH_BUFFER_BIT);
-			for (size_t j = 0; j < m_RenderableObjectList.size(); j++)
+			for (size_t j = 0; j < m_ShadowMapRenderableList.size(); j++)
 			{
-				m_RenderableObjectList[j]->RenderOmniShadowMap(&m_PointLightList[i]);
+				m_ShadowMapRenderableList[j]->RenderOmniShadowMap(&m_PointLightList[i]);
 			}
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}
@@ -136,9 +141,9 @@ namespace GameEngine {
 			glViewport(0, 0, m_SpotLightList[i].GetShadowMap()->GetShadowWidth(), m_SpotLightList[i].GetShadowMap()->GetShadowHeight());
 			m_SpotLightList[i].GetShadowMap()->Write();  //Bind framebuffer
 			glClear(GL_DEPTH_BUFFER_BIT);
-			for (size_t j = 0; j < m_RenderableObjectList.size(); j++)
+			for (size_t j = 0; j < m_ShadowMapRenderableList.size(); j++)
 			{
-				m_RenderableObjectList[j]->RenderOmniShadowMap(&m_SpotLightList[i]);
+				m_ShadowMapRenderableList[j]->RenderOmniShadowMap(&m_SpotLightList[i]);
 			}
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}

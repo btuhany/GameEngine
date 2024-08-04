@@ -26,7 +26,7 @@ namespace GameEngine {
 		m_Renderer->RenderObjectWithShader(m_TransformModelMatrix, projectionMatrix, m_RenderableData);
 	}
 
-	void RenderableObject::RenderShadowMap(DirectionalLight* dirLight)
+	void RenderableObject::RenderDirectionalShadowMap(DirectionalLight* dirLight)
 	{
 		m_Renderer->RenderObjectForDirectionalShadow(m_TransformModelMatrix, dirLight, m_RenderableData);
 	}

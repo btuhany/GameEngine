@@ -130,6 +130,11 @@ void DemoScene3D::Start()
 	AddObject(&spidermanPlain);
 	AddObject(&spidermanCube);
 	AddObject(&ironman);
+
+	AddShadowMapRenderableObject(&helicopter);
+	AddShadowMapRenderableObject(&spidermanPlain);
+	AddShadowMapRenderableObject(&spidermanCube);
+	AddShadowMapRenderableObject(&ironman);
 }
 
 float rotate = 0.0f;

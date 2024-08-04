@@ -1,15 +1,16 @@
 #pragma once
 #include "Core.h"
 #include "MeshRenderer.h"
+#include "IShadowMapRenderable.h"
 namespace GameEngine {
-	class ENGINE_API RenderableObject
+	class ENGINE_API RenderableObject : public IShadowMapRenderable
 	{
 	public:
 		RenderableObject();
 		~RenderableObject();
 		RenderableObject(MeshRenderer* renderer, RenderableData* renderableData);
 		void Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera, DirectionalLight* dirLight);
-		void RenderShadowMap(DirectionalLight* dirLight);
+		void RenderDirectionalShadowMap(DirectionalLight* dirLight);
 		void RenderOmniShadowMap(PointLight* pointLight);
 		void TranslateTransform(glm::vec3 translateVector);
 		void RotateTransform(float angle, glm::vec3 rotateVector);
