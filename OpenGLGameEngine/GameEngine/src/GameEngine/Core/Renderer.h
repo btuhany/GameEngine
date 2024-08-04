@@ -5,7 +5,7 @@
 
 
 namespace GameEngine {
-	class Renderer
+	class ENGINE_API Renderer
 	{
 	public:
 		Renderer();
