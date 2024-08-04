@@ -69,7 +69,7 @@
     <ClCompile Include="src\GameEngine\Core\RenderableObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\Renderer.cpp">
+    <ClCompile Include="src\GameEngine\Core\MeshRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Core\RenderableData.cpp">
@@ -146,7 +146,7 @@
     <ClInclude Include="src\GameEngine\Core\RenderableObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\Renderer.h">
+    <ClInclude Include="src\GameEngine\Core\MeshRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Core\RenderableData.h">

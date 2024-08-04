@@ -22,7 +22,7 @@ namespace GameEngine {
 			obj->ClearRenderableObject();
 		}
 		m_RenderableObjectList.clear();
-		Renderer::ClearRenderers();
+		MeshRenderer::ClearRenderers();
 	}
 
 	void Scene::Initialize()

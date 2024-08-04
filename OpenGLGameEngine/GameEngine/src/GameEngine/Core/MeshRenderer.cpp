@@ -1,12 +1,12 @@
-#include "Renderer.h"
+#include "MeshRenderer.h"
 namespace GameEngine {
-	std::vector<Renderer*> Renderer::m_RendererList;
+	std::vector<MeshRenderer*> MeshRenderer::m_RendererList;
 
-	Renderer::Renderer()
+	MeshRenderer::MeshRenderer()
 	{
 	}
 
-	Renderer::~Renderer()
+	MeshRenderer::~MeshRenderer()
 	{
 		printf("deleted renderer \n");
 		delete m_Shader;
@@ -14,7 +14,7 @@ namespace GameEngine {
 		delete m_OmniShadowShader;
 	}
 
-	Renderer::Renderer(Shader* shader, Shader* dirShadowShader, Shader* omniShadowShader)
+	MeshRenderer::MeshRenderer(Shader* shader, Shader* dirShadowShader, Shader* omniShadowShader)
 	{
 		m_Shader = shader;
 		m_Shader->SetUseDirLightShadow(true);
@@ -29,7 +29,7 @@ namespace GameEngine {
 		m_RendererList.push_back(this);
 	}
 
-	Renderer::Renderer(Shader* shader, Shader* omniShadowShader)
+	MeshRenderer::MeshRenderer(Shader* shader, Shader* omniShadowShader)
 	{
 		m_Shader = shader;
 		m_Shader->SetUseDirLightShadow(false);
@@ -45,7 +45,7 @@ namespace GameEngine {
 		m_RendererList.push_back(this);
 	}
 
-	Renderer::Renderer(Shader* shader)
+	MeshRenderer::MeshRenderer(Shader* shader)
 	{
 		m_Shader = shader;
 		m_Shader->SetUseDirLightShadow(false);
@@ -61,7 +61,7 @@ namespace GameEngine {
 		m_RendererList.push_back(this);
 	}
 
-	void Renderer::DrawData(GLuint uniformModel, glm::mat4 modelMatrix, RenderableData* renderData)
+	void MeshRenderer::DrawData(GLuint uniformModel, glm::mat4 modelMatrix, RenderableData* renderData)
 	{
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
@@ -74,7 +74,7 @@ namespace GameEngine {
 		renderData->Renderable->Render();
 	}
 
-	void Renderer::RenderObjectWithShader(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera, RenderableData* renderData, DirectionalLight* directionalLight)
+	void MeshRenderer::RenderObjectWithShader(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera, RenderableData* renderData, DirectionalLight* directionalLight)
 	{
 		//m_Shader->UseShader();
 
@@ -103,7 +103,7 @@ namespace GameEngine {
 		DrawData(m_Shader->GetModelLocation(), modelMatrix, renderData);
 	}
 
-	void Renderer::RenderObjectForDirectionalShadow(glm::mat4 modelMatrix, DirectionalLight* directionalLight, RenderableData* renderData)
+	void MeshRenderer::RenderObjectForDirectionalShadow(glm::mat4 modelMatrix, DirectionalLight* directionalLight, RenderableData* renderData)
 	{
 		if (m_DirShadowShader == nullptr)
 		{
@@ -119,7 +119,7 @@ namespace GameEngine {
 		DrawData(m_DirShadowShader->GetModelLocation(), modelMatrix, renderData);
 	}
 
-	void Renderer::RenderObjectForOmniShadow(glm::mat4 modelMatrix, PointLight* pointLight, RenderableData* renderData)
+	void MeshRenderer::RenderObjectForOmniShadow(glm::mat4 modelMatrix, PointLight* pointLight, RenderableData* renderData)
 	{
 		//m_OmniShadowShader->UseShader();
 		glUniform3f(m_OmniShadowShader->GetOmniLightPosLocation(), pointLight->GetPosition().x, pointLight->GetPosition().y, pointLight->GetPosition().z);
@@ -131,12 +131,12 @@ namespace GameEngine {
 
 	}
 
-	Shader* Renderer::GetRenderShader()
+	Shader* MeshRenderer::GetRenderShader()
 	{
 		return m_Shader;
 	}
 
-	void Renderer::ClearRenderers()
+	void MeshRenderer::ClearRenderers()
 	{
 		for (int i = 0; i < m_RendererList.size();i++)
 		{

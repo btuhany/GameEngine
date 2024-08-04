@@ -47,7 +47,7 @@ void DemoScene3D::Initialize()
 	Material* shinyMaterial = new Material(590.0f, 475.5f);
 	Material* roughMaterial = new Material(0.1f, 3.0f);
 
-	Renderer* mainRenderer = new Renderer(rendererShader, directionalShadowShader, omniShadowShader);
+	MeshRenderer* mainRenderer = new MeshRenderer(rendererShader, directionalShadowShader, omniShadowShader);
 
 	Texture* spidermanTexture = new Texture("src/DemoScene3D/Textures/spiderman.png");
 	spidermanTexture->LoadTextureWithAlpha();

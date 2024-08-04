@@ -10,7 +10,7 @@
 #include "ConstantValues.h"
 #include "Mesh.h"
 #include "Shader.h"
-#include "Renderer.h"
+#include "MeshRenderer.h"
 namespace GameEngine {
 	class ENGINE_API Skybox
 	{
@@ -25,7 +25,7 @@ namespace GameEngine {
 	private:
 		Mesh* m_SkyMesh;
 		Shader* m_SkyShader;
-		Renderer* m_Renderer;
+		MeshRenderer* m_Renderer;
 		GLuint m_TextureId;
 		GLuint m_UniformProjection, m_UniformView;
 	};

@@ -57,7 +57,7 @@
     <ClCompile Include="src\GameEngine\Core\Window.cpp" />
     <ClCompile Include="src\GameEngine\Core\Scene.cpp" />
     <ClCompile Include="src\GameEngine\Core\RenderableObject.cpp" />
-    <ClCompile Include="src\GameEngine\Core\Renderer.cpp" />
+    <ClCompile Include="src\GameEngine\Core\MeshRenderer.cpp" />
     <ClCompile Include="src\GameEngine\Core\RenderableData.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -87,7 +87,7 @@
     <ClInclude Include="src\GameEngine\Core\Engine.h" />
     <ClInclude Include="src\GameEngine\Core\Scene.h" />
     <ClInclude Include="src\GameEngine\Core\RenderableObject.h" />
-    <ClInclude Include="src\GameEngine\Core\Renderer.h" />
+    <ClInclude Include="src\GameEngine\Core\MeshRenderer.h" />
     <ClInclude Include="src\GameEngine\Core\RenderableData.h" />
     <ClInclude Include="src\GameEngine\Core\IRenderable.h" />
   </ItemGroup>

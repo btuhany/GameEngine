@@ -14,7 +14,7 @@ namespace GameEngine {
 		//delete m_RenderableData;
 	}
 
-	RenderableObject::RenderableObject(Renderer* renderer, RenderableData* renderableData)
+	RenderableObject::RenderableObject(MeshRenderer* renderer, RenderableData* renderableData)
 	{
 		m_Renderer = renderer;
 		m_RenderableData = renderableData;
