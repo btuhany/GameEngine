@@ -2,19 +2,21 @@
 #include "Engine.h"
 
 namespace GameEngine {
-	Engine::Engine(Window* window)
+	Engine::Engine(Window* window, bool shadowPassActive)
 	{
 		m_MainWindow = window;
 		m_IsInitialized = false;
 		m_ShouldStop = false;
+		m_ShadowPassActive = shadowPassActive;
 	}
 
-	Engine::Engine(Window* window, Input* input)
+	Engine::Engine(Window* window, Input* input, bool shadowPassActive)
 	{
 		m_MainWindow = window;
 		m_InputHandler = input;
 		m_IsInitialized = false;
 		m_ShouldStop = false;
+		m_ShadowPassActive = shadowPassActive;
 	}
 
 	Engine::~Engine()
@@ -85,6 +87,7 @@ namespace GameEngine {
 			handleInputs = false;
 		}
 		
+
 		while (!m_MainWindow->GetShouldClose())
 		{
 			if (m_ShouldStop)
@@ -102,11 +105,13 @@ namespace GameEngine {
 				m_InputHandler->HandleKeys(m_MainWindow->GetKeys(), deltaTime);
 			m_Scene->GetCamera()->HandleMouse(m_MainWindow->GetMouseDeltaX(), m_MainWindow->GetMouseDeltaY());
 
-
-			if (renderDirLightShadow)
-				directionalShadowPass(m_Scene->GetDirectionalLight());
-			if (renderOmniLightShadow)
-				omniShadowPass();
+			if (m_ShadowPassActive)
+			{
+				if (renderDirLightShadow)
+					directionalShadowPass(m_Scene->GetDirectionalLight());
+				if (renderOmniLightShadow)
+					omniShadowPass();
+			}
 			renderPass(projection);
 
 			m_MainWindow->SwapBuffers();

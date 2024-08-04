@@ -13,8 +13,8 @@ namespace GameEngine {
 	class ENGINE_API Engine
 	{
 	public:
-		Engine(Window* window);
-		Engine(Window* window, Input* input);
+		Engine(Window* window, bool shadowPassActive);
+		Engine(Window* window, Input* input, bool shadowPassActive);
 		~Engine();
 		void Initialize(Scene* scene);
 		void Start();
@@ -29,5 +29,6 @@ namespace GameEngine {
 		Input* m_InputHandler;
 		bool m_IsInitialized;
 		bool m_ShouldStop;
+		bool m_ShadowPassActive;
 	};
 }
