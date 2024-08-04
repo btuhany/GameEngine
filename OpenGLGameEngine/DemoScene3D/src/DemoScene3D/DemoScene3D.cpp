@@ -35,9 +35,10 @@ void DemoScene3D::Initialize()
 	omniShadowShader->CreateFromFiles("src/DemoScene3D/Shaders/omni_shadow_map.vert", "src/DemoScene3D/Shaders/omni_shadow_map.geom", "src/DemoScene3D/Shaders/omni_shadow_map.frag");
 	setOmniShadowShader(omniShadowShader);
 
-	SetDirectionalLight(new DirectionalLight(0.0f, 0.15f,
+	DirectionalLight* dirLight = new DirectionalLight(0.0f, 0.15f,
 		0.0f, 0.5f, 1.0f,
-		0.4f, -0.8f, 0.01f, 1024, 1024));
+		0.4f, -0.8f, 0.01f, 1024, 1024);
+	SetDirectionalLight(dirLight);
 	m_CameraSpeed = 5.0f;
 	setCamera(new Camera(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, m_CameraSpeed, 0.1f, 60.0f, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
 	setBackgroundColor(glm::vec3(0.0f, 1.0f, 0.0f));
@@ -48,7 +49,7 @@ void DemoScene3D::Initialize()
 	Material* roughMaterial = new Material(0.1f, 3.0f);
 
 	MeshRenderer* mainRenderer = new MeshRenderer(rendererShader, directionalShadowShader, omniShadowShader);
-
+	mainRenderer->Initialize(m_MainCamera, dirLight);
 	Texture* spidermanTexture = new Texture("src/DemoScene3D/Textures/spiderman.png");
 	spidermanTexture->LoadTextureWithAlpha();
 	Texture* plainTexture = new Texture("src/DemoScene3D/Textures/plain.png");

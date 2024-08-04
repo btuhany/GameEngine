@@ -23,7 +23,7 @@ namespace GameEngine {
 
 	void RenderableObject::Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera, DirectionalLight* dirLight)
 	{
-		m_Renderer->RenderObjectWithShader(m_TransformModelMatrix, projectionMatrix, viewMatrix, mainCamera, m_RenderableData, dirLight);
+		m_Renderer->RenderObjectWithShader(m_TransformModelMatrix, projectionMatrix, m_RenderableData);
 	}
 
 	void RenderableObject::RenderShadowMap(DirectionalLight* dirLight)

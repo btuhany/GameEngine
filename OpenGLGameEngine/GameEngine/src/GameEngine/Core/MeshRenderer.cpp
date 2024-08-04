@@ -2,7 +2,7 @@
 namespace GameEngine {
 	std::vector<MeshRenderer*> MeshRenderer::m_RendererList;
 
-	MeshRenderer::MeshRenderer()
+	MeshRenderer::MeshRenderer() : Renderer()
 	{
 	}
 
@@ -45,20 +45,24 @@ namespace GameEngine {
 		m_RendererList.push_back(this);
 	}
 
-	MeshRenderer::MeshRenderer(Shader* shader)
+	MeshRenderer::MeshRenderer(Shader* shader) : Renderer(shader)
 	{
-		m_Shader = shader;
 		m_Shader->SetUseDirLightShadow(false);
 		m_Shader->SetDirectionalShadowMap(3); //setting the uniform sampler2D to texture unit 3 (texture unit 0 is default and causes to not render properly)
 		m_DirShadowShader = nullptr;
 		m_OmniShadowShader = nullptr;
-		m_UniformModel = m_Shader->GetModelLocation();
-		m_UniformProjection = m_Shader->GetProjectionLocation();
+
 		m_UniformView = m_Shader->GetViewLocation();
 		m_UniformMatSpecularInstensity = m_Shader->GetMatSpecularIntensityLocation();
 		m_UniformMatShininess = m_Shader->GetMatShininessLocation();
 		m_UniformCameraPosition = m_Shader->GetCameraPositionLocation();
 		m_RendererList.push_back(this);
+	}
+
+	void MeshRenderer::Initialize(Camera* camera, DirectionalLight* light)
+	{
+		m_Camera = camera;
+		m_DirLight = light;
 	}
 
 	void MeshRenderer::DrawData(GLuint uniformModel, glm::mat4 modelMatrix, RenderableData* renderData)
@@ -74,22 +78,23 @@ namespace GameEngine {
 		renderData->Renderable->Render();
 	}
 
-	void MeshRenderer::RenderObjectWithShader(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Camera* mainCamera, RenderableData* renderData, DirectionalLight* directionalLight)
+	void MeshRenderer::RenderObjectWithShader(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, RenderableData* renderData)
 	{
 		//m_Shader->UseShader();
 
-		glUniform3f(m_Shader->GetCameraPositionLocation(), mainCamera->GetCameraPosition().x, mainCamera->GetCameraPosition().y, mainCamera->GetCameraPosition().z);
+		glUniform3f(m_Shader->GetCameraPositionLocation(), m_Camera->GetCameraPosition().x, m_Camera->GetCameraPosition().y, m_Camera->GetCameraPosition().z);
 		glUniformMatrix4fv(m_Shader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-		glUniformMatrix4fv(m_Shader->GetViewLocation(), 1, GL_FALSE, glm::value_ptr(viewMatrix));
+		glUniformMatrix4fv(m_Shader->GetViewLocation(), 1, GL_FALSE, glm::value_ptr(m_Camera->CalculateViewMatrix()));
 
 		m_Shader->SetTextureUnit(2);
-		if (directionalLight != nullptr)
+		if (m_DirLight != nullptr)
 		{
-			m_Shader->SetDirectionalLight(directionalLight);
+			m_Shader->SetDirectionalLight(m_DirLight);
+			//TODO: should be in if
 			m_Shader->SetDirectionalLightTransform(&m_LightTransform);
-			if (directionalLight->GetShadowMap() != nullptr)
+			if (m_DirLight->GetShadowMap() != nullptr)
 			{
-				directionalLight->GetShadowMap()->Read(GL_TEXTURE3);
+				m_DirLight->GetShadowMap()->Read(GL_TEXTURE3);
 				m_Shader->SetDirectionalShadowMap(3);
 			}
 
