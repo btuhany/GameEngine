@@ -25,6 +25,9 @@ namespace GameEngine
     void Entity::AddComponent(std::shared_ptr<T> component)
     {
         static_assert(std::is_base_of<Component, T>::value, "T must be derived from Component");
+        
+        std::shared_ptr<Component> baseComponent = std::static_pointer_cast<Component>(component);
+        baseComponent->AssignToEntity(this);
 
         m_ComponentMap[typeid(T)] = component;
     }

@@ -35,6 +35,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameEngine\Core\MeshRenderData.cpp" />
+    <ClCompile Include="src\GameEngine\Core\MeshData.cpp" />
+    <ClCompile Include="src\GameEngine\Core\Components\MeshRendererComponent.cpp" />
+    <ClCompile Include="src\GameEngine\Core\Components\RendererComponent.cpp" />
     <ClCompile Include="src\GameEngine\Core\MeshEntity.cpp" />
     <ClCompile Include="src\GameEngine\Core\RenderableEntity.cpp" />
     <ClCompile Include="src\GameEngine\Core\GameEntity.cpp" />
@@ -70,6 +74,10 @@
     <ClCompile Include="src\GameEngine\Core\Components\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameEngine\Core\MeshRenderData.h" />
+    <ClInclude Include="src\GameEngine\Core\MeshData.h" />
+    <ClInclude Include="src\GameEngine\Core\Components\MeshRendererComponent.h" />
+    <ClInclude Include="src\GameEngine\Core\Components\RendererComponent.h" />
     <ClInclude Include="src\GameEngine\Core\MeshEntity.h" />
     <ClInclude Include="src\GameEngine\Core\RenderableEntity.h" />
     <ClInclude Include="src\GameEngine\Core\GameEntity.h" />

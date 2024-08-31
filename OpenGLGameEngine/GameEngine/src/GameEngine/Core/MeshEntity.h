@@ -1,6 +1,7 @@
 #pragma once
 #include "RenderableEntity.h"
-#include "MeshRenderer.h"
+#include "Components/MeshRendererComponent.h"
+#include "Log.h"
 namespace GameEngine
 {
 	class ENGINE_API MeshEntity : public RenderableEntity
@@ -9,8 +10,6 @@ namespace GameEngine
 		MeshEntity();
 		void Render(glm::mat4 projectionMatrix) override;
 		//TODOby initialzie
-		std::shared_ptr<MeshRenderer> renderer;
-		MeshRenderer* m_Renderer;
-		RenderableData* m_RenderData;
+		std::shared_ptr<MeshRendererComponent> renderer;
 	};
 }

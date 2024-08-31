@@ -13,5 +13,7 @@
 #include "GameEngine/Core/SimpleEvent.h"
 #include "GameEngine/Core/CameraTypeEnum.h"
 #include "GameEngine/Core/MeshEntity.h"
+#include "GameEngine/Core/Components/Transform.h"
+#include "GameEngine/Core/Component.h"
 
 using namespace GameEngine;

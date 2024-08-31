@@ -3,12 +3,13 @@ namespace GameEngine
 {
 	MeshEntity::MeshEntity() : RenderableEntity()
 	{
-		//renderer = std::make_shared<MeshRenderer>();
-		//AddComponent<MeshRenderer>(renderer);
+		renderer = std::make_shared<MeshRendererComponent>();
+		AddComponent<MeshRendererComponent>(renderer);
 	}
 
 	void MeshEntity::Render(glm::mat4 projectionMatrix)
 	{
-		m_Renderer->RenderObjectWithShader(transform->GetModelMatrix(), projectionMatrix, m_RenderData);
+		LOG_CORE_INFO("a");
+		renderer->Render(projectionMatrix);
 	}
 }
