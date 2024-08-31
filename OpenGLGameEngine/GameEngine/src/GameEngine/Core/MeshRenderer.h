@@ -29,11 +29,8 @@ namespace GameEngine {
 		~MeshRenderer();
 	private:
 		static std::vector<MeshRenderer*> m_RendererList;
-		Shader* m_Shader;
 		Shader* m_DirShadowShader;
 		Shader* m_OmniShadowShader;
-		GLuint m_UniformModel;
-		GLuint m_UniformProjection;
 		GLuint m_UniformView;
 		GLuint m_UniformMatSpecularInstensity;
 		GLuint m_UniformMatShininess;

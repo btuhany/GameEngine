@@ -14,14 +14,13 @@ namespace GameEngine {
 		delete m_OmniShadowShader;
 	}
 
-	MeshRenderer::MeshRenderer(Shader* shader, Shader* dirShadowShader, Shader* omniShadowShader)
+	MeshRenderer::MeshRenderer(Shader* shader, Shader* dirShadowShader, Shader* omniShadowShader) : Renderer(shader)
 	{
-		m_Shader = shader;
+
 		m_Shader->SetUseDirLightShadow(true);
 		m_DirShadowShader = dirShadowShader;
 		m_OmniShadowShader = omniShadowShader;
-		m_UniformModel = m_Shader->GetModelLocation();
-		m_UniformProjection = m_Shader->GetProjectionLocation();
+
 		m_UniformView = m_Shader->GetViewLocation();
 		m_UniformMatSpecularInstensity = m_Shader->GetMatSpecularIntensityLocation();
 		m_UniformMatShininess = m_Shader->GetMatShininessLocation();
@@ -29,15 +28,14 @@ namespace GameEngine {
 		m_RendererList.push_back(this);
 	}
 
-	MeshRenderer::MeshRenderer(Shader* shader, Shader* omniShadowShader)
+	MeshRenderer::MeshRenderer(Shader* shader, Shader* omniShadowShader) : Renderer(shader)
 	{
-		m_Shader = shader;
+
 		m_Shader->SetUseDirLightShadow(false);
 		m_Shader->SetDirectionalShadowMap(3); //setting the uniform sampler2D to texture unit 3 (texture unit 0 is default and causes to not render properly)
 		m_DirShadowShader = nullptr;
 		m_OmniShadowShader = omniShadowShader;
-		m_UniformModel = m_Shader->GetModelLocation();
-		m_UniformProjection = m_Shader->GetProjectionLocation();
+
 		m_UniformView = m_Shader->GetViewLocation();
 		m_UniformMatSpecularInstensity = m_Shader->GetMatSpecularIntensityLocation();
 		m_UniformMatShininess = m_Shader->GetMatShininessLocation();
@@ -47,6 +45,7 @@ namespace GameEngine {
 
 	MeshRenderer::MeshRenderer(Shader* shader) : Renderer(shader)
 	{
+
 		m_Shader->SetUseDirLightShadow(false);
 		m_Shader->SetDirectionalShadowMap(3); //setting the uniform sampler2D to texture unit 3 (texture unit 0 is default and causes to not render properly)
 		m_DirShadowShader = nullptr;

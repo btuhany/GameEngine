@@ -19,6 +19,5 @@ namespace GameEngine {
 
 	Renderer::~Renderer()
 	{
-		delete m_Shader;
 	}
 }
