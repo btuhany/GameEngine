@@ -35,6 +35,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameEngine\Core\MeshEntity.cpp" />
+    <ClCompile Include="src\GameEngine\Core\RenderableEntity.cpp" />
+    <ClCompile Include="src\GameEngine\Core\GameEntity.cpp" />
+    <ClCompile Include="src\GameEngine\Core\Component.cpp" />
+    <ClCompile Include="src\GameEngine\Core\Entity.cpp" />
     <ClCompile Include="src\GameEngine\Core\IShadowMapRenderable.cpp" />
     <ClCompile Include="src\GameEngine\Core\Sprite.cpp" />
     <ClCompile Include="src\GameEngine\Core\Renderer.cpp" />
@@ -62,8 +67,14 @@
     <ClCompile Include="src\GameEngine\Core\Renderable3DObject.cpp" />
     <ClCompile Include="src\GameEngine\Core\MeshRenderer.cpp" />
     <ClCompile Include="src\GameEngine\Core\RenderableData.cpp" />
+    <ClCompile Include="src\GameEngine\Core\Components\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameEngine\Core\MeshEntity.h" />
+    <ClInclude Include="src\GameEngine\Core\RenderableEntity.h" />
+    <ClInclude Include="src\GameEngine\Core\GameEntity.h" />
+    <ClInclude Include="src\GameEngine\Core\Component.h" />
+    <ClInclude Include="src\GameEngine\Core\Entity.h" />
     <ClInclude Include="src\GameEngine\Core\IShadowMapRenderable.h" />
     <ClInclude Include="src\GameEngine\Core\Sprite.h" />
     <ClInclude Include="src\GameEngine\Core\Renderer.h" />
@@ -96,6 +107,7 @@
     <ClInclude Include="src\GameEngine\Core\MeshRenderer.h" />
     <ClInclude Include="src\GameEngine\Core\RenderableData.h" />
     <ClInclude Include="src\GameEngine\Core\IRenderable.h" />
+    <ClInclude Include="src\GameEngine\Core\Components\Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assimp-vc143-mt.dll" />
