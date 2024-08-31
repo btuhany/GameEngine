@@ -3,10 +3,12 @@
 #include "Components/Transform.h"
 namespace GameEngine
 {
-	class GameEntity : public Entity
+	class ENGINE_API GameEntity : public Entity
 	{	
 	public:
-		Transform TransformComponent;
+		GameEntity();
+		~GameEntity();
+		std::shared_ptr<Transform> transform;
 	};
 }
 
