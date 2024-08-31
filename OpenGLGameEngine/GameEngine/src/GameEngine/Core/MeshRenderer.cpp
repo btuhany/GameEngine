@@ -79,7 +79,7 @@ namespace GameEngine {
 
 	void MeshRenderer::RenderObjectWithShader(glm::mat4 modelMatrix, glm::mat4 projectionMatrix, RenderableData* renderData)
 	{
-		//m_Shader->UseShader();
+		m_Shader->UseShader();
 
 		glUniform3f(m_Shader->GetCameraPositionLocation(), m_Camera->GetCameraPosition().x, m_Camera->GetCameraPosition().y, m_Camera->GetCameraPosition().z);
 		glUniformMatrix4fv(m_Shader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));

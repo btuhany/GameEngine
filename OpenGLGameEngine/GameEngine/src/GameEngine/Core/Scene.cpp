@@ -76,6 +76,11 @@ namespace GameEngine {
 			m_RenderableObjectList[i]->GetRenderShader()->UseShader();
 			m_RenderableObjectList[i]->Render(projection, m_MainCamera->CalculateViewMatrix(), m_MainCamera, m_DirectionalLight);
 		}
+
+		for (size_t i = 0; i < RenderableEntitiesPublic.size(); i++)
+		{
+			RenderableEntitiesPublic[i]->Render(projection);
+		}
 	}
 
 	void Scene::SetPointLights()

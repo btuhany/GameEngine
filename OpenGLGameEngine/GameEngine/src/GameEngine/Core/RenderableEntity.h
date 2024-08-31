@@ -8,6 +8,5 @@ namespace GameEngine
 	{
 	public:
 		virtual void Render(glm::mat4 projectionMatrix) = 0;
-		virtual Shader* getRenderer() = 0;
 	};
 }

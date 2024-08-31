@@ -5,9 +5,4 @@ namespace GameEngine
 	{
 
 	}
-
-	Shader* RenderableEntity::getRenderer()
-	{
-		return nullptr;
-	}
 }

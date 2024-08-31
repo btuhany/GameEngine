@@ -60,6 +60,11 @@ void DemoScene3D::Initialize()
 	RenderableData*  helicopterRenderableData = new RenderableData(helicopterModelData, shinyMaterial);
 	helicopter = Renderable3DObject(mainRenderer, helicopterRenderableData);
 
+	std::shared_ptr<MeshEntity> helicopterMeshEntity = std::make_shared<MeshEntity>();
+	helicopterMeshEntity->m_RenderData = helicopterRenderableData;
+	helicopterMeshEntity->m_Renderer = mainRenderer;
+	RenderableEntitiesPublic.push_back(helicopterMeshEntity);
+
 	Model* ironmanModelData = new Model();
 	ironmanModelData->LoadModel("src/DemoScene3D/Models/IronMan.obj");
 	RenderableData*  ironmanRenderableData = new RenderableData(ironmanModelData, shinyMaterial);

@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include "Camera.h"
 #include "Window.h"
 #include "Skybox.h"
@@ -6,6 +7,7 @@
 #include <vector>
 #include "Renderable3DObject.h"
 #include "Input.h"
+#include "RenderableEntity.h"
 namespace GameEngine {
 	class ENGINE_API Scene
 	{
@@ -54,6 +56,8 @@ namespace GameEngine {
 		Skybox* m_Skybox;
 		bool m_UseSkybox = false;
 		DirectionalLight* m_DirectionalLight;
+	public:
+		std::vector<std::shared_ptr<RenderableEntity>> RenderableEntitiesPublic;
 	};
 
 
