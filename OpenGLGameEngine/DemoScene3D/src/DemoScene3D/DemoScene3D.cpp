@@ -28,6 +28,9 @@ void DemoScene3D::Initialize()
 	Shader* rendererShader = new Shader();
 	rendererShader->CreateFromFiles(vShaderLocation, fShaderLocation);
 
+	Shader* rendererShader2 = new Shader();
+	rendererShader2->CreateFromFiles(vShaderLocation, fShaderLocation);
+
 	Shader* directionalShadowShader = new Shader();
 	directionalShadowShader->CreateFromFiles("src/DemoScene3D/Shaders/directional_shadow_map.vert", "src/DemoScene3D/Shaders/directional_shadow_map.frag");
 
@@ -35,8 +38,8 @@ void DemoScene3D::Initialize()
 	omniShadowShader->CreateFromFiles("src/DemoScene3D/Shaders/omni_shadow_map.vert", "src/DemoScene3D/Shaders/omni_shadow_map.geom", "src/DemoScene3D/Shaders/omni_shadow_map.frag");
 	setOmniShadowShader(omniShadowShader);
 
-	DirectionalLight* dirLight = new DirectionalLight(0.0f, 0.15f,
-		0.0f, 0.5f, 1.0f,
+	DirectionalLight* dirLight = new DirectionalLight(0.0f, 0.05f,
+		0.2f, 0.5f, 1.0f,
 		0.4f, -0.8f, 0.01f, 1024, 1024);
 	SetDirectionalLight(dirLight);
 	m_CameraSpeed = 5.0f;
@@ -60,21 +63,55 @@ void DemoScene3D::Initialize()
 	RenderableData*  helicopterRenderableData = new RenderableData(helicopterModelData, shinyMaterial);
 	helicopter = Renderable3DObject(mainRenderer, helicopterRenderableData);
 
-	std::shared_ptr<MeshEntity> helicopterMeshEntity = std::make_shared<MeshEntity>();
-	helicopterMeshEntity->m_RenderData = helicopterRenderableData;
-	helicopterMeshEntity->m_Renderer = mainRenderer;
-	RenderableEntitiesPublic.push_back(helicopterMeshEntity);
+	std::shared_ptr<MeshEntity> cubeMeshEntity = std::make_shared<MeshEntity>();
+	std::shared_ptr<MeshRenderData> meshRenderData = std::make_shared<MeshRenderData>();
+	meshRenderData->meshData = createCubeMeshData();
+	meshRenderData->textureData = spidermanTexture;
+	meshRenderData->materialData = shinyMaterial;
+	meshRenderData->shader = rendererShader;
+	cubeMeshEntity->renderer->camera = m_MainCamera;
+	cubeMeshEntity->renderer->directionalLight = dirLight;
+	cubeMeshEntity->renderer->omniShadowShader = omniShadowShader;
+	cubeMeshEntity->renderer->meshRenderData = meshRenderData;
+	cubeMeshEntity->renderer->dirShadowShader = directionalShadowShader;
+	RenderableEntitiesPublic.push_back(cubeMeshEntity);
+	RenderableMeshEntitiesPublic.push_back(cubeMeshEntity);
+	cubeMeshEntity->GetComponent<Transform>()->Translate(glm::vec3(36.0f, -7.0f, -12.0f));
+	cubeMeshEntity->transform->Scale(glm::vec3(3.0f, 3.0f, 1.5f));
 
 	Model* ironmanModelData = new Model();
 	ironmanModelData->LoadModel("src/DemoScene3D/Models/IronMan.obj");
 	RenderableData*  ironmanRenderableData = new RenderableData(ironmanModelData, shinyMaterial);
 	ironman = Renderable3DObject(mainRenderer, ironmanRenderableData);
 
-	RenderableData* spidermanPlainData = new RenderableData(createPlainMesh(), spidermanTexture, roughMaterial);
-	spidermanPlain = Renderable3DObject(mainRenderer, spidermanPlainData);
+	std::shared_ptr<MeshEntity> spidermanPlainEntity = std::make_shared<MeshEntity>();
+	std::shared_ptr<MeshRenderData> plainRenderData = std::make_shared<MeshRenderData>();
+	plainRenderData->meshData = createPlainMeshData();
+	plainRenderData->textureData = spidermanTexture;
+	plainRenderData->materialData = roughMaterial;
+	plainRenderData->shader = rendererShader;
+	spidermanPlainEntity->renderer->camera = m_MainCamera;
+	spidermanPlainEntity->renderer->directionalLight = dirLight;
+	spidermanPlainEntity->renderer->meshRenderData = plainRenderData;
+	spidermanPlainEntity->renderer->dirShadowShader = directionalShadowShader;
+	spidermanPlainEntity->renderer->omniShadowShader = omniShadowShader;
+	RenderableEntitiesPublic.push_back(spidermanPlainEntity);
+	RenderableMeshEntitiesPublic.push_back(spidermanPlainEntity);
+	spidermanPlainEntity->GetComponent<Transform>()->Translate(glm::vec3(0.0f, -10.0f, 0.0f));
+	spidermanPlainEntity->transform->Scale(glm::vec3(1.0f, 1.0f, 1.0f));
 
-	RenderableData* spidermanCubeData = new RenderableData(createCubeMesh(), spidermanTexture, shinyMaterial);
-	spidermanCube = Renderable3DObject(mainRenderer, spidermanCubeData);
+
+	std::shared_ptr<MeshEntity> spidermanCubeEntity = std::make_shared<MeshEntity>();
+	spidermanCubeEntity->renderer->camera = m_MainCamera;
+	spidermanCubeEntity->renderer->directionalLight = dirLight;
+	spidermanCubeEntity->renderer->meshRenderData = meshRenderData;
+	spidermanCubeEntity->renderer->dirShadowShader = directionalShadowShader;
+	spidermanCubeEntity->renderer->omniShadowShader = omniShadowShader;
+	RenderableEntitiesPublic.push_back(spidermanCubeEntity);
+	RenderableMeshEntitiesPublic.push_back(spidermanCubeEntity);
+	spidermanCubeEntity->transform->Translate(glm::vec3(15.0f, 10.0f, 15.0f));
+	spidermanCubeEntity->transform->Scale(glm::vec3(3.0f, 3.0f, 3.0f));
+
 	
 
 	addPointLight(new PointLight(0.0f, 500.5f,
@@ -123,22 +160,20 @@ void DemoScene3D::Start()
 	helicopter.RotateTransform(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 	helicopter.ScaleTransform(glm::vec3(1.0f, 1.0f, 1.0f));
 
-	spidermanPlain.TranslateTransform(glm::vec3(0.0f, -10.0f, 0.0f));
-	spidermanPlain.ScaleTransform(glm::vec3(1.0f, 1.0f, 1.0f));
 
 
-	spidermanCube.TranslateTransform(glm::vec3(15.0f, 10.0f, 15.0f));
-	spidermanCube.ScaleTransform(glm::vec3(3.0f, 3.0f, 3.0f));
+
+
 
 
 	AddObject(&helicopter);
-	AddObject(&spidermanPlain);
-	AddObject(&spidermanCube);
+	//AddObject(&spidermanPlain);
+
 	AddObject(&ironman);
 
 	AddShadowMapRenderableObject(&helicopter);
-	AddShadowMapRenderableObject(&spidermanPlain);
-	AddShadowMapRenderableObject(&spidermanCube);
+	//AddShadowMapRenderableObject(&spidermanPlain);
+
 	AddShadowMapRenderableObject(&ironman);
 }
 
@@ -198,7 +233,40 @@ Mesh* DemoScene3D::createCubeMesh()
 	cubeMesh->CreateMesh(vertices, indices, 64, 36);
 	return cubeMesh;
 }
+MeshData* DemoScene3D::createCubeMeshData()
+{
+	GLfloat vertices[] =
+	{
+		//x      y     z		 u     y			normals
+		-1.0f, -1.0f, 1.0f, 	1.0f, 0.0f,		-1.0f, -1.0f, 1.0f,
+		-1.0f, -1.0f, -1.0f,		0.0f, 0.0f,		-1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,		0.0f, 1.0f,		1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, 1.0f,	1.0f, 1.0f,		1.0f, -1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,		1.0f, 0.0f,		1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, -1.0f,		0.0f, 0.0f,		1.0f, 1.0f, -1.0f,
+		-1.0f, 1.0f, -1.0f,		1.0f, 0.0f,		-1.0f, 1.0f, -1.0f,
+		-1.0f, 1.0f, 1.0f,		0.0f, 0.0f,		-1.0f, 1.0f, 1.0f
+	};
 
+	unsigned int indices[] = {
+	2, 0, 1,
+	3, 0, 2,
+	4, 2, 5,
+	3, 2, 4,
+	7, 3, 4,
+	0, 3, 7,
+	1, 0, 6,
+	6, 0, 7,
+	1, 6, 2,
+	2, 6, 5,
+	4, 5, 6,
+	4, 6, 7
+	};
+
+	MeshData* cubeMesh = new MeshData();
+	cubeMesh->CreateMesh(vertices, indices, 64, 36);
+	return cubeMesh;
+}
 Mesh* DemoScene3D::createPlainMesh()
 {
 	unsigned int floorIndices[] = {
@@ -217,7 +285,24 @@ Mesh* DemoScene3D::createPlainMesh()
 	plainMesh->CreateMesh(floorVertices, floorIndices, 32, 6);
 	return plainMesh;
 }
+MeshData* DemoScene3D::createPlainMeshData()
+{
+	unsigned int floorIndices[] = {
+		0, 2, 1,
+		1, 2, 3
+	};
 
+	GLfloat floorVertices[] = {
+		-50.0f, -10.0f, -50.0f,	0.0f, 0.0f,  0.0f, 1.0f, 0.0f,
+		50.0f, -10.0f, -50.0f,	20.0f, 0.0f,  0.0f, 1.0f, 0.0f,
+		-50.0f, -10.0f, 50.0f,	0.0f, 20.0f,  0.0f, 1.0f, 0.0f,
+		50.0f, -10.0f, 50.0f,	20.0f, 20.0f,  0.0f, 1.0f, 0.0f
+	};
+
+	MeshData* plainMesh = new MeshData();
+	plainMesh->CreateMesh(floorVertices, floorIndices, 32, 6);
+	return plainMesh;
+}
 void DemoScene3D::handleOnRightKey()
 {
 	m_MainCamera->MoveRight(m_CameraSpeed * m_DeltaTime);

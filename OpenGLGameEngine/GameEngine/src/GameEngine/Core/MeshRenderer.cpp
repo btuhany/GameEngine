@@ -131,8 +131,6 @@ namespace GameEngine {
 		m_OmniShadowShader->SetLightMatrices(pointLight->CalculateLightTransform());
 
 		DrawData(m_OmniShadowShader->GetModelLocation(), modelMatrix, renderData);
-
-
 	}
 
 	Shader* MeshRenderer::GetRenderShader()

@@ -14,7 +14,9 @@ public:
 private:
 	void initializeSkybox();
 	Mesh* createCubeMesh();
+	MeshData* createCubeMeshData();
 	Mesh* createPlainMesh();
+	MeshData* createPlainMeshData();
 	Renderable3DObject helicopter;
 	Renderable3DObject ironman;
 	Renderable3DObject spidermanPlain;

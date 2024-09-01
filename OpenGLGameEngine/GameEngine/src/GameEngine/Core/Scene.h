@@ -8,6 +8,7 @@
 #include "Renderable3DObject.h"
 #include "Input.h"
 #include "RenderableEntity.h"
+#include "MeshEntity.h"
 namespace GameEngine {
 	class ENGINE_API Scene
 	{
@@ -58,6 +59,7 @@ namespace GameEngine {
 		DirectionalLight* m_DirectionalLight;
 	public:
 		std::vector<std::shared_ptr<RenderableEntity>> RenderableEntitiesPublic;
+		std::vector<std::shared_ptr<MeshEntity>> RenderableMeshEntitiesPublic;
 	};
 
 

@@ -3,4 +3,11 @@
 - Key release state is broken
 - Mesh Renderers should be initialized before the start
 
+
+08.24
 TODO: Create a RenderableObject base class that contains a Renderer an calls Render() function
+
+02.09.24
+TODO: 
+- Create a ModelEntity class and render models with model entity, than refactor classes
+- Refactor scene render handling 

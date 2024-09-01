@@ -9,7 +9,6 @@ namespace GameEngine
 
 	void MeshEntity::Render(glm::mat4 projectionMatrix)
 	{
-		LOG_CORE_INFO("a");
 		renderer->Render(projectionMatrix);
 	}
 }
