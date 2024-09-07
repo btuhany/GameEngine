@@ -63,6 +63,31 @@ void DemoScene3D::Initialize()
 	RenderableData*  helicopterRenderableData = new RenderableData(helicopterModelData, shinyMaterial);
 	helicopter = Renderable3DObject(mainRenderer, helicopterRenderableData);
 
+
+	ModelData* helicopterModelDataNew = new ModelData();
+	helicopterModelDataNew->LoadModel("src/DemoScene3D/Models/uh60.obj");
+	std::shared_ptr<ModelEntity> helicopterModelEntity = std::make_shared<ModelEntity>();
+	std::shared_ptr<ModelRenderData> modelRenderData = std::make_shared<ModelRenderData>();
+	modelRenderData->modelData = helicopterModelDataNew;
+	//modelRenderData->textureData = spidermanTexture;
+	modelRenderData->materialData = shinyMaterial;
+	modelRenderData->shader = rendererShader;
+	helicopterModelEntity->renderer->camera = m_MainCamera;
+	helicopterModelEntity->renderer->directionalLight = dirLight;
+	helicopterModelEntity->renderer->omniShadowShader = omniShadowShader;
+	helicopterModelEntity->renderer->modelRenderData = modelRenderData;
+	helicopterModelEntity->renderer->dirShadowShader = directionalShadowShader;
+	RenderableEntitiesPublic.push_back(helicopterModelEntity);
+	helicopterModelEntity->GetComponent<Transform>()->Translate(glm::vec3(-25.0f, -7.0f, -15.0f));
+	helicopterModelEntity->transform->Scale(glm::vec3(2.0f, 2.0f, 2.0f));
+
+	RenderableModelEntitiesPublic.push_back(helicopterModelEntity);
+	helicopterModelEntity->transform->Rotate(90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+	helicopterModelEntity->transform->Rotate(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+
+
+
+
 	std::shared_ptr<MeshEntity> cubeMeshEntity = std::make_shared<MeshEntity>();
 	std::shared_ptr<MeshRenderData> meshRenderData = std::make_shared<MeshRenderData>();
 	meshRenderData->meshData = createCubeMeshData();

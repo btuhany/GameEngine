@@ -9,6 +9,7 @@
 #include "Input.h"
 #include "RenderableEntity.h"
 #include "MeshEntity.h"
+#include "ModelEntity.h"
 namespace GameEngine {
 	class ENGINE_API Scene
 	{
@@ -60,6 +61,7 @@ namespace GameEngine {
 	public:
 		std::vector<std::shared_ptr<RenderableEntity>> RenderableEntitiesPublic;
 		std::vector<std::shared_ptr<MeshEntity>> RenderableMeshEntitiesPublic;
+		std::vector<std::shared_ptr<ModelEntity>> RenderableModelEntitiesPublic;
 	};
 
 

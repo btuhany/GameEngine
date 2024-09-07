@@ -81,6 +81,11 @@ namespace GameEngine {
 		{
 			RenderableMeshEntitiesPublic[i]->Render(projection);
 		}
+
+		for (size_t i = 0; i < RenderableModelEntitiesPublic.size(); i++)
+		{
+			RenderableModelEntitiesPublic[i]->Render(projection);
+		}
 	}
 
 	void Scene::SetPointLights()

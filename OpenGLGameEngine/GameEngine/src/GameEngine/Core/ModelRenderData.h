@@ -1,21 +1,21 @@
 #pragma once
-#include <memory>
 #include "Core.h"
-#include "MeshData.h"
+#include "ModelData.h"
 #include "Texture.h"
 #include "Material.h"
 #include "Shader.h"
+#include "ModelData.h"
 namespace GameEngine
 {
-	class ENGINE_API MeshRenderData
+	class ENGINE_API ModelRenderData
 	{
 	public:
 		//TODOby all pointers?
 		//TODOby deconstructor
-		MeshData* meshData;
+		ModelData* modelData;
 		Texture* textureData;
-		Material*  materialData;
-		Shader*  shader;
+		Material* materialData;
+		Shader* shader;
 	};
 }
 
