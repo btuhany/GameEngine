@@ -66,24 +66,24 @@ void DemoScene3D::Initialize()
 
 	ModelData* helicopterModelDataNew = new ModelData();
 	helicopterModelDataNew->LoadModel("src/DemoScene3D/Models/uh60.obj");
-	std::shared_ptr<ModelEntity> helicopterModelEntity = std::make_shared<ModelEntity>();
+	m_HelicopterModelEntity = std::make_shared<ModelEntity>();
 	std::shared_ptr<ModelRenderData> modelRenderData = std::make_shared<ModelRenderData>();
 	modelRenderData->modelData = helicopterModelDataNew;
 	//modelRenderData->textureData = spidermanTexture;
 	modelRenderData->materialData = shinyMaterial;
 	modelRenderData->shader = rendererShader;
-	helicopterModelEntity->renderer->camera = m_MainCamera;
-	helicopterModelEntity->renderer->directionalLight = dirLight;
-	helicopterModelEntity->renderer->omniShadowShader = omniShadowShader;
-	helicopterModelEntity->renderer->modelRenderData = modelRenderData;
-	helicopterModelEntity->renderer->dirShadowShader = directionalShadowShader;
-	RenderableEntitiesPublic.push_back(helicopterModelEntity);
-	helicopterModelEntity->GetComponent<Transform>()->Translate(glm::vec3(-25.0f, -7.0f, -15.0f));
-	helicopterModelEntity->transform->Scale(glm::vec3(2.0f, 2.0f, 2.0f));
+	m_HelicopterModelEntity->renderer->camera = m_MainCamera;
+	m_HelicopterModelEntity->renderer->directionalLight = dirLight;
+	m_HelicopterModelEntity->renderer->omniShadowShader = omniShadowShader;
+	m_HelicopterModelEntity->renderer->modelRenderData = modelRenderData;
+	m_HelicopterModelEntity->renderer->dirShadowShader = directionalShadowShader;
+	RenderableEntitiesPublic.push_back(m_HelicopterModelEntity);
+	m_HelicopterModelEntity->GetComponent<Transform>()->Translate(glm::vec3(0.0f, -7.0f, -10.0f));
+	m_HelicopterModelEntity->transform->Scale(glm::vec3(2.0f, 2.0f, 2.0f));
 
-	RenderableModelEntitiesPublic.push_back(helicopterModelEntity);
-	helicopterModelEntity->transform->Rotate(90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-	helicopterModelEntity->transform->Rotate(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	RenderableModelEntitiesPublic.push_back(m_HelicopterModelEntity);
+	m_HelicopterModelEntity->transform->Rotate(90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+	m_HelicopterModelEntity->transform->Rotate(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
 
 
@@ -190,7 +190,6 @@ void DemoScene3D::Start()
 
 
 
-
 	AddObject(&helicopter);
 	//AddObject(&spidermanPlain);
 
@@ -219,6 +218,8 @@ void DemoScene3D::Update(GLfloat deltaTime)
 		increaseValue = 1.5f;
 	}
 
+	m_HelicopterModelEntity->transform->Rotate(rotate, glm::vec3(0.0f, 0.0, 1.0f));
+	m_HelicopterModelEntity->transform->Translate(glm::vec3(0.0f, increaseValue * deltaTime, 0.0f));
 	helicopter.RotateTransform(rotate, glm::vec3(0.0f, 0.0, 1.0f));
 	ironman.TranslateTransform(glm::vec3(0.0f, increaseValue, 0.0f));
 

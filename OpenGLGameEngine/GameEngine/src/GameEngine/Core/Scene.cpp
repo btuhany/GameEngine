@@ -116,6 +116,10 @@ namespace GameEngine {
 		{
 			RenderableMeshEntitiesPublic[i]->renderer->RenderToDirLightShadowMap();
 		}
+		for (size_t i = 0; i < RenderableModelEntitiesPublic.size(); i++)
+		{
+			RenderableModelEntitiesPublic[i]->renderer->RenderToDirLightShadowMap();
+		}
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
@@ -147,7 +151,10 @@ namespace GameEngine {
 			{
 				RenderableMeshEntitiesPublic[j]->renderer->RenderToPointLightShadowMap(&m_PointLightList[i]);
 			}
-
+			for (size_t i = 0; i < RenderableModelEntitiesPublic.size(); i++)
+			{
+				RenderableModelEntitiesPublic[i]->renderer->RenderToPointLightShadowMap(&m_PointLightList[i]);
+			}
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}
 		for (size_t i = 0; i < m_SpotLightCount; i++)
@@ -167,6 +174,10 @@ namespace GameEngine {
 			for (size_t j = 0; j < RenderableMeshEntitiesPublic.size(); j++)
 			{
 				RenderableMeshEntitiesPublic[j]->renderer->RenderToPointLightShadowMap(&m_SpotLightList[i]);
+			}
+			for (size_t i = 0; i < RenderableModelEntitiesPublic.size(); i++)
+			{
+				RenderableModelEntitiesPublic[i]->renderer->RenderToPointLightShadowMap(&m_SpotLightList[i]);
 			}
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}

@@ -21,6 +21,7 @@ private:
 	Renderable3DObject ironman;
 	Renderable3DObject spidermanPlain;
 	Renderable3DObject spidermanCube;
+	std::shared_ptr<ModelEntity> m_HelicopterModelEntity;
 	void handleOnRightKey();
 	void handleOnLeftKey();
 	void handleOnUpKey();

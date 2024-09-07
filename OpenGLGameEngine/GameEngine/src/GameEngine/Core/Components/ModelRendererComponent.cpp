@@ -21,21 +21,42 @@ namespace GameEngine
 
 		DrawModel(shader->GetModelLocation());
 	}
+
 	void ModelRendererComponent::RenderToDirLightShadowMap()
 	{
+		if (dirShadowShader == nullptr)
+		{
+			LOG_CORE_ERROR("Directional shadow shader is null!");
+			return;
+		}
+		dirShadowShader->UseShader();
+
+		glm::mat4 lightTransform = directionalLight->CalculateLightTransform();
+		dirShadowShader->SetDirectionalLightTransform(&lightTransform);
+		dirShadowShader->Validate();
+
+		DrawModel(dirShadowShader->GetModelLocation());
 	}
+
 	void ModelRendererComponent::RenderToPointLightShadowMap(PointLight* pointLight)
 	{
+		//m_OmniShadowShader->UseShader();
+		glUniform3f(omniShadowShader->GetOmniLightPosLocation(), pointLight->GetPosition().x, pointLight->GetPosition().y, pointLight->GetPosition().z);
+		glUniform1f(omniShadowShader->GetFarPlaneLocation(), pointLight->GetFarPlane());
+		omniShadowShader->SetLightMatrices(pointLight->CalculateLightTransform());
+
+		DrawModel(omniShadowShader->GetModelLocation());
 	}
+
 	void ModelRendererComponent::DrawModel(GLuint uniformModel)
 	{
 		//TODOby
-		//renderData->MaterialData->UseMaterial(m_UniformMatSpecularInstensity, m_UniformMatShininess);
+		modelRenderData->materialData->UseMaterial(modelRenderData->shader->GetMatSpecularIntensityLocation(), modelRenderData->shader->GetMatShininessLocation());
 
-		//if (renderData->TextureData != NULL)
-		//{
-		//	renderData->TextureData->UseTexture();
-		//}
+		if (modelRenderData->textureData != NULL)
+		{
+			modelRenderData->textureData->UseTexture();
+		}
 
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(ownerEntity->GetComponent<Transform>()->GetModelMatrix()));
 		for (size_t i = 0; i < modelRenderData->modelData->m_MeshList.size(); i++)

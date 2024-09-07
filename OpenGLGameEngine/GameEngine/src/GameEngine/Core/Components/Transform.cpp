@@ -6,6 +6,7 @@ namespace GameEngine
 	void Transform::Translate(glm::vec3 translateVector)
 	{
 		m_ModelMatrix = glm::translate(m_ModelMatrix, translateVector);
+		m_Position += translateVector;
 	}
 
 	void Transform::Rotate(float angle, glm::vec3 rotateVector)
@@ -21,5 +22,9 @@ namespace GameEngine
 	glm::mat4 Transform::GetModelMatrix()
 	{
 		return m_ModelMatrix;
+	}
+	glm::vec3 Transform::GetPosition()
+	{
+		return m_Position;
 	}
 }
