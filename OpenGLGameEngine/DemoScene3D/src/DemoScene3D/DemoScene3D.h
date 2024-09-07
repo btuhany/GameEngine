@@ -13,15 +13,13 @@ public:
 	void Update(GLfloat deltaTime) override;
 private:
 	void initializeSkybox();
-	Mesh* createCubeMesh();
 	MeshData* createCubeMeshData();
-	Mesh* createPlainMesh();
 	MeshData* createPlainMeshData();
-	Renderable3DObject helicopter;
-	Renderable3DObject ironman;
-	Renderable3DObject spidermanPlain;
-	Renderable3DObject spidermanCube;
-	std::shared_ptr<ModelEntity> m_HelicopterModelEntity;
+	std::shared_ptr<ModelEntity> m_HelicopterSmall;
+	std::shared_ptr<ModelEntity> ironman;
+	std::shared_ptr<MeshEntity> spidermanPlain;
+	std::shared_ptr<MeshEntity> spidermanCube;
+	std::shared_ptr<ModelEntity> m_HelicopterBig;
 	void handleOnRightKey();
 	void handleOnLeftKey();
 	void handleOnUpKey();

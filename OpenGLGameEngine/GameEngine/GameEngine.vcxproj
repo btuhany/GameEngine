@@ -48,9 +48,9 @@
     <ClCompile Include="src\GameEngine\Core\GameEntity.cpp" />
     <ClCompile Include="src\GameEngine\Core\Component.cpp" />
     <ClCompile Include="src\GameEngine\Core\Entity.cpp" />
-    <ClCompile Include="src\GameEngine\Core\IShadowMapRenderable.cpp" />
+    <ClCompile Include="src\GameEngine\Legacy\IShadowMapRenderable.cpp" />
     <ClCompile Include="src\GameEngine\Core\Sprite.cpp" />
-    <ClCompile Include="src\GameEngine\Core\Renderer.cpp" />
+    <ClCompile Include="src\GameEngine\Legacy\Renderer.cpp" />
     <ClCompile Include="src\GameEngine\Core\SimpleEvent.cpp" />
     <ClCompile Include="src\GameEngine\Core\Input.cpp" />
     <ClCompile Include="src\GameEngine\Core\Application.cpp" />
@@ -61,8 +61,8 @@
     <ClCompile Include="src\GameEngine\Core\Light.cpp" />
     <ClCompile Include="src\GameEngine\Core\Engine.cpp" />
     <ClCompile Include="src\GameEngine\Core\Material.cpp" />
-    <ClCompile Include="src\GameEngine\Core\Mesh.cpp" />
-    <ClCompile Include="src\GameEngine\Core\Model.cpp" />
+    <ClCompile Include="src\GameEngine\Legacy\Mesh.cpp" />
+    <ClCompile Include="src\GameEngine\Legacy\Model.cpp" />
     <ClCompile Include="src\GameEngine\Core\OmniShadowMap.cpp" />
     <ClCompile Include="src\GameEngine\Core\PointLight.cpp" />
     <ClCompile Include="src\GameEngine\Core\Shader.cpp" />
@@ -72,9 +72,9 @@
     <ClCompile Include="src\GameEngine\Core\Texture.cpp" />
     <ClCompile Include="src\GameEngine\Core\Window.cpp" />
     <ClCompile Include="src\GameEngine\Core\Scene.cpp" />
-    <ClCompile Include="src\GameEngine\Core\Renderable3DObject.cpp" />
-    <ClCompile Include="src\GameEngine\Core\MeshRenderer.cpp" />
-    <ClCompile Include="src\GameEngine\Core\RenderableData.cpp" />
+    <ClCompile Include="src\GameEngine\Legacy\Renderable3DObject.cpp" />
+    <ClCompile Include="src\GameEngine\Legacy\MeshRenderer.cpp" />
+    <ClCompile Include="src\GameEngine\Legacy\RenderableData.cpp" />
     <ClCompile Include="src\GameEngine\Core\Components\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -91,9 +91,9 @@
     <ClInclude Include="src\GameEngine\Core\GameEntity.h" />
     <ClInclude Include="src\GameEngine\Core\Component.h" />
     <ClInclude Include="src\GameEngine\Core\Entity.h" />
-    <ClInclude Include="src\GameEngine\Core\IShadowMapRenderable.h" />
+    <ClInclude Include="src\GameEngine\Legacy\IShadowMapRenderable.h" />
     <ClInclude Include="src\GameEngine\Core\Sprite.h" />
-    <ClInclude Include="src\GameEngine\Core\Renderer.h" />
+    <ClInclude Include="src\GameEngine\Legacy\Renderer.h" />
     <ClInclude Include="src\GameEngine\Core\CameraTypeEnum.h" />
     <ClInclude Include="src\GameEngine\Core\SimpleEvent.h" />
     <ClInclude Include="src\GameEngine\Core\Input.h" />
@@ -107,8 +107,8 @@
     <ClInclude Include="src\GameEngine.h" />
     <ClInclude Include="src\GameEngine\Core\Light.h" />
     <ClInclude Include="src\GameEngine\Core\Material.h" />
-    <ClInclude Include="src\GameEngine\Core\Mesh.h" />
-    <ClInclude Include="src\GameEngine\Core\Model.h" />
+    <ClInclude Include="src\GameEngine\Legacy\Mesh.h" />
+    <ClInclude Include="src\GameEngine\Legacy\Model.h" />
     <ClInclude Include="src\GameEngine\Core\OmniShadowMap.h" />
     <ClInclude Include="src\GameEngine\Core\PointLight.h" />
     <ClInclude Include="src\GameEngine\Core\Shader.h" />
@@ -119,10 +119,10 @@
     <ClInclude Include="src\GameEngine\Core\Window.h" />
     <ClInclude Include="src\GameEngine\Core\Engine.h" />
     <ClInclude Include="src\GameEngine\Core\Scene.h" />
-    <ClInclude Include="src\GameEngine\Core\Renderable3DObject.h" />
-    <ClInclude Include="src\GameEngine\Core\MeshRenderer.h" />
-    <ClInclude Include="src\GameEngine\Core\RenderableData.h" />
-    <ClInclude Include="src\GameEngine\Core\IRenderable.h" />
+    <ClInclude Include="src\GameEngine\Legacy\Renderable3DObject.h" />
+    <ClInclude Include="src\GameEngine\Legacy\MeshRenderer.h" />
+    <ClInclude Include="src\GameEngine\Legacy\RenderableData.h" />
+    <ClInclude Include="src\GameEngine\Legacy\IRenderable.h" />
     <ClInclude Include="src\GameEngine\Core\Components\Transform.h" />
   </ItemGroup>
   <ItemGroup>

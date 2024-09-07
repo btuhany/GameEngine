@@ -37,7 +37,7 @@ void DemoScene3D::Initialize()
 	Shader* omniShadowShader = new Shader();
 	omniShadowShader->CreateFromFiles("src/DemoScene3D/Shaders/omni_shadow_map.vert", "src/DemoScene3D/Shaders/omni_shadow_map.geom", "src/DemoScene3D/Shaders/omni_shadow_map.frag");
 	setOmniShadowShader(omniShadowShader);
-
+	LOG_INFO("Demo scene initialized2!");
 	DirectionalLight* dirLight = new DirectionalLight(0.0f, 0.05f,
 		0.2f, 0.5f, 1.0f,
 		0.4f, -0.8f, 0.01f, 1024, 1024);
@@ -45,48 +45,44 @@ void DemoScene3D::Initialize()
 	m_CameraSpeed = 5.0f;
 	setCamera(new Camera(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, m_CameraSpeed, 0.1f, 60.0f, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
 	setBackgroundColor(glm::vec3(0.0f, 1.0f, 0.0f));
-
 	initializeSkybox();
 
 	Material* shinyMaterial = new Material(590.0f, 475.5f);
 	Material* roughMaterial = new Material(0.1f, 3.0f);
 
-	MeshRenderer* mainRenderer = new MeshRenderer(rendererShader, directionalShadowShader, omniShadowShader);
-	mainRenderer->Initialize(m_MainCamera, dirLight);
 	Texture* spidermanTexture = new Texture("src/DemoScene3D/Textures/spiderman.png");
 	spidermanTexture->LoadTextureWithAlpha();
 	Texture* plainTexture = new Texture("src/DemoScene3D/Textures/plain.png");
 	plainTexture->LoadTextureWithAlpha();
 
-	Model* helicopterModelData = new Model();
-	helicopterModelData->LoadModel("src/DemoScene3D/Models/uh60.obj");
-	RenderableData*  helicopterRenderableData = new RenderableData(helicopterModelData, shinyMaterial);
-	helicopter = Renderable3DObject(mainRenderer, helicopterRenderableData);
-
-
 	ModelData* helicopterModelDataNew = new ModelData();
 	helicopterModelDataNew->LoadModel("src/DemoScene3D/Models/uh60.obj");
-	m_HelicopterModelEntity = std::make_shared<ModelEntity>();
-	std::shared_ptr<ModelRenderData> modelRenderData = std::make_shared<ModelRenderData>();
-	modelRenderData->modelData = helicopterModelDataNew;
+	m_HelicopterBig = std::make_shared<ModelEntity>();
+	std::shared_ptr<ModelRenderData> helicopterRenderData = std::make_shared<ModelRenderData>();
+	helicopterRenderData->modelData = helicopterModelDataNew;
 	//modelRenderData->textureData = spidermanTexture;
-	modelRenderData->materialData = shinyMaterial;
-	modelRenderData->shader = rendererShader;
-	m_HelicopterModelEntity->renderer->camera = m_MainCamera;
-	m_HelicopterModelEntity->renderer->directionalLight = dirLight;
-	m_HelicopterModelEntity->renderer->omniShadowShader = omniShadowShader;
-	m_HelicopterModelEntity->renderer->modelRenderData = modelRenderData;
-	m_HelicopterModelEntity->renderer->dirShadowShader = directionalShadowShader;
-	RenderableEntitiesPublic.push_back(m_HelicopterModelEntity);
-	m_HelicopterModelEntity->GetComponent<Transform>()->Translate(glm::vec3(0.0f, -7.0f, -10.0f));
-	m_HelicopterModelEntity->transform->Scale(glm::vec3(2.0f, 2.0f, 2.0f));
+	helicopterRenderData->materialData = shinyMaterial;
+	helicopterRenderData->shader = rendererShader;
+	m_HelicopterBig->renderer->camera = m_MainCamera;
+	m_HelicopterBig->renderer->directionalLight = dirLight;
+	m_HelicopterBig->renderer->omniShadowShader = omniShadowShader;
+	m_HelicopterBig->renderer->modelRenderData = helicopterRenderData;
+	m_HelicopterBig->renderer->dirShadowShader = directionalShadowShader;
+	RenderableEntitiesPublic.push_back(m_HelicopterBig);
+	m_HelicopterBig->GetComponent<Transform>()->Translate(glm::vec3(0.0f, -7.0f, -10.0f));
+	m_HelicopterBig->transform->Scale(glm::vec3(2.0f, 2.0f, 2.0f));
+	m_HelicopterBig->transform->Rotate(90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+	m_HelicopterBig->transform->Rotate(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	RenderableModelEntitiesPublic.push_back(m_HelicopterBig);
 
-	RenderableModelEntitiesPublic.push_back(m_HelicopterModelEntity);
-	m_HelicopterModelEntity->transform->Rotate(90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-	m_HelicopterModelEntity->transform->Rotate(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-
-
-
+	m_HelicopterSmall = std::make_shared<ModelEntity>();
+	m_HelicopterSmall->renderer->camera = m_MainCamera;
+	m_HelicopterSmall->renderer->directionalLight = dirLight;
+	m_HelicopterSmall->renderer->omniShadowShader = omniShadowShader;
+	m_HelicopterSmall->renderer->modelRenderData = helicopterRenderData;
+	m_HelicopterSmall->renderer->dirShadowShader = directionalShadowShader;
+	RenderableEntitiesPublic.push_back(m_HelicopterSmall);
+	RenderableModelEntitiesPublic.push_back(m_HelicopterSmall);
 
 	std::shared_ptr<MeshEntity> cubeMeshEntity = std::make_shared<MeshEntity>();
 	std::shared_ptr<MeshRenderData> meshRenderData = std::make_shared<MeshRenderData>();
@@ -104,10 +100,21 @@ void DemoScene3D::Initialize()
 	cubeMeshEntity->GetComponent<Transform>()->Translate(glm::vec3(36.0f, -7.0f, -12.0f));
 	cubeMeshEntity->transform->Scale(glm::vec3(3.0f, 3.0f, 1.5f));
 
-	Model* ironmanModelData = new Model();
+	ModelData* ironmanModelData = new ModelData();
 	ironmanModelData->LoadModel("src/DemoScene3D/Models/IronMan.obj");
-	RenderableData*  ironmanRenderableData = new RenderableData(ironmanModelData, shinyMaterial);
-	ironman = Renderable3DObject(mainRenderer, ironmanRenderableData);
+	ironman = std::make_shared<ModelEntity>();
+	std::shared_ptr<ModelRenderData> ironmanRenderData = std::make_shared<ModelRenderData>();
+	ironmanRenderData->modelData = ironmanModelData;
+	//modelRenderData->textureData = spidermanTexture;
+	ironmanRenderData->materialData = shinyMaterial;
+	ironmanRenderData->shader = rendererShader;
+	ironman->renderer->camera = m_MainCamera;
+	ironman->renderer->directionalLight = dirLight;
+	ironman->renderer->omniShadowShader = omniShadowShader;
+	ironman->renderer->modelRenderData = ironmanRenderData;
+	ironman->renderer->dirShadowShader = directionalShadowShader;
+	RenderableEntitiesPublic.push_back(ironman);
+	RenderableModelEntitiesPublic.push_back(ironman);
 
 	std::shared_ptr<MeshEntity> spidermanPlainEntity = std::make_shared<MeshEntity>();
 	std::shared_ptr<MeshRenderData> plainRenderData = std::make_shared<MeshRenderData>();
@@ -165,7 +172,7 @@ void DemoScene3D::Initialize()
 		0.1f, 0.1f, 0.1f, 
 		100.0f,
 		0.01f, 200.0f));
-	addSpotLight(new SpotLight(0.0f, 500.0f,
+	addSpotLight(new SpotLight(0.0f, 100.0f,
 		0.0f, 1.0f, 1.0f,
 		-7.0f, 12.0f, 8.0f,
 		0.7f, -0.6f, 0.3f,
@@ -177,28 +184,12 @@ void DemoScene3D::Initialize()
 
 void DemoScene3D::Start()
 {
-	ironman.TranslateTransform(glm::vec3(20.0f, 10.0f, -10.0f));
-	ironman.ScaleTransform(glm::vec3(0.2f, 0.2f, 0.2f));
-	ironman.RotateTransform(-60.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	ironman->transform->Translate(glm::vec3(20.0f, 10.0f, -10.0f));
+	ironman->transform->Scale(glm::vec3(0.2f, 0.2f, 0.2f));
+	ironman->transform->Rotate(-60.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-	helicopter.RotateTransform(90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-	helicopter.RotateTransform(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-	helicopter.ScaleTransform(glm::vec3(1.0f, 1.0f, 1.0f));
-
-
-
-
-
-
-	AddObject(&helicopter);
-	//AddObject(&spidermanPlain);
-
-	AddObject(&ironman);
-
-	AddShadowMapRenderableObject(&helicopter);
-	//AddShadowMapRenderableObject(&spidermanPlain);
-
-	AddShadowMapRenderableObject(&ironman);
+	m_HelicopterSmall->transform->Rotate(90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+	m_HelicopterSmall->transform->Rotate(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
 float rotate = 0.0f;
@@ -218,47 +209,13 @@ void DemoScene3D::Update(GLfloat deltaTime)
 		increaseValue = 1.5f;
 	}
 
-	m_HelicopterModelEntity->transform->Rotate(rotate, glm::vec3(0.0f, 0.0, 1.0f));
-	m_HelicopterModelEntity->transform->Translate(glm::vec3(0.0f, increaseValue * deltaTime, 0.0f));
-	helicopter.RotateTransform(rotate, glm::vec3(0.0f, 0.0, 1.0f));
-	ironman.TranslateTransform(glm::vec3(0.0f, increaseValue, 0.0f));
+	m_HelicopterBig->transform->Rotate(rotate, glm::vec3(0.0f, 0.0, 1.0f));
+	m_HelicopterBig->transform->Translate(glm::vec3(0.0f, increaseValue * deltaTime, 0.0f));
+	m_HelicopterSmall->transform->Rotate(rotate, glm::vec3(0.0f, 0.0, 1.0f));
+	ironman->transform->Translate(glm::vec3(0.0f, increaseValue, 0.0f));
 
 }
 
-Mesh* DemoScene3D::createCubeMesh()
-{
-	GLfloat vertices[] =
-	{
-		//x      y     z		 u     y			normals
-		-1.0f, -1.0f, 1.0f, 	1.0f, 0.0f,		-1.0f, -1.0f, 1.0f,
-		-1.0f, -1.0f, -1.0f,		0.0f, 0.0f,		-1.0f, -1.0f, -1.0f,
-		1.0f, -1.0f, -1.0f,		0.0f, 1.0f,		1.0f, -1.0f, -1.0f,
-		1.0f, -1.0f, 1.0f,	1.0f, 1.0f,		1.0f, -1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,		1.0f, 0.0f,		1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f, -1.0f,		0.0f, 0.0f,		1.0f, 1.0f, -1.0f,
-		-1.0f, 1.0f, -1.0f,		1.0f, 0.0f,		-1.0f, 1.0f, -1.0f,
-		-1.0f, 1.0f, 1.0f,		0.0f, 0.0f,		-1.0f, 1.0f, 1.0f
-	};
-
-	unsigned int indices[] = {
-	2, 0, 1,
-	3, 0, 2,
-	4, 2, 5,
-	3, 2, 4,
-	7, 3, 4,
-	0, 3, 7,
-	1, 0, 6,
-	6, 0, 7,
-	1, 6, 2,
-	2, 6, 5,
-	4, 5, 6,
-	4, 6, 7
-	};
-
-	Mesh* cubeMesh = new Mesh();
-	cubeMesh->CreateMesh(vertices, indices, 64, 36);
-	return cubeMesh;
-}
 MeshData* DemoScene3D::createCubeMeshData()
 {
 	GLfloat vertices[] =
@@ -293,24 +250,7 @@ MeshData* DemoScene3D::createCubeMeshData()
 	cubeMesh->CreateMesh(vertices, indices, 64, 36);
 	return cubeMesh;
 }
-Mesh* DemoScene3D::createPlainMesh()
-{
-	unsigned int floorIndices[] = {
-		0, 2, 1,
-		1, 2, 3
-	};
 
-	GLfloat floorVertices[] = {
-		-50.0f, -10.0f, -50.0f,	0.0f, 0.0f,  0.0f, 1.0f, 0.0f,
-		50.0f, -10.0f, -50.0f,	20.0f, 0.0f,  0.0f, 1.0f, 0.0f,
-		-50.0f, -10.0f, 50.0f,	0.0f, 20.0f,  0.0f, 1.0f, 0.0f,
-		50.0f, -10.0f, 50.0f,	20.0f, 20.0f,  0.0f, 1.0f, 0.0f
-	};
-
-	Mesh* plainMesh = new Mesh();
-	plainMesh->CreateMesh(floorVertices, floorIndices, 32, 6);
-	return plainMesh;
-}
 MeshData* DemoScene3D::createPlainMeshData()
 {
 	unsigned int floorIndices[] = {
@@ -368,9 +308,10 @@ void DemoScene3D::initializeSkybox()
 	skyboxFaces.push_back("src/DemoScene3D/Textures/skybox/cupertin-lake_dn.tga");
 	skyboxFaces.push_back("src/DemoScene3D/Textures/skybox/cupertin-lake_bk.tga");
 	skyboxFaces.push_back("src/DemoScene3D/Textures/skybox/cupertin-lake_ft.tga");
-	Skybox* skybox = new Skybox(skyboxFaces, "src/DemoScene3D/Shaders/skybox.vert", "src/DemoScene3D/Shaders/skybox.frag");
+	std::shared_ptr<Skybox> skybox = std::make_shared<Skybox>(skyboxFaces, "src/DemoScene3D/Shaders/skybox.vert", "src/DemoScene3D/Shaders/skybox.frag");
 	setSkybox(skybox);
 	useSkybox(true);
+	LOG_INFO("Demo scene initialized3!");
 }
 
 

@@ -8,9 +8,9 @@
 #include <glm\gtc\type_ptr.hpp>
 
 #include "ConstantValues.h"
-#include "Mesh.h"
+#include "MeshData.h"
 #include "Shader.h"
-#include "MeshRenderer.h"
+#include "Components/MeshRendererComponent.h"
 namespace GameEngine {
 	class ENGINE_API Skybox
 	{
@@ -23,9 +23,8 @@ namespace GameEngine {
 		~Skybox();
 
 	private:
-		Mesh* m_SkyMesh;
+		std::shared_ptr<MeshData> m_SkyMeshData;
 		Shader* m_SkyShader;
-		MeshRenderer* m_Renderer;
 		GLuint m_TextureId;
 		GLuint m_UniformProjection, m_UniformView;
 	};

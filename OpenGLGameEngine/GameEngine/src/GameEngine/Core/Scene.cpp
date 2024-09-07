@@ -15,14 +15,12 @@ namespace GameEngine {
 		printf("\n deleted scene \n");
 		delete m_DirectionalLight;
 		delete m_MainCamera;
-		delete m_Skybox;
-
 		//TODO: m_ShadowMapRenderableObject clear?
-		for (auto obj : m_RenderableObjectList) {
-			obj->ClearRenderableObject();
-		}
-		m_RenderableObjectList.clear();
-		MeshRenderer::ClearRenderers();
+		//for (auto obj : m_RenderableObjectList) {
+		//	obj->ClearRenderableObject();
+		//}
+		//m_RenderableObjectList.clear();
+		//MeshRenderer::ClearRenderers();
 	}
 
 	void Scene::Initialize()
@@ -39,22 +37,12 @@ namespace GameEngine {
 
 	}
 
-	void Scene::AddObject(Renderable3DObject* object)
-	{
-		m_RenderableObjectList.push_back(object);
-	}
-
-	void Scene::AddShadowMapRenderableObject(IShadowMapRenderable* object)
-	{
-		m_ShadowMapRenderableList.push_back(object);
-	}
-
 	Camera* Scene::GetCamera()
 	{
 		return m_MainCamera;
 	}
 
-	Skybox* Scene::GetSkybox()
+	std::shared_ptr<Skybox> Scene::GetSkybox()
 	{
 		return m_Skybox;
 	}
@@ -71,11 +59,6 @@ namespace GameEngine {
 
 	void Scene::RenderScene(glm::mat4 projection)
 	{
-		for (size_t i = 0; i < m_RenderableObjectList.size(); i++)
-		{
-			m_RenderableObjectList[i]->GetRenderShader()->UseShader();
-			m_RenderableObjectList[i]->Render(projection, m_MainCamera->CalculateViewMatrix(), m_MainCamera, m_DirectionalLight);
-		}
 
 		for (size_t i = 0; i < RenderableMeshEntitiesPublic.size(); i++)
 		{
@@ -90,28 +73,35 @@ namespace GameEngine {
 
 	void Scene::SetPointLights()
 	{
-		for (size_t i = 0; i < m_RenderableObjectList.size(); i++)
+		for (size_t i = 0; i < RenderableMeshEntitiesPublic.size(); i++)
 		{
-			m_RenderableObjectList[i]->GetRenderShader()->UseShader();
-			m_RenderableObjectList[i]->GetRenderShader()->SetPointLights(m_PointLightList, m_PointLightCount, 4, 0);
+			RenderableMeshEntitiesPublic[i]->renderer->meshRenderData->shader->UseShader();
+			RenderableMeshEntitiesPublic[i]->renderer->meshRenderData->shader->SetPointLights(m_PointLightList, m_PointLightCount, 4, 0);
+		}
+		for (size_t i = 0; i < RenderableModelEntitiesPublic.size(); i++)
+		{
+			RenderableModelEntitiesPublic[i]->renderer->modelRenderData->shader->UseShader();
+			RenderableModelEntitiesPublic[i]->renderer->modelRenderData->shader->SetPointLights(m_PointLightList, m_PointLightCount, 4, 0);
 		}
 	}
 
 	void Scene::SetSpotLights()
 	{
-		for (size_t x = 0; x < m_RenderableObjectList.size(); x++)
+		for (size_t i = 0; i < RenderableMeshEntitiesPublic.size(); i++)
 		{
-			m_RenderableObjectList[x]->GetRenderShader()->UseShader();
-			m_RenderableObjectList[x]->GetRenderShader()->SetSpotLights(m_SpotLightList, m_SpotLightCount, 4 + m_PointLightCount, m_PointLightCount);
+			RenderableMeshEntitiesPublic[i]->renderer->meshRenderData->shader->UseShader();
+			RenderableMeshEntitiesPublic[i]->renderer->meshRenderData->shader->SetSpotLights(m_SpotLightList, m_SpotLightCount, 4 + m_PointLightCount, m_PointLightCount);
+		}
+		for (size_t i = 0; i < RenderableModelEntitiesPublic.size(); i++)
+		{
+			RenderableModelEntitiesPublic[i]->renderer->modelRenderData->shader->UseShader();
+			RenderableModelEntitiesPublic[i]->renderer->modelRenderData->shader->SetSpotLights(m_SpotLightList, m_SpotLightCount, 4 + m_PointLightCount, m_PointLightCount);
 		}
 	}
 
 	void Scene::RenderSceneShadowMap()
 	{
-		for (size_t i = 0; i < m_ShadowMapRenderableList.size(); i++)
-		{
-			m_ShadowMapRenderableList[i]->RenderDirectionalShadowMap(m_DirectionalLight);
-		}
+
 		for (size_t i = 0; i < RenderableMeshEntitiesPublic.size(); i++)
 		{
 			RenderableMeshEntitiesPublic[i]->renderer->RenderToDirLightShadowMap();
@@ -143,10 +133,7 @@ namespace GameEngine {
 			glViewport(0, 0, m_PointLightList[i].GetShadowMap()->GetShadowWidth(), m_PointLightList[i].GetShadowMap()->GetShadowHeight());
 			m_PointLightList[i].GetShadowMap()->Write(); //Bind framebuffer
 			glClear(GL_DEPTH_BUFFER_BIT);
-			for (size_t j = 0; j < m_ShadowMapRenderableList.size(); j++)
-			{
-				m_ShadowMapRenderableList[j]->RenderOmniShadowMap(&m_PointLightList[i]);
-			}
+
 			for (size_t j = 0; j < RenderableMeshEntitiesPublic.size(); j++)
 			{
 				RenderableMeshEntitiesPublic[j]->renderer->RenderToPointLightShadowMap(&m_PointLightList[i]);
@@ -167,10 +154,7 @@ namespace GameEngine {
 			glViewport(0, 0, m_SpotLightList[i].GetShadowMap()->GetShadowWidth(), m_SpotLightList[i].GetShadowMap()->GetShadowHeight());
 			m_SpotLightList[i].GetShadowMap()->Write();  //Bind framebuffer
 			glClear(GL_DEPTH_BUFFER_BIT);
-			for (size_t j = 0; j < m_ShadowMapRenderableList.size(); j++)
-			{
-				m_ShadowMapRenderableList[j]->RenderOmniShadowMap(&m_SpotLightList[i]);
-			}
+
 			for (size_t j = 0; j < RenderableMeshEntitiesPublic.size(); j++)
 			{
 				RenderableMeshEntitiesPublic[j]->renderer->RenderToPointLightShadowMap(&m_SpotLightList[i]);
@@ -188,7 +172,7 @@ namespace GameEngine {
 		m_BackgroundColour = colour;
 	}
 
-	void Scene::setSkybox(Skybox* skybox)
+	void Scene::setSkybox(std::shared_ptr<Skybox> skybox)
 	{
 		m_Skybox = skybox;
 	}
@@ -235,7 +219,7 @@ namespace GameEngine {
 	}
 	void Scene::updateObjects()
 	{
-		for (size_t i = 0; i < m_RenderableObjectList.size(); i++)
+		//for (size_t i = 0; i < m_RenderableObjectList.size(); i++)
 		{
 			//m_ObjectList[i]->Tick();
 		}
@@ -243,7 +227,7 @@ namespace GameEngine {
 
 	void Scene::startObjects()
 	{
-		for (size_t i = 0; i < m_RenderableObjectList.size(); i++)
+		//for (size_t i = 0; i < m_RenderableObjectList.size(); i++)
 		{
 			//m_ObjectList[i]->Start();
 		}
