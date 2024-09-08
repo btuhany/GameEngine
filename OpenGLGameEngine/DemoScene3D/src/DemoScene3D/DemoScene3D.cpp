@@ -60,7 +60,7 @@ void DemoScene3D::Initialize()
 	m_HelicopterBig = std::make_shared<ModelEntity>();
 	std::shared_ptr<ModelRenderData> helicopterRenderData = std::make_shared<ModelRenderData>();
 	helicopterRenderData->modelData = helicopterModelDataNew;
-	//modelRenderData->textureData = spidermanTexture;
+	//helicopterRenderData->textureData = spidermanTexture;
 	helicopterRenderData->materialData = shinyMaterial;
 	helicopterRenderData->shader = rendererShader;
 	m_HelicopterBig->renderer->camera = m_MainCamera;

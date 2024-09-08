@@ -18,52 +18,52 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\GameEngine\Core\Camera.cpp">
+    <ClCompile Include="src\GameEngine\Scene\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Legacy\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\Shader.cpp">
+    <ClCompile Include="src\GameEngine\Resource\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\Window.cpp">
+    <ClCompile Include="src\GameEngine\Engine\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\Texture.cpp">
+    <ClCompile Include="src\GameEngine\Resource\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\Light.cpp">
+    <ClCompile Include="src\GameEngine\Scene\Light.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\Material.cpp">
+    <ClCompile Include="src\GameEngine\Resource\Material.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\DirectionalLight.cpp">
+    <ClCompile Include="src\GameEngine\Scene\DirectionalLight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\PointLight.cpp">
+    <ClCompile Include="src\GameEngine\Scene\PointLight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\SpotLight.cpp">
+    <ClCompile Include="src\GameEngine\Scene\SpotLight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Legacy\Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\ShadowMap.cpp">
+    <ClCompile Include="src\GameEngine\Scene\ShadowMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\OmniShadowMap.cpp">
+    <ClCompile Include="src\GameEngine\Scene\OmniShadowMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\Skybox.cpp">
+    <ClCompile Include="src\GameEngine\Scene\Skybox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\Engine.cpp">
+    <ClCompile Include="src\GameEngine\Engine\Engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\Scene.cpp">
+    <ClCompile Include="src\GameEngine\Scene\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Legacy\Renderable3DObject.cpp">
@@ -75,123 +75,123 @@
     <ClCompile Include="src\GameEngine\Legacy\RenderableData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\Log.cpp">
+    <ClCompile Include="src\GameEngine\Engine\Log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\EntryPoint.cpp">
+    <ClCompile Include="src\GameEngine\Engine\EntryPoint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\Application.cpp">
+    <ClCompile Include="src\GameEngine\Engine\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\Input.cpp">
+    <ClCompile Include="src\GameEngine\Engine\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\SimpleEvent.cpp">
+    <ClCompile Include="src\GameEngine\Event\SimpleEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Legacy\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\Sprite.cpp">
+    <ClCompile Include="src\GameEngine\Resource\Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Legacy\IShadowMapRenderable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\Entity.cpp">
+    <ClCompile Include="src\GameEngine\Entities\Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\Component.cpp">
+    <ClCompile Include="src\GameEngine\Components\Component.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\Components\Transform.cpp">
+    <ClCompile Include="src\GameEngine\Components\Transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\GameEntity.cpp">
+    <ClCompile Include="src\GameEngine\Entities\GameEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\RenderableEntity.cpp">
+    <ClCompile Include="src\GameEngine\Entities\RenderableEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\MeshEntity.cpp">
+    <ClCompile Include="src\GameEngine\Entities\MeshEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\Components\RendererComponent.cpp">
+    <ClCompile Include="src\GameEngine\Components\RendererComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\Components\MeshRendererComponent.cpp">
+    <ClCompile Include="src\GameEngine\Components\MeshRendererComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\MeshData.cpp">
+    <ClCompile Include="src\GameEngine\Resource\MeshData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\MeshRenderData.cpp">
+    <ClCompile Include="src\GameEngine\Render\MeshRenderData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\ModelEntity.cpp">
+    <ClCompile Include="src\GameEngine\Entities\ModelEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\Components\ModelRendererComponent.cpp">
+    <ClCompile Include="src\GameEngine\Components\ModelRendererComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\ModelRenderData.cpp">
+    <ClCompile Include="src\GameEngine\Render\ModelRenderData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\ModelData.cpp">
+    <ClCompile Include="src\GameEngine\Resource\ModelData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\GameEngine\Core\Camera.h">
+    <ClInclude Include="src\GameEngine\Scene\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Legacy\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\Shader.h">
+    <ClInclude Include="src\GameEngine\Resource\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\Window.h">
+    <ClInclude Include="src\GameEngine\Engine\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\Texture.h">
+    <ClInclude Include="src\GameEngine\Resource\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\Light.h">
+    <ClInclude Include="src\GameEngine\Scene\Light.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\Material.h">
+    <ClInclude Include="src\GameEngine\Resource\Material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\DirectionalLight.h">
+    <ClInclude Include="src\GameEngine\Scene\DirectionalLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\PointLight.h">
+    <ClInclude Include="src\GameEngine\Scene\PointLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\ConstantValues.h">
+    <ClInclude Include="src\GameEngine\Engine\ConstantValues.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\SpotLight.h">
+    <ClInclude Include="src\GameEngine\Scene\SpotLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Legacy\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\ShadowMap.h">
+    <ClInclude Include="src\GameEngine\Scene\ShadowMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\OmniShadowMap.h">
+    <ClInclude Include="src\GameEngine\Scene\OmniShadowMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\Skybox.h">
+    <ClInclude Include="src\GameEngine\Scene\Skybox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\Engine.h">
+    <ClInclude Include="src\GameEngine\Engine\Engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\Scene.h">
+    <ClInclude Include="src\GameEngine\Scene\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Legacy\Renderable3DObject.h">
@@ -209,76 +209,76 @@
     <ClInclude Include="src\GameEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\Core.h">
+    <ClInclude Include="src\GameEngine\Engine\Core.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\Log.h">
+    <ClInclude Include="src\GameEngine\Engine\Log.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\EntryPoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\Application.h">
+    <ClInclude Include="src\GameEngine\Engine\Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\Input.h">
+    <ClInclude Include="src\GameEngine\Engine\Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\SimpleEvent.h">
+    <ClInclude Include="src\GameEngine\Event\SimpleEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\CameraTypeEnum.h">
+    <ClInclude Include="src\GameEngine\Scene\CameraTypeEnum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Legacy\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\Sprite.h">
+    <ClInclude Include="src\GameEngine\Resource\Sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Legacy\IShadowMapRenderable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\Entity.h">
+    <ClInclude Include="src\GameEngine\Entities\Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\Component.h">
+    <ClInclude Include="src\GameEngine\Components\Component.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\Components\Transform.h">
+    <ClInclude Include="src\GameEngine\Components\Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\GameEntity.h">
+    <ClInclude Include="src\GameEngine\Entities\GameEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\RenderableEntity.h">
+    <ClInclude Include="src\GameEngine\Entities\RenderableEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\MeshEntity.h">
+    <ClInclude Include="src\GameEngine\Entities\MeshEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\Components\RendererComponent.h">
+    <ClInclude Include="src\GameEngine\Components\RendererComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\Components\MeshRendererComponent.h">
+    <ClInclude Include="src\GameEngine\Components\MeshRendererComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\MeshData.h">
+    <ClInclude Include="src\GameEngine\Resource\MeshData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\MeshRenderData.h">
+    <ClInclude Include="src\GameEngine\Render\MeshRenderData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\ModelEntity.h">
+    <ClInclude Include="src\GameEngine\Entities\ModelEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\Components\ModelRendererComponent.h">
+    <ClInclude Include="src\GameEngine\Components\ModelRendererComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\ModelRenderData.h">
+    <ClInclude Include="src\GameEngine\Render\ModelRenderData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\ModelData.h">
+    <ClInclude Include="src\GameEngine\Resource\ModelData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
