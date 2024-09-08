@@ -5,9 +5,13 @@
 
 
 08.24
-TODO: Create a RenderableObject base class that contains a Renderer an calls Render() function
+TODO: Create a RenderableObject base class that contains a Renderer an calls Render() function [X]
 
 02.09.24
 TODO: 
-- Create a ModelEntity class and render models with model entity, than refactor classes
-- Refactor scene render handling 
+- Create a ModelEntity class and render models with model entity, than refactor classes [X]
+- Refactor scene render handling  [O]
+
+09.09.24
+TODO:
+- Refactor scene render handling  []
