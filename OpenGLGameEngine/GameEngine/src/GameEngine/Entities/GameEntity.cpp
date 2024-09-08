@@ -1,5 +1,5 @@
 #include "GameEntity.h"
-#include "Log.h"
+#include "../Debug/Log.h"
 namespace GameEngine
 {
 	GameEntity::GameEntity()

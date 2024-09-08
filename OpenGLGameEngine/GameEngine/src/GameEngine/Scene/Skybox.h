@@ -1,5 +1,5 @@
 #pragma once
-#include "Core.h"
+#include "../Core.h"
 #include <vector>
 #include <string>
 #include <GL\glew.h>
@@ -7,10 +7,10 @@
 #include <glm/gtc\matrix_transform.hpp>
 #include <glm\gtc\type_ptr.hpp>
 
-#include "ConstantValues.h"
-#include "MeshData.h"
-#include "Shader.h"
-#include "Components/MeshRendererComponent.h"
+#include "../ConstantValues.h"
+#include "../Resource/MeshData.h"
+#include "../Resource/Shader.h"
+#include "../Components/MeshRendererComponent.h"
 namespace GameEngine {
 	class ENGINE_API Skybox
 	{

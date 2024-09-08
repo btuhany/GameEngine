@@ -1,5 +1,5 @@
 #pragma once
-#include "Core.h"
+#include "../Core.h"
 #include <stdio.h>
 #include <string>
 #include <iostream>
@@ -9,10 +9,10 @@
 #include <glm\glm.hpp>
 #include <glm\gtc\type_ptr.hpp>
 
-#include "DirectionalLight.h"
-#include "PointLight.h"
-#include "SpotLight.h"
-#include "ConstantValues.h"
+#include "../Scene/DirectionalLight.h"
+#include "../Scene/PointLight.h"
+#include "../Scene/SpotLight.h"
+#include "../ConstantValues.h"
 namespace GameEngine {
 	class ENGINE_API Shader
 	{

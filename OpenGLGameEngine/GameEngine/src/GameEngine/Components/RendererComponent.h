@@ -1,6 +1,6 @@
 #pragma once
 #include <glm/gtc\matrix_transform.hpp>
-#include "../Component.h"
+#include "../Components/Component.h"
 
 namespace GameEngine
 {

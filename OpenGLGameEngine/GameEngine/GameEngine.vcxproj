@@ -55,7 +55,7 @@
     <ClCompile Include="src\GameEngine\Engine\Input.cpp" />
     <ClCompile Include="src\GameEngine\Engine\Application.cpp" />
     <ClCompile Include="src\GameEngine\Engine\EntryPoint.cpp" />
-    <ClCompile Include="src\GameEngine\Engine\Log.cpp" />
+    <ClCompile Include="src\GameEngine\Debug\Log.cpp" />
     <ClCompile Include="src\GameEngine\Scene\Camera.cpp" />
     <ClCompile Include="src\GameEngine\Scene\DirectionalLight.cpp" />
     <ClCompile Include="src\GameEngine\Scene\Light.cpp" />
@@ -99,10 +99,10 @@
     <ClInclude Include="src\GameEngine\Engine\Input.h" />
     <ClInclude Include="src\GameEngine\Engine\Application.h" />
     <ClInclude Include="src\EntryPoint.h" />
-    <ClInclude Include="src\GameEngine\Engine\Log.h" />
+    <ClInclude Include="src\GameEngine\Debug\Log.h" />
     <ClInclude Include="src\GameEngine\Scene\Camera.h" />
-    <ClInclude Include="src\GameEngine\Engine\ConstantValues.h" />
-    <ClInclude Include="src\GameEngine\Engine\Core.h" />
+    <ClInclude Include="src\GameEngine\ConstantValues.h" />
+    <ClInclude Include="src\GameEngine\Core.h" />
     <ClInclude Include="src\GameEngine\Scene\DirectionalLight.h" />
     <ClInclude Include="src\GameEngine.h" />
     <ClInclude Include="src\GameEngine\Scene\Light.h" />
@@ -129,15 +129,15 @@
     <None Include="assimp-vc143-mt.dll" />
     <None Include="doc\Notes.md" />
     <None Include="glew32.dll" />
-    <None Include="src\GameEngine\Shaders\directional_shadow_map.frag" />
-    <None Include="src\GameEngine\Shaders\directional_shadow_map.vert" />
-    <None Include="src\GameEngine\Shaders\omni_shadow_map.frag" />
-    <None Include="src\GameEngine\Shaders\omni_shadow_map.geom" />
-    <None Include="src\GameEngine\Shaders\omni_shadow_map.vert" />
-    <None Include="src\GameEngine\Shaders\shader.frag" />
-    <None Include="src\GameEngine\Shaders\shader.vert" />
-    <None Include="src\GameEngine\Shaders\skybox.frag" />
-    <None Include="src\GameEngine\Shaders\skybox.vert" />
+    <None Include="src\Resources\Shaders\directional_shadow_map.frag" />
+    <None Include="src\Resources\Shaders\directional_shadow_map.vert" />
+    <None Include="src\Resources\Shaders\omni_shadow_map.frag" />
+    <None Include="src\Resources\Shaders\omni_shadow_map.geom" />
+    <None Include="src\Resources\Shaders\omni_shadow_map.vert" />
+    <None Include="src\Resources\Shaders\shader.frag" />
+    <None Include="src\Resources\Shaders\shader.vert" />
+    <None Include="src\Resources\Shaders\skybox.frag" />
+    <None Include="src\Resources\Shaders\skybox.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

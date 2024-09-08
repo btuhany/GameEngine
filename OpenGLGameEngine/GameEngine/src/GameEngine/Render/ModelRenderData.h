@@ -1,10 +1,9 @@
 #pragma once
-#include "Core.h"
-#include "ModelData.h"
-#include "Texture.h"
-#include "Material.h"
-#include "Shader.h"
-#include "ModelData.h"
+#include "../Core.h"
+#include "../Resource/ModelData.h"
+#include "../Resource/Texture.h"
+#include "../Resource/Material.h"
+#include "../Resource/Shader.h"
 namespace GameEngine
 {
 	class ENGINE_API ModelRenderData

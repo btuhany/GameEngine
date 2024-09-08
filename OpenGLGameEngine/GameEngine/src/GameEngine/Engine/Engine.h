@@ -1,13 +1,13 @@
 #pragma once
-#include "Core.h"
+#include "../Core.h"
 #include <stdio.h>
 #include <iostream>
-#include "Scene.h"
+#include "../Scene/Scene.h"
 #include "Window.h"
-#include "Camera.h"
-#include "Log.h"
+#include "../Scene/Camera.h"
+#include "../Debug/Log.h"
 #include "Input.h"
-#include "CameraTypeEnum.h"
+#include "../Scene/CameraTypeEnum.h"
 
 namespace GameEngine {
 	class ENGINE_API Engine

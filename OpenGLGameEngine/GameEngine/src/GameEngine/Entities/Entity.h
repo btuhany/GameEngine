@@ -2,8 +2,8 @@
 #include <unordered_map>
 #include <typeindex>
 #include <memory>
-#include "Component.h"
-#include "Core.h"
+#include "../Components/Component.h"
+#include "../Core.h"
 
 namespace GameEngine
 {

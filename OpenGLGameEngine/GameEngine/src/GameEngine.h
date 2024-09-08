@@ -1,17 +1,17 @@
 #pragma once
 
 // For use by applications 
-#include "GameEngine/Core/Engine.h"
-#include "GameEngine/Core/Camera.h"
-#include "GameEngine/Core/ConstantValues.h"
-#include "GameEngine/Core/Shader.h"
-#include "GameEngine/Core/Log.h"
-#include "GameEngine/Core/Application.h"
-#include "GameEngine/Core/Input.h"
-#include "GameEngine/Core/SimpleEvent.h"
-#include "GameEngine/Core/CameraTypeEnum.h"
-#include "GameEngine/Core/MeshEntity.h"
-#include "GameEngine/Core/Components/Transform.h"
-#include "GameEngine/Core/Component.h"
+#include "GameEngine/Engine/Engine.h"
+#include "GameEngine/Scene/Camera.h"
+#include "GameEngine/ConstantValues.h"
+#include "GameEngine/Resource/Shader.h"
+#include "GameEngine/Debug/Log.h"
+#include "GameEngine/Engine/Application.h"
+#include "GameEngine/Engine/Input.h"
+#include "GameEngine/Event/SimpleEvent.h"
+#include "GameEngine/Scene/CameraTypeEnum.h"
+#include "GameEngine/Entities/MeshEntity.h"
+#include "GameEngine/Components/Transform.h"
+#include "GameEngine/Components/Component.h"
 
 using namespace GameEngine;

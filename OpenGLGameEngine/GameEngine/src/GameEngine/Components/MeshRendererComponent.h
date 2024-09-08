@@ -1,10 +1,10 @@
 #pragma once
 #include <memory.h>
 #include "RendererComponent.h"
-#include "../MeshRenderData.h"
-#include "../Camera.h"
+#include "../Render/MeshRenderData.h"
+#include "../Scene/Camera.h"
 #include "Transform.h"
-#include "../Entity.h"
+#include "../Entities/Entity.h"
 
 namespace GameEngine
 {

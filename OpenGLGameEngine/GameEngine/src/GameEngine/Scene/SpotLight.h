@@ -1,6 +1,6 @@
 #pragma once
-#include "Core.h"
-#include "PointLight.h"
+#include "../Core.h"
+#include "../Scene/PointLight.h"
 namespace GameEngine {
     class ENGINE_API SpotLight :
         public PointLight

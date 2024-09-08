@@ -1,14 +1,14 @@
 #pragma once
 #include <memory>
 #include "Camera.h"
-#include "Window.h"
+#include "../Engine/Window.h"
 #include "Skybox.h"
 #include "DirectionalLight.h"
 #include <vector>
-#include "Input.h"
-#include "RenderableEntity.h"
-#include "MeshEntity.h"
-#include "ModelEntity.h"
+#include "../Engine/Input.h"
+#include "../Entities/RenderableEntity.h"
+#include "../Entities/MeshEntity.h"
+#include "../Entities/ModelEntity.h"
 namespace GameEngine {
 	class ENGINE_API Scene
 	{

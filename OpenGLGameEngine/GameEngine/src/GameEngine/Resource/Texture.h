@@ -1,7 +1,7 @@
 #pragma once
-#include "Core.h"
+#include "../Core.h"
 #include <GL/glew.h>
-#include "ConstantValues.h"
+#include "../ConstantValues.h"
 namespace GameEngine {
 	class ENGINE_API Texture
 	{

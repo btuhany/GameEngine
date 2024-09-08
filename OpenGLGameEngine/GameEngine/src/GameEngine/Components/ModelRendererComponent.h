@@ -1,12 +1,12 @@
 #pragma once
 #include <memory.h>
 #include "../Core.h"
-#include "../ModelRenderData.h"
+#include "../Render/ModelRenderData.h"
 #include "RendererComponent.h"
-#include "../PointLight.h"
-#include "../Camera.h"
+#include "../Scene/PointLight.h"
+#include "../Scene/Camera.h"
 #include "Transform.h"
-#include "../Entity.h"
+#include "../Entities/Entity.h"
 namespace GameEngine
 {
 	class ENGINE_API ModelRendererComponent : public RendererComponent

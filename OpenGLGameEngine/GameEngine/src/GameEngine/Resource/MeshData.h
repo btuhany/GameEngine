@@ -1,6 +1,6 @@
 #pragma once
 #include <GL\glew.h>
-#include "Core.h"
+#include "../Core.h"
 
 namespace GameEngine {
 	class ENGINE_API MeshData

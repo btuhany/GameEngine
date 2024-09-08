@@ -3,7 +3,7 @@
 #include <glm/matrix.hpp>
 #include <glm/gtc\matrix_transform.hpp>
 #include "../Core.h"
-#include "../Component.h"
+#include "../Components/Component.h"
 
 namespace GameEngine
 {

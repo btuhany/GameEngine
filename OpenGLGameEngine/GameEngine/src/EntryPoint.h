@@ -1,6 +1,6 @@
 #pragma  once
 #include <stdio.h>
-#include "GameEngine/Core/Application.h"
+#include "GameEngine/Engine/Application.h"
 
 #ifdef GAME_ENGINE_WINDOWS
 

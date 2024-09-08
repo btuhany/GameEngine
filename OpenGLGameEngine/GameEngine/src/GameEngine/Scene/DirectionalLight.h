@@ -1,6 +1,6 @@
 #pragma once
-#include "Core.h"
-#include "Light.h"
+#include "../Core.h"
+#include "../Scene/Light.h"
 namespace GameEngine {
 	class ENGINE_API DirectionalLight : public Light
 	{

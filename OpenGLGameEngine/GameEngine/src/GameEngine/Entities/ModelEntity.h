@@ -1,7 +1,7 @@
 #pragma once
 #include "RenderableEntity.h"
-#include "Components/ModelRendererComponent.h"
-#include "Log.h"
+#include "../Components/ModelRendererComponent.h"
+#include "../Debug/Log.h"
 namespace GameEngine
 {
 	class ENGINE_API ModelEntity : public RenderableEntity

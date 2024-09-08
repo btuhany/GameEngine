@@ -1,7 +1,7 @@
 #pragma once
-#include "Core.h"
+#include "../Core.h"
 #include "CameraTypeEnum.h"
-#include "Log.h"
+#include "../Debug/Log.h"
 #include <GL\glew.h>
 #include <glm\glm.hpp>
 #include <glm\gtc\matrix_transform.hpp>
