@@ -8,8 +8,6 @@ namespace GameEngine
 		int score;
 		DenemeEvent() : denemeScore(0), score(0) {}
 		DenemeEvent(int denemeScoref, int scoref) : denemeScore(denemeScoref), score(scoref) {}
-
-
 	};
 }
 

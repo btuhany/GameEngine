@@ -14,7 +14,6 @@ namespace GameEngine {
 	{
 		printf("\n deleted scene \n");
 		delete m_DirectionalLight;
-		delete m_MainCamera;
 		//TODO: m_ShadowMapRenderableObject clear?
 		//for (auto obj : m_RenderableObjectList) {
 		//	obj->ClearRenderableObject();
@@ -37,7 +36,7 @@ namespace GameEngine {
 
 	}
 
-	Camera* Scene::GetCamera()
+	std::shared_ptr<Camera> Scene::GetCamera()
 	{
 		return m_MainCamera;
 	}
@@ -213,7 +212,7 @@ namespace GameEngine {
 	}
 
 
-	void Scene::setCamera(Camera* camera)
+	void Scene::setCamera(std::shared_ptr<Camera> camera)
 	{
 		m_MainCamera = camera;
 	}

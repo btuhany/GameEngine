@@ -12,6 +12,11 @@ namespace GameEngine
 
 	class ENGINE_API EventManager {
 	public:
+		static EventManager& GetInstance() {
+			static EventManager instance;
+			return instance;
+		}
+
 		template <typename EventType>
 		void Subscribe(std::function<void(std::shared_ptr<EventType>)> callback, int priority = 0) {
 			const std::type_index eventType = EventType().GetType();
@@ -69,7 +74,12 @@ namespace GameEngine
 			}
 		}
 
+
+		EventManager(const EventManager&) = delete;
+		EventManager& operator=(const EventManager&) = delete;
 	private:
 		std::unordered_map<std::type_index, std::vector<Listener>> m_Listeners;
+
+		EventManager() = default;
 	};
 }

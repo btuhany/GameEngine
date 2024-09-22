@@ -1,4 +1,5 @@
 #pragma once
+#include <memory.h>
 #include "../Core.h"
 #include <stdio.h>
 #include <iostream>
@@ -8,13 +9,14 @@
 #include "../Debug/Log.h"
 #include "Input.h"
 #include "../Scene/CameraTypeEnum.h"
+#include "../Render/Renderer.h"
 
 namespace GameEngine {
 	class ENGINE_API Engine
 	{
 	public:
 		Engine(Window* window, bool shadowPassActive);
-		Engine(Window* window, Input* input, bool shadowPassActive);
+		Engine(Window* window, Input* input, Renderer* renderer, bool shadowPassActive);
 		~Engine();
 		void Initialize(Scene* scene);
 		void Start();
@@ -27,6 +29,7 @@ namespace GameEngine {
 		Window* m_MainWindow;
 		Scene* m_Scene;
 		Input* m_InputHandler;
+		Renderer* m_Renderer;
 		bool m_IsInitialized;
 		bool m_ShouldStop;
 		bool m_ShadowPassActive;

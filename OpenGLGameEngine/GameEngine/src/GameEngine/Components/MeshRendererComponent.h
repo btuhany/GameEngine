@@ -16,7 +16,7 @@ namespace GameEngine
 		void RenderToPointLightShadowMap(PointLight* pointLight);
 		std::shared_ptr<MeshRenderData> meshRenderData;
 		//TODOby fix
-		Camera* camera;
+		std::shared_ptr<Camera> camera;
 		Shader* dirShadowShader;
 		Shader* omniShadowShader;
 		DirectionalLight* directionalLight;

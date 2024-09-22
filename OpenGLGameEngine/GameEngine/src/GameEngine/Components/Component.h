@@ -12,7 +12,17 @@ public:
 		void AssignToEntity(Entity* entity);
 		//TODOby
 	protected:
-		Entity* ownerEntity;
+		Entity* ownerEntity;  //TODO weak pointer
+	};
+
+
+
+	enum class ComponentType
+	{
+		None = 0,
+		MeshRenderer = 1,
+		ModelRenderer,
+		SpriteRenderer
 	};
 }
 

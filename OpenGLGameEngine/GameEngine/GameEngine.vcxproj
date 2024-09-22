@@ -35,6 +35,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameEngine\Render\Renderer.cpp" />
+    <ClCompile Include="src\GameEngine\Event\ComponentAssignEvent.cpp" />
     <ClCompile Include="src\GameEngine\Event\DenemeEvent.cpp" />
     <ClCompile Include="src\GameEngine\Resource\ModelData.cpp" />
     <ClCompile Include="src\GameEngine\Render\ModelRenderData.cpp" />
@@ -51,7 +53,6 @@
     <ClCompile Include="src\GameEngine\Entities\Entity.cpp" />
     <ClCompile Include="src\GameEngine\Legacy\IShadowMapRenderable.cpp" />
     <ClCompile Include="src\GameEngine\Resource\Sprite.cpp" />
-    <ClCompile Include="src\GameEngine\Legacy\Renderer.cpp" />
     <ClCompile Include="src\GameEngine\Event\SimpleEvent.cpp" />
     <ClCompile Include="src\GameEngine\Engine\Input.cpp" />
     <ClCompile Include="src\GameEngine\Engine\Application.cpp" />
@@ -79,6 +80,8 @@
     <ClCompile Include="src\GameEngine\Components\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameEngine\Render\Renderer.h" />
+    <ClInclude Include="src\GameEngine\Event\ComponentAssignEvent.h" />
     <ClInclude Include="src\GameEngine\Event\DenemeEvent.h" />
     <ClInclude Include="src\GameEngine\Event\EventManager.h" />
     <ClInclude Include="src\GameEngine\Event\Event.h" />
@@ -97,7 +100,6 @@
     <ClInclude Include="src\GameEngine\Entities\Entity.h" />
     <ClInclude Include="src\GameEngine\Legacy\IShadowMapRenderable.h" />
     <ClInclude Include="src\GameEngine\Resource\Sprite.h" />
-    <ClInclude Include="src\GameEngine\Legacy\Renderer.h" />
     <ClInclude Include="src\GameEngine\Scene\CameraTypeEnum.h" />
     <ClInclude Include="src\GameEngine\Event\SimpleEvent.h" />
     <ClInclude Include="src\GameEngine\Engine\Input.h" />

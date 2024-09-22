@@ -10,10 +10,11 @@ namespace GameEngine {
 		m_ShadowPassActive = shadowPassActive;
 	}
 
-	Engine::Engine(Window* window, Input* input, bool shadowPassActive)
+	Engine::Engine(Window* window, Input* input, Renderer* renderer, bool shadowPassActive)
 	{
 		m_MainWindow = window;
 		m_InputHandler = input;
+		m_Renderer = renderer;
 		m_IsInitialized = false;
 		m_ShouldStop = false;
 		m_ShadowPassActive = shadowPassActive;
@@ -22,6 +23,7 @@ namespace GameEngine {
 	Engine::~Engine()
 	{
 		m_Scene = nullptr;
+		delete m_Renderer;
 	}
 
 	void Engine::Initialize(Scene* scene)
@@ -30,6 +32,8 @@ namespace GameEngine {
 		m_Scene = scene;
 		m_Scene->Initialize();
 		m_IsInitialized = true;
+
+
 	}
 
 	void Engine::Start()
@@ -50,6 +54,10 @@ namespace GameEngine {
 
 	void Engine::Run()
 	{
+		m_Renderer = new Renderer(m_Scene->GetSkybox(), m_Scene->GetBackgroundColor(), m_Scene->GetCamera());
+		m_Renderer->RenderableMeshEntitiesPublic = m_Scene->RenderableMeshEntitiesPublic;
+		m_Renderer->RenderableModelEntitiesPublic = m_Scene->RenderableModelEntitiesPublic;
+
 		if (m_ShouldStop)
 			return;
 
@@ -108,11 +116,13 @@ namespace GameEngine {
 			if (m_ShadowPassActive)
 			{
 				if (renderDirLightShadow)
-					directionalShadowPass(m_Scene->GetDirectionalLight());
+					m_Renderer->directionalShadowMapPass(m_Scene->GetDirectionalLight());
 				if (renderOmniLightShadow)
-					omniShadowPass();
+					m_Renderer->omniShadowMapPass(m_Scene->m_OmniShadowShader, m_Scene->m_PointLightList, m_Scene->GetPointLightCount(),
+						m_Scene->m_SpotLightList, m_Scene->m_SpotLightCount);
 			}
-			renderPass(projection);
+			m_Renderer->renderPass(projection, m_Scene->m_PointLightList, m_Scene->GetPointLightCount(),
+				m_Scene->m_SpotLightList, m_Scene->m_SpotLightCount);
 
 			m_MainWindow->SwapBuffers();
 		}
