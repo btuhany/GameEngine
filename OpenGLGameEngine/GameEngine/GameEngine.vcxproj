@@ -36,7 +36,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Event\DenemeEvent.cpp" />
-    <ClCompile Include="src\GameEngine\Event\EventManager.cpp" />
     <ClCompile Include="src\GameEngine\Resource\ModelData.cpp" />
     <ClCompile Include="src\GameEngine\Render\ModelRenderData.cpp" />
     <ClCompile Include="src\GameEngine\Components\ModelRendererComponent.cpp" />

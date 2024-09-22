@@ -141,9 +141,6 @@
     <ClCompile Include="src\GameEngine\Resource\ModelData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Event\EventManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameEngine\Event\DenemeEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
