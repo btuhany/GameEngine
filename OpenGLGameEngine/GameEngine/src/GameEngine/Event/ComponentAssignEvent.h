@@ -11,7 +11,7 @@ namespace GameEngine
 		Added = 1
 	};
 
-	class ENGINE_API ComponentAssignEvent : public EventBase<ComponentAssignEvent>
+	class ENGINE_API ComponentAssignedEvent : public EventBase<ComponentAssignedEvent>
 	{
 	public:
 		//ComponentAssignEvent() : Action(ComponentAction::None), Type(ComponentType::None){}
