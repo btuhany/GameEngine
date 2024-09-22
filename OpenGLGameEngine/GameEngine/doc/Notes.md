@@ -14,4 +14,11 @@ TODO:
 
 09.09.24
 TODO:
-- Refactor scene render handling  []
+- Refactor scene render handling  [X]
+ 
+23.09.24
+TODO:
+- Create game entity function []
+- Register renderer components at creating game etntiy function []
+- create base methods for mdoel and mesh renderer components []
+- review shared and weak pointer usages []
