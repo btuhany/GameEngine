@@ -32,7 +32,10 @@ namespace GameEngine {
 		m_Scene->Initialize();
 		m_IsInitialized = true;
 
-
+		m_Renderer = new Renderer();
+		m_Renderer->Initialize(m_Scene);
+		m_Renderer->RenderableMeshEntitiesPublic = m_Scene->RenderableMeshEntitiesPublic;
+		m_Renderer->RenderableModelEntitiesPublic = m_Scene->RenderableModelEntitiesPublic;
 	}
 
 	void Engine::Start()
@@ -53,9 +56,7 @@ namespace GameEngine {
 
 	void Engine::Run()
 	{
-		m_Renderer = new Renderer(m_Scene->GetSkybox(), m_Scene->GetBackgroundColor(), m_Scene->GetCamera());
-		m_Renderer->RenderableMeshEntitiesPublic = m_Scene->RenderableMeshEntitiesPublic;
-		m_Renderer->RenderableModelEntitiesPublic = m_Scene->RenderableModelEntitiesPublic;
+
 
 		if (m_ShouldStop)
 			return;

@@ -2,11 +2,20 @@
 
 namespace GameEngine
 {
-	Renderer::Renderer(std::shared_ptr<Skybox> skybox, glm::vec3 backgroundColor, std::shared_ptr<Camera> camera)
+	//Renderer::Renderer(std::shared_ptr<Skybox> skybox, glm::vec3 backgroundColor, std::shared_ptr<Camera> camera)
+	//{
+	//	m_Skybox = skybox;
+	//	m_Camera = camera;
+	//	m_BackgroundColor = backgroundColor;
+	//}
+
+	void Renderer::Initialize(Scene* scene)
 	{
-		m_Skybox = skybox;
-		m_Camera = camera;
-		m_BackgroundColor = backgroundColor;
+		//TODO is scene not initialized throw error
+		m_Skybox = scene->GetSkybox();
+		m_Camera = scene->GetCamera();
+		m_BackgroundColor = scene->GetBackgroundColor();
+		m_IsInitialized = true;
 	}
 
 	//void Renderer::Render()
@@ -20,6 +29,7 @@ namespace GameEngine
 
 	void Renderer::renderPass(glm::mat4 projectionMatrix, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount)
 	{
+		//TODO Initialize check;
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glViewport(0, 0, 1366, 768);
 		//Clear window
