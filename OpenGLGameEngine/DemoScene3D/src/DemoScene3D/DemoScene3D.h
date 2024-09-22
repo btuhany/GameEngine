@@ -1,6 +1,7 @@
 #pragma once
 #include <GameEngine.h>
 #include "DemoSceneInputHandler.h"
+#include <GameEngine/Event/EventManager.h>
 
 class DemoScene3D : public Scene
 {
@@ -29,5 +30,6 @@ private:
 	DemoSceneInputHandler* m_InputReader;
 	float m_CameraSpeed;
 	float m_DeltaTime;
+
 };
 

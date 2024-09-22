@@ -58,8 +58,6 @@ namespace GameEngine {
 
 	void Engine::Run()
 	{
-
-
 		if (m_ShouldStop)
 			return;
 
@@ -133,62 +131,5 @@ namespace GameEngine {
 	void Engine::Stop()
 	{
 		m_ShouldStop = true;
-	}
-
-	void Engine::renderPass(glm::mat4 projectionMatrix)
-	{
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		glViewport(0, 0, 1366, 768);
-		//Clear window
-		glm::vec3 backgroundColor = m_Scene->GetBackgroundColor();
-		glClearColor(backgroundColor.x, backgroundColor.y, backgroundColor.z, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-
-		if (m_Scene->UseSkyboxActive() && m_Scene->GetSkybox() != nullptr)
-		{
-			m_Scene->GetSkybox()->DrawSkybox(m_Scene->GetCamera()->CalculateViewMatrix(), projectionMatrix);
-		}
-
-		if (m_Scene->GetPointLightCount() > 0)
-		{
-			m_Scene->SetPointLights();  //Use Shader
-		}
-		if (m_Scene->GetSpotLightCount() > 0)
-		{
-			m_Scene->SetSpotLights();
-		}
-		m_Scene->RenderScene(projectionMatrix);
-	}
-
-	void Engine::directionalShadowPass(DirectionalLight* dLight)
-	{
-		if (dLight == nullptr)
-		{
-			LOG_CORE_WARN("Directional light not initialized!");
-			return;
-		}
-
-		if (dLight->GetShadowMap() == nullptr)
-		{
-			LOG_CORE_WARN("Directional light has no shadow map");
-			return;
-		}
-
-		glViewport(0, 0, dLight->GetShadowMap()->GetShadowWidth(), dLight->GetShadowMap()->GetShadowHeight());
-		dLight->GetShadowMap()->Write();
-		glClear(GL_DEPTH_BUFFER_BIT);
-
-		m_Scene->RenderSceneShadowMap();
-	}
-
-	void Engine::omniShadowPass()
-	{
-		if (m_Scene->GetPointLightCount() + m_Scene->GetSpotLightCount() == 0)
-		{
-			LOG_CORE_WARN("There aren't any lights to render omni shadows!");
-			return;
-		}
-		m_Scene->RenderSceneOmniShadowMap();
 	}
 }

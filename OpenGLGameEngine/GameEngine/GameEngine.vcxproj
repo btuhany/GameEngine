@@ -35,10 +35,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\GameEngine\Event\RenderableEntityCreatedEvent.cpp" />
     <ClCompile Include="src\GameEngine\Render\Renderer.cpp" />
-    <ClCompile Include="src\GameEngine\Event\ComponentAssignEvent.cpp" />
-    <ClCompile Include="src\GameEngine\Event\DenemeEvent.cpp" />
     <ClCompile Include="src\GameEngine\Resource\ModelData.cpp" />
     <ClCompile Include="src\GameEngine\Render\ModelRenderData.cpp" />
     <ClCompile Include="src\GameEngine\Components\ModelRendererComponent.cpp" />
@@ -83,8 +80,6 @@
   <ItemGroup>
     <ClInclude Include="src\GameEngine\Event\RenderableEntityCreatedEvent.h" />
     <ClInclude Include="src\GameEngine\Render\Renderer.h" />
-    <ClInclude Include="src\GameEngine\Event\ComponentAssignEvent.h" />
-    <ClInclude Include="src\GameEngine\Event\DenemeEvent.h" />
     <ClInclude Include="src\GameEngine\Event\EventManager.h" />
     <ClInclude Include="src\GameEngine\Event\Event.h" />
     <ClInclude Include="src\GameEngine\Resource\ModelData.h" />

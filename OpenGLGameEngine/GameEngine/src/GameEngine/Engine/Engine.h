@@ -23,9 +23,6 @@ namespace GameEngine {
 		void Run();
 		void Stop();
 	private:
-		void renderPass(glm::mat4 projectionMatrix);
-		void directionalShadowPass(DirectionalLight* dLight);
-		void omniShadowPass();
 		Window* m_MainWindow;
 		Scene* m_Scene;
 		Input* m_InputHandler;

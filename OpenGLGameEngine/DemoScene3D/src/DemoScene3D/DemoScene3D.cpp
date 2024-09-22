@@ -1,5 +1,6 @@
 #include "DemoScene3D.h"
 
+
 DemoScene3D::DemoScene3D() : Scene()
 {
 }
@@ -17,6 +18,7 @@ DemoScene3D::~DemoScene3D()
 void DemoScene3D::Initialize()
 {
 	LOG_INFO("Demo scene initialized!");
+
 	m_InputReader->OnPresssedRightEvent.AddHandler([this]() {handleOnRightKey();});
 	m_InputReader->OnPresssedDownEvent.AddHandler([this]() {handleOnDownKey();});
 	m_InputReader->OnPresssedLeftEvent.AddHandler([this]() {handleOnLeftKey();});
@@ -43,7 +45,7 @@ void DemoScene3D::Initialize()
 		0.4f, -0.8f, 0.01f, 1024, 1024);
 	SetDirectionalLight(dirLight);
 	m_CameraSpeed = 5.0f;
-	setCamera(new Camera(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, m_CameraSpeed, 0.1f, 60.0f, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
+	setCamera(std::make_shared<Camera>(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, m_CameraSpeed, 0.1f, 60.0f, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
 	setBackgroundColor(glm::vec3(0.0f, 1.0f, 0.0f));
 	initializeSkybox();
 
@@ -68,7 +70,6 @@ void DemoScene3D::Initialize()
 	m_HelicopterBig->renderer->omniShadowShader = omniShadowShader;
 	m_HelicopterBig->renderer->modelRenderData = helicopterRenderData;
 	m_HelicopterBig->renderer->dirShadowShader = directionalShadowShader;
-	RenderableEntitiesPublic.push_back(m_HelicopterBig);
 	m_HelicopterBig->GetComponent<Transform>()->Translate(glm::vec3(0.0f, -7.0f, -10.0f));
 	m_HelicopterBig->transform->Scale(glm::vec3(2.0f, 2.0f, 2.0f));
 	m_HelicopterBig->transform->Rotate(90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
@@ -81,7 +82,6 @@ void DemoScene3D::Initialize()
 	m_HelicopterSmall->renderer->omniShadowShader = omniShadowShader;
 	m_HelicopterSmall->renderer->modelRenderData = helicopterRenderData;
 	m_HelicopterSmall->renderer->dirShadowShader = directionalShadowShader;
-	RenderableEntitiesPublic.push_back(m_HelicopterSmall);
 	RenderableModelEntitiesPublic.push_back(m_HelicopterSmall);
 
 	std::shared_ptr<MeshEntity> cubeMeshEntity = std::make_shared<MeshEntity>();
@@ -95,7 +95,6 @@ void DemoScene3D::Initialize()
 	cubeMeshEntity->renderer->omniShadowShader = omniShadowShader;
 	cubeMeshEntity->renderer->meshRenderData = meshRenderData;
 	cubeMeshEntity->renderer->dirShadowShader = directionalShadowShader;
-	RenderableEntitiesPublic.push_back(cubeMeshEntity);
 	RenderableMeshEntitiesPublic.push_back(cubeMeshEntity);
 	cubeMeshEntity->GetComponent<Transform>()->Translate(glm::vec3(36.0f, -7.0f, -12.0f));
 	cubeMeshEntity->transform->Scale(glm::vec3(3.0f, 3.0f, 1.5f));
@@ -113,7 +112,6 @@ void DemoScene3D::Initialize()
 	ironman->renderer->omniShadowShader = omniShadowShader;
 	ironman->renderer->modelRenderData = ironmanRenderData;
 	ironman->renderer->dirShadowShader = directionalShadowShader;
-	RenderableEntitiesPublic.push_back(ironman);
 	RenderableModelEntitiesPublic.push_back(ironman);
 
 	std::shared_ptr<MeshEntity> spidermanPlainEntity = std::make_shared<MeshEntity>();
@@ -127,7 +125,6 @@ void DemoScene3D::Initialize()
 	spidermanPlainEntity->renderer->meshRenderData = plainRenderData;
 	spidermanPlainEntity->renderer->dirShadowShader = directionalShadowShader;
 	spidermanPlainEntity->renderer->omniShadowShader = omniShadowShader;
-	RenderableEntitiesPublic.push_back(spidermanPlainEntity);
 	RenderableMeshEntitiesPublic.push_back(spidermanPlainEntity);
 	spidermanPlainEntity->GetComponent<Transform>()->Translate(glm::vec3(0.0f, -10.0f, 0.0f));
 	spidermanPlainEntity->transform->Scale(glm::vec3(1.0f, 1.0f, 1.0f));
@@ -139,7 +136,6 @@ void DemoScene3D::Initialize()
 	spidermanCubeEntity->renderer->meshRenderData = meshRenderData;
 	spidermanCubeEntity->renderer->dirShadowShader = directionalShadowShader;
 	spidermanCubeEntity->renderer->omniShadowShader = omniShadowShader;
-	RenderableEntitiesPublic.push_back(spidermanCubeEntity);
 	RenderableMeshEntitiesPublic.push_back(spidermanCubeEntity);
 	spidermanCubeEntity->transform->Translate(glm::vec3(15.0f, 10.0f, 15.0f));
 	spidermanCubeEntity->transform->Scale(glm::vec3(3.0f, 3.0f, 3.0f));
