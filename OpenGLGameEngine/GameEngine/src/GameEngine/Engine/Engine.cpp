@@ -10,11 +10,10 @@ namespace GameEngine {
 		m_ShadowPassActive = shadowPassActive;
 	}
 
-	Engine::Engine(Window* window, Input* input, Renderer* renderer, bool shadowPassActive)
+	Engine::Engine(Window* window, Input* input, bool shadowPassActive)
 	{
 		m_MainWindow = window;
 		m_InputHandler = input;
-		m_Renderer = renderer;
 		m_IsInitialized = false;
 		m_ShouldStop = false;
 		m_ShadowPassActive = shadowPassActive;

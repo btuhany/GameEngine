@@ -16,7 +16,7 @@ namespace GameEngine {
 	{
 	public:
 		Engine(Window* window, bool shadowPassActive);
-		Engine(Window* window, Input* input, Renderer* renderer, bool shadowPassActive);
+		Engine(Window* window, Input* input, bool shadowPassActive);
 		~Engine();
 		void Initialize(Scene* scene);
 		void Start();
