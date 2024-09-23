@@ -35,6 +35,8 @@ void DemoScene3D::Initialize()
 
 	Shader* directionalShadowShader = new Shader();
 	directionalShadowShader->CreateFromFiles("src/DemoScene3D/Shaders/directional_shadow_map.vert", "src/DemoScene3D/Shaders/directional_shadow_map.frag");
+	m_DirLightShadowShader = directionalShadowShader;
+
 
 	Shader* omniShadowShader = new Shader();
 	omniShadowShader->CreateFromFiles("src/DemoScene3D/Shaders/omni_shadow_map.vert", "src/DemoScene3D/Shaders/omni_shadow_map.geom", "src/DemoScene3D/Shaders/omni_shadow_map.frag");

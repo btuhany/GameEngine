@@ -4,7 +4,7 @@ namespace GameEngine
 {
 	void ModelRendererComponent::Render(GLuint modelLocation)
 	{
-		auto shader = modelRenderData->shader;
+		//auto shader = modelRenderData->shader;
 
 		//shader->UseShader();
 
@@ -19,33 +19,33 @@ namespace GameEngine
 
 
 
-		DrawModel(shader->GetModelLocation());
+		DrawModel(modelLocation);
 	}
 
 	void ModelRendererComponent::RenderToDirLightShadowMap()
 	{
-		if (dirShadowShader == nullptr)
-		{
-			LOG_CORE_ERROR("Directional shadow shader is null!");
-			return;
-		}
-		dirShadowShader->UseShader();
+		//if (dirShadowShader == nullptr)
+		//{
+		//	LOG_CORE_ERROR("Directional shadow shader is null!");
+		//	return;
+		//}
+		//dirShadowShader->UseShader();
 
-		glm::mat4 lightTransform = directionalLight->CalculateLightTransform();
-		dirShadowShader->SetDirectionalLightTransform(&lightTransform);
-		dirShadowShader->Validate();
+		//glm::mat4 lightTransform = directionalLight->CalculateLightTransform();
+		//dirShadowShader->SetDirectionalLightTransform(&lightTransform);
+		//dirShadowShader->Validate();
 
-		DrawModel(dirShadowShader->GetModelLocation());
+		//DrawModel(dirShadowShader->GetModelLocation());
 	}
 
 	void ModelRendererComponent::RenderToPointLightShadowMap(PointLight* pointLight)
 	{
-		//omniShadowShader->UseShader();
-		glUniform3f(omniShadowShader->GetOmniLightPosLocation(), pointLight->GetPosition().x, pointLight->GetPosition().y, pointLight->GetPosition().z);
-		glUniform1f(omniShadowShader->GetFarPlaneLocation(), pointLight->GetFarPlane());
-		omniShadowShader->SetLightMatrices(pointLight->CalculateLightTransform());
+		////omniShadowShader->UseShader();
+		//glUniform3f(omniShadowShader->GetOmniLightPosLocation(), pointLight->GetPosition().x, pointLight->GetPosition().y, pointLight->GetPosition().z);
+		//glUniform1f(omniShadowShader->GetFarPlaneLocation(), pointLight->GetFarPlane());
+		//omniShadowShader->SetLightMatrices(pointLight->CalculateLightTransform());
 
-		DrawModel(omniShadowShader->GetModelLocation());
+		//DrawModel(omniShadowShader->GetModelLocation());
 	}
 
 	void ModelRendererComponent::DrawModel(GLuint uniformModel)

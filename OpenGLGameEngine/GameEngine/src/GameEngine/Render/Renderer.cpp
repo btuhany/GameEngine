@@ -22,6 +22,8 @@ namespace GameEngine
 		m_Camera = scene->GetCamera();
 		m_DirLight = scene->GetDirectionalLight();
 		m_BackgroundColor = scene->GetBackgroundColor();
+		m_DirLightShadowShader = scene->m_DirLightShadowShader;
+		m_OmniShadowShader = scene->m_OmniShadowShader;
 		m_IsInitialized = true;
 	}
 
@@ -136,7 +138,18 @@ namespace GameEngine
 		//RenderSceneShadowMap
 		for (size_t i = 0; i < m_RendererComponents.size(); i++)
 		{
-			m_RendererComponents[i]->RenderToDirLightShadowMap();
+			//m_RendererComponents[i]->RenderToDirLightShadowMap();
+			if (m_DirLightShadowShader == nullptr)
+			{
+				LOG_CORE_ERROR("Directional shadow shader is null!");
+				return;
+			}
+			m_DirLightShadowShader->UseShader();
+			glm::mat4 lightTransform = m_DirLight->CalculateLightTransform();
+			m_DirLightShadowShader->SetDirectionalLightTransform(&lightTransform);
+			m_DirLightShadowShader->Validate();
+
+			m_RendererComponents[i]->Render(m_DirLightShadowShader->GetModelLocation());
 		}
 		//for (size_t i = 0; i < m_meshRendererComponents.size(); i++)
 		//{
@@ -175,7 +188,13 @@ namespace GameEngine
 
 			for (size_t j = 0; j < m_RendererComponents.size(); j++)
 			{
-				m_RendererComponents[j]->RenderToPointLightShadowMap(&pLightList[i]);
+				auto pointLight = &pLightList[i];
+				//m_RendererComponents[j]->RenderToPointLightShadowMap(&pLightList[i]);
+				glUniform3f(m_OmniShadowShader->GetOmniLightPosLocation(), pointLight->GetPosition().x, pointLight->GetPosition().y, pointLight->GetPosition().z);
+				glUniform1f(m_OmniShadowShader->GetFarPlaneLocation(), pointLight->GetFarPlane());
+				m_OmniShadowShader->SetLightMatrices(pointLight->CalculateLightTransform());
+
+				m_RendererComponents[j]->Render(m_OmniShadowShader->GetModelLocation());
 			}
 			//for (size_t j = 0; j < m_meshRendererComponents.size(); j++)
 			//{
@@ -200,7 +219,13 @@ namespace GameEngine
 
 			for (size_t j = 0; j < m_RendererComponents.size(); j++)
 			{
-				m_RendererComponents[j]->RenderToPointLightShadowMap(&sLightList[i]);
+				auto spotLight = &sLightList[i];
+				//m_RendererComponents[j]->RenderToPointLightShadowMap(&sLightList[i]);
+				glUniform3f(m_OmniShadowShader->GetOmniLightPosLocation(), spotLight->GetPosition().x, spotLight->GetPosition().y, spotLight->GetPosition().z);
+				glUniform1f(m_OmniShadowShader->GetFarPlaneLocation(), spotLight->GetFarPlane());
+				m_OmniShadowShader->SetLightMatrices(spotLight->CalculateLightTransform());
+
+				m_RendererComponents[j]->Render(m_OmniShadowShader->GetModelLocation());
 			}
 			//for (size_t j = 0; j < m_meshRendererComponents.size(); j++)
 			//{

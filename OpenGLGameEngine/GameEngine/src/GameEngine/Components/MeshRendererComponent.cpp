@@ -5,7 +5,7 @@ namespace GameEngine
 {
 	void MeshRendererComponent::Render(GLuint modelLocation)
 	{
-		auto shader = meshRenderData->shader;
+		//auto shader = meshRenderData->shader;
 
 		//shader->UseShader();
 		
@@ -23,28 +23,28 @@ namespace GameEngine
 
 	void MeshRendererComponent::RenderToDirLightShadowMap()
 	{
-		if (dirShadowShader == nullptr)
-		{
-			LOG_CORE_ERROR("Directional shadow shader is null!");
-			return;
-		}
-		dirShadowShader->UseShader();
+		//if (dirShadowShader == nullptr)
+		//{
+		//	LOG_CORE_ERROR("Directional shadow shader is null!");
+		//	return;
+		//}
+		//dirShadowShader->UseShader();
 
-		glm::mat4 lightTransform = directionalLight->CalculateLightTransform();
-		dirShadowShader->SetDirectionalLightTransform(&lightTransform);
-		dirShadowShader->Validate();
+		//glm::mat4 lightTransform = directionalLight->CalculateLightTransform();
+		//dirShadowShader->SetDirectionalLightTransform(&lightTransform);
+		//dirShadowShader->Validate();
 
-		DrawMesh(dirShadowShader->GetModelLocation());
+		//DrawMesh(dirShadowShader->GetModelLocation());
 	}
 
 	void MeshRendererComponent::RenderToPointLightShadowMap(PointLight* pointLight)
 	{
-		//m_OmniShadowShader->UseShader();
-		glUniform3f(omniShadowShader->GetOmniLightPosLocation(), pointLight->GetPosition().x, pointLight->GetPosition().y, pointLight->GetPosition().z);
-		glUniform1f(omniShadowShader->GetFarPlaneLocation(), pointLight->GetFarPlane());
-		omniShadowShader->SetLightMatrices(pointLight->CalculateLightTransform());
+		////m_OmniShadowShader->UseShader();
+		//glUniform3f(omniShadowShader->GetOmniLightPosLocation(), pointLight->GetPosition().x, pointLight->GetPosition().y, pointLight->GetPosition().z);
+		//glUniform1f(omniShadowShader->GetFarPlaneLocation(), pointLight->GetFarPlane());
+		//omniShadowShader->SetLightMatrices(pointLight->CalculateLightTransform());
 
-		DrawMesh(omniShadowShader->GetModelLocation());
+		//DrawMesh(omniShadowShader->GetModelLocation());
 	}
 
 	void MeshRendererComponent::BindDirLightConfigToShader()

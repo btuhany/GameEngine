@@ -32,6 +32,8 @@ namespace GameEngine
 		glm::vec3 m_BackgroundColor;
 		std::shared_ptr<Skybox> m_Skybox;
 		std::shared_ptr<Camera> m_Camera;
+		Shader* m_DirLightShadowShader;
+		Shader* m_OmniShadowShader;
 		DirectionalLight* m_DirLight;
 		bool m_IsInitialized = false;
 		void onComponentAssigned(std::shared_ptr<RenderableEntityCreatedEvent> rendererComponentEvent);

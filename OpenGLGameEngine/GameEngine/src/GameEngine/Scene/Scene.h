@@ -32,6 +32,7 @@ namespace GameEngine {
 		int m_PointLightCount = 0;
 		SpotLight m_SpotLightList[MAX_SPOT_LIGHTS];
 		int m_SpotLightCount = 0;
+		Shader* m_DirLightShadowShader;
 	protected:
 		void setBackgroundColor(glm::vec3 colour);
 		void setCamera(std::shared_ptr<Camera> camera);
