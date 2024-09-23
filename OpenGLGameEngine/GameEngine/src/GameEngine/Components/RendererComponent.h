@@ -12,13 +12,6 @@ namespace GameEngine
 	{
 	public:
 		virtual void Render(GLuint modelLocation) = 0;
-		virtual void RenderToDirLightShadowMap() = 0;
-		virtual void RenderToPointLightShadowMap(PointLight* pointLight) = 0;
 		virtual Shader* GetRenderDataShader();
-		//TODOby fix
-		std::shared_ptr<Camera> camera;
-		Shader* dirShadowShader;
-		Shader* omniShadowShader;
-		DirectionalLight* directionalLight;
 	};
 }

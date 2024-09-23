@@ -4,48 +4,12 @@ namespace GameEngine
 {
 	void ModelRendererComponent::Render(GLuint modelLocation)
 	{
-		//auto shader = modelRenderData->shader;
-
-		//shader->UseShader();
-
-		//glUniform3f(shader->GetCameraPositionLocation(), camera->GetCameraPosition().x, camera->GetCameraPosition().y, camera->GetCameraPosition().z);
-		//glUniformMatrix4fv(shader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-		//glUniformMatrix4fv(shader->GetViewLocation(), 1, GL_FALSE, glm::value_ptr(camera->CalculateViewMatrix()));
-
-		//shader->SetTextureUnit(2);
-		//BindDirLightConfigToShader();
-
-		//shader->Validate();
-
-
-
 		DrawModel(modelLocation);
 	}
 
-	void ModelRendererComponent::RenderToDirLightShadowMap()
+	Shader* ModelRendererComponent::GetRenderDataShader()
 	{
-		//if (dirShadowShader == nullptr)
-		//{
-		//	LOG_CORE_ERROR("Directional shadow shader is null!");
-		//	return;
-		//}
-		//dirShadowShader->UseShader();
-
-		//glm::mat4 lightTransform = directionalLight->CalculateLightTransform();
-		//dirShadowShader->SetDirectionalLightTransform(&lightTransform);
-		//dirShadowShader->Validate();
-
-		//DrawModel(dirShadowShader->GetModelLocation());
-	}
-
-	void ModelRendererComponent::RenderToPointLightShadowMap(PointLight* pointLight)
-	{
-		////omniShadowShader->UseShader();
-		//glUniform3f(omniShadowShader->GetOmniLightPosLocation(), pointLight->GetPosition().x, pointLight->GetPosition().y, pointLight->GetPosition().z);
-		//glUniform1f(omniShadowShader->GetFarPlaneLocation(), pointLight->GetFarPlane());
-		//omniShadowShader->SetLightMatrices(pointLight->CalculateLightTransform());
-
-		//DrawModel(omniShadowShader->GetModelLocation());
+		return modelRenderData->shader;
 	}
 
 	void ModelRendererComponent::DrawModel(GLuint uniformModel)
@@ -75,24 +39,6 @@ namespace GameEngine
 			glBindVertexArray(0);
 		}
 	}
-	void ModelRendererComponent::BindDirLightConfigToShader()
-	{
-		auto shader = modelRenderData->shader;
-		if (directionalLight != nullptr)
-		{
-			shader->SetDirectionalLight(directionalLight);
-			//TODO: should be in if
-			glm::mat4 lightTransform = directionalLight->CalculateLightTransform();
-			shader->SetDirectionalLightTransform(&lightTransform);
-			if (directionalLight->GetShadowMap() != nullptr)
-			{
-				directionalLight->GetShadowMap()->Read(GL_TEXTURE3);
-				shader->SetDirectionalShadowMap(3);
-			}
-		}
-	}
-	Shader* ModelRendererComponent::GetRenderDataShader()
-	{
-		return modelRenderData->shader;
-	}
+
+
 }

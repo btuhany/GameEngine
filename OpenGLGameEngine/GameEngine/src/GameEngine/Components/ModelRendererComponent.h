@@ -13,16 +13,10 @@ namespace GameEngine
 	{
 	public:
 		void Render(GLuint modelLocation) override;
-		void RenderToDirLightShadowMap() override;
-		void RenderToPointLightShadowMap(PointLight* pointLight) override;
 		Shader* GetRenderDataShader() override;
 		std::shared_ptr<ModelRenderData> modelRenderData;
-
-		void DrawModel(GLuint uniformModel);
 	private:
-		void BindDirLightConfigToShader();
-
-		// Inherited via RendererComponent
+		void DrawModel(GLuint uniformModel);
 	};
 }
 

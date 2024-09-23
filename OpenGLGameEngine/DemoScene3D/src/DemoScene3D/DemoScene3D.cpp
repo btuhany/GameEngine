@@ -42,7 +42,7 @@ void DemoScene3D::Initialize()
 	omniShadowShader->CreateFromFiles("src/DemoScene3D/Shaders/omni_shadow_map.vert", "src/DemoScene3D/Shaders/omni_shadow_map.geom", "src/DemoScene3D/Shaders/omni_shadow_map.frag");
 	setOmniShadowShader(omniShadowShader);
 	LOG_INFO("Demo scene initialized2!");
-	DirectionalLight* dirLight = new DirectionalLight(0.0f, 0.05f,
+	DirectionalLight* dirLight = new DirectionalLight(0.0f, 0.02f,
 		0.2f, 0.5f, 1.0f,
 		0.4f, -0.8f, 0.01f, 1024, 1024);
 	SetDirectionalLight(dirLight);
@@ -67,11 +67,7 @@ void DemoScene3D::Initialize()
 	//helicopterRenderData->textureData = spidermanTexture;
 	helicopterRenderData->materialData = shinyMaterial;
 	helicopterRenderData->shader = rendererShader;
-	m_HelicopterBig->renderer->camera = m_MainCamera;
-	m_HelicopterBig->renderer->directionalLight = dirLight;
-	m_HelicopterBig->renderer->omniShadowShader = omniShadowShader;
 	m_HelicopterBig->renderer->modelRenderData = helicopterRenderData;
-	m_HelicopterBig->renderer->dirShadowShader = directionalShadowShader;
 	m_HelicopterBig->GetComponent<Transform>()->Translate(glm::vec3(0.0f, -7.0f, -10.0f));
 	m_HelicopterBig->transform->Scale(glm::vec3(2.0f, 2.0f, 2.0f));
 	m_HelicopterBig->transform->Rotate(90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
@@ -80,11 +76,7 @@ void DemoScene3D::Initialize()
 	instantiateGameEntity(m_HelicopterBig);
 
 	m_HelicopterSmall = std::make_shared<ModelEntity>();
-	m_HelicopterSmall->renderer->camera = m_MainCamera;
-	m_HelicopterSmall->renderer->directionalLight = dirLight;
-	m_HelicopterSmall->renderer->omniShadowShader = omniShadowShader;
 	m_HelicopterSmall->renderer->modelRenderData = helicopterRenderData;
-	m_HelicopterSmall->renderer->dirShadowShader = directionalShadowShader;
 	//RenderableModelEntitiesPublic.push_back(m_HelicopterSmall);
 	instantiateGameEntity(m_HelicopterSmall);
 
@@ -94,11 +86,7 @@ void DemoScene3D::Initialize()
 	meshRenderData->textureData = spidermanTexture;
 	meshRenderData->materialData = shinyMaterial;
 	meshRenderData->shader = rendererShader;
-	cubeMeshEntity->renderer->camera = m_MainCamera;
-	cubeMeshEntity->renderer->directionalLight = dirLight;
-	cubeMeshEntity->renderer->omniShadowShader = omniShadowShader;
 	cubeMeshEntity->renderer->meshRenderData = meshRenderData;
-	cubeMeshEntity->renderer->dirShadowShader = directionalShadowShader;
 	//RenderableMeshEntitiesPublic.push_back(cubeMeshEntity);
 	instantiateGameEntity(cubeMeshEntity);
 	cubeMeshEntity->GetComponent<Transform>()->Translate(glm::vec3(36.0f, -7.0f, -12.0f));
@@ -112,11 +100,7 @@ void DemoScene3D::Initialize()
 	//modelRenderData->textureData = spidermanTexture;
 	ironmanRenderData->materialData = shinyMaterial;
 	ironmanRenderData->shader = rendererShader;
-	ironman->renderer->camera = m_MainCamera;
-	ironman->renderer->directionalLight = dirLight;
-	ironman->renderer->omniShadowShader = omniShadowShader;
 	ironman->renderer->modelRenderData = ironmanRenderData;
-	ironman->renderer->dirShadowShader = directionalShadowShader;
 	//RenderableModelEntitiesPublic.push_back(ironman);
 	instantiateGameEntity(ironman);
 
@@ -126,11 +110,7 @@ void DemoScene3D::Initialize()
 	plainRenderData->textureData = spidermanTexture;
 	plainRenderData->materialData = roughMaterial;
 	plainRenderData->shader = rendererShader;
-	spidermanPlainEntity->renderer->camera = m_MainCamera;
-	spidermanPlainEntity->renderer->directionalLight = dirLight;
 	spidermanPlainEntity->renderer->meshRenderData = plainRenderData;
-	spidermanPlainEntity->renderer->dirShadowShader = directionalShadowShader;
-	spidermanPlainEntity->renderer->omniShadowShader = omniShadowShader;
 	//RenderableMeshEntitiesPublic.push_back(spidermanPlainEntity);
 	instantiateGameEntity(spidermanPlainEntity);
 	spidermanPlainEntity->GetComponent<Transform>()->Translate(glm::vec3(0.0f, -10.0f, 0.0f));
@@ -138,11 +118,7 @@ void DemoScene3D::Initialize()
 
 
 	std::shared_ptr<MeshEntity> spidermanCubeEntity = std::make_shared<MeshEntity>();
-	spidermanCubeEntity->renderer->camera = m_MainCamera;
-	spidermanCubeEntity->renderer->directionalLight = dirLight;
 	spidermanCubeEntity->renderer->meshRenderData = meshRenderData;
-	spidermanCubeEntity->renderer->dirShadowShader = directionalShadowShader;
-	spidermanCubeEntity->renderer->omniShadowShader = omniShadowShader;
 	//RenderableMeshEntitiesPublic.push_back(spidermanCubeEntity);
 	instantiateGameEntity(spidermanCubeEntity);
 	spidermanCubeEntity->transform->Translate(glm::vec3(15.0f, 10.0f, 15.0f));
