@@ -40,7 +40,7 @@ namespace GameEngine
 
 	void ModelRendererComponent::RenderToPointLightShadowMap(PointLight* pointLight)
 	{
-		//m_OmniShadowShader->UseShader();
+		//omniShadowShader->UseShader();
 		glUniform3f(omniShadowShader->GetOmniLightPosLocation(), pointLight->GetPosition().x, pointLight->GetPosition().y, pointLight->GetPosition().z);
 		glUniform1f(omniShadowShader->GetFarPlaneLocation(), pointLight->GetFarPlane());
 		omniShadowShader->SetLightMatrices(pointLight->CalculateLightTransform());

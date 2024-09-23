@@ -81,7 +81,6 @@ namespace GameEngine
 		//{
 		//	m_meshRendererComponents[i]->Render(projectionMatrix);
 		//}
-
 		//for (size_t i = 0; i < m_modelRendererComponents.size(); i++)
 		//{
 		//	m_modelRendererComponents[i]->Render(projectionMatrix);
@@ -145,17 +144,17 @@ namespace GameEngine
 			pLightList[i].GetShadowMap()->Write(); //Bind framebuffer
 			glClear(GL_DEPTH_BUFFER_BIT);
 
-			for (size_t i = 0; i < m_RendererComponents.size(); i++)
+			for (size_t j = 0; j < m_RendererComponents.size(); j++)
 			{
-				m_RendererComponents[i]->RenderToPointLightShadowMap(&pLightList[i]);
+				m_RendererComponents[j]->RenderToPointLightShadowMap(&pLightList[i]);
 			}
 			//for (size_t j = 0; j < m_meshRendererComponents.size(); j++)
 			//{
 			//	m_meshRendererComponents[j]->RenderToPointLightShadowMap(&pLightList[i]);
 			//}
-			//for (size_t i = 0; i < m_modelRendererComponents.size(); i++)
+			//for (size_t j = 0; j < m_modelRendererComponents.size(); j++)
 			//{
-			//	m_modelRendererComponents[i]->RenderToPointLightShadowMap(&pLightList[i]);
+			//	m_modelRendererComponents[j]->RenderToPointLightShadowMap(&pLightList[i]);
 			//}
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}
@@ -170,17 +169,17 @@ namespace GameEngine
 			sLightList[i].GetShadowMap()->Write();  //Bind framebuffer
 			glClear(GL_DEPTH_BUFFER_BIT);
 
-			for (size_t i = 0; i < m_RendererComponents.size(); i++)
+			for (size_t j = 0; j < m_RendererComponents.size(); j++)
 			{
-				m_RendererComponents[i]->RenderToPointLightShadowMap(&sLightList[i]);
+				m_RendererComponents[j]->RenderToPointLightShadowMap(&sLightList[i]);
 			}
 			//for (size_t j = 0; j < m_meshRendererComponents.size(); j++)
 			//{
 			//	m_meshRendererComponents[j]->RenderToPointLightShadowMap(&sLightList[i]);
 			//}
-			//for (size_t i = 0; i < m_modelRendererComponents.size(); i++)
+			//for (size_t j = 0; j < m_modelRendererComponents.size(); j++)
 			//{
-			//	m_modelRendererComponents[i]->RenderToPointLightShadowMap(&sLightList[i]);
+			//	m_modelRendererComponents[j]->RenderToPointLightShadowMap(&sLightList[i]);
 			//}
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}
@@ -189,11 +188,13 @@ namespace GameEngine
 	{
 		//if (rendererComponentEvent->ComponentType == RendererComponentType::MeshRenderer)
 		//{
+		//	
 		//	m_meshRendererComponents.push_back(std::static_pointer_cast<MeshRendererComponent>(rendererComponentEvent->Component));
 		//}
 		//else if (rendererComponentEvent->ComponentType == RendererComponentType::ModelRenderer)
 		//{
-		//	m_modelRendererComponents.push_back(std::static_pointer_cast<ModelRendererComponent>(rendererComponentEvent->Component));
+		 //m_modelRendererComponents.push_back(std::static_pointer_cast<ModelRendererComponent>(rendererComponentEvent->Component));
+
 		//}
 		m_RendererComponents.push_back(rendererComponentEvent->Component);
 	}
