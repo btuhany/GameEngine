@@ -20,6 +20,7 @@ namespace GameEngine
 		//TODO is scene not initialized throw error
 		m_Skybox = scene->GetSkybox();
 		m_Camera = scene->GetCamera();
+		m_DirLight = scene->GetDirectionalLight();
 		m_BackgroundColor = scene->GetBackgroundColor();
 		m_IsInitialized = true;
 	}
@@ -75,8 +76,35 @@ namespace GameEngine
 		//Render scene
 		for (size_t i = 0; i < m_RendererComponents.size(); i++)
 		{
-			m_RendererComponents[i]->Render(projectionMatrix);
+
+			//m_RendererComponents[i]->Render(projectionMatrix);
+			auto renderShader = m_RendererComponents[i]->GetRenderDataShader();
+			renderShader->UseShader();
+
+			glUniform3f(renderShader->GetCameraPositionLocation(), m_Camera->GetCameraPosition().x, m_Camera->GetCameraPosition().y, m_Camera->GetCameraPosition().z);
+			glUniformMatrix4fv(renderShader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+			glUniformMatrix4fv(renderShader->GetViewLocation(), 1, GL_FALSE, glm::value_ptr(m_Camera->CalculateViewMatrix()));
+
+			renderShader->SetTextureUnit(2);
+
+			//Bind directional light for shader
+			if (m_DirLight != nullptr)
+			{
+				renderShader->SetDirectionalLight(m_DirLight);
+				//TODO: should be in if
+				glm::mat4 lightTransform = m_DirLight->CalculateLightTransform();
+				renderShader->SetDirectionalLightTransform(&lightTransform);
+				if (m_DirLight->GetShadowMap() != nullptr)
+				{
+					m_DirLight->GetShadowMap()->Read(GL_TEXTURE3);
+					renderShader->SetDirectionalShadowMap(3);
+				}
+			}
+
+			renderShader->Validate();
+			m_RendererComponents[i]->Render(m_RendererComponents[i]->GetRenderDataShader()->GetModelLocation());
 		}
+
 		//for (size_t i = 0; i < m_meshRendererComponents.size(); i++)
 		//{
 		//	m_meshRendererComponents[i]->Render(projectionMatrix);
@@ -86,6 +114,7 @@ namespace GameEngine
 		//	m_modelRendererComponents[i]->Render(projectionMatrix);
 		//}
 	}
+
 	void Renderer::directionalShadowMapPass(DirectionalLight* dLight)
 	{
 		if (dLight == nullptr)

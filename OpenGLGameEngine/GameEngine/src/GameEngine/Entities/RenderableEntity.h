@@ -9,6 +9,5 @@ namespace GameEngine
 	{
 	public:
 		RenderableEntity();
-		virtual void Render(glm::mat4 projectionMatrix) = 0;
 	};
 }

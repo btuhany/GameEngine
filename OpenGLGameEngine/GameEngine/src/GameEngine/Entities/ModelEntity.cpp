@@ -13,8 +13,8 @@ namespace GameEngine
 		EventManager::GetInstance().Publish(event);
 	}
 
-	void ModelEntity::Render(glm::mat4 projectionMatrix)
-	{
-		renderer->Render(projectionMatrix);
-	}
+	//void ModelEntity::Render(glm::mat4 projectionMatrix)
+	//{
+	//	renderer->Render(projectionMatrix);
+	//}
 }

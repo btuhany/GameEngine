@@ -3,22 +3,22 @@
 
 namespace GameEngine
 {
-	void MeshRendererComponent::Render(glm::mat4 projectionMatrix)
+	void MeshRendererComponent::Render(GLuint modelLocation)
 	{
 		auto shader = meshRenderData->shader;
 
-		shader->UseShader();
+		//shader->UseShader();
 		
-		glUniform3f(shader->GetCameraPositionLocation(), camera->GetCameraPosition().x, camera->GetCameraPosition().y, camera->GetCameraPosition().z);
-		glUniformMatrix4fv(shader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-		glUniformMatrix4fv(shader->GetViewLocation(), 1, GL_FALSE, glm::value_ptr(camera->CalculateViewMatrix()));
+		//glUniform3f(shader->GetCameraPositionLocation(), camera->GetCameraPosition().x, camera->GetCameraPosition().y, camera->GetCameraPosition().z);
+		//glUniformMatrix4fv(shader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+		//glUniformMatrix4fv(shader->GetViewLocation(), 1, GL_FALSE, glm::value_ptr(camera->CalculateViewMatrix()));
 
-		shader->SetTextureUnit(2);
-		BindDirLightConfigToShader();
+		//shader->SetTextureUnit(2);
+		//BindDirLightConfigToShader();
 
-		shader->Validate();
+		//shader->Validate();
 
-		DrawMesh(shader->GetModelLocation());
+		DrawMesh(modelLocation);
 	}
 
 	void MeshRendererComponent::RenderToDirLightShadowMap()

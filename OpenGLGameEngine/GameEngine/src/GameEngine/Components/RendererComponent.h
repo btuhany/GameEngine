@@ -11,7 +11,7 @@ namespace GameEngine
 	class ENGINE_API RendererComponent : public Component
 	{
 	public:
-		virtual void Render(glm::mat4 projectionMatrix) = 0;
+		virtual void Render(GLuint modelLocation) = 0;
 		virtual void RenderToDirLightShadowMap() = 0;
 		virtual void RenderToPointLightShadowMap(PointLight* pointLight) = 0;
 		virtual Shader* GetRenderDataShader();

@@ -29,7 +29,7 @@ void DemoScene3D::Initialize()
 	static const char* fShaderLocation = "src/DemoScene3D/Shaders/shader.frag";
 	Shader* rendererShader = new Shader();
 	rendererShader->CreateFromFiles(vShaderLocation, fShaderLocation);
-	rendererShader->SetUseDirLightShadow(false); //TODO
+	rendererShader->SetUseDirLightShadow(true); //TODO
 	Shader* rendererShader2 = new Shader();
 	rendererShader2->CreateFromFiles(vShaderLocation, fShaderLocation);
 

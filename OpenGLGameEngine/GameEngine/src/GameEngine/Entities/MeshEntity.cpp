@@ -12,8 +12,8 @@ namespace GameEngine
 		EventManager::GetInstance().Publish(event);
 	}
 
-	void MeshEntity::Render(glm::mat4 projectionMatrix)
-	{
-		renderer->Render(projectionMatrix);
-	}
+	//void MeshEntity::Render(glm::mat4 projectionMatrix)
+	//{
+	//	renderer->Render(projectionMatrix);
+	//}
 }

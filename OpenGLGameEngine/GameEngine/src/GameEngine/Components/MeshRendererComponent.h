@@ -11,7 +11,7 @@ namespace GameEngine
 	class ENGINE_API MeshRendererComponent : public RendererComponent 
 	{
 	public:
-		void Render(glm::mat4 projectionMatrix) override;
+		void Render(GLuint modelLocation) override;
 		void RenderToDirLightShadowMap() override;
 		void RenderToPointLightShadowMap(PointLight* pointLight) override;
 		Shader* GetRenderDataShader() override;
