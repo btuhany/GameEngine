@@ -23,11 +23,6 @@ namespace GameEngine {
 		std::shared_ptr<Skybox> GetSkybox();
 		glm::vec3 GetBackgroundColor();
 		bool UseSkyboxActive();
-		void RenderScene(glm::mat4 projection);
-		void SetPointLights();
-		void SetSpotLights();
-		void RenderSceneShadowMap();
-		void RenderSceneOmniShadowMap();
 		void SetDirectionalLight(DirectionalLight* dLight);
 		DirectionalLight* GetDirectionalLight();
 		int GetPointLightCount();
