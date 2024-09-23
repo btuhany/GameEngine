@@ -18,10 +18,6 @@ TODO:
  
 23.09.24
 TODO:
-- Create game entity function [X]
-- Register renderer components at creating game etntiy function []
-- create base methods for mdoel and mesh renderer components []
 - review shared and weak pointer usages []
-
-
 - Deleting an object, deleting component references from list []
+- Sending component add event with component type, handling in entity add component, rendering renderer components if entities's instantiate confirmed
