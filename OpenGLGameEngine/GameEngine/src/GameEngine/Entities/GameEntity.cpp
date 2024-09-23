@@ -12,4 +12,7 @@ namespace GameEngine
 	{
 
 	}
+	void GameEntity::HandleOnRegisteredToScene()
+	{
+	}
 }

@@ -11,5 +11,6 @@ namespace GameEngine
 		//void Render(glm::mat4 projectionMatrix) override;
 		//TODOby initialzie
 		std::shared_ptr<MeshRendererComponent> renderer;
+		void HandleOnRegisteredToScene() override;
 	};
 }

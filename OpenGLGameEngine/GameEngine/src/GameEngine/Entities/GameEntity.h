@@ -9,6 +9,7 @@ namespace GameEngine
 		GameEntity();
 		~GameEntity();
 		std::shared_ptr<Transform> transform;
+		virtual void HandleOnRegisteredToScene();
 	};
 }
 
