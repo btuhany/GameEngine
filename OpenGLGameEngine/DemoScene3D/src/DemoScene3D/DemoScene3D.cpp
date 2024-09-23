@@ -306,7 +306,6 @@ void DemoScene3D::initializeSkybox()
 	skyboxFaces.push_back("src/DemoScene3D/Textures/skybox/cupertin-lake_ft.tga");
 	std::shared_ptr<Skybox> skybox = std::make_shared<Skybox>(skyboxFaces, "src/DemoScene3D/Shaders/skybox.vert", "src/DemoScene3D/Shaders/skybox.frag");
 	setSkybox(skybox);
-	useSkybox(true);
 	LOG_INFO("Demo scene initialized3!");
 }
 

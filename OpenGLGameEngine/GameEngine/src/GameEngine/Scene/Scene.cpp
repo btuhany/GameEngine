@@ -3,7 +3,6 @@ namespace GameEngine {
 	Scene::Scene()
 	{
 		m_BackgroundColour = glm::vec3(0.0f, 0.0f, 0.0f);
-		m_UseSkybox = false;
 		m_MainCamera = nullptr;
 		m_DirectionalLight = nullptr;
 		m_Skybox = nullptr;
@@ -51,11 +50,6 @@ namespace GameEngine {
 		return m_BackgroundColour;
 	}
 
-	bool Scene::UseSkyboxActive()
-	{
-		return m_UseSkybox;
-	}
-
 	void Scene::setBackgroundColor(glm::vec3 colour)
 	{
 		m_BackgroundColour = colour;
@@ -89,11 +83,6 @@ namespace GameEngine {
 	bool Scene::IsOmniShadowShaderSet()
 	{
 		return m_OmniShadowShader != nullptr;
-	}
-
-	void Scene::useSkybox(bool useSkybox)
-	{
-		m_UseSkybox = useSkybox;
 	}
 
 	void Scene::setOmniShadowShader(Shader* omniShadowShader)
