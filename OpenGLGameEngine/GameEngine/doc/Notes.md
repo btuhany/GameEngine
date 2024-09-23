@@ -22,3 +22,6 @@ TODO:
 - Register renderer components at creating game etntiy function []
 - create base methods for mdoel and mesh renderer components []
 - review shared and weak pointer usages []
+
+
+- Deleting an object, deleting component references from list []

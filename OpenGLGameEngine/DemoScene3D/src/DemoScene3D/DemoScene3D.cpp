@@ -74,7 +74,8 @@ void DemoScene3D::Initialize()
 	m_HelicopterBig->transform->Scale(glm::vec3(2.0f, 2.0f, 2.0f));
 	m_HelicopterBig->transform->Rotate(90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 	m_HelicopterBig->transform->Rotate(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-	RenderableModelEntitiesPublic.push_back(m_HelicopterBig);
+	//RenderableModelEntitiesPublic.push_back(m_HelicopterBig);
+	instantiateGameEntity(m_HelicopterBig);
 
 	m_HelicopterSmall = std::make_shared<ModelEntity>();
 	m_HelicopterSmall->renderer->camera = m_MainCamera;
@@ -82,7 +83,8 @@ void DemoScene3D::Initialize()
 	m_HelicopterSmall->renderer->omniShadowShader = omniShadowShader;
 	m_HelicopterSmall->renderer->modelRenderData = helicopterRenderData;
 	m_HelicopterSmall->renderer->dirShadowShader = directionalShadowShader;
-	RenderableModelEntitiesPublic.push_back(m_HelicopterSmall);
+	//RenderableModelEntitiesPublic.push_back(m_HelicopterSmall);
+	instantiateGameEntity(m_HelicopterSmall);
 
 	std::shared_ptr<MeshEntity> cubeMeshEntity = std::make_shared<MeshEntity>();
 	std::shared_ptr<MeshRenderData> meshRenderData = std::make_shared<MeshRenderData>();
@@ -95,7 +97,8 @@ void DemoScene3D::Initialize()
 	cubeMeshEntity->renderer->omniShadowShader = omniShadowShader;
 	cubeMeshEntity->renderer->meshRenderData = meshRenderData;
 	cubeMeshEntity->renderer->dirShadowShader = directionalShadowShader;
-	RenderableMeshEntitiesPublic.push_back(cubeMeshEntity);
+	//RenderableMeshEntitiesPublic.push_back(cubeMeshEntity);
+	instantiateGameEntity(cubeMeshEntity);
 	cubeMeshEntity->GetComponent<Transform>()->Translate(glm::vec3(36.0f, -7.0f, -12.0f));
 	cubeMeshEntity->transform->Scale(glm::vec3(3.0f, 3.0f, 1.5f));
 
@@ -112,7 +115,8 @@ void DemoScene3D::Initialize()
 	ironman->renderer->omniShadowShader = omniShadowShader;
 	ironman->renderer->modelRenderData = ironmanRenderData;
 	ironman->renderer->dirShadowShader = directionalShadowShader;
-	RenderableModelEntitiesPublic.push_back(ironman);
+	//RenderableModelEntitiesPublic.push_back(ironman);
+	instantiateGameEntity(ironman);
 
 	std::shared_ptr<MeshEntity> spidermanPlainEntity = std::make_shared<MeshEntity>();
 	std::shared_ptr<MeshRenderData> plainRenderData = std::make_shared<MeshRenderData>();
@@ -125,7 +129,8 @@ void DemoScene3D::Initialize()
 	spidermanPlainEntity->renderer->meshRenderData = plainRenderData;
 	spidermanPlainEntity->renderer->dirShadowShader = directionalShadowShader;
 	spidermanPlainEntity->renderer->omniShadowShader = omniShadowShader;
-	RenderableMeshEntitiesPublic.push_back(spidermanPlainEntity);
+	//RenderableMeshEntitiesPublic.push_back(spidermanPlainEntity);
+	instantiateGameEntity(spidermanPlainEntity);
 	spidermanPlainEntity->GetComponent<Transform>()->Translate(glm::vec3(0.0f, -10.0f, 0.0f));
 	spidermanPlainEntity->transform->Scale(glm::vec3(1.0f, 1.0f, 1.0f));
 
@@ -136,7 +141,8 @@ void DemoScene3D::Initialize()
 	spidermanCubeEntity->renderer->meshRenderData = meshRenderData;
 	spidermanCubeEntity->renderer->dirShadowShader = directionalShadowShader;
 	spidermanCubeEntity->renderer->omniShadowShader = omniShadowShader;
-	RenderableMeshEntitiesPublic.push_back(spidermanCubeEntity);
+	//RenderableMeshEntitiesPublic.push_back(spidermanCubeEntity);
+	instantiateGameEntity(spidermanCubeEntity);
 	spidermanCubeEntity->transform->Translate(glm::vec3(15.0f, 10.0f, 15.0f));
 	spidermanCubeEntity->transform->Scale(glm::vec3(3.0f, 3.0f, 3.0f));
 

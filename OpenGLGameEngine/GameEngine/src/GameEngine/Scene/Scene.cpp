@@ -136,4 +136,14 @@ namespace GameEngine {
 			printf("Error: Exceeded maximum point lights.\n");
 		}
 	}
+
+	void Scene::instantiateGameEntity(std::shared_ptr<GameEntity> entity)
+	{
+		m_gameEntities.push_back(entity);
+	}
+
+	void Scene::destroyGameEntity(std::shared_ptr<GameEntity> entity)
+	{
+
+	}
 }

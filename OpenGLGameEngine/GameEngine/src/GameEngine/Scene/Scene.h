@@ -40,15 +40,15 @@ namespace GameEngine {
 		void addPointLight(const PointLight* pLight);
 		void addSpotLight(const SpotLight* sLight);
 		std::shared_ptr<Camera> m_MainCamera;
+		std::vector<std::shared_ptr<GameEntity>> m_gameEntities;
+		void instantiateGameEntity(std::shared_ptr<GameEntity> entity);
+		void destroyGameEntity(std::shared_ptr<GameEntity> entity);
 	private:
 		void updateObjects();
 		void startObjects();
 		glm::vec3 m_BackgroundColour = glm::vec3(0.0f, 0.0f, 0.0f);
 		std::shared_ptr <Skybox> m_Skybox;
 		DirectionalLight* m_DirectionalLight;
-	public:
-		std::vector<std::shared_ptr<MeshEntity>> RenderableMeshEntitiesPublic;
-		std::vector<std::shared_ptr<ModelEntity>> RenderableModelEntitiesPublic;
 	};
 
 
