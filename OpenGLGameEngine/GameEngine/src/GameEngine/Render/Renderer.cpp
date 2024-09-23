@@ -39,39 +39,53 @@ namespace GameEngine
 		}
 
 		//Set point lights
-		for (size_t i = 0; i < m_meshRendererComponents.size(); i++)
+		for (size_t i = 0; i < m_RendererComponents.size(); i++)
 		{
-			m_meshRendererComponents[i]->meshRenderData->shader->UseShader();
-			m_meshRendererComponents[i]->meshRenderData->shader->SetPointLights(pLightList, plightCount, 4, 0);
+			m_RendererComponents[i]->GetRenderDataShader()->UseShader();
+			m_RendererComponents[i]->GetRenderDataShader()->SetPointLights(pLightList, plightCount, 4, 0);
 		}
-		for (size_t i = 0; i < m_modelRendererComponents.size(); i++)
-		{
-			m_modelRendererComponents[i]->modelRenderData->shader->UseShader();
-			m_modelRendererComponents[i]->modelRenderData->shader->SetPointLights(pLightList, plightCount, 4, 0);
-		}
+		//for (size_t i = 0; i < m_meshRendererComponents.size(); i++)
+		//{
+		//	m_meshRendererComponents[i]->meshRenderData->shader->UseShader();
+		//	m_meshRendererComponents[i]->meshRenderData->shader->SetPointLights(pLightList, plightCount, 4, 0);
+		//}
+		//for (size_t i = 0; i < m_modelRendererComponents.size(); i++)
+		//{
+		//	m_modelRendererComponents[i]->modelRenderData->shader->UseShader();
+		//	m_modelRendererComponents[i]->modelRenderData->shader->SetPointLights(pLightList, plightCount, 4, 0);
+		//}
 
 		//Set spot lights
-		for (size_t i = 0; i < m_meshRendererComponents.size(); i++)
+		for (size_t i = 0; i < m_RendererComponents.size(); i++)
 		{
-			m_meshRendererComponents[i]->meshRenderData->shader->UseShader();
-			m_meshRendererComponents[i]->meshRenderData->shader->SetSpotLights(sLightList, slightCount, 4 + plightCount, plightCount);
+			m_RendererComponents[i]->GetRenderDataShader()->UseShader();
+			m_RendererComponents[i]->GetRenderDataShader()->SetSpotLights(sLightList, slightCount, 4 + plightCount, plightCount);
 		}
-		for (size_t i = 0; i < m_modelRendererComponents.size(); i++)
-		{
-			m_modelRendererComponents[i]->modelRenderData->shader->UseShader();
-			m_modelRendererComponents[i]->modelRenderData->shader->SetSpotLights(sLightList, slightCount, 4 + plightCount, plightCount);
-		}
+		//for (size_t i = 0; i < m_meshRendererComponents.size(); i++)
+		//{
+		//	m_meshRendererComponents[i]->meshRenderData->shader->UseShader();
+		//	m_meshRendererComponents[i]->meshRenderData->shader->SetSpotLights(sLightList, slightCount, 4 + plightCount, plightCount);
+		//}
+		//for (size_t i = 0; i < m_modelRendererComponents.size(); i++)
+		//{
+		//	m_modelRendererComponents[i]->modelRenderData->shader->UseShader();
+		//	m_modelRendererComponents[i]->modelRenderData->shader->SetSpotLights(sLightList, slightCount, 4 + plightCount, plightCount);
+		//}
 
 		//Render scene
-		for (size_t i = 0; i < m_meshRendererComponents.size(); i++)
+		for (size_t i = 0; i < m_RendererComponents.size(); i++)
 		{
-			m_meshRendererComponents[i]->Render(projectionMatrix);
+			m_RendererComponents[i]->Render(projectionMatrix);
 		}
+		//for (size_t i = 0; i < m_meshRendererComponents.size(); i++)
+		//{
+		//	m_meshRendererComponents[i]->Render(projectionMatrix);
+		//}
 
-		for (size_t i = 0; i < m_modelRendererComponents.size(); i++)
-		{
-			m_modelRendererComponents[i]->Render(projectionMatrix);
-		}
+		//for (size_t i = 0; i < m_modelRendererComponents.size(); i++)
+		//{
+		//	m_modelRendererComponents[i]->Render(projectionMatrix);
+		//}
 	}
 	void Renderer::directionalShadowMapPass(DirectionalLight* dLight)
 	{
@@ -92,14 +106,18 @@ namespace GameEngine
 		glClear(GL_DEPTH_BUFFER_BIT);
 
 		//RenderSceneShadowMap
-		for (size_t i = 0; i < m_meshRendererComponents.size(); i++)
+		for (size_t i = 0; i < m_RendererComponents.size(); i++)
 		{
-			m_meshRendererComponents[i]->RenderToDirLightShadowMap();
+			m_RendererComponents[i]->RenderToDirLightShadowMap();
 		}
-		for (size_t i = 0; i < m_modelRendererComponents.size(); i++)
-		{
-			m_modelRendererComponents[i]->RenderToDirLightShadowMap();
-		}
+		//for (size_t i = 0; i < m_meshRendererComponents.size(); i++)
+		//{
+		//	m_meshRendererComponents[i]->RenderToDirLightShadowMap();
+		//}
+		//for (size_t i = 0; i < m_modelRendererComponents.size(); i++)
+		//{
+		//	m_modelRendererComponents[i]->RenderToDirLightShadowMap();
+		//}
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 	void Renderer::omniShadowMapPass(Shader* omniShadowShader, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount)
@@ -127,14 +145,18 @@ namespace GameEngine
 			pLightList[i].GetShadowMap()->Write(); //Bind framebuffer
 			glClear(GL_DEPTH_BUFFER_BIT);
 
-			for (size_t j = 0; j < m_meshRendererComponents.size(); j++)
+			for (size_t i = 0; i < m_RendererComponents.size(); i++)
 			{
-				m_meshRendererComponents[j]->RenderToPointLightShadowMap(&pLightList[i]);
+				m_RendererComponents[i]->RenderToPointLightShadowMap(&pLightList[i]);
 			}
-			for (size_t i = 0; i < m_modelRendererComponents.size(); i++)
-			{
-				m_modelRendererComponents[i]->RenderToPointLightShadowMap(&pLightList[i]);
-			}
+			//for (size_t j = 0; j < m_meshRendererComponents.size(); j++)
+			//{
+			//	m_meshRendererComponents[j]->RenderToPointLightShadowMap(&pLightList[i]);
+			//}
+			//for (size_t i = 0; i < m_modelRendererComponents.size(); i++)
+			//{
+			//	m_modelRendererComponents[i]->RenderToPointLightShadowMap(&pLightList[i]);
+			//}
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}
 		for (size_t i = 0; i < slightCount; i++)
@@ -148,27 +170,32 @@ namespace GameEngine
 			sLightList[i].GetShadowMap()->Write();  //Bind framebuffer
 			glClear(GL_DEPTH_BUFFER_BIT);
 
-			for (size_t j = 0; j < m_meshRendererComponents.size(); j++)
+			for (size_t i = 0; i < m_RendererComponents.size(); i++)
 			{
-				m_meshRendererComponents[j]->RenderToPointLightShadowMap(&sLightList[i]);
+				m_RendererComponents[i]->RenderToPointLightShadowMap(&sLightList[i]);
 			}
-			for (size_t i = 0; i < m_modelRendererComponents.size(); i++)
-			{
-				m_modelRendererComponents[i]->RenderToPointLightShadowMap(&sLightList[i]);
-			}
+			//for (size_t j = 0; j < m_meshRendererComponents.size(); j++)
+			//{
+			//	m_meshRendererComponents[j]->RenderToPointLightShadowMap(&sLightList[i]);
+			//}
+			//for (size_t i = 0; i < m_modelRendererComponents.size(); i++)
+			//{
+			//	m_modelRendererComponents[i]->RenderToPointLightShadowMap(&sLightList[i]);
+			//}
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}
 	}
 	void Renderer::onComponentAssigned(std::shared_ptr<RenderableEntityCreatedEvent> rendererComponentEvent)
 	{
-		if (rendererComponentEvent->ComponentType == RendererComponentType::MeshRenderer)
-		{
-			m_meshRendererComponents.push_back(std::static_pointer_cast<MeshRendererComponent>(rendererComponentEvent->Component));
-		}
-		else if (rendererComponentEvent->ComponentType == RendererComponentType::ModelRenderer)
-		{
-			m_modelRendererComponents.push_back(std::static_pointer_cast<ModelRendererComponent>(rendererComponentEvent->Component));
-		}
+		//if (rendererComponentEvent->ComponentType == RendererComponentType::MeshRenderer)
+		//{
+		//	m_meshRendererComponents.push_back(std::static_pointer_cast<MeshRendererComponent>(rendererComponentEvent->Component));
+		//}
+		//else if (rendererComponentEvent->ComponentType == RendererComponentType::ModelRenderer)
+		//{
+		//	m_modelRendererComponents.push_back(std::static_pointer_cast<ModelRendererComponent>(rendererComponentEvent->Component));
+		//}
+		m_RendererComponents.push_back(rendererComponentEvent->Component);
 	}
 
 }

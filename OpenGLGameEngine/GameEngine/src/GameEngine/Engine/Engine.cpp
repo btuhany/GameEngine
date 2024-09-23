@@ -34,9 +34,6 @@ namespace GameEngine {
 		m_Scene->Initialize();
 		m_Renderer->Initialize(m_Scene);
 
-		//m_Renderer->RenderableMeshEntitiesPublic = m_Scene->RenderableMeshEntitiesPublic;
-		//m_Renderer->RenderableModelEntitiesPublic = m_Scene->RenderableModelEntitiesPublic;
-
 		m_IsInitialized = true;
 	}
 

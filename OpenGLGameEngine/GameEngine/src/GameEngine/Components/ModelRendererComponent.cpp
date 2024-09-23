@@ -91,4 +91,8 @@ namespace GameEngine
 			}
 		}
 	}
+	Shader* ModelRendererComponent::GetRenderDataShader()
+	{
+		return modelRenderData->shader;
+	}
 }

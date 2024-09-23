@@ -25,9 +25,10 @@ namespace GameEngine
 		void directionalShadowMapPass(DirectionalLight* dLight);
 		void omniShadowMapPass(Shader* omniShadowShader, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount);
 	private:
-		std::vector<std::shared_ptr<MeshRendererComponent>> m_meshRendererComponents;
-		std::vector<std::shared_ptr<ModelRendererComponent>> m_modelRendererComponents;
+		/*std::vector<std::shared_ptr<MeshRendererComponent>> m_meshRendererComponents;
+		std::vector<std::shared_ptr<ModelRendererComponent>> m_modelRendererComponents;*/
 		//void OnComponentAssigned(std::shared_ptr<ComponentAssignedEvent> componentAssignEvent);
+		std::vector<std::shared_ptr<RendererComponent>> m_RendererComponents;
 		glm::vec3 m_BackgroundColor;
 		std::shared_ptr<Skybox> m_Skybox;
 		std::shared_ptr<Camera> m_Camera;

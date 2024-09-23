@@ -8,7 +8,7 @@ namespace GameEngine
 		auto shader = meshRenderData->shader;
 
 		shader->UseShader();
-
+		
 		glUniform3f(shader->GetCameraPositionLocation(), camera->GetCameraPosition().x, camera->GetCameraPosition().y, camera->GetCameraPosition().z);
 		glUniformMatrix4fv(shader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 		glUniformMatrix4fv(shader->GetViewLocation(), 1, GL_FALSE, glm::value_ptr(camera->CalculateViewMatrix()));
@@ -62,6 +62,11 @@ namespace GameEngine
 				shader->SetDirectionalShadowMap(3);
 			}
 		}
+	}
+
+	Shader* MeshRendererComponent::GetRenderDataShader()
+	{
+		return meshRenderData->shader;
 	}
 
 	void MeshRendererComponent::DrawMesh(GLuint uniformModel)

@@ -12,16 +12,15 @@ namespace GameEngine
 	{
 	public:
 		void Render(glm::mat4 projectionMatrix) override;
-		void RenderToDirLightShadowMap();
-		void RenderToPointLightShadowMap(PointLight* pointLight);
+		void RenderToDirLightShadowMap() override;
+		void RenderToPointLightShadowMap(PointLight* pointLight) override;
+		Shader* GetRenderDataShader() override;
 		std::shared_ptr<MeshRenderData> meshRenderData;
-		//TODOby fix
-		std::shared_ptr<Camera> camera;
-		Shader* dirShadowShader;
-		Shader* omniShadowShader;
-		DirectionalLight* directionalLight;
+
 		void DrawMesh(GLuint uniformModel);
 	private:
 		void BindDirLightConfigToShader();
+
+		// Inherited via RendererComponent
 	};
 }

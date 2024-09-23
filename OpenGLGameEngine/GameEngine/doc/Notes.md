@@ -18,7 +18,7 @@ TODO:
  
 23.09.24
 TODO:
-- Create game entity function []
+- Create game entity function [X]
 - Register renderer components at creating game etntiy function []
 - create base methods for mdoel and mesh renderer components []
 - review shared and weak pointer usages []
