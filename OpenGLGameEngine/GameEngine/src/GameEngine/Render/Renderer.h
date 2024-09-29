@@ -37,6 +37,7 @@ namespace GameEngine
 		DirectionalLight* m_DirLight;
 		bool m_IsInitialized = false;
 		void onComponentAssigned(std::shared_ptr<ComponentEvent> componentEvent);
+		bool isAbleToRender(std::shared_ptr<RendererComponent> rendererComponent);
 	};
 }
 

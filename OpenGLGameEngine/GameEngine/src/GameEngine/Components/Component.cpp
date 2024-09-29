@@ -5,4 +5,8 @@ namespace GameEngine
 	{
 		ownerEntity = entity;
 	}
+	GameEntity* Component::GetEntity()
+	{
+		return ownerEntity;
+	}
 }

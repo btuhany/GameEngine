@@ -19,6 +19,7 @@ namespace GameEngine
 	{
 	public:
 		void AssignToEntity(GameEntity* entity);
+		GameEntity* GetEntity();
 		virtual ComponentType GetType() = 0;
 	protected:
 		GameEntity* ownerEntity;  //TODO weak pointer

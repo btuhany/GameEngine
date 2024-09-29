@@ -14,7 +14,10 @@ namespace GameEngine
     {
     public:
         GameEntity();
-
+        bool IsActive();
+        void SetActive(bool isActive);
+        bool IsRegistered();
+        void RegisterToScene();
         std::shared_ptr<Transform> transform;
 
         template<typename T>
@@ -28,6 +31,7 @@ namespace GameEngine
 
 	private:
 		bool m_isActive;
+        bool m_isRegistered; //is assigned to scene
     };
 
     template<typename T>

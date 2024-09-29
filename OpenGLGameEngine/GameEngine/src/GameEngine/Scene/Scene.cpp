@@ -140,6 +140,8 @@ namespace GameEngine {
 	void Scene::instantiateGameEntity(std::shared_ptr<GameEntity> entity)
 	{
 		m_gameEntities.push_back(entity);
+		entity->RegisterToScene();
+		entity->SetActive(true);
 	}
 
 	void Scene::destroyGameEntity(std::shared_ptr<GameEntity> entity)
