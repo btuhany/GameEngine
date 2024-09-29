@@ -6,7 +6,7 @@
 #include "../Scene/PointLight.h"
 #include "../Scene/Camera.h"
 #include "Transform.h"
-#include "../Entities/Entity.h"
+#include "../Entities/GameEntity.h"
 namespace GameEngine
 {
 	class ENGINE_API ModelRendererComponent : public RendererComponent

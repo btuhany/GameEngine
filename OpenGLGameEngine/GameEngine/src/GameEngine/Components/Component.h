@@ -13,15 +13,15 @@ namespace GameEngine
 		Transform = 4
 	};
 
-	class Entity; //Forward decleration for circular dependency
+	class GameEntity; //Forward decleration for circular dependency
 
 	class ENGINE_API Component
 	{
 	public:
-		void AssignToEntity(Entity* entity);
+		void AssignToEntity(GameEntity* entity);
 		virtual ComponentType GetType() = 0;
 	protected:
-		Entity* ownerEntity;  //TODO weak pointer
+		GameEntity* ownerEntity;  //TODO weak pointer
 	};
 }
 

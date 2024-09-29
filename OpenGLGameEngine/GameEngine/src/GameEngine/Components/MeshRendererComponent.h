@@ -4,7 +4,7 @@
 #include "../Render/MeshRenderData.h"
 #include "../Scene/Camera.h"
 #include "Transform.h"
-#include "../Entities/Entity.h"
+#include "../Entities/GameEntity.h"
 
 namespace GameEngine
 {

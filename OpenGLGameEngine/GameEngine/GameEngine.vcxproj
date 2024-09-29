@@ -46,9 +46,8 @@
     <ClCompile Include="src\GameEngine\Components\RendererComponent.cpp" />
     <ClCompile Include="src\GameEngine\Entities\MeshEntity.cpp" />
     <ClCompile Include="src\GameEngine\Entities\RenderableEntity.cpp" />
-    <ClCompile Include="src\GameEngine\Entities\GameEntity.cpp" />
     <ClCompile Include="src\GameEngine\Components\Component.cpp" />
-    <ClCompile Include="src\GameEngine\Entities\Entity.cpp" />
+    <ClCompile Include="src\GameEngine\Entities\GameEntity.cpp" />
     <ClCompile Include="src\GameEngine\Legacy\IShadowMapRenderable.cpp" />
     <ClCompile Include="src\GameEngine\Resource\Sprite.cpp" />
     <ClCompile Include="src\GameEngine\Event\SimpleEvent.cpp" />
@@ -93,9 +92,8 @@
     <ClInclude Include="src\GameEngine\Components\RendererComponent.h" />
     <ClInclude Include="src\GameEngine\Entities\MeshEntity.h" />
     <ClInclude Include="src\GameEngine\Entities\RenderableEntity.h" />
-    <ClInclude Include="src\GameEngine\Entities\GameEntity.h" />
     <ClInclude Include="src\GameEngine\Components\Component.h" />
-    <ClInclude Include="src\GameEngine\Entities\Entity.h" />
+    <ClInclude Include="src\GameEngine\Entities\GameEntity.h" />
     <ClInclude Include="src\GameEngine\Legacy\IShadowMapRenderable.h" />
     <ClInclude Include="src\GameEngine\Resource\Sprite.h" />
     <ClInclude Include="src\GameEngine\Scene\CameraTypeEnum.h" />
