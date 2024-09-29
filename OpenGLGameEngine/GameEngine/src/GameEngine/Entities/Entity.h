@@ -4,6 +4,8 @@
 #include <memory>
 #include "../Components/Component.h"
 #include "../Core.h"
+#include "../Event/ComponentEvent.h"
+#include "../Event/EventManager.h"
 
 namespace GameEngine
 {
@@ -30,6 +32,12 @@ namespace GameEngine
         baseComponent->AssignToEntity(this);
 
         m_ComponentMap[typeid(T)] = component;
+
+
+		auto event = std::make_shared<ComponentEvent>();
+		event->Comp = baseComponent;
+        event->CompAction = ComponentAction::Added;
+		EventManager::GetInstance().Publish(event);
     }
 
     template<typename T>

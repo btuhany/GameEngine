@@ -8,8 +8,9 @@ namespace GameEngine
 	{
 		None = 0,
 		MeshRenderer = 1,
-		ModelRenderer,
-		SpriteRenderer
+		ModelRenderer = 2,
+		Renderer = 3,
+		Transform = 4
 	};
 
 	class Entity; //Forward decleration for circular dependency
@@ -18,6 +19,7 @@ namespace GameEngine
 	{
 	public:
 		void AssignToEntity(Entity* entity);
+		virtual ComponentType GetType() = 0;
 	protected:
 		Entity* ownerEntity;  //TODO weak pointer
 	};

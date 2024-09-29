@@ -13,5 +13,8 @@ namespace GameEngine
 	public:
 		virtual void Render(GLuint modelLocation) = 0;
 		virtual Shader* GetRenderDataShader();
+
+		// Inherited via Component
+		ComponentType GetType() override;
 	};
 }

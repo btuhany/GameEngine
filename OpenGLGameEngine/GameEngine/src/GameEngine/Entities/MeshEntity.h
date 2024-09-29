@@ -2,6 +2,7 @@
 #include "RenderableEntity.h"
 #include "../Components/MeshRendererComponent.h"
 #include "../Debug/Log.h"
+#include "../Components/Component.h"
 namespace GameEngine
 {
 	class ENGINE_API MeshEntity : public RenderableEntity
@@ -11,6 +12,5 @@ namespace GameEngine
 		//void Render(glm::mat4 projectionMatrix) override;
 		//TODOby initialzie
 		std::shared_ptr<MeshRendererComponent> renderer;
-		void HandleOnRegisteredToScene() override;
 	};
 }

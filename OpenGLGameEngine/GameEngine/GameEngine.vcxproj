@@ -78,6 +78,7 @@
     <ClCompile Include="src\GameEngine\Components\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameEngine\Event\ComponentEvent.h" />
     <ClInclude Include="src\GameEngine\Event\RenderableEntityCreatedEvent.h" />
     <ClInclude Include="src\GameEngine\Render\Renderer.h" />
     <ClInclude Include="src\GameEngine\Event\EventManager.h" />

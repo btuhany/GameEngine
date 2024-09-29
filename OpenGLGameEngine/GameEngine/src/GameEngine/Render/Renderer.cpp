@@ -4,14 +4,14 @@ namespace GameEngine
 {
 	Renderer::Renderer()
 	{
-		EventManager::GetInstance().Subscribe<RenderableEntityCreatedEvent>(
-			[this](std::shared_ptr<RenderableEntityCreatedEvent> event) {
+		EventManager::GetInstance().Subscribe<ComponentEvent>(
+			[this](std::shared_ptr<ComponentEvent> event) {
 			this->onComponentAssigned(event);
 			}, 10);
 	}
 	Renderer::~Renderer()
 	{
-		EventManager::GetInstance().Unsubscribe<RenderableEntityCreatedEvent>([this](std::shared_ptr<RenderableEntityCreatedEvent> event) {
+		EventManager::GetInstance().Unsubscribe<ComponentEvent>([this](std::shared_ptr<ComponentEvent> event) {
 			this->onComponentAssigned(event);
 			});
 	}
@@ -238,19 +238,17 @@ namespace GameEngine
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}
 	}
-	void Renderer::onComponentAssigned(std::shared_ptr<RenderableEntityCreatedEvent> rendererComponentEvent)
+	void Renderer::onComponentAssigned(std::shared_ptr<ComponentEvent> componentEvent)
 	{
-		//if (rendererComponentEvent->ComponentType == RendererComponentType::MeshRenderer)
-		//{
-		//	
-		//	m_meshRendererComponents.push_back(std::static_pointer_cast<MeshRendererComponent>(rendererComponentEvent->Component));
-		//}
-		//else if (rendererComponentEvent->ComponentType == RendererComponentType::ModelRenderer)
-		//{
-		 //m_modelRendererComponents.push_back(std::static_pointer_cast<ModelRendererComponent>(rendererComponentEvent->Component));
-
-		//}
-		m_RendererComponents.push_back(rendererComponentEvent->Component);
+		if (componentEvent->CompAction == ComponentAction::Added)
+		{
+			auto componentType = componentEvent->Comp->GetType();
+			if (componentType == ComponentType::Renderer)
+			{
+				auto rendererComponent = std::static_pointer_cast<RendererComponent>(componentEvent->Comp);
+				m_RendererComponents.push_back(rendererComponent);
+			}
+		}
 	}
 
 }

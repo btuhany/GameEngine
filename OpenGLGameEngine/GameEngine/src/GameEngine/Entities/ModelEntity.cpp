@@ -8,10 +8,10 @@ namespace GameEngine
 		AddComponent<ModelRendererComponent>(renderer);
 	}
 
-	void ModelEntity::HandleOnRegisteredToScene()
+	/*void ModelEntity::HandleOnRegisteredToScene()
 	{
 		auto event = std::make_shared<RenderableEntityCreatedEvent>();
 		event->Component = GetComponent<ModelRendererComponent>();
 		EventManager::GetInstance().Publish(event);
-	}
+	}*/
 }
