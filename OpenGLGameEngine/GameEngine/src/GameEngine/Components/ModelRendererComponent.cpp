@@ -22,7 +22,7 @@ namespace GameEngine
 			modelRenderData->textureData->UseTexture();
 		}
 
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(ownerEntity->GetComponent<Transform>()->GetModelMatrix()));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(ownerEntity->transform->GetModelMatrix()));
 		for (size_t i = 0; i < modelRenderData->modelData->m_MeshList.size(); i++)
 		{
 			unsigned int materialIndex = modelRenderData->modelData->m_MeshToTex[i];

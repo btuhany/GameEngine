@@ -15,7 +15,7 @@ namespace GameEngine
 
 	void MeshRendererComponent::DrawMesh(GLuint uniformModel)
 	{
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(ownerEntity->GetComponent<Transform>()->GetModelMatrix()));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(ownerEntity->transform->GetModelMatrix()));
 		meshRenderData->materialData->UseMaterial(meshRenderData->shader->GetMatSpecularIntensityLocation(), meshRenderData->shader->GetMatShininessLocation());
 		if (meshRenderData->textureData != NULL)
 		{
