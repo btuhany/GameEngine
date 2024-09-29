@@ -18,6 +18,12 @@ TODO:
  
 23.09.24
 TODO:
+- review shared and weak pointer usages [O]
+- Deleting an object, deleting component references from list [O]
+- Sending component add event with component type, handling in entity add component, rendering renderer components if entities's instantiate confirmed[X]
+
+29.09.24
+TODO:
 - review shared and weak pointer usages []
 - Deleting an object, deleting component references from list []
-- Sending component add event with component type, handling in entity add component, rendering renderer components if entities's instantiate confirmed
+- Review overall render data transfers []
