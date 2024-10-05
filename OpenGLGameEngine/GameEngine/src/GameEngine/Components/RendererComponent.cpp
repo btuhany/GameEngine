@@ -6,7 +6,7 @@ namespace GameEngine
     {
         return nullptr;
     }
-    ComponentType RendererComponent::GetType()
+    ComponentType RendererComponent::getType()
     {
         return ComponentType::Renderer;
     }

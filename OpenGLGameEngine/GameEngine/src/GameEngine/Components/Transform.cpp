@@ -27,7 +27,7 @@ namespace GameEngine
 	{
 		return m_Position;
 	}
-	ComponentType Transform::GetType()
+	ComponentType Transform::getType()
 	{
 		return ComponentType::Transform;
 	}

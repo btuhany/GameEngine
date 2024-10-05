@@ -15,6 +15,6 @@ namespace GameEngine
 		virtual Shader* GetRenderDataShader();
 
 		// Inherited via Component
-		ComponentType GetType() override;
+		ComponentType getType() override;
 	};
 }

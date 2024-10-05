@@ -5,7 +5,7 @@ namespace GameEngine
 	{
 		m_ownerEntity = entity;
 	}
-	std::weak_ptr<GameEntity> Component::GetEntity()
+	std::weak_ptr<GameEntity> Component::getEntity()
 	{
 		return m_ownerEntity;
 	}

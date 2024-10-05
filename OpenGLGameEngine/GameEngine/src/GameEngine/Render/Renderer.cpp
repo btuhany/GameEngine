@@ -217,7 +217,7 @@ namespace GameEngine
 	{
 		if (componentEvent->CompAction == ComponentAction::Added)
 		{
-			auto componentType = componentEvent->Comp->GetType();
+			auto componentType = componentEvent->Comp->getType();
 			if (componentType == ComponentType::Renderer)
 			{
 				auto rendererComponent = std::static_pointer_cast<RendererComponent>(componentEvent->Comp);
@@ -228,11 +228,11 @@ namespace GameEngine
 
 	bool Renderer::isAbleToRender(std::shared_ptr<RendererComponent> rendererComponent)
 	{
-		if (rendererComponent->GetEntity().expired())
+		if (rendererComponent->getEntity().expired())
 		{
 			return false;
 		}
-		auto ownerEntity = rendererComponent->GetEntity().lock();
+		auto ownerEntity = rendererComponent->getEntity().lock();
 		return rendererComponent->getEnabled() && ownerEntity->getActive();  //Scene control in the future
 	}
 

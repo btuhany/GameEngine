@@ -20,7 +20,7 @@ namespace GameEngine
 		glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 
 		// Inherited via Component
-		ComponentType GetType() override;
+		ComponentType getType() override;
 	};
 }
 

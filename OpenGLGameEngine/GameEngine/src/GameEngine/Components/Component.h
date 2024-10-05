@@ -20,10 +20,10 @@ namespace GameEngine
 	{
 	public:
 		void AssignToEntity(std::shared_ptr<GameEntity> entity);
-		std::weak_ptr<GameEntity> GetEntity();
+		std::weak_ptr<GameEntity> getEntity();
 		void setEnabled(bool isEnable);
 		bool getEnabled();
-		virtual ComponentType GetType() = 0;
+		virtual ComponentType getType() = 0;
 	protected:
 		std::weak_ptr<GameEntity> m_ownerEntity;  //TODO weak pointer
 	private:
