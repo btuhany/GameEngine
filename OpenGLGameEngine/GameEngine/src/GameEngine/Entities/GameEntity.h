@@ -2,6 +2,7 @@
 #include <unordered_map>
 #include <typeindex>
 #include <memory>
+#include <string>
 #include "../Components/Component.h"
 #include "../Core.h"
 #include "../Event/ComponentEvent.h"
@@ -19,8 +20,10 @@ namespace GameEngine
         bool getActive();
         bool IsRegistered();
         void RegisterToScene();
+        void setName(std::string name);
+        std::string getName();
         std::shared_ptr<Transform> transform;
-
+        
         template<typename T>
         void AddComponent(std::shared_ptr<T> component);
 
@@ -33,6 +36,7 @@ namespace GameEngine
 	private:
 		bool m_isActive;
         bool m_isRegistered; //is assigned to scene
+        std::string m_name;
     };
 
     template<typename T>

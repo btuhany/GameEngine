@@ -35,4 +35,12 @@ namespace GameEngine
             it->second->setEnabled(true);
         }
     }
+    void GameEntity::setName(std::string name)
+    {
+        m_name = name;
+    }
+    std::string GameEntity::getName()
+    {
+        return m_name;
+    }
 }
