@@ -12,7 +12,7 @@ namespace GameEngine
     {
         return m_isActive;
     }
-    void GameEntity::SetActive(bool isActive)
+    void GameEntity::setActive(bool isActive)
     {
         m_isActive = isActive;
         for (auto it = m_ComponentMap.begin(); it != m_ComponentMap.end(); ++it) {
