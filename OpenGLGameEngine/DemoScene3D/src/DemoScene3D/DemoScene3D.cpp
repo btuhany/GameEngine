@@ -178,11 +178,13 @@ void DemoScene3D::Start()
 	m_HelicopterSmall->transform->Rotate(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
+float ironmanTimeCounter = 0.0f;
 float rotate = 0.0f;
 float positionY = 0.0f;
 float increaseValue = 1.5f;
 void DemoScene3D::Update(GLfloat deltaTime)
 {
+	ironmanTimeCounter += deltaTime;
 	m_DeltaTime = deltaTime;
 	rotate = deltaTime * 12.5f;
 	positionY += deltaTime * increaseValue;
@@ -285,9 +287,14 @@ void DemoScene3D::handleOnShiftReleasedKey()
 	m_CameraSpeed = 5.0f;
 }
 
+
 void DemoScene3D::handleOnSpaceKey()
 {
-	ironman->setActive(!ironman->getActive());
+	if (ironmanTimeCounter > 2.0f)
+	{
+		ironman->setActive(!ironman->getActive());
+		ironmanTimeCounter = 0.0f;
+	}
 }
 
 void DemoScene3D::initializeSkybox()
