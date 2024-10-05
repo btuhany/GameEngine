@@ -2,6 +2,10 @@
 
 namespace GameEngine
 {
+    void RendererComponent::HandleOnPreOwnerDestroyed()
+    {
+
+    }
     Shader* RendererComponent::GetRenderDataShader()
     {
         return nullptr;

@@ -5,6 +5,13 @@ namespace GameEngine
 	{
 		m_ownerEntity = entity;
 	}
+	void Component::HandleOnPreOwnerDestroyed()
+	{
+
+	}
+	void Component::HandleOnAfterOwnerInstantiated()
+	{
+	}
 	std::weak_ptr<GameEntity> Component::getEntity()
 	{
 		return m_ownerEntity;

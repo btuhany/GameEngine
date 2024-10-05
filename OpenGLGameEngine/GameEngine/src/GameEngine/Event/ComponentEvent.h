@@ -7,7 +7,9 @@ namespace GameEngine
 	enum class ComponentAction
 	{
 		None = 0,
-		Added = 1
+		Added = 1,
+		Removed = 2,
+		OwnerPreDestroyed = 3
 	};
 
 	class ENGINE_API ComponentEvent : public EventBase<ComponentEvent>

@@ -12,6 +12,7 @@ namespace GameEngine
 	{
 	public:
 		virtual void Render(GLuint modelLocation) = 0;
+		virtual void HandleOnPreOwnerDestroyed() override;
 		virtual Shader* GetRenderDataShader();
 
 		// Inherited via Component

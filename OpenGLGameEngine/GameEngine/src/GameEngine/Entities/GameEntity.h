@@ -19,7 +19,8 @@ namespace GameEngine
         void setActive(bool isActive);
         bool getActive();
         bool IsRegistered();
-        void RegisterToScene();
+        void HandleOnAfterInstantiated();
+        void HandleOnPreDestroyed();
         void setName(std::string name);
         std::string getName();
         std::shared_ptr<Transform> transform;
@@ -34,8 +35,8 @@ namespace GameEngine
         std::unordered_map<std::type_index, std::shared_ptr<Component>> m_ComponentMap;
 
 	private:
-		bool m_isActive;
-        bool m_isRegistered; //is assigned to scene
+		bool m_isActive = false;
+        bool m_isInstantiated = false; //is assigned to scene
         std::string m_name;
     };
 

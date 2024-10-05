@@ -6,13 +6,13 @@ namespace GameEngine
 	{
 		EventManager::GetInstance().Subscribe<ComponentEvent>(
 			[this](std::shared_ptr<ComponentEvent> event) {
-			this->onComponentAssigned(event);
+			this->onComponentEvent(event);
 			}, 10);
 	}
 	Renderer::~Renderer()
 	{
 		EventManager::GetInstance().Unsubscribe<ComponentEvent>([this](std::shared_ptr<ComponentEvent> event) {
-			this->onComponentAssigned(event);
+			this->onComponentEvent(event);
 			});
 	}
 	void Renderer::Initialize(Scene* scene)
@@ -213,7 +213,7 @@ namespace GameEngine
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}
 	}
-	void Renderer::onComponentAssigned(std::shared_ptr<ComponentEvent> componentEvent)
+	void Renderer::onComponentEvent(std::shared_ptr<ComponentEvent> componentEvent)
 	{
 		if (componentEvent->CompAction == ComponentAction::Added)
 		{
@@ -222,6 +222,19 @@ namespace GameEngine
 			{
 				auto rendererComponent = std::static_pointer_cast<RendererComponent>(componentEvent->Comp);
 				m_RendererComponents.push_back(rendererComponent);
+			}
+		}
+		else if (componentEvent->CompAction == ComponentAction::OwnerPreDestroyed)
+		{
+			auto componentType = componentEvent->Comp->getType();
+			if (componentType == ComponentType::Renderer)
+			{
+				auto rendererComponent = std::static_pointer_cast<RendererComponent>(componentEvent->Comp);
+				auto it = std::find(m_RendererComponents.begin(), m_RendererComponents.end(), rendererComponent);
+				if (it != m_RendererComponents.end())
+				{
+					m_RendererComponents.erase(it);
+				}
 			}
 		}
 	}

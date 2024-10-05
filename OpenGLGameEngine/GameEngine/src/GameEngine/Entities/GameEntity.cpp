@@ -25,14 +25,24 @@ namespace GameEngine
     }
     bool GameEntity::IsRegistered()
     {
-        return m_isRegistered;
+        return m_isInstantiated;
     }
-    void GameEntity::RegisterToScene()
+    void GameEntity::HandleOnAfterInstantiated()
     {
-        m_isRegistered = true;
+        m_isInstantiated = true;
         for (auto it = m_ComponentMap.begin(); it != m_ComponentMap.end(); ++it) {
+            it->second->HandleOnAfterOwnerInstantiated();
             it->second->AssignToEntity(shared_from_this());
             it->second->setEnabled(true);
+        }
+    }
+    void GameEntity::HandleOnPreDestroyed()
+    {
+        for (auto it = m_ComponentMap.begin(); it != m_ComponentMap.end(); ++it) {
+            auto compEvent = std::make_shared<ComponentEvent>();
+            compEvent->Comp = it->second;
+            compEvent->CompAction = ComponentAction::OwnerPreDestroyed;
+            EventManager::GetInstance().Publish(compEvent);
         }
     }
     void GameEntity::setName(std::string name)

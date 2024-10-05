@@ -137,11 +137,11 @@ namespace GameEngine {
 		}
 	}
 
-	void Scene::instantiateGameEntity(std::shared_ptr<GameEntity> entity)
+	void Scene::instantiateGameEntity(std::shared_ptr<GameEntity> entity, bool isActive)
 	{
 		m_gameEntities.push_back(entity);
-		entity->RegisterToScene();
-		entity->setActive(true);
+		entity->HandleOnAfterInstantiated();
+		entity->setActive(isActive);
 	}
 
 	void Scene::destroyGameEntity(std::shared_ptr<GameEntity> entity, bool disableFirst)
@@ -153,7 +153,9 @@ namespace GameEngine {
 		}
 		auto it = std::find(m_gameEntities.begin(), m_gameEntities.end(), entity);
 		if (it != m_gameEntities.end()) {
+			entity->HandleOnPreDestroyed();
 			m_gameEntities.erase(it);
+			std::cout << "a" << std::endl;
 		}
 	}
 }

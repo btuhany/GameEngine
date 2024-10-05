@@ -9,6 +9,8 @@
 #include "../Entities/RenderableEntity.h"
 #include "../Entities/MeshEntity.h"
 #include "../Entities/ModelEntity.h"
+#include  <iostream>
+#include <stdio.h>
 namespace GameEngine {
 	class ENGINE_API Scene
 	{
@@ -42,7 +44,7 @@ namespace GameEngine {
 		void addSpotLight(const SpotLight* sLight);
 		std::shared_ptr<Camera> m_MainCamera;
 		std::vector<std::shared_ptr<GameEntity>> m_gameEntities;
-		void instantiateGameEntity(std::shared_ptr<GameEntity> entity);
+		void instantiateGameEntity(std::shared_ptr<GameEntity> entity, bool isActive = true);
 		void destroyGameEntity(std::shared_ptr<GameEntity> entity, bool disableFirst);
 	private:
 		void updateObjects();

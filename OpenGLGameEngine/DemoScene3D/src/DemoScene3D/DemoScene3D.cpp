@@ -292,7 +292,8 @@ void DemoScene3D::handleOnSpaceKey()
 {
 	if (ironmanTimeCounter > 2.0f)
 	{
-		ironman->setActive(!ironman->getActive());
+		//ironman->setActive(!ironman->getActive());
+		destroyGameEntity(ironman, false);
 		ironmanTimeCounter = 0.0f;
 	}
 }
