@@ -15,9 +15,13 @@ namespace GameEngine
     void GameEntity::setActive(bool isActive)
     {
         m_isActive = isActive;
-        for (auto it = m_ComponentMap.begin(); it != m_ComponentMap.end(); ++it) {
+        /*for (auto it = m_ComponentMap.begin(); it != m_ComponentMap.end(); ++it) {
             it->second->setEnabled(isActive);
-        }
+        }*/
+    }
+    bool GameEntity::getActive()
+    {
+        return m_isActive;
     }
     bool GameEntity::IsRegistered()
     {
@@ -28,6 +32,7 @@ namespace GameEngine
         m_isRegistered = true;
         for (auto it = m_ComponentMap.begin(); it != m_ComponentMap.end(); ++it) {
             it->second->AssignToEntity(shared_from_this());
+            it->second->setEnabled(true);
         }
     }
 }

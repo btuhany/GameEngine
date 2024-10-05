@@ -16,6 +16,7 @@ namespace GameEngine
         GameEntity();
         bool IsActive();
         void setActive(bool isActive);
+        bool getActive();
         bool IsRegistered();
         void RegisterToScene();
         std::shared_ptr<Transform> transform;

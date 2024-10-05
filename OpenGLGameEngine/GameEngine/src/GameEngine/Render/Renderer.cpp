@@ -228,7 +228,12 @@ namespace GameEngine
 
 	bool Renderer::isAbleToRender(std::shared_ptr<RendererComponent> rendererComponent)
 	{
-		return rendererComponent->getEnabled();  //Scene control in the future
+		if (rendererComponent->GetEntity().expired())
+		{
+			return false;
+		}
+		auto ownerEntity = rendererComponent->GetEntity().lock();
+		return rendererComponent->getEnabled() && ownerEntity->getActive();  //Scene control in the future
 	}
 
 }

@@ -9,7 +9,7 @@
 #include "../Entities/ModelEntity.h"
 #include "../Event/EventManager.h"
 #include "../Event/ComponentEvent.h"
-
+#include "stdio.h"
 namespace GameEngine
 {
 	class ENGINE_API Renderer
