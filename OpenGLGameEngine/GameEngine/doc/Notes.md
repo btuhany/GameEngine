@@ -24,6 +24,12 @@ TODO:
 
 29.09.24
 TODO:
+- review shared and weak pointer usages [X]
+- Deleting an object, deleting component references from list [X]
+- Review overall render data transfers [O]
+
+6.10.24
+TODO:
 - review shared and weak pointer usages []
-- Deleting an object, deleting component references from list []
 - Review overall render data transfers []
+- Review scene class []

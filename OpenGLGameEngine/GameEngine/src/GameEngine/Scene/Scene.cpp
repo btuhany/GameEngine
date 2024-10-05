@@ -155,7 +155,6 @@ namespace GameEngine {
 		if (it != m_gameEntities.end()) {
 			entity->HandleOnPreDestroyed();
 			m_gameEntities.erase(it);
-			std::cout << "a" << std::endl;
 		}
 	}
 }
