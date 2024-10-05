@@ -15,12 +15,12 @@ namespace GameEngine
 
 	void MeshRendererComponent::DrawMesh(GLuint uniformModel)
 	{
-		if (ownerEntity.expired())
+		if (m_ownerEntity.expired())
 		{
 			LOG_CORE_WARN("MeshRendererComponent::DrawMesh owner entity is exprired!");
 			return;
 		}
-		auto ownerEntityPtr = ownerEntity.lock();
+		auto ownerEntityPtr = m_ownerEntity.lock();
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(ownerEntityPtr->transform->GetModelMatrix()));
 		meshRenderData->materialData->UseMaterial(meshRenderData->shader->GetMatSpecularIntensityLocation(), meshRenderData->shader->GetMatShininessLocation());
 		if (meshRenderData->textureData != NULL)

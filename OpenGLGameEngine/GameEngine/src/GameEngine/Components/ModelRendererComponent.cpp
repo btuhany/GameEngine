@@ -15,12 +15,12 @@ namespace GameEngine
 	void ModelRendererComponent::DrawModel(GLuint uniformModel)
 	{
 		//TODOby
-		if (ownerEntity.expired())
+		if (m_ownerEntity.expired())
 		{
 			LOG_CORE_WARN("ModelRendererComponent::DrawModel owner entity is exprired!");
 			return;
 		}
-		auto ownerEntityPtr = ownerEntity.lock();
+		auto ownerEntityPtr = m_ownerEntity.lock();
 
 		modelRenderData->materialData->UseMaterial(modelRenderData->shader->GetMatSpecularIntensityLocation(), modelRenderData->shader->GetMatShininessLocation());
 

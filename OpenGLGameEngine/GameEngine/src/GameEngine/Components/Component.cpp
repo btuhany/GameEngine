@@ -3,18 +3,18 @@ namespace GameEngine
 {
 	void Component::AssignToEntity(std::shared_ptr<GameEntity> entity)
 	{
-		ownerEntity = entity;
+		m_ownerEntity = entity;
 	}
 	std::weak_ptr<GameEntity> Component::GetEntity()
 	{
-		return ownerEntity;
+		return m_ownerEntity;
 	}
 	void Component::setEnabled(bool isEnable)
 	{
-		m_IsEnabled = isEnable;
+		m_isEnabled = isEnable;
 	}
 	bool Component::getEnabled()
 	{
-		return m_IsEnabled;
+		return m_isEnabled;
 	}
 }
