@@ -46,7 +46,7 @@ namespace GameEngine
 			auto renderComponent = m_RendererComponents[i];
 			if (!isAbleToRender(renderComponent)) 
 			{
-				break;
+				continue;
 			}
 
 		//Set point lights
@@ -111,7 +111,7 @@ namespace GameEngine
 		{
 			if (!isAbleToRender(m_RendererComponents[i]))
 			{
-				break;
+				continue;
 			}
 
 			if (m_DirLightShadowShader == nullptr)
@@ -157,7 +157,7 @@ namespace GameEngine
 			{
 				if (!isAbleToRender(m_RendererComponents[j]))
 				{
-					break;
+					continue;
 				}
 				auto pointLight = &pLightList[i];
 				//m_RendererComponents[j]->RenderToPointLightShadowMap(&pLightList[i]);
@@ -192,7 +192,7 @@ namespace GameEngine
 			{
 				if (!isAbleToRender(m_RendererComponents[j]))
 				{
-					break;
+					continue;
 				}
 				auto spotLight = &sLightList[i];
 				//m_RendererComponents[j]->RenderToPointLightShadowMap(&sLightList[i]);
@@ -233,6 +233,7 @@ namespace GameEngine
 			return false;
 		}
 		auto ownerEntity = rendererComponent->getEntity().lock();
+		//std::cout << "renderer object name: " << ownerEntity->getName() << ", object active: " << ownerEntity->getActive() << " , compnentEnabled: " << rendererComponent->getEnabled() << std::endl;
 		return rendererComponent->getEnabled() && ownerEntity->getActive();  //Scene control in the future
 	}
 
