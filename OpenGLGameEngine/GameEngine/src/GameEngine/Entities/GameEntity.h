@@ -10,7 +10,7 @@
 
 namespace GameEngine
 {
-    class ENGINE_API GameEntity
+    class ENGINE_API GameEntity : public std::enable_shared_from_this<GameEntity>
     {
     public:
         GameEntity();
@@ -40,7 +40,6 @@ namespace GameEngine
         static_assert(std::is_base_of<Component, T>::value, "T must be derived from Component");
         
         std::shared_ptr<Component> baseComponent = std::static_pointer_cast<Component>(component);
-        baseComponent->AssignToEntity(this);
 
         m_ComponentMap[typeid(T)] = component;
 

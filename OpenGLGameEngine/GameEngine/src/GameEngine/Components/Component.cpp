@@ -1,11 +1,11 @@
 #include "Component.h"
 namespace GameEngine
 {
-	void Component::AssignToEntity(GameEntity* entity)
+	void Component::AssignToEntity(std::shared_ptr<GameEntity> entity)
 	{
 		ownerEntity = entity;
 	}
-	GameEntity* Component::GetEntity()
+	std::weak_ptr<GameEntity> Component::GetEntity()
 	{
 		return ownerEntity;
 	}

@@ -18,7 +18,6 @@ namespace GameEngine
         for (auto it = m_ComponentMap.begin(); it != m_ComponentMap.end(); ++it) {
             it->second->setEnabled(isActive);
         }
-
     }
     bool GameEntity::IsRegistered()
     {
@@ -27,5 +26,8 @@ namespace GameEngine
     void GameEntity::RegisterToScene()
     {
         m_isRegistered = true;
+        for (auto it = m_ComponentMap.begin(); it != m_ComponentMap.end(); ++it) {
+            it->second->AssignToEntity(shared_from_this());
+        }
     }
 }

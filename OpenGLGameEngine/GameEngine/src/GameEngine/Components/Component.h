@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include "../Core.h"
+#include "../Debug/Log.h"
 
 namespace GameEngine
 {
@@ -18,13 +19,13 @@ namespace GameEngine
 	class ENGINE_API Component
 	{
 	public:
-		void AssignToEntity(GameEntity* entity);
-		GameEntity* GetEntity();
+		void AssignToEntity(std::shared_ptr<GameEntity> entity);
+		std::weak_ptr<GameEntity> GetEntity();
 		void setEnabled(bool isEnable);
 		bool getEnabled();
 		virtual ComponentType GetType() = 0;
 	protected:
-		GameEntity* ownerEntity;  //TODO weak pointer
+		std::weak_ptr<GameEntity> ownerEntity;  //TODO weak pointer
 	private:
 		bool m_IsEnabled = false;
 	};
