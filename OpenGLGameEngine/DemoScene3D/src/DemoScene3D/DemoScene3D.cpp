@@ -25,6 +25,7 @@ void DemoScene3D::Initialize()
 	m_InputReader->OnPresssedUpEvent.AddHandler([this]() {handleOnUpKey();});
 	m_InputReader->OnPressedShiftEvent.AddHandler([this]() {handleOnShiftKey();});
 	m_InputReader->OnReleasedShiftEvent.AddHandler([this]() {handleOnShiftReleasedKey();});
+	m_InputReader->OnPressedSpaceEvent.AddHandler([this]() {handleOnSpaceKey(); });
 	static const char* vShaderLocation = "src/DemoScene3D/Shaders/shader.vert";
 	static const char* fShaderLocation = "src/DemoScene3D/Shaders/shader.frag";
 	Shader* rendererShader = new Shader();
@@ -136,22 +137,23 @@ void DemoScene3D::Initialize()
 		1.0f, 0.0f, 1.0f,
 		15.0f, 35.0f, 30.0f,
 		0.5f, 0.1f, 0.3f,
-		1024,1024,
+		1024, 1024,
 		0.01f, 300.0f));
 	addSpotLight(new SpotLight(0.0f, 80.5f,
-		 1.0f, 0.0f, 0.0f,
+		1.0f, 0.0f, 0.0f,
 		0.0f, 20.0f, 0.0f,
 		0.0f, -1.0f, 0.6f,
 		1.1f, 1.0f, 0.01f,
 		60.0f,
+		720, 720,
 		0.01f, 100.0f));
-	addSpotLight(new SpotLight(0.0f, 155.0f,
-		0.0f, 0.5f, 1.0f,
-		0.0f, -10.0f, 0.0f,
-		0.0f, 0.5f, 0.0f,
-		0.1f, 0.1f, 0.1f, 
-		100.0f,
-		0.01f, 200.0f));
+	//addSpotLight(new SpotLight(0.0f, 155.0f,
+	//	0.0f, 0.5f, 1.0f,
+	//	0.0f, -10.0f, 0.0f,
+	//	0.0f, 0.5f, 0.0f,
+	//	0.1f, 0.1f, 0.1f,
+	//	100.0f,
+	//	0.01f, 200.0f));
 	addSpotLight(new SpotLight(0.0f, 100.0f,
 		0.0f, 1.0f, 1.0f,
 		-7.0f, 12.0f, 8.0f,
@@ -277,6 +279,11 @@ void DemoScene3D::handleOnShiftKey()
 void DemoScene3D::handleOnShiftReleasedKey()
 {
 	m_CameraSpeed = 5.0f;
+}
+
+void DemoScene3D::handleOnSpaceKey()
+{
+	ironman->setActive(!ironman->getActive());
 }
 
 void DemoScene3D::initializeSkybox()
