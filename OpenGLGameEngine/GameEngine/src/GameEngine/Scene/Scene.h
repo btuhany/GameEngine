@@ -43,7 +43,7 @@ namespace GameEngine {
 		std::shared_ptr<Camera> m_MainCamera;
 		std::vector<std::shared_ptr<GameEntity>> m_gameEntities;
 		void instantiateGameEntity(std::shared_ptr<GameEntity> entity);
-		void destroyGameEntity(std::shared_ptr<GameEntity> entity);
+		void destroyGameEntity(std::shared_ptr<GameEntity> entity, bool disableFirst);
 	private:
 		void updateObjects();
 		void startObjects();

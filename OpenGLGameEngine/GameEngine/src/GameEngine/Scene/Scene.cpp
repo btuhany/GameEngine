@@ -144,8 +144,16 @@ namespace GameEngine {
 		entity->setActive(true);
 	}
 
-	void Scene::destroyGameEntity(std::shared_ptr<GameEntity> entity)
+	void Scene::destroyGameEntity(std::shared_ptr<GameEntity> entity, bool disableFirst)
 	{
-
+		//TODO if entitiy references are contained in scene class, destroying will not affect it
+		if (disableFirst)
+		{
+			entity->setActive(false);
+		}
+		auto it = std::find(m_gameEntities.begin(), m_gameEntities.end(), entity);
+		if (it != m_gameEntities.end()) {
+			m_gameEntities.erase(it);
+		}
 	}
 }
