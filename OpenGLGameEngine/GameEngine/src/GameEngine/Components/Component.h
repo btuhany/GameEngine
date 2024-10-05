@@ -20,9 +20,13 @@ namespace GameEngine
 	public:
 		void AssignToEntity(GameEntity* entity);
 		GameEntity* GetEntity();
+		void setEnabled(bool isEnable);
+		bool getEnabled();
 		virtual ComponentType GetType() = 0;
 	protected:
 		GameEntity* ownerEntity;  //TODO weak pointer
+	private:
+		bool m_IsEnabled = false;
 	};
 }
 

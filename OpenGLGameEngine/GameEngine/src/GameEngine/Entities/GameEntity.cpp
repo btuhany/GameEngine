@@ -15,6 +15,10 @@ namespace GameEngine
     void GameEntity::SetActive(bool isActive)
     {
         m_isActive = isActive;
+        for (auto it = m_ComponentMap.begin(); it != m_ComponentMap.end(); ++it) {
+            it->second->setEnabled(isActive);
+        }
+
     }
     bool GameEntity::IsRegistered()
     {
