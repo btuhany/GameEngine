@@ -7,9 +7,7 @@ namespace GameEngine
 	class ENGINE_API ModelEntity : public RenderableEntity
 	{
 	public:
-		ModelEntity();
-		//void Render(glm::mat4 projectionMatrix) override;
-		//TODOby initialize
+		ModelEntity(std::shared_ptr<ModelRenderData> modelRenderData);
 		std::shared_ptr<ModelRendererComponent> renderer;
 	};
 }

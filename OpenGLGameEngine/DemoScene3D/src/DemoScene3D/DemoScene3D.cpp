@@ -71,8 +71,7 @@ void DemoScene3D::Initialize()
 	std::shared_ptr<MeshRenderData> meshRenderData = std::make_shared<MeshRenderData>(createCubeMeshData(), spidermanTexture, shinyMaterial, rendererShader);
 	std::shared_ptr<MeshRenderData> plainRenderData = std::make_shared<MeshRenderData>(createPlainMeshData(), spidermanTexture, roughMaterial, rendererShader);
 
-	m_HelicopterBig = std::make_shared<ModelEntity>();
-	m_HelicopterBig->renderer->modelRenderData = helicopterRenderData;
+	m_HelicopterBig = std::make_shared<ModelEntity>(helicopterRenderData);
 	m_HelicopterBig->GetComponent<Transform>()->Translate(glm::vec3(0.0f, -7.0f, -10.0f));
 	m_HelicopterBig->transform->Scale(glm::vec3(2.0f, 2.0f, 2.0f));
 	m_HelicopterBig->transform->Rotate(90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
@@ -80,13 +79,11 @@ void DemoScene3D::Initialize()
 	m_HelicopterBig->setName("helicopterBig");
 	instantiateGameEntity(m_HelicopterBig);
 
-	m_HelicopterSmall = std::make_shared<ModelEntity>();
-	m_HelicopterSmall->renderer->modelRenderData = helicopterRenderData;
+	m_HelicopterSmall = std::make_shared<ModelEntity>(helicopterRenderData);
 	m_HelicopterSmall->setName("helicopterSmall");
 	instantiateGameEntity(m_HelicopterSmall);
 
-	ironman = std::make_shared<ModelEntity>();
-	ironman->renderer->modelRenderData = ironmanRenderData;
+	ironman = std::make_shared<ModelEntity>(ironmanRenderData);
 	ironman->setName("ironMAn");
 	instantiateGameEntity(ironman);
 

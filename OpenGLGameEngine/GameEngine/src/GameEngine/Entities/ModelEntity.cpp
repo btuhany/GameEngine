@@ -2,16 +2,10 @@
 
 namespace GameEngine
 {
-	ModelEntity::ModelEntity()
+	ModelEntity::ModelEntity(std::shared_ptr<ModelRenderData> modelRenderData)
 	{
 		renderer = std::make_shared<ModelRendererComponent>();
+		renderer->setModelRenderData(modelRenderData);
 		AddComponent<ModelRendererComponent>(renderer);
 	}
-
-	/*void ModelEntity::HandleOnRegisteredToScene()
-	{
-		auto event = std::make_shared<RenderableEntityCreatedEvent>();
-		event->Component = GetComponent<ModelRendererComponent>();
-		EventManager::GetInstance().Publish(event);
-	}*/
 }
