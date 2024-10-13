@@ -16,7 +16,7 @@ void DemoApp::Run()
 	DemoSceneInputHandler inputHandler = DemoSceneInputHandler();
 	DemoScene3D demoScene = DemoScene3D(&inputHandler);
 
-	GameEngine::Engine engine = GameEngine::Engine(new GameEngine::Window(1366, 768, "DemoApp"), &inputHandler, true);
+	GameEngine::Engine engine = GameEngine::Engine(new Window(1366, 768, "DemoApp"), &inputHandler, true);
 	engine.Initialize(&demoScene);
 	engine.Start();
 	engine.Run();

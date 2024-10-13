@@ -17,11 +17,12 @@ namespace GameEngine {
 		m_IsInitialized = false;
 		m_ShouldStop = false;
 		m_ShadowPassActive = shadowPassActive;
+
 	}
 
 	Engine::~Engine()
 	{
-		m_Scene = nullptr;
+		delete m_MainWindow;
 		delete m_Renderer;
 	}
 
