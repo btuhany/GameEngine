@@ -18,10 +18,10 @@ namespace GameEngine
 	void Renderer::Initialize(Scene* scene)
 	{
 		//TODO is scene not initialized throw error
-		m_Skybox = scene->GetSkybox();
-		m_Camera = scene->GetCamera();
-		m_DirLight = scene->GetDirectionalLight();
-		m_BackgroundColor = scene->GetBackgroundColor();
+		m_Skybox = scene->getSkybox();
+		m_Camera = scene->getCamera();
+		m_DirLight = scene->getDirectionalLight();
+		m_BackgroundColor = scene->getBackgroundColor();
 		m_DirLightShadowShader = scene->m_DirLightShadowShader;
 		m_OmniShadowShader = scene->m_OmniShadowShader;
 		m_IsInitialized = true;

@@ -35,17 +35,17 @@ namespace GameEngine {
 
 	}
 
-	std::shared_ptr<Camera> Scene::GetCamera()
+	std::shared_ptr<Camera> Scene::getCamera()
 	{
 		return m_MainCamera;
 	}
 
-	std::shared_ptr<Skybox> Scene::GetSkybox()
+	std::shared_ptr<Skybox> Scene::getSkybox()
 	{
 		return m_Skybox;
 	}
 
-	glm::vec3 Scene::GetBackgroundColor()
+	glm::vec3 Scene::getBackgroundColor()
 	{
 		return m_BackgroundColour;
 	}
@@ -60,22 +60,22 @@ namespace GameEngine {
 		m_Skybox = skybox;
 	}
 
-	void Scene::SetDirectionalLight(DirectionalLight* dLight)
+	void Scene::setDirectionalLight(DirectionalLight* dLight)
 	{
 		m_DirectionalLight = dLight;
 	}
 
-	DirectionalLight* Scene::GetDirectionalLight()
+	DirectionalLight* Scene::getDirectionalLight()
 	{
 		return m_DirectionalLight;
 	}
 
-	int Scene::GetPointLightCount()
+	int Scene::getPointLightCount()
 	{
 		return m_PointLightCount;
 	}
 
-	int Scene::GetSpotLightCount()
+	int Scene::getSpotLightCount()
 	{
 		return m_SpotLightCount;
 	}
@@ -139,7 +139,7 @@ namespace GameEngine {
 
 	void Scene::instantiateGameEntity(std::shared_ptr<GameEntity> entity, bool isActive)
 	{
-		m_gameEntities.push_back(entity);
+		m_GameEntities.push_back(entity);
 		entity->HandleOnAfterInstantiated();
 		entity->setActive(isActive);
 	}
@@ -151,10 +151,10 @@ namespace GameEngine {
 		{
 			entity->setActive(false);
 		}
-		auto it = std::find(m_gameEntities.begin(), m_gameEntities.end(), entity);
-		if (it != m_gameEntities.end()) {
+		auto it = std::find(m_GameEntities.begin(), m_GameEntities.end(), entity);
+		if (it != m_GameEntities.end()) {
 			entity->HandleOnPreDestroyed();
-			m_gameEntities.erase(it);
+			m_GameEntities.erase(it);
 		}
 	}
 }

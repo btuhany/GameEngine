@@ -21,13 +21,13 @@ namespace GameEngine {
 		virtual void Start();
 		virtual void Update(GLfloat deltaTime);
 
-		std::shared_ptr<Camera> GetCamera();
-		std::shared_ptr<Skybox> GetSkybox();
-		glm::vec3 GetBackgroundColor();
-		void SetDirectionalLight(DirectionalLight* dLight);
-		DirectionalLight* GetDirectionalLight();
-		int GetPointLightCount();
-		int GetSpotLightCount();
+		std::shared_ptr<Camera> getCamera();
+		std::shared_ptr<Skybox> getSkybox();
+		glm::vec3 getBackgroundColor();
+		void setDirectionalLight(DirectionalLight* dLight);
+		DirectionalLight* getDirectionalLight();
+		int getPointLightCount();
+		int getSpotLightCount();
 		bool IsOmniShadowShaderSet();
 		Shader* m_OmniShadowShader;
 		PointLight m_PointLightList[MAX_POINT_LIGHTS];
@@ -43,7 +43,7 @@ namespace GameEngine {
 		void addPointLight(const PointLight* pLight);
 		void addSpotLight(const SpotLight* sLight);
 		std::shared_ptr<Camera> m_MainCamera;
-		std::vector<std::shared_ptr<GameEntity>> m_gameEntities;
+		std::vector<std::shared_ptr<GameEntity>> m_GameEntities;
 		void instantiateGameEntity(std::shared_ptr<GameEntity> entity, bool isActive = true);
 		void destroyGameEntity(std::shared_ptr<GameEntity> entity, bool disableFirst);
 	private:
