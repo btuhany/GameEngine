@@ -26,7 +26,7 @@ namespace GameEngine {
 		glm::vec3 getBackgroundColor();
 		int getPointLightCount();
 		int getSpotLightCount();
-		Shader* getOmniShadowShader();
+		std::shared_ptr<Shader> getOmniShadowShader();
 
 		std::shared_ptr<Shader> getDirectionalLightShadowShader();
 		void setDirectionalLightShadowShader(std::shared_ptr<Shader> dirShadowShader);
@@ -45,7 +45,7 @@ namespace GameEngine {
 		void setBackgroundColor(glm::vec3 colour);
 		void setCamera(std::shared_ptr<Camera> camera);
 		void setSkybox(std::shared_ptr<Skybox> skybox);
-		void setOmniShadowShader(Shader* omniShadowShader);
+		void setOmniShadowShader(std::shared_ptr<Shader> omniShadowShader);
 		void addPointLight(const PointLight* pLight);
 		void addSpotLight(const SpotLight* sLight);
 		std::shared_ptr<Camera> m_MainCamera;
@@ -53,7 +53,7 @@ namespace GameEngine {
 		void destroyGameEntity(std::shared_ptr<GameEntity> entity, bool disableFirst);
 	private:
 		std::shared_ptr<Shader> m_DirLightShadowShader;
-		Shader* m_OmniShadowShader;
+		std::shared_ptr<Shader> m_OmniShadowShader;
 		DirectionalLight* m_DirectionalLight;
 		std::vector<std::shared_ptr<GameEntity>> m_GameEntities;
 		void updateObjects();

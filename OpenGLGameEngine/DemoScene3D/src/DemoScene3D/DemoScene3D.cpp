@@ -40,7 +40,7 @@ void DemoScene3D::Initialize()
 	setDirectionalLightShadowShader(directionalShadowShader);
 
 
-	Shader* omniShadowShader = new Shader();
+	std::shared_ptr<Shader> omniShadowShader = std::make_shared<Shader>();
 	omniShadowShader->CreateFromFiles("src/DemoScene3D/Shaders/omni_shadow_map.vert", "src/DemoScene3D/Shaders/omni_shadow_map.geom", "src/DemoScene3D/Shaders/omni_shadow_map.frag");
 	setOmniShadowShader(omniShadowShader);
 	LOG_INFO("Demo scene initialized2!");

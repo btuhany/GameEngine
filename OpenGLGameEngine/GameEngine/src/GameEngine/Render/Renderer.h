@@ -23,7 +23,7 @@ namespace GameEngine
 		void Initialize(Scene* scene);
 		void RenderPass(glm::mat4 projectionMatrix, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount);
 		void DirectionalShadowMapPass(DirectionalLight* dLight);
-		void OmniShadowMapPass(Shader* omniShadowShader, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount);
+		void OmniShadowMapPass(std::shared_ptr<Shader> omniShadowShader, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount);
 	private:
 		//std::vector<std::shared_ptr<MeshRendererComponent>> m_meshRendererComponents;
 		//std::vector<std::shared_ptr<ModelRendererComponent>> m_modelRendererComponents;
@@ -33,7 +33,7 @@ namespace GameEngine
 		std::shared_ptr<Skybox> m_Skybox;
 		std::shared_ptr<Camera> m_Camera;
 		std::shared_ptr<Shader> m_DirLightShadowShader;
-		Shader* m_OmniShadowShader;
+		std::shared_ptr<Shader> m_OmniShadowShader;
 		DirectionalLight* m_DirLight;
 		bool m_IsInitialized = false;
 		void onComponentEvent(std::shared_ptr<ComponentEvent> componentEvent);

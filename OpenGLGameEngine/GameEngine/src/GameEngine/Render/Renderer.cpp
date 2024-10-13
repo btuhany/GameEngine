@@ -132,7 +132,7 @@ namespace GameEngine
 		}
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
-	void Renderer::OmniShadowMapPass(Shader* omniShadowShader, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount)
+	void Renderer::OmniShadowMapPass(std::shared_ptr<Shader> omniShadowShader, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount)
 	{
 		if (plightCount + slightCount == 0)
 		{

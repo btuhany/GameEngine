@@ -80,7 +80,7 @@ namespace GameEngine {
 		return m_SpotLightCount;
 	}
 
-	Shader* Scene::getOmniShadowShader()
+	std::shared_ptr<Shader> Scene::getOmniShadowShader()
 	{
 		return m_OmniShadowShader;
 	}
@@ -100,7 +100,7 @@ namespace GameEngine {
 		return m_OmniShadowShader != nullptr;
 	}
 
-	void Scene::setOmniShadowShader(Shader* omniShadowShader)
+	void Scene::setOmniShadowShader(std::shared_ptr<Shader> omniShadowShader)
 	{
 		m_OmniShadowShader = omniShadowShader;
 	}
