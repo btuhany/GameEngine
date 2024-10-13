@@ -15,7 +15,7 @@ namespace GameEngine
 	class ENGINE_API ComponentEvent : public EventBase<ComponentEvent>
 	{
 	public:
-		ComponentAction CompAction;
-		std::shared_ptr<Component> Comp;
+		ComponentAction compAction;
+		std::shared_ptr<Component> comp;
 	};
 }

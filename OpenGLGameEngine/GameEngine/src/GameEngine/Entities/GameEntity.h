@@ -35,9 +35,9 @@ namespace GameEngine
         std::unordered_map<std::type_index, std::shared_ptr<Component>> m_ComponentMap;
 
 	private:
-		bool m_isActive = false;
-        bool m_isInstantiated = false; //is assigned to scene
-        std::string m_name;
+		bool m_IsActive = false;
+        bool m_IsInstantiated = false; //is assigned to scene
+        std::string m_Name;
     };
 
     template<typename T>
@@ -51,8 +51,8 @@ namespace GameEngine
 
 
 		auto event = std::make_shared<ComponentEvent>();
-		event->Comp = baseComponent;
-        event->CompAction = ComponentAction::Added;
+		event->comp = baseComponent;
+        event->compAction = ComponentAction::Added;
 		EventManager::GetInstance().Publish(event);
     }
 

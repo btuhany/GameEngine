@@ -6,7 +6,7 @@
 
 *** NAMING CONVENTION ***
 private member -> m_PrivateMember
-public member -> PrivateMember
+public member -> privateMember
 private function -> privateFunction()
 public function -> PublicFunction
 get and set functions -> getOrSetFunction()

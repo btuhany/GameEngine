@@ -215,21 +215,21 @@ namespace GameEngine
 	}
 	void Renderer::onComponentEvent(std::shared_ptr<ComponentEvent> componentEvent)
 	{
-		if (componentEvent->CompAction == ComponentAction::Added)
+		if (componentEvent->compAction == ComponentAction::Added)
 		{
-			auto componentType = componentEvent->Comp->getType();
+			auto componentType = componentEvent->comp->getType();
 			if (componentType == ComponentType::Renderer)
 			{
-				auto rendererComponent = std::static_pointer_cast<RendererComponent>(componentEvent->Comp);
+				auto rendererComponent = std::static_pointer_cast<RendererComponent>(componentEvent->comp);
 				m_RendererComponents.push_back(rendererComponent);
 			}
 		}
-		else if (componentEvent->CompAction == ComponentAction::OwnerPreDestroyed)
+		else if (componentEvent->compAction == ComponentAction::OwnerPreDestroyed)
 		{
-			auto componentType = componentEvent->Comp->getType();
+			auto componentType = componentEvent->comp->getType();
 			if (componentType == ComponentType::Renderer)
 			{
-				auto rendererComponent = std::static_pointer_cast<RendererComponent>(componentEvent->Comp);
+				auto rendererComponent = std::static_pointer_cast<RendererComponent>(componentEvent->comp);
 				auto it = std::find(m_RendererComponents.begin(), m_RendererComponents.end(), rendererComponent);
 				if (it != m_RendererComponents.end())
 				{

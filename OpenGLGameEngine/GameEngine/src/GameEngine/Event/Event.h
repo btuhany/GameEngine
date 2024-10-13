@@ -11,7 +11,7 @@ namespace GameEngine
 	class ENGINE_API IEvent {
 	public:
 		virtual ~IEvent() = default;
-		virtual std::type_index GetType() const = 0;
+		virtual std::type_index getType() const = 0;
 	};
 
 	template<typename DerivedEvent>
@@ -21,7 +21,7 @@ namespace GameEngine
 			return std::type_index(typeid(DerivedEvent));
 		}
 
-		virtual std::type_index GetType() const override {
+		virtual std::type_index getType() const override {
 			return GetStaticType();
 		}
 	};

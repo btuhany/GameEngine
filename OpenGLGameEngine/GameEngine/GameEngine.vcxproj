@@ -79,7 +79,6 @@
   <ItemGroup>
     <ClInclude Include="src\GameEngine\Render\RenderData.h" />
     <ClInclude Include="src\GameEngine\Event\ComponentEvent.h" />
-    <ClInclude Include="src\GameEngine\Event\RenderableEntityCreatedEvent.h" />
     <ClInclude Include="src\GameEngine\Render\Renderer.h" />
     <ClInclude Include="src\GameEngine\Event\EventManager.h" />
     <ClInclude Include="src\GameEngine\Event\Event.h" />

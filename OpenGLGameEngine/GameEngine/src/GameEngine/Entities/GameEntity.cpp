@@ -4,32 +4,32 @@ namespace GameEngine
 {
     GameEntity::GameEntity()
     {
-        m_isActive = false;
+        m_IsActive = false;
 		transform = std::make_shared<Transform>();
 		AddComponent<Transform>(transform);
     }
     bool GameEntity::IsActive()
     {
-        return m_isActive;
+        return m_IsActive;
     }
     void GameEntity::setActive(bool isActive)
     {
-        m_isActive = isActive;
+        m_IsActive = isActive;
         /*for (auto it = m_ComponentMap.begin(); it != m_ComponentMap.end(); ++it) {
             it->second->setEnabled(isActive);
         }*/
     }
     bool GameEntity::getActive()
     {
-        return m_isActive;
+        return m_IsActive;
     }
     bool GameEntity::IsRegistered()
     {
-        return m_isInstantiated;
+        return m_IsInstantiated;
     }
     void GameEntity::HandleOnAfterInstantiated()
     {
-        m_isInstantiated = true;
+        m_IsInstantiated = true;
         for (auto it = m_ComponentMap.begin(); it != m_ComponentMap.end(); ++it) {
             it->second->HandleOnAfterOwnerInstantiated();
             it->second->AssignToEntity(shared_from_this());
@@ -39,18 +39,18 @@ namespace GameEngine
     void GameEntity::HandleOnPreDestroyed()
     {
         for (auto it = m_ComponentMap.begin(); it != m_ComponentMap.end(); ++it) {
-            auto compEvent = std::make_shared<ComponentEvent>();
-            compEvent->Comp = it->second;
-            compEvent->CompAction = ComponentAction::OwnerPreDestroyed;
-            EventManager::GetInstance().Publish(compEvent);
+            auto compEventData = std::make_shared<ComponentEvent>();
+            compEventData->comp = it->second;
+            compEventData->compAction = ComponentAction::OwnerPreDestroyed;
+            EventManager::GetInstance().Publish(compEventData);
         }
     }
     void GameEntity::setName(std::string name)
     {
-        m_name = name;
+        m_Name = name;
     }
     std::string GameEntity::getName()
     {
-        return m_name;
+        return m_Name;
     }
 }

@@ -19,7 +19,7 @@ namespace GameEngine
 
 		template <typename EventType>
 		void Subscribe(std::function<void(std::shared_ptr<EventType>)> callback, int priority = 0) {
-			const std::type_index eventType = EventType().GetType();
+			const std::type_index eventType = EventType().getType();
 			m_Listeners[eventType].emplace_back(
 				[callback](std::shared_ptr<IEvent> e) {
 					callback(std::static_pointer_cast<EventType>(e));
@@ -36,7 +36,7 @@ namespace GameEngine
 
 		template <typename EventType>
 		void Unsubscribe(std::function<void(std::shared_ptr<EventType>)> callback) {
-			const std::type_index eventType = EventType().GetType();
+			const std::type_index eventType = EventType().getType();
 			auto& eventListeners = m_Listeners[eventType];
 
 			//eventListeners.erase(std::remove_if(eventListeners.begin(), eventListeners.end(),
@@ -60,7 +60,7 @@ namespace GameEngine
 		}
 
 		void Publish(std::shared_ptr<IEvent> event) {
-			const std::type_index eventType = event->GetType();
+			const std::type_index eventType = event->getType();
 			if (m_Listeners.find(eventType) != m_Listeners.end()) 
 			{
 				for (auto& listener : m_Listeners[eventType]) 
