@@ -22,7 +22,7 @@ namespace GameEngine
 		//Renderer(std::shared_ptr<Skybox> skybox, glm::vec3 backgroundColor, std::shared_ptr<Camera> camera);
 		void Initialize(Scene* scene);
 		void RenderPass(glm::mat4 projectionMatrix, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount);
-		void DirectionalShadowMapPass(DirectionalLight* dLight);
+		void DirectionalShadowMapPass(std::shared_ptr<DirectionalLight> dLight);
 		void OmniShadowMapPass(std::shared_ptr<Shader> omniShadowShader, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount);
 	private:
 		//std::vector<std::shared_ptr<MeshRendererComponent>> m_meshRendererComponents;
@@ -34,7 +34,7 @@ namespace GameEngine
 		std::shared_ptr<Camera> m_Camera;
 		std::shared_ptr<Shader> m_DirLightShadowShader;
 		std::shared_ptr<Shader> m_OmniShadowShader;
-		DirectionalLight* m_DirLight;
+		std::shared_ptr<DirectionalLight> m_DirLight;
 		bool m_IsInitialized = false;
 		void onComponentEvent(std::shared_ptr<ComponentEvent> componentEvent);
 		bool isAbleToRender(std::shared_ptr<RendererComponent> rendererComponent);

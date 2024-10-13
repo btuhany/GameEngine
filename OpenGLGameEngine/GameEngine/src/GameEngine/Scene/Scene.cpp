@@ -12,7 +12,6 @@ namespace GameEngine {
 	Scene::~Scene()
 	{
 		printf("\n deleted scene \n");
-		delete m_DirectionalLight;
 		//TODO: m_ShadowMapRenderableObject clear?
 		//for (auto obj : m_RenderableObjectList) {
 		//	obj->ClearRenderableObject();
@@ -60,12 +59,12 @@ namespace GameEngine {
 		m_Skybox = skybox;
 	}
 
-	void Scene::setDirectionalLight(DirectionalLight* dLight)
+	void Scene::setDirectionalLight(std::shared_ptr<DirectionalLight> dLight)
 	{
 		m_DirectionalLight = dLight;
 	}
 
-	DirectionalLight* Scene::getDirectionalLight()
+	std::shared_ptr<DirectionalLight> Scene::getDirectionalLight()
 	{
 		return m_DirectionalLight;
 	}

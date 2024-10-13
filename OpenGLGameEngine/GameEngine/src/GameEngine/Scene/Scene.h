@@ -31,8 +31,8 @@ namespace GameEngine {
 		std::shared_ptr<Shader> getDirectionalLightShadowShader();
 		void setDirectionalLightShadowShader(std::shared_ptr<Shader> dirShadowShader);
 
-		void setDirectionalLight(DirectionalLight* dLight);
-		DirectionalLight* getDirectionalLight();
+		void setDirectionalLight(std::shared_ptr<DirectionalLight> dLight);
+		std::shared_ptr<DirectionalLight> getDirectionalLight();
 
 		bool IsOmniShadowShaderSet();
 
@@ -54,12 +54,12 @@ namespace GameEngine {
 	private:
 		std::shared_ptr<Shader> m_DirLightShadowShader;
 		std::shared_ptr<Shader> m_OmniShadowShader;
-		DirectionalLight* m_DirectionalLight;
+		std::shared_ptr<DirectionalLight> m_DirectionalLight;
 		std::vector<std::shared_ptr<GameEntity>> m_GameEntities;
+		std::shared_ptr <Skybox> m_Skybox;
 		void updateObjects();
 		void startObjects();
 		glm::vec3 m_BackgroundColour = glm::vec3(0.0f, 0.0f, 0.0f);
-		std::shared_ptr <Skybox> m_Skybox;
 	};
 
 

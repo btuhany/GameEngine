@@ -92,7 +92,7 @@ namespace GameEngine
 		}
 	}
 
-	void Renderer::DirectionalShadowMapPass(DirectionalLight* dLight)
+	void Renderer::DirectionalShadowMapPass(std::shared_ptr<DirectionalLight> dLight)
 	{
 		if (dLight == nullptr)
 		{

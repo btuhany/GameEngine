@@ -123,7 +123,7 @@ namespace GameEngine {
 		return uniformFarPlane;
 	}
 
-	void Shader::SetDirectionalLight(DirectionalLight* dLight)
+	void Shader::SetDirectionalLight(std::shared_ptr<DirectionalLight> dLight)
 	{
 		dLight->UseLight(m_UniformDirectionalLight.UniformAmbientIntensity, m_UniformDirectionalLight.UniformColour, m_UniformDirectionalLight.UniformDiffuseIntensity, m_UniformDirectionalLight.UniformDirection);
 	}

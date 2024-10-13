@@ -39,7 +39,7 @@ namespace GameEngine {
 		GLuint GetFarPlaneLocation();
 
 
-		void SetDirectionalLight(DirectionalLight* dLight);
+		void SetDirectionalLight(std::shared_ptr<DirectionalLight> dLight);
 		void SetPointLights(PointLight* pLight, unsigned int lightCount, unsigned int textureUnit, unsigned int offset);
 		void SetSpotLights(SpotLight* sLight, unsigned int lightCount, unsigned int textureUnit, unsigned int offset);
 		void SetTextureUnit(GLuint textureUnit);

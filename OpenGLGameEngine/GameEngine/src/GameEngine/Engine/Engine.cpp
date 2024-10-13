@@ -63,7 +63,7 @@ namespace GameEngine {
 		GLfloat lastTime = 0.0f;
 		glm::mat4 projection = m_Scene->getCamera()->CalcGetProjectionMatrix((GLfloat)m_MainWindow->GetBufferWidth() / m_MainWindow->GetBufferHeight());
 
-		DirectionalLight* sceneDirLight = m_Scene->getDirectionalLight();
+		std::shared_ptr<DirectionalLight> sceneDirLight = m_Scene->getDirectionalLight();
 
 		bool renderDirLightShadow;
 		if (sceneDirLight == nullptr)

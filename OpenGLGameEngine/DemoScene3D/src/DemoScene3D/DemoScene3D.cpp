@@ -44,7 +44,7 @@ void DemoScene3D::Initialize()
 	omniShadowShader->CreateFromFiles("src/DemoScene3D/Shaders/omni_shadow_map.vert", "src/DemoScene3D/Shaders/omni_shadow_map.geom", "src/DemoScene3D/Shaders/omni_shadow_map.frag");
 	setOmniShadowShader(omniShadowShader);
 	LOG_INFO("Demo scene initialized2!");
-	DirectionalLight* dirLight = new DirectionalLight(0.0f, 0.02f,
+	std::shared_ptr<DirectionalLight> dirLight = std::make_shared<DirectionalLight>(0.0f, 0.02f,
 		0.2f, 0.5f, 1.0f,
 		0.4f, -0.8f, 0.01f, 1024, 1024);
 	setDirectionalLight(dirLight);
