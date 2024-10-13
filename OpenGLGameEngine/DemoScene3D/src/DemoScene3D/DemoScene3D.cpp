@@ -17,6 +17,7 @@ DemoScene3D::~DemoScene3D()
 
 void DemoScene3D::Initialize()
 {
+	Scene::Initialize();
 	LOG_INFO("Demo scene initialized!");
 
 	m_InputReader->OnPresssedRightEvent.AddHandler([this]() {handleOnRightKey();});
@@ -36,7 +37,7 @@ void DemoScene3D::Initialize()
 
 	Shader* directionalShadowShader = new Shader();
 	directionalShadowShader->CreateFromFiles("src/DemoScene3D/Shaders/directional_shadow_map.vert", "src/DemoScene3D/Shaders/directional_shadow_map.frag");
-	m_DirLightShadowShader = directionalShadowShader;
+	setDirectionalLightShadowShader(directionalShadowShader);
 
 
 	Shader* omniShadowShader = new Shader();
@@ -46,7 +47,7 @@ void DemoScene3D::Initialize()
 	DirectionalLight* dirLight = new DirectionalLight(0.0f, 0.02f,
 		0.2f, 0.5f, 1.0f,
 		0.4f, -0.8f, 0.01f, 1024, 1024);
-	setDirectionalLight(dirLight);
+	setDirectionalLightShadowShader(dirLight);
 	m_CameraSpeed = 5.0f;
 	setCamera(std::make_shared<Camera>(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, m_CameraSpeed, 0.1f, 60.0f, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
 	setBackgroundColor(glm::vec3(0.0f, 1.0f, 0.0f));

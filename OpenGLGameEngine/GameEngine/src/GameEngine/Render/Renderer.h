@@ -9,6 +9,7 @@
 #include "../Entities/ModelEntity.h"
 #include "../Event/EventManager.h"
 #include "../Event/ComponentEvent.h"
+#include "../Debug/Log.h"
 #include "stdio.h"
 namespace GameEngine
 {

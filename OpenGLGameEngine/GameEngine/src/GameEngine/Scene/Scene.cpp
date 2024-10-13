@@ -23,7 +23,7 @@ namespace GameEngine {
 
 	void Scene::Initialize()
 	{
-		printf("scene");
+		isInitialized = true;
 	}
 
 	void Scene::Start()
@@ -60,7 +60,7 @@ namespace GameEngine {
 		m_Skybox = skybox;
 	}
 
-	void Scene::setDirectionalLight(DirectionalLight* dLight)
+	void Scene::setDirectionalLightShadowShader(DirectionalLight* dLight)
 	{
 		m_DirectionalLight = dLight;
 	}
@@ -78,6 +78,21 @@ namespace GameEngine {
 	int Scene::getSpotLightCount()
 	{
 		return m_SpotLightCount;
+	}
+
+	Shader* Scene::getOmniShadowShader()
+	{
+		return m_OmniShadowShader;
+	}
+
+	Shader* Scene::getDirectionalLightShader()
+	{
+		return m_DirLightShadowShader;
+	}
+
+	void Scene::setDirectionalLightShadowShader(Shader* dirShadowShader)
+	{
+		m_DirLightShadowShader = dirShadowShader;
 	}
 
 	bool Scene::IsOmniShadowShaderSet()

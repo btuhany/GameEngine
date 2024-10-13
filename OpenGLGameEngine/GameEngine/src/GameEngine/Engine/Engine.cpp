@@ -115,7 +115,7 @@ namespace GameEngine {
 				if (renderDirLightShadow)
 					m_Renderer->DirectionalShadowMapPass(m_Scene->getDirectionalLight());
 				if (renderOmniLightShadow)
-					m_Renderer->OmniShadowMapPass(m_Scene->m_OmniShadowShader, m_Scene->m_PointLightList, m_Scene->getPointLightCount(),
+					m_Renderer->OmniShadowMapPass(m_Scene->getOmniShadowShader(), m_Scene->m_PointLightList, m_Scene->getPointLightCount(),
 						m_Scene->m_SpotLightList, m_Scene->m_SpotLightCount);
 			}
 			m_Renderer->RenderPass(projection, m_Scene->m_PointLightList, m_Scene->getPointLightCount(),
