@@ -28,10 +28,10 @@ void DemoScene3D::Initialize()
 	m_InputReader->OnPressedSpaceEvent.AddHandler([this]() {handleOnSpaceKey(); });
 	static const char* vShaderLocation = "src/DemoScene3D/Shaders/shader.vert";
 	static const char* fShaderLocation = "src/DemoScene3D/Shaders/shader.frag";
-	Shader* rendererShader = new Shader();
+	std::shared_ptr<Shader> rendererShader = std::make_shared<Shader>();
 	rendererShader->CreateFromFiles(vShaderLocation, fShaderLocation);
 	rendererShader->SetUseDirLightShadow(true); //TODO
-	Shader* rendererShader2 = new Shader();
+	std::shared_ptr<Shader> rendererShader2 = std::make_shared<Shader>();
 	rendererShader2->CreateFromFiles(vShaderLocation, fShaderLocation);
 
 	Shader* directionalShadowShader = new Shader();
@@ -52,22 +52,23 @@ void DemoScene3D::Initialize()
 	setBackgroundColor(glm::vec3(0.0f, 1.0f, 0.0f));
 	initializeSkybox();
 
-	Material* shinyMaterial = new Material(590.0f, 475.5f);
-	Material* roughMaterial = new Material(0.1f, 3.0f);
+	std::shared_ptr<Material> shinyMaterial = std::make_shared<Material>(590.0f, 475.5f);
+	std::shared_ptr<Material> roughMaterial = std::make_shared<Material>(0.1f, 3.0f);
 
-	Texture* spidermanTexture = new Texture("src/DemoScene3D/Textures/spiderman.png");
+	std::shared_ptr<Texture> spidermanTexture = std::make_shared<Texture>("src/DemoScene3D/Textures/spiderman.png");
 	spidermanTexture->LoadTextureWithAlpha();
-	Texture* plainTexture = new Texture("src/DemoScene3D/Textures/plain.png");
+	std::shared_ptr<Texture> plainTexture = std::make_shared<Texture>("src/DemoScene3D/Textures/plain.png");
 	plainTexture->LoadTextureWithAlpha();
 
-	ModelData* helicopterModelDataNew = new ModelData();
+	std::shared_ptr<ModelData> helicopterModelDataNew = std::make_shared<ModelData>();
 	helicopterModelDataNew->LoadModel("src/DemoScene3D/Models/uh60.obj");
+	std::shared_ptr<ModelData> ironmanModelData = std::make_shared<ModelData>();
+	ironmanModelData->LoadModel("src/DemoScene3D/Models/IronMan.obj");
+
 	m_HelicopterBig = std::make_shared<ModelEntity>();
-	std::shared_ptr<ModelRenderData> helicopterRenderData = std::make_shared<ModelRenderData>();
-	helicopterRenderData->modelData = helicopterModelDataNew;
+	std::shared_ptr<ModelRenderData> helicopterRenderData = std::make_shared<ModelRenderData>(helicopterModelDataNew, nullptr, shinyMaterial, rendererShader);
 	//helicopterRenderData->textureData = spidermanTexture;
-	helicopterRenderData->materialData = shinyMaterial;
-	helicopterRenderData->shader = rendererShader;
+
 	m_HelicopterBig->renderer->modelRenderData = helicopterRenderData;
 	m_HelicopterBig->GetComponent<Transform>()->Translate(glm::vec3(0.0f, -7.0f, -10.0f));
 	m_HelicopterBig->transform->Scale(glm::vec3(2.0f, 2.0f, 2.0f));
@@ -84,11 +85,7 @@ void DemoScene3D::Initialize()
 	instantiateGameEntity(m_HelicopterSmall);
 
 	std::shared_ptr<MeshEntity> cubeMeshEntity = std::make_shared<MeshEntity>();
-	std::shared_ptr<MeshRenderData> meshRenderData = std::make_shared<MeshRenderData>();
-	meshRenderData->meshData = createCubeMeshData();
-	meshRenderData->textureData = spidermanTexture;
-	meshRenderData->materialData = shinyMaterial;
-	meshRenderData->shader = rendererShader;
+	std::shared_ptr<MeshRenderData> meshRenderData = std::make_shared<MeshRenderData>(createCubeMeshData(), spidermanTexture, shinyMaterial, rendererShader);
 	cubeMeshEntity->renderer->meshRenderData = meshRenderData;
 	//RenderableMeshEntitiesPublic.push_back(cubeMeshEntity);
 	cubeMeshEntity->GetComponent<Transform>()->Translate(glm::vec3(36.0f, -7.0f, -12.0f));
@@ -96,25 +93,17 @@ void DemoScene3D::Initialize()
 	cubeMeshEntity->setName("cubeMesh");
 	instantiateGameEntity(cubeMeshEntity);
 
-	ModelData* ironmanModelData = new ModelData();
-	ironmanModelData->LoadModel("src/DemoScene3D/Models/IronMan.obj");
+
 	ironman = std::make_shared<ModelEntity>();
-	std::shared_ptr<ModelRenderData> ironmanRenderData = std::make_shared<ModelRenderData>();
-	ironmanRenderData->modelData = ironmanModelData;
+	std::shared_ptr<ModelRenderData> ironmanRenderData = std::make_shared<ModelRenderData>(ironmanModelData, nullptr, shinyMaterial, rendererShader);
 	//modelRenderData->textureData = spidermanTexture;
-	ironmanRenderData->materialData = shinyMaterial;
-	ironmanRenderData->shader = rendererShader;
 	ironman->renderer->modelRenderData = ironmanRenderData;
 	//RenderableModelEntitiesPublic.push_back(ironman);
 	ironman->setName("ironMAn");
 	instantiateGameEntity(ironman);
 
 	std::shared_ptr<MeshEntity> spidermanPlainEntity = std::make_shared<MeshEntity>();
-	std::shared_ptr<MeshRenderData> plainRenderData = std::make_shared<MeshRenderData>();
-	plainRenderData->meshData = createPlainMeshData();
-	plainRenderData->textureData = spidermanTexture;
-	plainRenderData->materialData = roughMaterial;
-	plainRenderData->shader = rendererShader;
+	std::shared_ptr<MeshRenderData> plainRenderData = std::make_shared<MeshRenderData>(createPlainMeshData(), spidermanTexture, roughMaterial, rendererShader);
 	spidermanPlainEntity->renderer->meshRenderData = plainRenderData;
 	//RenderableMeshEntitiesPublic.push_back(spidermanPlainEntity);
 	spidermanPlainEntity->GetComponent<Transform>()->Translate(glm::vec3(0.0f, -10.0f, 0.0f));
@@ -204,7 +193,7 @@ void DemoScene3D::Update(GLfloat deltaTime)
 
 }
 
-MeshData* DemoScene3D::createCubeMeshData()
+std::shared_ptr<MeshData> DemoScene3D::createCubeMeshData()
 {
 	GLfloat vertices[] =
 	{
@@ -234,12 +223,12 @@ MeshData* DemoScene3D::createCubeMeshData()
 	4, 6, 7
 	};
 
-	MeshData* cubeMesh = new MeshData();
+	std::shared_ptr<MeshData> cubeMesh = std::make_shared<MeshData>();
 	cubeMesh->CreateMesh(vertices, indices, 64, 36);
 	return cubeMesh;
 }
 
-MeshData* DemoScene3D::createPlainMeshData()
+std::shared_ptr<MeshData> DemoScene3D::createPlainMeshData()
 {
 	unsigned int floorIndices[] = {
 		0, 2, 1,
@@ -253,7 +242,7 @@ MeshData* DemoScene3D::createPlainMeshData()
 		50.0f, -10.0f, 50.0f,	20.0f, 20.0f,  0.0f, 1.0f, 0.0f
 	};
 
-	MeshData* plainMesh = new MeshData();
+	std::shared_ptr<MeshData> plainMesh = std::make_shared<MeshData>();
 	plainMesh->CreateMesh(floorVertices, floorIndices, 32, 6);
 	return plainMesh;
 }

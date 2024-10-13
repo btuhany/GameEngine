@@ -14,8 +14,8 @@ public:
 	void Update(GLfloat deltaTime) override;
 private:
 	void initializeSkybox();
-	MeshData* createCubeMeshData();
-	MeshData* createPlainMeshData();
+	std::shared_ptr<MeshData> createCubeMeshData();
+	std::shared_ptr<MeshData> createPlainMeshData();
 	std::shared_ptr<ModelEntity> m_HelicopterSmall;
 	std::shared_ptr<ModelEntity> ironman;
 	std::shared_ptr<MeshEntity> spidermanPlain;

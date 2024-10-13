@@ -12,7 +12,6 @@ namespace GameEngine
 	{
 	public:
 		ModelData();
-		~ModelData();
 		void LoadModel(const std::string& fileName);
 		//void Render() override;
 		void ClearModel();

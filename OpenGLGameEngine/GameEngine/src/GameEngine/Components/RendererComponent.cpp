@@ -6,7 +6,7 @@ namespace GameEngine
     {
 
     }
-    Shader* RendererComponent::GetRenderDataShader()
+    std::shared_ptr<Shader> RendererComponent::GetRenderDataShader()
     {
         return nullptr;
     }

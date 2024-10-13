@@ -4,7 +4,6 @@ namespace GameEngine
 {
 	ModelData::ModelData()
 	{
-
 	}
 	void ModelData::LoadModel(const std::string& fileName)
 	{
