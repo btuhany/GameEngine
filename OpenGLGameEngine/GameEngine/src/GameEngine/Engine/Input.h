@@ -1,9 +1,10 @@
 #pragma once
+#include "../Core.h"
 #include "Window.h"
 #include <GLFW\glfw3.h>
 namespace GameEngine
 {
-	class Input
+	class ENGINE_API Input
 	{
 	public:
 		Input();

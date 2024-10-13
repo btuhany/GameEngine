@@ -78,9 +78,6 @@
     <ClCompile Include="src\GameEngine\Debug\Log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Engine\EntryPoint.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameEngine\Engine\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

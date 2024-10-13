@@ -54,7 +54,6 @@
     <ClCompile Include="src\GameEngine\Event\SimpleEvent.cpp" />
     <ClCompile Include="src\GameEngine\Engine\Input.cpp" />
     <ClCompile Include="src\GameEngine\Engine\Application.cpp" />
-    <ClCompile Include="src\GameEngine\Engine\EntryPoint.cpp" />
     <ClCompile Include="src\GameEngine\Debug\Log.cpp" />
     <ClCompile Include="src\GameEngine\Scene\Camera.cpp" />
     <ClCompile Include="src\GameEngine\Scene\DirectionalLight.cpp" />
