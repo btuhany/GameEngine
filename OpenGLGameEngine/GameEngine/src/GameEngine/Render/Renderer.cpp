@@ -26,7 +26,7 @@ namespace GameEngine
 		m_Camera = scene->getCamera();
 		m_DirLight = scene->getDirectionalLight();
 		m_BackgroundColor = scene->getBackgroundColor();
-		m_DirLightShadowShader = scene->getDirectionalLightShader();
+		m_DirLightShadowShader = scene->getDirectionalLightShadowShader();
 		m_OmniShadowShader = scene->getOmniShadowShader();
 		m_IsInitialized = true;
 	}

@@ -24,13 +24,16 @@ namespace GameEngine {
 		std::shared_ptr<Camera> getCamera();
 		std::shared_ptr<Skybox> getSkybox();
 		glm::vec3 getBackgroundColor();
-		DirectionalLight* getDirectionalLight();
 		int getPointLightCount();
 		int getSpotLightCount();
 		Shader* getOmniShadowShader();
-		Shader* getDirectionalLightShader();
-		void setDirectionalLightShadowShader(Shader* dirShadowShader);
-		void setDirectionalLightShadowShader(DirectionalLight* dLight);
+
+		std::shared_ptr<Shader> getDirectionalLightShadowShader();
+		void setDirectionalLightShadowShader(std::shared_ptr<Shader> dirShadowShader);
+
+		void setDirectionalLight(DirectionalLight* dLight);
+		DirectionalLight* getDirectionalLight();
+
 		bool IsOmniShadowShaderSet();
 
 		PointLight m_PointLightList[MAX_POINT_LIGHTS];
@@ -49,14 +52,14 @@ namespace GameEngine {
 		void instantiateGameEntity(std::shared_ptr<GameEntity> entity, bool isActive = true);
 		void destroyGameEntity(std::shared_ptr<GameEntity> entity, bool disableFirst);
 	private:
-		Shader* m_DirLightShadowShader;
+		std::shared_ptr<Shader> m_DirLightShadowShader;
 		Shader* m_OmniShadowShader;
+		DirectionalLight* m_DirectionalLight;
 		std::vector<std::shared_ptr<GameEntity>> m_GameEntities;
 		void updateObjects();
 		void startObjects();
 		glm::vec3 m_BackgroundColour = glm::vec3(0.0f, 0.0f, 0.0f);
 		std::shared_ptr <Skybox> m_Skybox;
-		DirectionalLight* m_DirectionalLight;
 	};
 
 

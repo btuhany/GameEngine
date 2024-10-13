@@ -60,7 +60,7 @@ namespace GameEngine {
 		m_Skybox = skybox;
 	}
 
-	void Scene::setDirectionalLightShadowShader(DirectionalLight* dLight)
+	void Scene::setDirectionalLight(DirectionalLight* dLight)
 	{
 		m_DirectionalLight = dLight;
 	}
@@ -85,12 +85,12 @@ namespace GameEngine {
 		return m_OmniShadowShader;
 	}
 
-	Shader* Scene::getDirectionalLightShader()
+	std::shared_ptr<Shader> Scene::getDirectionalLightShadowShader()
 	{
 		return m_DirLightShadowShader;
 	}
 
-	void Scene::setDirectionalLightShadowShader(Shader* dirShadowShader)
+	void Scene::setDirectionalLightShadowShader(std::shared_ptr<Shader>  dirShadowShader)
 	{
 		m_DirLightShadowShader = dirShadowShader;
 	}
