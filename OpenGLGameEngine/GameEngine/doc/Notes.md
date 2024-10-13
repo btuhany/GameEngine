@@ -4,6 +4,14 @@
 - Mesh Renderers should be initialized before the start
 
 
+*** NAMING CONVENTION ***
+private member -> m_PrivateMember
+public member -> PrivateMember
+private function -> privateFunction()
+public function -> PublicFunction
+get and set functions -> getOrSetFunction()
+*************************
+
 08.24
 TODO: Create a RenderableObject base class that contains a Renderer an calls Render() function [X]
 

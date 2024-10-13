@@ -3,7 +3,7 @@ namespace GameEngine
 {
 	void Component::AssignToEntity(std::shared_ptr<GameEntity> entity)
 	{
-		m_ownerEntity = entity;
+		m_OwnerEntity = entity;
 	}
 	void Component::HandleOnPreOwnerDestroyed()
 	{
@@ -14,14 +14,14 @@ namespace GameEngine
 	}
 	std::weak_ptr<GameEntity> Component::getEntity()
 	{
-		return m_ownerEntity;
+		return m_OwnerEntity;
 	}
 	void Component::setEnabled(bool isEnable)
 	{
-		m_isEnabled = isEnable;
+		m_IsEnabled = isEnable;
 	}
 	bool Component::getEnabled()
 	{
-		return m_isEnabled;
+		return m_IsEnabled;
 	}
 }

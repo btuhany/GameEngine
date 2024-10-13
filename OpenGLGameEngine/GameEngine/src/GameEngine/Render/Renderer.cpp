@@ -50,17 +50,17 @@ namespace GameEngine
 			}
 
 		//Set point lights
-			renderComponent->GetRenderDataShader()->UseShader();
-			renderComponent->GetRenderDataShader()->SetPointLights(pLightList, plightCount, 4, 0);
+			renderComponent->getRenderDataShader()->UseShader();
+			renderComponent->getRenderDataShader()->SetPointLights(pLightList, plightCount, 4, 0);
 		
 
 		//Set spot lights
-			renderComponent->GetRenderDataShader()->UseShader();
-			renderComponent->GetRenderDataShader()->SetSpotLights(sLightList, slightCount, 4 + plightCount, plightCount);
+			renderComponent->getRenderDataShader()->UseShader();
+			renderComponent->getRenderDataShader()->SetSpotLights(sLightList, slightCount, 4 + plightCount, plightCount);
 		
 
 		//Render scene
-			auto renderShader = renderComponent->GetRenderDataShader();
+			auto renderShader = renderComponent->getRenderDataShader();
 			renderShader->UseShader();
 
 			glUniform3f(renderShader->GetCameraPositionLocation(), m_Camera->GetCameraPosition().x, m_Camera->GetCameraPosition().y, m_Camera->GetCameraPosition().z);
@@ -84,7 +84,7 @@ namespace GameEngine
 			}
 
 			renderShader->Validate();
-			renderComponent->Render(renderComponent->GetRenderDataShader()->GetModelLocation());
+			renderComponent->Render(renderComponent->getRenderDataShader()->GetModelLocation());
 		}
 	}
 

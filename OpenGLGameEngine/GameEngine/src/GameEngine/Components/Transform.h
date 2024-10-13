@@ -15,12 +15,10 @@ namespace GameEngine
 		void Scale(glm::vec3 scaleVector);
 		glm::mat4 GetModelMatrix();
 		glm::vec3 GetPosition();
+		ComponentType getType() override;
 	private:
 		glm::mat4 m_ModelMatrix = glm::mat4(1.0f);
 		glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
-
-		// Inherited via Component
-		ComponentType getType() override;
 	};
 }
 

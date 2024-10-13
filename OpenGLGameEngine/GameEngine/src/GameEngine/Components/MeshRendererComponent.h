@@ -13,9 +13,9 @@ namespace GameEngine
 	public:
 		void Render(GLuint modelLocation) override;
 		void setMeshRenderData(std::shared_ptr<MeshRenderData> meshRenderData);
-		std::shared_ptr<Shader> GetRenderDataShader() override;
+		std::shared_ptr<Shader> getRenderDataShader() override;
 	private:
 		std::shared_ptr<MeshRenderData> m_MeshRenderData;
-		void DrawMesh(GLuint uniformModel);
+		void drawMesh(GLuint uniformModel);
 	};
 }

@@ -5,7 +5,7 @@ namespace GameEngine
 {
 	void MeshRendererComponent::Render(GLuint modelLocation)
 	{
-		DrawMesh(modelLocation);
+		drawMesh(modelLocation);
 	}
 
 	void MeshRendererComponent::setMeshRenderData(std::shared_ptr<MeshRenderData> meshRenderData)
@@ -13,19 +13,19 @@ namespace GameEngine
 		m_MeshRenderData = meshRenderData;
 	}
 
-	std::shared_ptr<Shader> MeshRendererComponent::GetRenderDataShader()
+	std::shared_ptr<Shader> MeshRendererComponent::getRenderDataShader()
 	{
 		return m_MeshRenderData->shader;
 	}
 
-	void MeshRendererComponent::DrawMesh(GLuint uniformModel)
+	void MeshRendererComponent::drawMesh(GLuint uniformModel)
 	{
-		if (m_ownerEntity.expired())
+		if (m_OwnerEntity.expired())
 		{
 			LOG_CORE_WARN("MeshRendererComponent::DrawMesh owner entity is exprired!");
 			return;
 		}
-		auto ownerEntityPtr = m_ownerEntity.lock();
+		auto ownerEntityPtr = m_OwnerEntity.lock();
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(ownerEntityPtr->transform->GetModelMatrix()));
 		m_MeshRenderData->material->UseMaterial(m_MeshRenderData->shader->GetMatSpecularIntensityLocation(), m_MeshRenderData->shader->GetMatShininessLocation());
 		if (m_MeshRenderData->texture != NULL)

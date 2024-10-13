@@ -13,9 +13,7 @@ namespace GameEngine
 	public:
 		virtual void Render(GLuint modelLocation) = 0;
 		virtual void HandleOnPreOwnerDestroyed() override;
-		virtual std::shared_ptr<Shader> GetRenderDataShader();
-
-		// Inherited via Component
+		virtual std::shared_ptr<Shader> getRenderDataShader();
 		ComponentType getType() override;
 	};
 }

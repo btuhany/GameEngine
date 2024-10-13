@@ -12,7 +12,7 @@ namespace GameEngine
 		m_ModelRenderData = modelRenderData;
 	}
 
-	std::shared_ptr<Shader> ModelRendererComponent::GetRenderDataShader()
+	std::shared_ptr<Shader> ModelRendererComponent::getRenderDataShader()
 	{
 		return m_ModelRenderData->shader;
 	}
@@ -20,12 +20,12 @@ namespace GameEngine
 	void ModelRendererComponent::DrawModel(GLuint uniformModel)
 	{
 		//TODOby
-		if (m_ownerEntity.expired())
+		if (m_OwnerEntity.expired())
 		{
 			LOG_CORE_WARN("ModelRendererComponent::DrawModel owner entity is exprired!");
 			return;
 		}
-		auto ownerEntityPtr = m_ownerEntity.lock();
+		auto ownerEntityPtr = m_OwnerEntity.lock();
 
 		m_ModelRenderData->material->UseMaterial(m_ModelRenderData->shader->GetMatSpecularIntensityLocation(), m_ModelRenderData->shader->GetMatShininessLocation());
 
