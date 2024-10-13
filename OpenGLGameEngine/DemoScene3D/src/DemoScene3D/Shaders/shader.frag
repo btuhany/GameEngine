@@ -24,6 +24,7 @@ struct PointLight
 	float constant;
 	float linear;
 	float exponent;
+	bool useOmniShadow;
 };
 struct SpotLight
 {
@@ -54,6 +55,8 @@ uniform DirectionalLight directionalLight;
 uniform PointLight pointLights[MAX_POINT_LIGHTS];
 uniform SpotLight spotLights[MAX_SPOT_LIGHTS];
 
+uniform bool useDirLightShadow;
+
 uniform sampler2D theTexture;
 uniform sampler2D directionalShadowMap;
 uniform OmniShadowMap omniShadowMaps[MAX_POINT_LIGHTS + MAX_SPOT_LIGHTS];
@@ -73,6 +76,9 @@ vec3 sampleOffsetDirections[20] = vec3[]
 
 float CalcDirectionalShadowFactor(DirectionalLight dLight)
 {
+	if (!useDirLightShadow)
+		return 0.0;
+
 	vec3 projCoords = DirectionalLightSpacePos.xyz / DirectionalLightSpacePos.w;  //projCoords will be between -1.0 - 1.0
 	projCoords = (projCoords * 0.5) + 0.5; //0.0 - 1.0
 
@@ -108,6 +114,10 @@ float CalcDirectionalShadowFactor(DirectionalLight dLight)
 
 float CalcOmniShadowFactor(PointLight light, int shadowIndex)
 {
+	if (!light.useOmniShadow)
+	{
+		return 0.0f;
+	}
 	vec3 fragToLight = FragPos - light.position;
 	float currentDepth = length(fragToLight);
 

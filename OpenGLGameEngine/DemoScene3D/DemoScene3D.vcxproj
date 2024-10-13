@@ -272,6 +272,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\DemoScene3D\DemoSceneInputHandler.cpp" />
+    <ClCompile Include="src\DemoScene3D\DemoApp.cpp" />
     <ClCompile Include="src\DemoScene3D\DemoScene3D.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -291,6 +293,8 @@
     <Image Include="src\DemoScene3D\Textures\spiderman.PNG" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\DemoScene3D\DemoSceneInputHandler.h" />
+    <ClInclude Include="src\DemoScene3D\DemoApp.h" />
     <ClInclude Include="src\DemoScene3D\DemoScene3D.h" />
   </ItemGroup>
   <ItemGroup>

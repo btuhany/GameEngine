@@ -35,67 +35,98 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\GameEngine\Core\EntryPoint.cpp" />
-    <ClCompile Include="src\GameEngine\Core\Log.cpp" />
-    <ClCompile Include="src\GameEngine\Core\Camera.cpp" />
-    <ClCompile Include="src\GameEngine\Core\DirectionalLight.cpp" />
-    <ClCompile Include="src\GameEngine\Core\Light.cpp" />
-    <ClCompile Include="src\GameEngine\Core\Engine.cpp" />
-    <ClCompile Include="src\GameEngine\Core\Material.cpp" />
-    <ClCompile Include="src\GameEngine\Core\Mesh.cpp" />
-    <ClCompile Include="src\GameEngine\Core\Model.cpp" />
-    <ClCompile Include="src\GameEngine\Core\OmniShadowMap.cpp" />
-    <ClCompile Include="src\GameEngine\Core\PointLight.cpp" />
-    <ClCompile Include="src\GameEngine\Core\Shader.cpp" />
-    <ClCompile Include="src\GameEngine\Core\ShadowMap.cpp" />
-    <ClCompile Include="src\GameEngine\Core\Skybox.cpp" />
-    <ClCompile Include="src\GameEngine\Core\SpotLight.cpp" />
-    <ClCompile Include="src\GameEngine\Core\Texture.cpp" />
-    <ClCompile Include="src\GameEngine\Core\Window.cpp" />
-    <ClCompile Include="src\GameEngine\Core\Scene.cpp" />
-    <ClCompile Include="src\GameEngine\Core\RenderableObject.cpp" />
-    <ClCompile Include="src\GameEngine\Core\Renderer.cpp" />
-    <ClCompile Include="src\GameEngine\Core\RenderableData.cpp" />
+    <ClCompile Include="src\GameEngine\Render\RenderData.cpp" />
+    <ClCompile Include="src\GameEngine\Render\Renderer.cpp" />
+    <ClCompile Include="src\GameEngine\Resource\ModelData.cpp" />
+    <ClCompile Include="src\GameEngine\Render\ModelRenderData.cpp" />
+    <ClCompile Include="src\GameEngine\Components\ModelRendererComponent.cpp" />
+    <ClCompile Include="src\GameEngine\Entities\ModelEntity.cpp" />
+    <ClCompile Include="src\GameEngine\Render\MeshRenderData.cpp" />
+    <ClCompile Include="src\GameEngine\Resource\MeshData.cpp" />
+    <ClCompile Include="src\GameEngine\Components\MeshRendererComponent.cpp" />
+    <ClCompile Include="src\GameEngine\Components\RendererComponent.cpp" />
+    <ClCompile Include="src\GameEngine\Entities\MeshEntity.cpp" />
+    <ClCompile Include="src\GameEngine\Entities\RenderableEntity.cpp" />
+    <ClCompile Include="src\GameEngine\Components\Component.cpp" />
+    <ClCompile Include="src\GameEngine\Entities\GameEntity.cpp" />
+    <ClCompile Include="src\GameEngine\Resource\Sprite.cpp" />
+    <ClCompile Include="src\GameEngine\Event\SimpleEvent.cpp" />
+    <ClCompile Include="src\GameEngine\Engine\Input.cpp" />
+    <ClCompile Include="src\GameEngine\Engine\Application.cpp" />
+    <ClCompile Include="src\GameEngine\Debug\Log.cpp" />
+    <ClCompile Include="src\GameEngine\Scene\Camera.cpp" />
+    <ClCompile Include="src\GameEngine\Scene\DirectionalLight.cpp" />
+    <ClCompile Include="src\GameEngine\Scene\Light.cpp" />
+    <ClCompile Include="src\GameEngine\Engine\Engine.cpp" />
+    <ClCompile Include="src\GameEngine\Resource\Material.cpp" />
+    <ClCompile Include="src\GameEngine\Scene\OmniShadowMap.cpp" />
+    <ClCompile Include="src\GameEngine\Scene\PointLight.cpp" />
+    <ClCompile Include="src\GameEngine\Resource\Shader.cpp" />
+    <ClCompile Include="src\GameEngine\Scene\ShadowMap.cpp" />
+    <ClCompile Include="src\GameEngine\Scene\Skybox.cpp" />
+    <ClCompile Include="src\GameEngine\Scene\SpotLight.cpp" />
+    <ClCompile Include="src\GameEngine\Resource\Texture.cpp" />
+    <ClCompile Include="src\GameEngine\Engine\Window.cpp" />
+    <ClCompile Include="src\GameEngine\Scene\Scene.cpp" />
+    <ClCompile Include="src\GameEngine\Components\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\GameEngine\Core\EntryPoint.h" />
-    <ClInclude Include="src\GameEngine\Core\Log.h" />
-    <ClInclude Include="src\GameEngine\Core\Camera.h" />
-    <ClInclude Include="src\GameEngine\Core\ConstantValues.h" />
-    <ClInclude Include="src\GameEngine\Core\Core.h" />
-    <ClInclude Include="src\GameEngine\Core\DirectionalLight.h" />
+    <ClInclude Include="src\GameEngine\Render\RenderData.h" />
+    <ClInclude Include="src\GameEngine\Event\ComponentEvent.h" />
+    <ClInclude Include="src\GameEngine\Render\Renderer.h" />
+    <ClInclude Include="src\GameEngine\Event\EventManager.h" />
+    <ClInclude Include="src\GameEngine\Event\Event.h" />
+    <ClInclude Include="src\GameEngine\Resource\ModelData.h" />
+    <ClInclude Include="src\GameEngine\Render\ModelRenderData.h" />
+    <ClInclude Include="src\GameEngine\Components\ModelRendererComponent.h" />
+    <ClInclude Include="src\GameEngine\Entities\ModelEntity.h" />
+    <ClInclude Include="src\GameEngine\Render\MeshRenderData.h" />
+    <ClInclude Include="src\GameEngine\Resource\MeshData.h" />
+    <ClInclude Include="src\GameEngine\Components\MeshRendererComponent.h" />
+    <ClInclude Include="src\GameEngine\Components\RendererComponent.h" />
+    <ClInclude Include="src\GameEngine\Entities\MeshEntity.h" />
+    <ClInclude Include="src\GameEngine\Entities\RenderableEntity.h" />
+    <ClInclude Include="src\GameEngine\Components\Component.h" />
+    <ClInclude Include="src\GameEngine\Entities\GameEntity.h" />
+    <ClInclude Include="src\GameEngine\Resource\Sprite.h" />
+    <ClInclude Include="src\GameEngine\Scene\CameraTypeEnum.h" />
+    <ClInclude Include="src\GameEngine\Event\SimpleEvent.h" />
+    <ClInclude Include="src\GameEngine\Engine\Input.h" />
+    <ClInclude Include="src\GameEngine\Engine\Application.h" />
+    <ClInclude Include="src\EntryPoint.h" />
+    <ClInclude Include="src\GameEngine\Debug\Log.h" />
+    <ClInclude Include="src\GameEngine\Scene\Camera.h" />
+    <ClInclude Include="src\GameEngine\ConstantValues.h" />
+    <ClInclude Include="src\GameEngine\Core.h" />
+    <ClInclude Include="src\GameEngine\Scene\DirectionalLight.h" />
     <ClInclude Include="src\GameEngine.h" />
-    <ClInclude Include="src\GameEngine\Core\Light.h" />
-    <ClInclude Include="src\GameEngine\Core\Material.h" />
-    <ClInclude Include="src\GameEngine\Core\Mesh.h" />
-    <ClInclude Include="src\GameEngine\Core\Model.h" />
-    <ClInclude Include="src\GameEngine\Core\OmniShadowMap.h" />
-    <ClInclude Include="src\GameEngine\Core\PointLight.h" />
-    <ClInclude Include="src\GameEngine\Core\Shader.h" />
-    <ClInclude Include="src\GameEngine\Core\ShadowMap.h" />
-    <ClInclude Include="src\GameEngine\Core\Skybox.h" />
-    <ClInclude Include="src\GameEngine\Core\SpotLight.h" />
-    <ClInclude Include="src\GameEngine\Core\Texture.h" />
-    <ClInclude Include="src\GameEngine\Core\Window.h" />
-    <ClInclude Include="src\GameEngine\Core\Engine.h" />
-    <ClInclude Include="src\GameEngine\Core\Scene.h" />
-    <ClInclude Include="src\GameEngine\Core\RenderableObject.h" />
-    <ClInclude Include="src\GameEngine\Core\Renderer.h" />
-    <ClInclude Include="src\GameEngine\Core\RenderableData.h" />
-    <ClInclude Include="src\GameEngine\Core\IRenderable.h" />
+    <ClInclude Include="src\GameEngine\Scene\Light.h" />
+    <ClInclude Include="src\GameEngine\Resource\Material.h" />
+    <ClInclude Include="src\GameEngine\Scene\OmniShadowMap.h" />
+    <ClInclude Include="src\GameEngine\Scene\PointLight.h" />
+    <ClInclude Include="src\GameEngine\Resource\Shader.h" />
+    <ClInclude Include="src\GameEngine\Scene\ShadowMap.h" />
+    <ClInclude Include="src\GameEngine\Scene\Skybox.h" />
+    <ClInclude Include="src\GameEngine\Scene\SpotLight.h" />
+    <ClInclude Include="src\GameEngine\Resource\Texture.h" />
+    <ClInclude Include="src\GameEngine\Engine\Window.h" />
+    <ClInclude Include="src\GameEngine\Engine\Engine.h" />
+    <ClInclude Include="src\GameEngine\Scene\Scene.h" />
+    <ClInclude Include="src\GameEngine\Components\Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assimp-vc143-mt.dll" />
+    <None Include="doc\Notes.md" />
     <None Include="glew32.dll" />
-    <None Include="src\GameEngine\Shaders\directional_shadow_map.frag" />
-    <None Include="src\GameEngine\Shaders\directional_shadow_map.vert" />
-    <None Include="src\GameEngine\Shaders\omni_shadow_map.frag" />
-    <None Include="src\GameEngine\Shaders\omni_shadow_map.geom" />
-    <None Include="src\GameEngine\Shaders\omni_shadow_map.vert" />
-    <None Include="src\GameEngine\Shaders\shader.frag" />
-    <None Include="src\GameEngine\Shaders\shader.vert" />
-    <None Include="src\GameEngine\Shaders\skybox.frag" />
-    <None Include="src\GameEngine\Shaders\skybox.vert" />
+    <None Include="src\Resources\Shaders\directional_shadow_map.frag" />
+    <None Include="src\Resources\Shaders\directional_shadow_map.vert" />
+    <None Include="src\Resources\Shaders\omni_shadow_map.frag" />
+    <None Include="src\Resources\Shaders\omni_shadow_map.geom" />
+    <None Include="src\Resources\Shaders\omni_shadow_map.vert" />
+    <None Include="src\Resources\Shaders\shader.frag" />
+    <None Include="src\Resources\Shaders\shader.vert" />
+    <None Include="src\Resources\Shaders\skybox.frag" />
+    <None Include="src\Resources\Shaders\skybox.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -227,7 +258,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;GAME_ENGINE_WINDOWS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../ExternalLibs/GLEW/include;$(SolutionDir)/../ExternalLibs/GLM;$(SolutionDir)/../ExternalLibs/GLFW/include;$(SolutionDir)/../ExternalLibs/ASSIMP/include;$(SolutionDir)/../ExternalLibs/STB_IMAGE;$(SolutionDir)/../ExternalLibs/SPDLOG/spdlog-1.x/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../ExternalLibs/GLEW/include;$(SolutionDir)/../ExternalLibs/GLM;$(SolutionDir)/../ExternalLibs/GLFW/include;$(SolutionDir)/../ExternalLibs/ASSIMP/include;$(SolutionDir)/../ExternalLibs/STB_IMAGE;$(SolutionDir)/../ExternalLibs/SPDLOG/spdlog-1.x/include;$(SolutionDir)/GameEngine/src/GameEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
