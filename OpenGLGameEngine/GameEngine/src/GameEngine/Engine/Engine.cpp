@@ -113,12 +113,12 @@ namespace GameEngine {
 			if (m_ShadowPassActive)
 			{
 				if (renderDirLightShadow)
-					m_Renderer->directionalShadowMapPass(m_Scene->GetDirectionalLight());
+					m_Renderer->DirectionalShadowMapPass(m_Scene->GetDirectionalLight());
 				if (renderOmniLightShadow)
-					m_Renderer->omniShadowMapPass(m_Scene->m_OmniShadowShader, m_Scene->m_PointLightList, m_Scene->GetPointLightCount(),
+					m_Renderer->OmniShadowMapPass(m_Scene->m_OmniShadowShader, m_Scene->m_PointLightList, m_Scene->GetPointLightCount(),
 						m_Scene->m_SpotLightList, m_Scene->m_SpotLightCount);
 			}
-			m_Renderer->renderPass(projection, m_Scene->m_PointLightList, m_Scene->GetPointLightCount(),
+			m_Renderer->RenderPass(projection, m_Scene->m_PointLightList, m_Scene->GetPointLightCount(),
 				m_Scene->m_SpotLightList, m_Scene->m_SpotLightCount);
 
 			m_MainWindow->SwapBuffers();

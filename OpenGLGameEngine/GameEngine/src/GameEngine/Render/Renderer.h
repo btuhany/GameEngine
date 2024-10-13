@@ -20,10 +20,9 @@ namespace GameEngine
 		~Renderer();
 		//Renderer(std::shared_ptr<Skybox> skybox, glm::vec3 backgroundColor, std::shared_ptr<Camera> camera);
 		void Initialize(Scene* scene);
-	public:
-		void renderPass(glm::mat4 projectionMatrix, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount);
-		void directionalShadowMapPass(DirectionalLight* dLight);
-		void omniShadowMapPass(Shader* omniShadowShader, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount);
+		void RenderPass(glm::mat4 projectionMatrix, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount);
+		void DirectionalShadowMapPass(DirectionalLight* dLight);
+		void OmniShadowMapPass(Shader* omniShadowShader, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount);
 	private:
 		//std::vector<std::shared_ptr<MeshRendererComponent>> m_meshRendererComponents;
 		//std::vector<std::shared_ptr<ModelRendererComponent>> m_modelRendererComponents;

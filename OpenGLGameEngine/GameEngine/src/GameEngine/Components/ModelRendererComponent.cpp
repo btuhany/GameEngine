@@ -35,18 +35,18 @@ namespace GameEngine
 		}
 
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(ownerEntityPtr->transform->GetModelMatrix()));
-		for (size_t i = 0; i < m_ModelRenderData->model->m_MeshList.size(); i++)
+		for (size_t i = 0; i < m_ModelRenderData->model->meshList.size(); i++)
 		{
-			unsigned int materialIndex = m_ModelRenderData->model->m_MeshToTex[i];
+			unsigned int materialIndex = m_ModelRenderData->model->meshToTexList[i];
 
-			if (materialIndex < m_ModelRenderData->model->m_TextureList.size() && m_ModelRenderData->model->m_TextureList[materialIndex])
+			if (materialIndex < m_ModelRenderData->model->textureList.size() && m_ModelRenderData->model->textureList[materialIndex])
 			{
-				m_ModelRenderData->model->m_TextureList[materialIndex]->UseTexture();
+				m_ModelRenderData->model->textureList[materialIndex]->UseTexture();
 			}
 
-			glBindVertexArray(m_ModelRenderData->model->m_MeshList[i]->GetVAO());
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ModelRenderData->model->m_MeshList[i]->GetIBO());
-			glDrawElements(GL_TRIANGLES, m_ModelRenderData->model->m_MeshList[i]->GetIndexCount(), GL_UNSIGNED_INT, 0);
+			glBindVertexArray(m_ModelRenderData->model->meshList[i]->GetVAO());
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ModelRenderData->model->meshList[i]->GetIBO());
+			glDrawElements(GL_TRIANGLES, m_ModelRenderData->model->meshList[i]->GetIndexCount(), GL_UNSIGNED_INT, 0);
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 			glBindVertexArray(0);
 		}

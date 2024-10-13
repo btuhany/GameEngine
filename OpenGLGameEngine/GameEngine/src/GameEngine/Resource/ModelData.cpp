@@ -5,6 +5,10 @@ namespace GameEngine
 	ModelData::ModelData()
 	{
 	}
+	ModelData::~ModelData()
+	{
+		ClearModel();
+	}
 	void ModelData::LoadModel(const std::string& fileName)
 	{
 		Assimp::Importer importer;
@@ -22,20 +26,20 @@ namespace GameEngine
 	}
 	void ModelData::ClearModel()
 	{
-		for (size_t i = 0; i < m_MeshList.size(); i++)
+		for (size_t i = 0; i < meshList.size(); i++)
 		{
-			if (m_MeshList[i])
+			if (meshList[i])
 			{
-				delete m_MeshList[i];
-				m_MeshList[i] = nullptr;
+				delete meshList[i];
+				meshList[i] = nullptr;
 			}
 		}
-		for (size_t i = 0; i < m_TextureList.size(); i++)
+		for (size_t i = 0; i < textureList.size(); i++)
 		{
-			if (m_TextureList[i])
+			if (textureList[i])
 			{
-				delete m_TextureList[i];
-				m_TextureList[i] = nullptr;
+				delete textureList[i];
+				textureList[i] = nullptr;
 			}
 		}
 	}
@@ -83,18 +87,18 @@ namespace GameEngine
 
 		MeshData* newMesh = new MeshData();
 		newMesh->CreateMesh(&vertices[0], &indices[0], vertices.size(), indices.size());
-		m_MeshList.push_back(newMesh);
-		m_MeshToTex.push_back(mesh->mMaterialIndex);
+		meshList.push_back(newMesh);
+		meshToTexList.push_back(mesh->mMaterialIndex);
 	}
 	void ModelData::loadMaterials(const aiScene* scene)
 	{
-		m_TextureList.resize(scene->mNumMaterials);
+		textureList.resize(scene->mNumMaterials);
 
 		for (size_t i = 0; i < scene->mNumMaterials; i++)
 		{
 			aiMaterial* material = scene->mMaterials[i];
 
-			m_TextureList[i] = nullptr;
+			textureList[i] = nullptr;
 
 			if (material->GetTextureCount(aiTextureType_DIFFUSE))
 			{
@@ -106,21 +110,21 @@ namespace GameEngine
 
 					std::string texPath = std::string("src/DemoScene3D/Textures/") + fileName;
 
-					m_TextureList[i] = new Texture(texPath.c_str());
+					textureList[i] = new Texture(texPath.c_str());
 
-					if (!m_TextureList[i]->LoadTexture())
+					if (!textureList[i]->LoadTexture())
 					{
 						printf("Failed to load texture at %s\n", texPath);
-						delete m_TextureList[i];
-						m_TextureList[i] = nullptr;
+						delete textureList[i];
+						textureList[i] = nullptr;
 					}
 				}
 			}
 
-			if (!m_TextureList[i])
+			if (!textureList[i])
 			{
-				m_TextureList[i] = new Texture("src/DemoScene3D/Textures/plain.png");
-				m_TextureList[i]->LoadTextureWithAlpha();
+				textureList[i] = new Texture("src/DemoScene3D/Textures/plain.png");
+				textureList[i]->LoadTextureWithAlpha();
 			}
 		}
 	}

@@ -12,12 +12,12 @@ namespace GameEngine
 	{
 	public:
 		ModelData();
+		~ModelData();
 		void LoadModel(const std::string& fileName);
-		//void Render() override;
 		void ClearModel();
-		std::vector<MeshData*> m_MeshList;
-		std::vector<Texture*> m_TextureList;
-		std::vector<unsigned int> m_MeshToTex;
+		std::vector<MeshData*> meshList;
+		std::vector<Texture*> textureList;
+		std::vector<unsigned int> meshToTexList;
 	private:
 		void loadNode(aiNode* node, const aiScene* scene);
 		void loadMesh(aiMesh* mesh, const aiScene* scene);

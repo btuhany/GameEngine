@@ -27,7 +27,7 @@ namespace GameEngine
 		m_IsInitialized = true;
 	}
 
-	void Renderer::renderPass(glm::mat4 projectionMatrix, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount)
+	void Renderer::RenderPass(glm::mat4 projectionMatrix, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount)
 	{
 		//TODO Initialize check;
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -88,7 +88,7 @@ namespace GameEngine
 		}
 	}
 
-	void Renderer::directionalShadowMapPass(DirectionalLight* dLight)
+	void Renderer::DirectionalShadowMapPass(DirectionalLight* dLight)
 	{
 		if (dLight == nullptr)
 		{
@@ -128,7 +128,7 @@ namespace GameEngine
 		}
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
-	void Renderer::omniShadowMapPass(Shader* omniShadowShader, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount)
+	void Renderer::OmniShadowMapPass(Shader* omniShadowShader, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount)
 	{
 		if (plightCount + slightCount == 0)
 		{
