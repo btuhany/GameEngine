@@ -7,7 +7,7 @@ namespace GameEngine
 		DrawModel(modelLocation);
 	}
 
-	Shader* ModelRendererComponent::GetRenderDataShader()
+	std::shared_ptr<Shader> ModelRendererComponent::GetRenderDataShader()
 	{
 		return modelRenderData->shader;
 	}
@@ -22,26 +22,26 @@ namespace GameEngine
 		}
 		auto ownerEntityPtr = m_ownerEntity.lock();
 
-		modelRenderData->materialData->UseMaterial(modelRenderData->shader->GetMatSpecularIntensityLocation(), modelRenderData->shader->GetMatShininessLocation());
+		modelRenderData->material->UseMaterial(modelRenderData->shader->GetMatSpecularIntensityLocation(), modelRenderData->shader->GetMatShininessLocation());
 
-		if (modelRenderData->textureData != NULL)
+		if (modelRenderData->texture != NULL)
 		{
-			modelRenderData->textureData->UseTexture();
+			modelRenderData->texture->UseTexture();
 		}
 
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(ownerEntityPtr->transform->GetModelMatrix()));
-		for (size_t i = 0; i < modelRenderData->modelData->m_MeshList.size(); i++)
+		for (size_t i = 0; i < modelRenderData->model->m_MeshList.size(); i++)
 		{
-			unsigned int materialIndex = modelRenderData->modelData->m_MeshToTex[i];
+			unsigned int materialIndex = modelRenderData->model->m_MeshToTex[i];
 
-			if (materialIndex < modelRenderData->modelData->m_TextureList.size() && modelRenderData->modelData->m_TextureList[materialIndex])
+			if (materialIndex < modelRenderData->model->m_TextureList.size() && modelRenderData->model->m_TextureList[materialIndex])
 			{
-				modelRenderData->modelData->m_TextureList[materialIndex]->UseTexture();
+				modelRenderData->model->m_TextureList[materialIndex]->UseTexture();
 			}
 
-			glBindVertexArray(modelRenderData->modelData->m_MeshList[i]->GetVAO());
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, modelRenderData->modelData->m_MeshList[i]->GetIBO());
-			glDrawElements(GL_TRIANGLES, modelRenderData->modelData->m_MeshList[i]->GetIndexCount(), GL_UNSIGNED_INT, 0);
+			glBindVertexArray(modelRenderData->model->m_MeshList[i]->GetVAO());
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, modelRenderData->model->m_MeshList[i]->GetIBO());
+			glDrawElements(GL_TRIANGLES, modelRenderData->model->m_MeshList[i]->GetIndexCount(), GL_UNSIGNED_INT, 0);
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 			glBindVertexArray(0);
 		}

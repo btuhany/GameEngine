@@ -8,7 +8,7 @@ namespace GameEngine
 		DrawMesh(modelLocation);
 	}
 
-	Shader* MeshRendererComponent::GetRenderDataShader()
+	std::shared_ptr<Shader> MeshRendererComponent::GetRenderDataShader()
 	{
 		return meshRenderData->shader;
 	}
@@ -22,13 +22,13 @@ namespace GameEngine
 		}
 		auto ownerEntityPtr = m_ownerEntity.lock();
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(ownerEntityPtr->transform->GetModelMatrix()));
-		meshRenderData->materialData->UseMaterial(meshRenderData->shader->GetMatSpecularIntensityLocation(), meshRenderData->shader->GetMatShininessLocation());
-		if (meshRenderData->textureData != NULL)
+		meshRenderData->material->UseMaterial(meshRenderData->shader->GetMatSpecularIntensityLocation(), meshRenderData->shader->GetMatShininessLocation());
+		if (meshRenderData->texture != NULL)
 		{
-			meshRenderData->textureData->UseTexture();
+			meshRenderData->texture->UseTexture();
 		}
 
-		auto meshData = meshRenderData->meshData;
+		auto meshData = meshRenderData->mesh;
 		glBindVertexArray(meshData->GetVAO());
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshData->GetIBO());
 		glDrawElements(GL_TRIANGLES, meshData->GetIndexCount(), GL_UNSIGNED_INT, 0);

@@ -13,7 +13,7 @@ namespace GameEngine
 	{
 	public:
 		void Render(GLuint modelLocation) override;
-		Shader* GetRenderDataShader() override;
+		std::shared_ptr<Shader> GetRenderDataShader() override;
 		std::shared_ptr<ModelRenderData> modelRenderData;
 	private:
 		void DrawModel(GLuint uniformModel);
