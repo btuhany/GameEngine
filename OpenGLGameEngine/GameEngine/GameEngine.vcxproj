@@ -49,7 +49,6 @@
     <ClCompile Include="src\GameEngine\Entities\RenderableEntity.cpp" />
     <ClCompile Include="src\GameEngine\Components\Component.cpp" />
     <ClCompile Include="src\GameEngine\Entities\GameEntity.cpp" />
-    <ClCompile Include="src\GameEngine\Legacy\IShadowMapRenderable.cpp" />
     <ClCompile Include="src\GameEngine\Resource\Sprite.cpp" />
     <ClCompile Include="src\GameEngine\Event\SimpleEvent.cpp" />
     <ClCompile Include="src\GameEngine\Engine\Input.cpp" />
@@ -60,8 +59,6 @@
     <ClCompile Include="src\GameEngine\Scene\Light.cpp" />
     <ClCompile Include="src\GameEngine\Engine\Engine.cpp" />
     <ClCompile Include="src\GameEngine\Resource\Material.cpp" />
-    <ClCompile Include="src\GameEngine\Legacy\Mesh.cpp" />
-    <ClCompile Include="src\GameEngine\Legacy\Model.cpp" />
     <ClCompile Include="src\GameEngine\Scene\OmniShadowMap.cpp" />
     <ClCompile Include="src\GameEngine\Scene\PointLight.cpp" />
     <ClCompile Include="src\GameEngine\Resource\Shader.cpp" />
@@ -71,9 +68,6 @@
     <ClCompile Include="src\GameEngine\Resource\Texture.cpp" />
     <ClCompile Include="src\GameEngine\Engine\Window.cpp" />
     <ClCompile Include="src\GameEngine\Scene\Scene.cpp" />
-    <ClCompile Include="src\GameEngine\Legacy\Renderable3DObject.cpp" />
-    <ClCompile Include="src\GameEngine\Legacy\MeshRenderer.cpp" />
-    <ClCompile Include="src\GameEngine\Legacy\RenderableData.cpp" />
     <ClCompile Include="src\GameEngine\Components\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -94,7 +88,6 @@
     <ClInclude Include="src\GameEngine\Entities\RenderableEntity.h" />
     <ClInclude Include="src\GameEngine\Components\Component.h" />
     <ClInclude Include="src\GameEngine\Entities\GameEntity.h" />
-    <ClInclude Include="src\GameEngine\Legacy\IShadowMapRenderable.h" />
     <ClInclude Include="src\GameEngine\Resource\Sprite.h" />
     <ClInclude Include="src\GameEngine\Scene\CameraTypeEnum.h" />
     <ClInclude Include="src\GameEngine\Event\SimpleEvent.h" />
@@ -109,8 +102,6 @@
     <ClInclude Include="src\GameEngine.h" />
     <ClInclude Include="src\GameEngine\Scene\Light.h" />
     <ClInclude Include="src\GameEngine\Resource\Material.h" />
-    <ClInclude Include="src\GameEngine\Legacy\Mesh.h" />
-    <ClInclude Include="src\GameEngine\Legacy\Model.h" />
     <ClInclude Include="src\GameEngine\Scene\OmniShadowMap.h" />
     <ClInclude Include="src\GameEngine\Scene\PointLight.h" />
     <ClInclude Include="src\GameEngine\Resource\Shader.h" />
@@ -121,10 +112,6 @@
     <ClInclude Include="src\GameEngine\Engine\Window.h" />
     <ClInclude Include="src\GameEngine\Engine\Engine.h" />
     <ClInclude Include="src\GameEngine\Scene\Scene.h" />
-    <ClInclude Include="src\GameEngine\Legacy\Renderable3DObject.h" />
-    <ClInclude Include="src\GameEngine\Legacy\MeshRenderer.h" />
-    <ClInclude Include="src\GameEngine\Legacy\RenderableData.h" />
-    <ClInclude Include="src\GameEngine\Legacy\IRenderable.h" />
     <ClInclude Include="src\GameEngine\Components\Transform.h" />
   </ItemGroup>
   <ItemGroup>
