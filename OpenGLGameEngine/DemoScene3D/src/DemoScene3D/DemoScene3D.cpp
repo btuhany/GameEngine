@@ -87,22 +87,19 @@ void DemoScene3D::Initialize()
 	ironman->setName("ironMAn");
 	instantiateGameEntity(ironman);
 
-	std::shared_ptr<MeshEntity> cubeMeshEntity = std::make_shared<MeshEntity>();
-	cubeMeshEntity->renderer->meshRenderData = meshRenderData;
+	std::shared_ptr<MeshEntity> cubeMeshEntity = std::make_shared<MeshEntity>(meshRenderData);
 	cubeMeshEntity->GetComponent<Transform>()->Translate(glm::vec3(36.0f, -7.0f, -12.0f));
 	cubeMeshEntity->transform->Scale(glm::vec3(3.0f, 3.0f, 1.5f));
 	cubeMeshEntity->setName("cubeMesh");
 	instantiateGameEntity(cubeMeshEntity);
 
-	std::shared_ptr<MeshEntity> spidermanPlainEntity = std::make_shared<MeshEntity>();
-	spidermanPlainEntity->renderer->meshRenderData = plainRenderData;
+	std::shared_ptr<MeshEntity> spidermanPlainEntity = std::make_shared<MeshEntity>(plainRenderData);
 	spidermanPlainEntity->GetComponent<Transform>()->Translate(glm::vec3(0.0f, -10.0f, 0.0f));
 	spidermanPlainEntity->transform->Scale(glm::vec3(1.0f, 1.0f, 1.0f));
 	spidermanPlainEntity->setName("spidermanPlain");
 	instantiateGameEntity(spidermanPlainEntity);
 
-	std::shared_ptr<MeshEntity> spidermanCubeEntity = std::make_shared<MeshEntity>();
-	spidermanCubeEntity->renderer->meshRenderData = meshRenderData;
+	std::shared_ptr<MeshEntity> spidermanCubeEntity = std::make_shared<MeshEntity>(meshRenderData);
 	spidermanCubeEntity->transform->Translate(glm::vec3(15.0f, 10.0f, 15.0f));
 	spidermanCubeEntity->transform->Scale(glm::vec3(3.0f, 3.0f, 3.0f));
 	spidermanCubeEntity->setName("spidermanCube");
