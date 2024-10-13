@@ -38,6 +38,11 @@ TODO:
 
 6.10.24
 TODO:
-- review shared and weak pointer usages []
-- Review overall render data transfers []
-- Review scene class []
+- review shared and weak pointer usages [X]
+- Review overall render data transfers [X]
+- Review scene class [X]
+
+13.10.24
+- review scene class again []
+- review entry point []
+- start engine visual diagram
