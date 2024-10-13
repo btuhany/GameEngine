@@ -72,7 +72,7 @@ namespace GameEngine {
 		}
 		else
 		{
-			renderDirLightShadow = sceneDirLight->GetShadowMap() != nullptr;
+			renderDirLightShadow = sceneDirLight->getShadowMap() != nullptr;
 		}
 
 		if (!renderDirLightShadow)

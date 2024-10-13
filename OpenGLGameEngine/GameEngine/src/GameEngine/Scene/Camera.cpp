@@ -42,7 +42,7 @@ namespace GameEngine {
 		update();
 	}
 
-	glm::vec3 Camera::GetCameraPosition()
+	glm::vec3 Camera::getCameraPosition()
 	{
 		return m_Position;
 	}

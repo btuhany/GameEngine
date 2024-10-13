@@ -24,6 +24,11 @@ namespace GameEngine {
 		m_DiffuseIntensity = diffuseIntensityValue;
 	}
 
+	ShadowMap* Light::getShadowMap()
+	{
+		return m_ShadowMap;
+	}
+
 	Light::~Light()
 	{
 		delete m_ShadowMap;

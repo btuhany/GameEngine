@@ -16,7 +16,7 @@ namespace GameEngine
 		Camera(glm::vec3 startPosition, glm::vec3 startUpVector, GLfloat startYawVal, GLfloat startPitchVal, GLfloat startMoveSpeed, GLfloat startRotateSpeed, float fov, float nearValue, float farValue, CameraType type);
 		void HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY);
 
-		glm::vec3 GetCameraPosition();
+		glm::vec3 getCameraPosition();
 
 		glm::mat4 CalculateViewMatrix();
 		void MoveForward(float value);

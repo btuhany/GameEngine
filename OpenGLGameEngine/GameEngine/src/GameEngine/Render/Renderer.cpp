@@ -63,7 +63,7 @@ namespace GameEngine
 			auto renderShader = renderComponent->getRenderDataShader();
 			renderShader->UseShader();
 
-			glUniform3f(renderShader->GetCameraPositionLocation(), m_Camera->GetCameraPosition().x, m_Camera->GetCameraPosition().y, m_Camera->GetCameraPosition().z);
+			glUniform3f(renderShader->GetCameraPositionLocation(), m_Camera->getCameraPosition().x, m_Camera->getCameraPosition().y, m_Camera->getCameraPosition().z);
 			glUniformMatrix4fv(renderShader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 			glUniformMatrix4fv(renderShader->GetViewLocation(), 1, GL_FALSE, glm::value_ptr(m_Camera->CalculateViewMatrix()));
 
@@ -76,9 +76,9 @@ namespace GameEngine
 				//TODO: should be in if
 				glm::mat4 lightTransform = m_DirLight->CalculateLightTransform();
 				renderShader->SetDirectionalLightTransform(&lightTransform);
-				if (m_DirLight->GetShadowMap() != nullptr)
+				if (m_DirLight->getShadowMap() != nullptr)
 				{
-					m_DirLight->GetShadowMap()->Read(GL_TEXTURE3);
+					m_DirLight->getShadowMap()->Read(GL_TEXTURE3);
 					renderShader->SetDirectionalShadowMap(3);
 				}
 			}
@@ -96,14 +96,14 @@ namespace GameEngine
 			return;
 		}
 
-		if (dLight->GetShadowMap() == nullptr)
+		if (dLight->getShadowMap() == nullptr)
 		{
 			LOG_CORE_WARN("Directional light has no shadow map");
 			return;
 		}
 
-		glViewport(0, 0, dLight->GetShadowMap()->GetShadowWidth(), dLight->GetShadowMap()->GetShadowHeight());
-		dLight->GetShadowMap()->Write();
+		glViewport(0, 0, dLight->getShadowMap()->getShadowWidth(), dLight->getShadowMap()->getShadowHeight());
+		dLight->getShadowMap()->Write();
 		glClear(GL_DEPTH_BUFFER_BIT);
 
 		//RenderSceneShadowMap
@@ -144,13 +144,13 @@ namespace GameEngine
 		omniShadowShader->UseShader();
 		for (size_t i = 0; i < plightCount; i++)
 		{
-			if (pLightList[i].GetShadowMap() == nullptr)
+			if (pLightList[i].getShadowMap() == nullptr)
 			{
 				continue;
 			}
 
-			glViewport(0, 0, pLightList[i].GetShadowMap()->GetShadowWidth(), pLightList[i].GetShadowMap()->GetShadowHeight());
-			pLightList[i].GetShadowMap()->Write(); //Bind framebuffer
+			glViewport(0, 0, pLightList[i].getShadowMap()->getShadowWidth(), pLightList[i].getShadowMap()->getShadowHeight());
+			pLightList[i].getShadowMap()->Write(); //Bind framebuffer
 			glClear(GL_DEPTH_BUFFER_BIT);
 
 			for (size_t j = 0; j < m_RendererComponents.size(); j++)
@@ -179,13 +179,13 @@ namespace GameEngine
 		}
 		for (size_t i = 0; i < slightCount; i++)
 		{
-			if (sLightList[i].GetShadowMap() == nullptr)
+			if (sLightList[i].getShadowMap() == nullptr)
 			{
 				continue;
 			}
 
-			glViewport(0, 0, sLightList[i].GetShadowMap()->GetShadowWidth(), sLightList[i].GetShadowMap()->GetShadowHeight());
-			sLightList[i].GetShadowMap()->Write();  //Bind framebuffer
+			glViewport(0, 0, sLightList[i].getShadowMap()->getShadowWidth(), sLightList[i].getShadowMap()->getShadowHeight());
+			sLightList[i].getShadowMap()->Write();  //Bind framebuffer
 			glClear(GL_DEPTH_BUFFER_BIT);
 
 			for (size_t j = 0; j < m_RendererComponents.size(); j++)

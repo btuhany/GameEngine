@@ -12,8 +12,8 @@ namespace GameEngine {
 		virtual void Write();
 		virtual void Read(GLenum textureUnit);
 
-		GLuint GetShadowWidth() { return m_ShadowWidth; }
-		GLuint GetShadowHeight() { return m_ShadowHeight; }
+		GLuint getShadowWidth();
+		GLuint getShadowHeight();
 
 		~ShadowMap();
 

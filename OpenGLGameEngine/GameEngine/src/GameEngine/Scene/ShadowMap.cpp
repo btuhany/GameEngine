@@ -59,6 +59,16 @@ namespace GameEngine {
         glBindTexture(GL_TEXTURE_2D, m_ShadowMap);
     }
 
+    GLuint ShadowMap::getShadowWidth()
+    {
+        return m_ShadowWidth;
+    }
+
+    GLuint ShadowMap::getShadowHeight()
+    {
+        return m_ShadowHeight;
+    }
+
     ShadowMap::~ShadowMap()
     {
         if (m_FBO != 0)
