@@ -46,5 +46,6 @@ private:
 	std::shared_ptr<Shader> m_MainRenderShader;
 	std::shared_ptr<Shader> m_NormalRenderShader;
 	bool m_StopUpdate;
+	int m_CurrentObjectIndex = -1;
 };
 

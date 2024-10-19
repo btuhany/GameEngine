@@ -52,12 +52,13 @@ namespace GameEngine {
 		void setOmniShadowShader(std::shared_ptr<Shader> omniShadowShader);
 		void instantiateGameEntity(std::shared_ptr<GameEntity> entity, bool isActive = true);
 		void destroyGameEntity(std::shared_ptr<GameEntity> entity, bool disableFirst);
+
+		std::vector<std::shared_ptr<GameEntity>> m_GameEntities;
 	private:
 		std::shared_ptr<Camera> m_MainCamera;
 		std::shared_ptr<Shader> m_DirLightShadowShader;
 		std::shared_ptr<Shader> m_OmniShadowShader;
 		std::shared_ptr<DirectionalLight> m_DirectionalLight;
-		std::vector<std::shared_ptr<GameEntity>> m_GameEntities;
 		std::shared_ptr <Skybox> m_Skybox;
 
 		glm::vec3 m_BackgroundColour = glm::vec3(0.0f, 0.0f, 0.0f);

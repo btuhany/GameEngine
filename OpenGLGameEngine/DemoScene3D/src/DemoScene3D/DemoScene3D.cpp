@@ -22,7 +22,7 @@ void DemoScene3D::Initialize()
 
 	setCamera(std::make_shared<Camera>(glm::vec3(-10.0f, 0.0f, 0.0f), 
 		glm::vec3(0.0f, 1.0f, 0.0f), 
-		0.0f, 0.0f, 5.0f, 0.1f, 60.0f, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
+		0.0f, 0.0f, 5.0f, 0.1f, 60.0f, 0.1f, 400.0f, CAMERA_TYPE_PERSPECTIVE));
 	getCamera()->MoveLeft(45.0f);
 	getCamera()->MoveForward(10.0f);
 	getCamera()->Rotate(0.0f, 90.0f);
@@ -288,29 +288,38 @@ void DemoScene3D::initializeLights()
 void DemoScene3D::handleOnRightKey()
 {
 	//getCamera()->MoveRight(m_CameraSpeed * m_DeltaTime);
-	auto pos = m_HelicopterBig->transform->GetPosition();
-	m_HelicopterBig->transform->Translate(glm::vec3(m_ObjectMoveSpeed * m_DeltaTime, 0.0f, 0.0f));
+	if (m_CurrentObjectIndex == -1)
+		return;
+
+	auto pos = m_GameEntities[m_CurrentObjectIndex]->transform->GetPosition();
+	m_GameEntities[m_CurrentObjectIndex]->transform->Translate(glm::vec3(m_ObjectMoveSpeed * m_DeltaTime, 0.0f, 0.0f));
 }
 
 void DemoScene3D::handleOnLeftKey()
 {
+	if (m_CurrentObjectIndex == -1)
+		return;
 	//getCamera()->MoveLeft(m_CameraSpeed * m_DeltaTime);
-	auto pos = m_HelicopterBig->transform->GetPosition();
-	m_HelicopterBig->transform->Translate(glm::vec3(-(m_ObjectMoveSpeed * m_DeltaTime), 0.0f, 0.0f));
+	auto pos = m_GameEntities[m_CurrentObjectIndex]->transform->GetPosition();
+	m_GameEntities[m_CurrentObjectIndex]->transform->Translate(glm::vec3(-(m_ObjectMoveSpeed * m_DeltaTime), 0.0f, 0.0f));
 }
 
 void DemoScene3D::handleOnUpKey()
 {
+	if (m_CurrentObjectIndex == -1)
+		return;
 	//getCamera()->MoveForward(m_CameraSpeed * m_DeltaTime);
-	auto pos = m_HelicopterBig->transform->GetPosition();
-	m_HelicopterBig->transform->Translate(glm::vec3(0.0f, 0.0f, m_ObjectMoveSpeed * m_DeltaTime));
+	auto pos = m_GameEntities[m_CurrentObjectIndex]->transform->GetPosition();
+	m_GameEntities[m_CurrentObjectIndex]->transform->Translate(glm::vec3(0.0f, 0.0f, m_ObjectMoveSpeed * m_DeltaTime));
 }
 
 void DemoScene3D::handleOnDownKey()
 {
+	if (m_CurrentObjectIndex == -1)
+		return;
 	//getCamera()->MoveBack(m_CameraSpeed * m_DeltaTime);
-	auto pos = m_HelicopterBig->transform->GetPosition();
-	m_HelicopterBig->transform->Translate(glm::vec3(0.0f, 0.0f, -(m_ObjectMoveSpeed * m_DeltaTime)));
+	auto pos = m_GameEntities[m_CurrentObjectIndex]->transform->GetPosition();
+	m_GameEntities[m_CurrentObjectIndex]->transform->Translate(glm::vec3(0.0f, 0.0f, -(m_ObjectMoveSpeed * m_DeltaTime)));
 }
 
 void DemoScene3D::handleOnShiftKey(int keyState)
@@ -330,27 +339,37 @@ void DemoScene3D::handleOnShiftKey(int keyState)
 
 void DemoScene3D::handleOnSpaceKey()
 {
-	m_HelicopterBig->transform->Translate(glm::vec3(0.0f, m_ObjectMoveSpeed * 0.05f, 0.0f));
+	if (m_CurrentObjectIndex == -1)
+		return;
+	m_GameEntities[m_CurrentObjectIndex]->transform->Translate(glm::vec3(0.0f, m_ObjectMoveSpeed * 0.05f, 0.0f));
 }
 
 void DemoScene3D::handleOnCtrlKey()
 {
-	m_HelicopterBig->transform->Translate(glm::vec3(0.0f, -m_ObjectMoveSpeed * 0.05f, 0.0f));
+	if (m_CurrentObjectIndex == -1)
+		return;
+	m_GameEntities[m_CurrentObjectIndex]->transform->Translate(glm::vec3(0.0f, -m_ObjectMoveSpeed * 0.05f, 0.0f));
 }
 
 void DemoScene3D::handleOnEnableDisableKey()
 {
-	m_HelicopterBig->setActive(!m_HelicopterBig->IsActive());
+	if (m_CurrentObjectIndex == -1)
+		return;
+	m_GameEntities[m_CurrentObjectIndex]->setActive(!m_GameEntities[m_CurrentObjectIndex]->IsActive());
 }
 
 void DemoScene3D::handleOnRotateLeftKey()
 {
-	m_HelicopterBig->transform->Rotate(-m_ObjectRotateSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
+	if (m_CurrentObjectIndex == -1)
+		return;
+	m_GameEntities[m_CurrentObjectIndex]->transform->Rotate(-m_ObjectRotateSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
 void DemoScene3D::handleOnRotateRightKey()
 {
-	m_HelicopterBig->transform->Rotate(m_ObjectRotateSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
+	if (m_CurrentObjectIndex == -1)
+		return;
+	m_GameEntities[m_CurrentObjectIndex]->transform->Rotate(m_ObjectRotateSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
 void DemoScene3D::handleOnPauseKey()
@@ -358,18 +377,72 @@ void DemoScene3D::handleOnPauseKey()
 	m_StopUpdate = !m_StopUpdate;
 }
 
+bool isOnMainRenderer = false;
 void DemoScene3D::handleOnShaderChangeKey()
 {
-
+	for (size_t i = 0; i < m_GameEntities.size(); i++)
+	{
+		auto currentObject = m_GameEntities[i];
+		auto rendererComponent = currentObject->GetComponentOfBaseType<RendererComponent>();
+		if (rendererComponent != nullptr)
+		{
+			if (isOnMainRenderer)
+			{
+				rendererComponent->ChangeRenderShader(m_NormalRenderShader);
+			}
+			else
+			{
+				rendererComponent->ChangeRenderShader(m_MainRenderShader);
+			}
+		}
+	}
+	isOnMainRenderer = !isOnMainRenderer;
 }
 
 void DemoScene3D::handleOnSelectRightObjectKey()
 {
-	m_HelicopterBig->GetComponent<ModelRendererComponent>()->ChangeRenderShader(m_NormalRenderShader);
+	for (size_t i = 0; i < m_GameEntities.size(); i++)
+	{
+		auto currentObject = m_GameEntities[i];
+		auto rendererComponent = currentObject->GetComponentOfBaseType<RendererComponent>();
+		if (rendererComponent != nullptr)
+		{
+			rendererComponent->ChangeRenderShader(m_MainRenderShader);
+		}
+	}
+
+	m_CurrentObjectIndex++;
+	if (m_CurrentObjectIndex >= m_GameEntities.size())
+	{
+		m_CurrentObjectIndex = 0;
+	}
+	auto currentObject = m_GameEntities[m_CurrentObjectIndex];
+
+	auto rendererComponent = currentObject->GetComponentOfBaseType<RendererComponent>();
+	if (rendererComponent != nullptr)
+		rendererComponent->ChangeRenderShader(m_NormalRenderShader);
 }
 
 void DemoScene3D::handleOnSelectLeftObjectKey()
 {
-	m_HelicopterBig->GetComponent<ModelRendererComponent>()->ChangeRenderShader(m_MainRenderShader);
+	for (size_t i = 0; i < m_GameEntities.size(); i++)
+	{
+		auto currentObject = m_GameEntities[i];
+		auto rendererComponent = currentObject->GetComponentOfBaseType<RendererComponent>();
+		if (rendererComponent != nullptr)
+		{
+			rendererComponent->ChangeRenderShader(m_MainRenderShader);
+		}
+	}
+
+	m_CurrentObjectIndex--;
+	if (m_CurrentObjectIndex < 0)
+	{
+		m_CurrentObjectIndex = m_GameEntities.size() - 1;
+	}
+	auto currentObject = m_GameEntities[m_CurrentObjectIndex];
+	auto rendererComponent = currentObject->GetComponentOfBaseType<RendererComponent>();
+	if (rendererComponent != nullptr)
+		rendererComponent->ChangeRenderShader(m_NormalRenderShader);
 }
 

@@ -31,6 +31,9 @@ namespace GameEngine
         template<typename T>
         std::shared_ptr<T> GetComponent();
 
+        template<typename T>
+        std::shared_ptr<T> GetComponentOfBaseType();
+
     protected:
         std::unordered_map<std::type_index, std::shared_ptr<Component>> m_ComponentMap;
 
@@ -62,6 +65,18 @@ namespace GameEngine
         auto it = m_ComponentMap.find(typeid(T));
         if (it != m_ComponentMap.end()) {
             return std::static_pointer_cast<T>(it->second);
+        }
+        return nullptr;
+    }
+
+    template<typename T>
+    std::shared_ptr<T> GameEntity::GetComponentOfBaseType()
+    {
+        for (const auto& entry : m_ComponentMap) {
+            auto casted = std::dynamic_pointer_cast<T>(entry.second);
+            if (casted) {
+                return casted;
+            }
         }
         return nullptr;
     }
