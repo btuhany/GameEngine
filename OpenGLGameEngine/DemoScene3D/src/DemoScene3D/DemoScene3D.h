@@ -35,6 +35,7 @@ private:
 	DemoSceneInputHandler* m_InputReader;
 	float m_MoveSpeed;
 	float m_DeltaTime;
-
+	std::shared_ptr<Shader> m_MainRenderShader;
+	std::shared_ptr<Shader> m_NormalRenderShader;
 };
 

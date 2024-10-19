@@ -177,7 +177,6 @@ void DemoScene3D::initializeSkybox()
 	skyboxFaces.push_back("src/DemoScene3D/Textures/skybox/cupertin-lake_ft.tga");
 	std::shared_ptr<Skybox> skybox = std::make_shared<Skybox>(skyboxFaces, "src/DemoScene3D/Shaders/skybox.vert", "src/DemoScene3D/Shaders/skybox.frag");
 	setSkybox(skybox);
-	LOG_INFO("Demo scene initialized3!");
 }
 
 void DemoScene3D::initializeInputCallbacks()
@@ -197,12 +196,12 @@ void DemoScene3D::initializeGameObjects()
 	static const char* fShaderLocation = "src/DemoScene3D/Shaders/shader.frag";
 	static const char* fNormalShaderLocation = "src/DemoScene3D/Shaders/normalRenderShader.frag";
 
-	std::shared_ptr<Shader> rendererShader = std::make_shared<Shader>();
-	rendererShader->CreateFromFiles(vShaderLocation, fShaderLocation);
-	rendererShader->SetUseDirLightShadow(true); //TODO
+	m_MainRenderShader = std::make_shared<Shader>();
+	m_MainRenderShader->CreateFromFiles(vShaderLocation, fShaderLocation);
+	m_MainRenderShader->SetUseDirLightShadow(true); //TODO
 
-	std::shared_ptr<Shader> normalRendererShader = std::make_shared<Shader>();
-	normalRendererShader->CreateFromFiles(vShaderLocation, fNormalShaderLocation);
+	m_NormalRenderShader = std::make_shared<Shader>();
+	m_NormalRenderShader->CreateFromFiles(vShaderLocation, fNormalShaderLocation);
 
 	std::shared_ptr<Material> shinyMaterial = std::make_shared<Material>(590.0f, 475.5f);
 	std::shared_ptr<Material> roughMaterial = std::make_shared<Material>(0.1f, 3.0f);
@@ -217,11 +216,11 @@ void DemoScene3D::initializeGameObjects()
 	std::shared_ptr<ModelData> ironmanModelData = std::make_shared<ModelData>();
 	ironmanModelData->LoadModel("src/DemoScene3D/Models/IronMan.obj");
 
-	std::shared_ptr<ModelRenderData> ironmanRenderData = std::make_shared<ModelRenderData>(ironmanModelData, nullptr, shinyMaterial, rendererShader);
-	std::shared_ptr<ModelRenderData> helicopterRenderData = std::make_shared<ModelRenderData>(helicopterModelDataNew, nullptr, shinyMaterial, rendererShader);
+	std::shared_ptr<ModelRenderData> ironmanRenderData = std::make_shared<ModelRenderData>(ironmanModelData, nullptr, shinyMaterial, m_MainRenderShader);
+	std::shared_ptr<ModelRenderData> helicopterRenderData = std::make_shared<ModelRenderData>(helicopterModelDataNew, nullptr, shinyMaterial, m_MainRenderShader);
 
-	std::shared_ptr<MeshRenderData> meshRenderData = std::make_shared<MeshRenderData>(createCubeMeshData(), spidermanTexture, shinyMaterial, rendererShader);
-	std::shared_ptr<MeshRenderData> plainRenderData = std::make_shared<MeshRenderData>(createPlainMeshData(), spidermanTexture, roughMaterial, rendererShader);
+	std::shared_ptr<MeshRenderData> meshRenderData = std::make_shared<MeshRenderData>(createCubeMeshData(), spidermanTexture, shinyMaterial, m_MainRenderShader);
+	std::shared_ptr<MeshRenderData> plainRenderData = std::make_shared<MeshRenderData>(createPlainMeshData(), spidermanTexture, roughMaterial, m_MainRenderShader);
 
 
 	m_HelicopterBig = std::make_shared<ModelEntity>(helicopterRenderData);
