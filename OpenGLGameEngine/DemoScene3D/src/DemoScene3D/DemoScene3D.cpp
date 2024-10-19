@@ -123,48 +123,6 @@ std::shared_ptr<MeshData> DemoScene3D::createPlainMeshData()
 	plainMesh->CreateMesh(floorVertices, floorIndices, 32, 6);
 	return plainMesh;
 }
-void DemoScene3D::handleOnRightKey()
-{
-	//getCamera()->MoveRight(m_CameraSpeed * m_DeltaTime);
-	auto pos = m_HelicopterBig->transform->GetPosition();
-	m_HelicopterBig->transform->Translate(glm::vec3(m_MoveSpeed * m_DeltaTime, 0.0f, 0.0f));
-}
-
-void DemoScene3D::handleOnLeftKey()
-{
-	//getCamera()->MoveLeft(m_CameraSpeed * m_DeltaTime);
-	auto pos = m_HelicopterBig->transform->GetPosition();
-	m_HelicopterBig->transform->Translate(glm::vec3(-(m_MoveSpeed * m_DeltaTime), 0.0f, 0.0f));
-}
-
-void DemoScene3D::handleOnUpKey()
-{
-	//getCamera()->MoveForward(m_CameraSpeed * m_DeltaTime);
-	auto pos = m_HelicopterBig->transform->GetPosition();
-	m_HelicopterBig->transform->Translate(glm::vec3(0.0f, 0.0f, m_MoveSpeed * m_DeltaTime));
-}
-
-void DemoScene3D::handleOnDownKey()
-{
-	//getCamera()->MoveBack(m_CameraSpeed * m_DeltaTime);
-	auto pos = m_HelicopterBig->transform->GetPosition();
-	m_HelicopterBig->transform->Translate(glm::vec3(0.0f, 0.0f, -(m_MoveSpeed * m_DeltaTime)));
-}
-
-void DemoScene3D::handleOnShiftKey()
-{
-	m_MoveSpeed = 15.0f;
-}
-
-void DemoScene3D::handleOnShiftReleasedKey()
-{
-	m_MoveSpeed = 5.0f;
-}
-
-void DemoScene3D::handleOnSpaceKey()
-{
-	ironman->setActive(!ironman->getActive());
-}
 
 void DemoScene3D::initializeSkybox()
 {
@@ -185,8 +143,7 @@ void DemoScene3D::initializeInputCallbacks()
 	m_InputReader->OnPresssedDownEvent.AddHandler([this]() {handleOnDownKey();});
 	m_InputReader->OnPresssedLeftEvent.AddHandler([this]() {handleOnLeftKey();});
 	m_InputReader->OnPresssedUpEvent.AddHandler([this]() {handleOnUpKey();});
-	m_InputReader->OnPressedShiftEvent.AddHandler([this]() {handleOnShiftKey();});
-	m_InputReader->OnReleasedShiftEvent.AddHandler([this]() {handleOnShiftReleasedKey();});
+	m_InputReader->OnPressedShiftEvent.AddHandler([this](int keyState) {handleOnShiftKey(keyState);});
 	m_InputReader->OnPressedSpaceEvent.AddHandler([this]() {handleOnSpaceKey(); });
 }
 
@@ -309,5 +266,49 @@ void DemoScene3D::initializeLights()
 	//	0.01f, 200.0f));
 }
 
+void DemoScene3D::handleOnRightKey()
+{
+	//getCamera()->MoveRight(m_CameraSpeed * m_DeltaTime);
+	auto pos = m_HelicopterBig->transform->GetPosition();
+	m_HelicopterBig->transform->Translate(glm::vec3(m_MoveSpeed * m_DeltaTime, 0.0f, 0.0f));
+}
 
+void DemoScene3D::handleOnLeftKey()
+{
+	//getCamera()->MoveLeft(m_CameraSpeed * m_DeltaTime);
+	auto pos = m_HelicopterBig->transform->GetPosition();
+	m_HelicopterBig->transform->Translate(glm::vec3(-(m_MoveSpeed * m_DeltaTime), 0.0f, 0.0f));
+}
+
+void DemoScene3D::handleOnUpKey()
+{
+	//getCamera()->MoveForward(m_CameraSpeed * m_DeltaTime);
+	auto pos = m_HelicopterBig->transform->GetPosition();
+	m_HelicopterBig->transform->Translate(glm::vec3(0.0f, 0.0f, m_MoveSpeed * m_DeltaTime));
+}
+
+void DemoScene3D::handleOnDownKey()
+{
+	//getCamera()->MoveBack(m_CameraSpeed * m_DeltaTime);
+	auto pos = m_HelicopterBig->transform->GetPosition();
+	m_HelicopterBig->transform->Translate(glm::vec3(0.0f, 0.0f, -(m_MoveSpeed * m_DeltaTime)));
+}
+
+void DemoScene3D::handleOnShiftKey(int keyState)
+{
+	if (keyState == KEY_STATE_PRESS)
+	{
+		m_MoveSpeed = 15.0f;
+	}
+	else if (keyState == KEY_STATE_RELEASE)
+	{
+		m_MoveSpeed = 5.0f;
+	}
+}
+
+
+void DemoScene3D::handleOnSpaceKey()
+{
+	ironman->setActive(!ironman->getActive());
+}
 

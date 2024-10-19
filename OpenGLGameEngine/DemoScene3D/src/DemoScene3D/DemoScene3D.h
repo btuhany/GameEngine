@@ -29,9 +29,12 @@ private:
 	void handleOnLeftKey();
 	void handleOnUpKey();
 	void handleOnDownKey();
-	void handleOnShiftKey();
-	void handleOnShiftReleasedKey();
+	void handleOnShiftKey(int keyState);
 	void handleOnSpaceKey();
+	void handleOnEnableDisableKey();
+	void handleOnRotateLeftKey();
+	void handleOnRotateRightKey();
+	void handleOnStopKey();
 	DemoSceneInputHandler* m_InputReader;
 	float m_MoveSpeed;
 	float m_DeltaTime;
