@@ -12,7 +12,7 @@ void DemoSceneInputHandler::HandleKeys(int* keys, GLfloat deltaTime)
 {
 	if (keys[GLFW_KEY_LEFT_SHIFT] == KEY_STATE_PRESS || keys[GLFW_KEY_LEFT_SHIFT] == KEY_STATE_RELEASE)
 	{
-		OnPressedShiftEvent.Trigger(keys[GLFW_KEY_LEFT_SHIFT]);
+		OnShiftKeyEvent.Trigger(keys[GLFW_KEY_LEFT_SHIFT]);
 	}
 	if (keys[GLFW_KEY_W] == KEY_STATE_PRESS || keys[GLFW_KEY_W] == KEY_STATE_HELD)
 	{
@@ -30,9 +30,33 @@ void DemoSceneInputHandler::HandleKeys(int* keys, GLfloat deltaTime)
 	{
 		OnPresssedDownEvent.Trigger();
 	}
-	if (keys[GLFW_KEY_SPACE] == KEY_STATE_RELEASE)
+	if (keys[GLFW_KEY_SPACE] == KEY_STATE_PRESS || keys[GLFW_KEY_SPACE] == KEY_STATE_HELD)
 	{
 		OnPressedSpaceEvent.Trigger();
+	}
+	if (keys[GLFW_KEY_LEFT_CONTROL] == KEY_STATE_PRESS || keys[GLFW_KEY_LEFT_CONTROL] == KEY_STATE_HELD)
+	{
+		OnPressedCtrlEvent.Trigger();
+	}
+	if (keys[GLFW_KEY_C] == KEY_STATE_RELEASE)
+	{
+		OnEnableDisableKeyEvent.Trigger();
+	}
+	if (keys[GLFW_KEY_Q] == KEY_STATE_PRESS || keys[GLFW_KEY_Q] == KEY_STATE_HELD)
+	{
+		OnPressedRotateLeftKeyEvent.Trigger();
+	}
+	if (keys[GLFW_KEY_E] == KEY_STATE_PRESS || keys[GLFW_KEY_E] == KEY_STATE_HELD)
+	{
+		OnPressedRotateRightKeyEvent.Trigger();
+	}
+	if (keys[GLFW_KEY_P] == KEY_STATE_RELEASE)
+	{
+		OnPauseKeyEvent.Trigger();
+	}
+	if (keys[GLFW_KEY_N] == KEY_STATE_RELEASE)
+	{
+		OnShaderChangeKeyEvent.Trigger();
 	}
 }
 

@@ -55,6 +55,9 @@ void DemoScene3D::Update(GLfloat deltaTime)
 {
 	m_DeltaTime = deltaTime;
 
+	if (m_StopUpdate)
+		return;
+
 	helicopterRotateYAxis = deltaTime * 12.5f;
 	if (ironman->transform->GetPosition().y > 10)
 	{
@@ -140,11 +143,17 @@ void DemoScene3D::initializeSkybox()
 void DemoScene3D::initializeInputCallbacks()
 {
 	m_InputReader->OnPresssedRightEvent.AddHandler([this]() {handleOnRightKey();});
-	m_InputReader->OnPresssedDownEvent.AddHandler([this]() {handleOnDownKey();});
 	m_InputReader->OnPresssedLeftEvent.AddHandler([this]() {handleOnLeftKey();});
 	m_InputReader->OnPresssedUpEvent.AddHandler([this]() {handleOnUpKey();});
-	m_InputReader->OnPressedShiftEvent.AddHandler([this](int keyState) {handleOnShiftKey(keyState);});
+	m_InputReader->OnPresssedDownEvent.AddHandler([this]() {handleOnDownKey();});
+	m_InputReader->OnShiftKeyEvent.AddHandler([this](int keyState) {handleOnShiftKey(keyState);});
 	m_InputReader->OnPressedSpaceEvent.AddHandler([this]() {handleOnSpaceKey(); });
+	m_InputReader->OnPressedCtrlEvent.AddHandler([this]() {handleOnCtrlKey(); });
+	m_InputReader->OnEnableDisableKeyEvent.AddHandler([this]() {handleOnEnableDisableKey(); });
+	m_InputReader->OnPressedRotateLeftKeyEvent.AddHandler([this]() {handleOnRotateLeftKey(); });
+	m_InputReader->OnPressedRotateRightKeyEvent.AddHandler([this]() {handleOnRotateRightKey(); });
+	m_InputReader->OnPauseKeyEvent.AddHandler([this]() {handleOnPauseKey(); });
+	m_InputReader->OnShaderChangeKeyEvent.AddHandler([this]() {handleOnShaderChangeKey(); });
 }
 
 void DemoScene3D::initializeGameObjects()
@@ -310,5 +319,29 @@ void DemoScene3D::handleOnShiftKey(int keyState)
 void DemoScene3D::handleOnSpaceKey()
 {
 	ironman->setActive(!ironman->getActive());
+}
+
+void DemoScene3D::handleOnCtrlKey()
+{
+}
+
+void DemoScene3D::handleOnEnableDisableKey()
+{
+}
+
+void DemoScene3D::handleOnRotateLeftKey()
+{
+}
+
+void DemoScene3D::handleOnRotateRightKey()
+{
+}
+
+void DemoScene3D::handleOnPauseKey()
+{
+}
+
+void DemoScene3D::handleOnShaderChangeKey()
+{
 }
 

@@ -31,14 +31,17 @@ private:
 	void handleOnDownKey();
 	void handleOnShiftKey(int keyState);
 	void handleOnSpaceKey();
+	void handleOnCtrlKey();
 	void handleOnEnableDisableKey();
 	void handleOnRotateLeftKey();
 	void handleOnRotateRightKey();
-	void handleOnStopKey();
+	void handleOnPauseKey();
+	void handleOnShaderChangeKey();
 	DemoSceneInputHandler* m_InputReader;
 	float m_MoveSpeed;
 	float m_DeltaTime;
 	std::shared_ptr<Shader> m_MainRenderShader;
 	std::shared_ptr<Shader> m_NormalRenderShader;
+	bool m_StopUpdate;
 };
 

@@ -11,8 +11,14 @@ public:
 	SimpleEvent<> OnPresssedLeftEvent;
 	SimpleEvent<> OnPresssedUpEvent;
 	SimpleEvent<> OnPresssedDownEvent;
-	SimpleEvent<int> OnPressedShiftEvent;
+	SimpleEvent<int> OnShiftKeyEvent;
 	SimpleEvent<> OnPressedSpaceEvent;
+	SimpleEvent<> OnPressedCtrlEvent;
+	SimpleEvent<> OnEnableDisableKeyEvent;
+	SimpleEvent<> OnPressedRotateLeftKeyEvent;
+	SimpleEvent<> OnPressedRotateRightKeyEvent;
+	SimpleEvent<> OnPauseKeyEvent;
+	SimpleEvent<> OnShaderChangeKeyEvent;
 	void HandleKeys(int* keys, GLfloat deltaTime) override;
 	void HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY) override;
 
