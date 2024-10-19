@@ -8,7 +8,8 @@ DemoScene3D::DemoScene3D() : Scene()
 DemoScene3D::DemoScene3D(DemoSceneInputHandler* input) : Scene()
 {
 	m_InputReader = input;
-	m_MoveSpeed = 5.0f;
+	m_ObjectMoveSpeed = 5.0f;
+	m_ObjectRotateSpeed = 2.0f;
 }
 
 DemoScene3D::~DemoScene3D()
@@ -23,7 +24,6 @@ void DemoScene3D::Initialize()
 		glm::vec3(0.0f, 1.0f, 0.0f), 
 		0.0f, 0.0f, 5.0f, 0.1f, 60.0f, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
 	setBackgroundColor(glm::vec3(0.0f, 1.0f, 0.0f));
-
 	initializeInputCallbacks();
 	initializeShadowShaders();
 	initializeSkybox();
@@ -280,39 +280,41 @@ void DemoScene3D::handleOnRightKey()
 {
 	//getCamera()->MoveRight(m_CameraSpeed * m_DeltaTime);
 	auto pos = m_HelicopterBig->transform->GetPosition();
-	m_HelicopterBig->transform->Translate(glm::vec3(m_MoveSpeed * m_DeltaTime, 0.0f, 0.0f));
+	m_HelicopterBig->transform->Translate(glm::vec3(m_ObjectMoveSpeed * m_DeltaTime, 0.0f, 0.0f));
 }
 
 void DemoScene3D::handleOnLeftKey()
 {
 	//getCamera()->MoveLeft(m_CameraSpeed * m_DeltaTime);
 	auto pos = m_HelicopterBig->transform->GetPosition();
-	m_HelicopterBig->transform->Translate(glm::vec3(-(m_MoveSpeed * m_DeltaTime), 0.0f, 0.0f));
+	m_HelicopterBig->transform->Translate(glm::vec3(-(m_ObjectMoveSpeed * m_DeltaTime), 0.0f, 0.0f));
 }
 
 void DemoScene3D::handleOnUpKey()
 {
 	//getCamera()->MoveForward(m_CameraSpeed * m_DeltaTime);
 	auto pos = m_HelicopterBig->transform->GetPosition();
-	m_HelicopterBig->transform->Translate(glm::vec3(0.0f, 0.0f, m_MoveSpeed * m_DeltaTime));
+	m_HelicopterBig->transform->Translate(glm::vec3(0.0f, 0.0f, m_ObjectMoveSpeed * m_DeltaTime));
 }
 
 void DemoScene3D::handleOnDownKey()
 {
 	//getCamera()->MoveBack(m_CameraSpeed * m_DeltaTime);
 	auto pos = m_HelicopterBig->transform->GetPosition();
-	m_HelicopterBig->transform->Translate(glm::vec3(0.0f, 0.0f, -(m_MoveSpeed * m_DeltaTime)));
+	m_HelicopterBig->transform->Translate(glm::vec3(0.0f, 0.0f, -(m_ObjectMoveSpeed * m_DeltaTime)));
 }
 
 void DemoScene3D::handleOnShiftKey(int keyState)
 {
 	if (keyState == KEY_STATE_PRESS)
 	{
-		m_MoveSpeed = 15.0f;
+		m_ObjectMoveSpeed = 15.0f;
+		m_ObjectRotateSpeed = 5.0f;
 	}
 	else if (keyState == KEY_STATE_RELEASE)
 	{
-		m_MoveSpeed = 5.0f;
+		m_ObjectMoveSpeed = 5.0f;
+		m_ObjectRotateSpeed = 2.0f;
 	}
 }
 
@@ -332,10 +334,12 @@ void DemoScene3D::handleOnEnableDisableKey()
 
 void DemoScene3D::handleOnRotateLeftKey()
 {
+	m_HelicopterBig->transform->Rotate(-m_ObjectRotateSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
 void DemoScene3D::handleOnRotateRightKey()
 {
+	m_HelicopterBig->transform->Rotate(m_ObjectRotateSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
 void DemoScene3D::handleOnPauseKey()
