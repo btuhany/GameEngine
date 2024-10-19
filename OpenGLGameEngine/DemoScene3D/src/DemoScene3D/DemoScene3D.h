@@ -29,7 +29,7 @@ private:
 	void handleOnShiftReleasedKey();
 	void handleOnSpaceKey();
 	DemoSceneInputHandler* m_InputReader;
-	float m_CameraSpeed;
+	float m_MoveSpeed;
 	float m_DeltaTime;
 
 };

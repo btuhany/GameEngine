@@ -30,13 +30,14 @@ void DemoScene3D::Initialize()
 
 	static const char* vShaderLocation = "src/DemoScene3D/Shaders/shader.vert";
 	static const char* fShaderLocation = "src/DemoScene3D/Shaders/shader.frag";
+	static const char* fNormalShaderLocation = "src/DemoScene3D/Shaders/normalRenderShader.frag";
 
 	std::shared_ptr<Shader> rendererShader = std::make_shared<Shader>();
 	rendererShader->CreateFromFiles(vShaderLocation, fShaderLocation);
 	rendererShader->SetUseDirLightShadow(true); //TODO
 
-	std::shared_ptr<Shader> rendererShader2 = std::make_shared<Shader>();
-	rendererShader2->CreateFromFiles(vShaderLocation, fShaderLocation);
+	std::shared_ptr<Shader> normalRendererShader = std::make_shared<Shader>();
+	normalRendererShader->CreateFromFiles(vShaderLocation, fNormalShaderLocation);
 
 	std::shared_ptr<Shader> directionalShadowShader = std::make_shared<Shader>();
 	directionalShadowShader->CreateFromFiles("src/DemoScene3D/Shaders/directional_shadow_map.vert", "src/DemoScene3D/Shaders/directional_shadow_map.frag");
@@ -51,8 +52,8 @@ void DemoScene3D::Initialize()
 		0.2f, 0.5f, 1.0f,
 		0.4f, -0.8f, 0.01f, 1024, 1024);
 	setDirectionalLight(dirLight);
-	m_CameraSpeed = 5.0f;
-	setCamera(std::make_shared<Camera>(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, m_CameraSpeed, 0.1f, 60.0f, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
+	m_MoveSpeed = 5.0f;
+	setCamera(std::make_shared<Camera>(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.0f, 0.1f, 60.0f, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
 	setBackgroundColor(glm::vec3(0.0f, 1.0f, 0.0f));
 	initializeSkybox();
 
@@ -71,15 +72,15 @@ void DemoScene3D::Initialize()
 
 	std::shared_ptr<ModelRenderData> ironmanRenderData = std::make_shared<ModelRenderData>(ironmanModelData, nullptr, shinyMaterial, rendererShader);
 	std::shared_ptr<ModelRenderData> helicopterRenderData = std::make_shared<ModelRenderData>(helicopterModelDataNew, nullptr, shinyMaterial, rendererShader);
-
+	
 	std::shared_ptr<MeshRenderData> meshRenderData = std::make_shared<MeshRenderData>(createCubeMeshData(), spidermanTexture, shinyMaterial, rendererShader);
 	std::shared_ptr<MeshRenderData> plainRenderData = std::make_shared<MeshRenderData>(createPlainMeshData(), spidermanTexture, roughMaterial, rendererShader);
 
 	m_HelicopterBig = std::make_shared<ModelEntity>(helicopterRenderData);
 	m_HelicopterBig->GetComponent<Transform>()->Translate(glm::vec3(0.0f, -7.0f, -10.0f));
 	m_HelicopterBig->transform->Scale(glm::vec3(2.0f, 2.0f, 2.0f));
-	m_HelicopterBig->transform->Rotate(90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-	m_HelicopterBig->transform->Rotate(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	//m_HelicopterBig->transform->Rotate(90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+
 	m_HelicopterBig->setName("helicopterBig");
 	instantiateGameEntity(m_HelicopterBig);
 
@@ -98,7 +99,7 @@ void DemoScene3D::Initialize()
 	instantiateGameEntity(cubeMeshEntity);
 
 	std::shared_ptr<MeshEntity> spidermanPlainEntity = std::make_shared<MeshEntity>(plainRenderData);
-	spidermanPlainEntity->GetComponent<Transform>()->Translate(glm::vec3(0.0f, -10.0f, 0.0f));
+	spidermanPlainEntity->GetComponent<Transform>()->SetPosition(glm::vec3(0.0f, -10.0f, 0.0f));
 	spidermanPlainEntity->transform->Scale(glm::vec3(1.0f, 1.0f, 1.0f));
 	spidermanPlainEntity->setName("spidermanPlain");
 	instantiateGameEntity(spidermanPlainEntity);
@@ -149,38 +150,37 @@ void DemoScene3D::Initialize()
 
 void DemoScene3D::Start()
 {
-	ironman->transform->Translate(glm::vec3(20.0f, 10.0f, -10.0f));
-	ironman->transform->Scale(glm::vec3(0.2f, 0.2f, 0.2f));
+	ironman->transform->Scale(glm::vec3(0.1f, 0.1f, 0.1f));
 	ironman->transform->Rotate(-60.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	ironman->transform->SetPosition(glm::vec3(20.0f, 1.0f, -10.0f));
 
-	m_HelicopterSmall->transform->Rotate(90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-	m_HelicopterSmall->transform->Rotate(90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	m_HelicopterSmall->transform->Rotate(-90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+	m_HelicopterSmall->transform->Rotate(180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+
+	m_HelicopterBig->transform->Rotate(-90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+	m_HelicopterBig->transform->Rotate(180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	m_HelicopterBig->transform->Translate(glm::vec3(5.0f, 1.0f, -5.0f));
 }
 
-float ironmanTimeCounter = 0.0f;
-float rotate = 0.0f;
-float positionY = 0.0f;
-float increaseValue = 1.5f;
+float helicopterRotateYAxis = 0.0f;
+float ironmanPosIncreaseYAxis = 0.1f;
 void DemoScene3D::Update(GLfloat deltaTime)
 {
-	ironmanTimeCounter += deltaTime;
 	m_DeltaTime = deltaTime;
-	rotate = deltaTime * 12.5f;
-	positionY += deltaTime * increaseValue;
-	if (positionY > 4)
+
+	helicopterRotateYAxis = deltaTime * 12.5f;
+	if (ironman->transform->GetPosition().y > 10)
 	{
-		increaseValue = -1.5f;
+		ironmanPosIncreaseYAxis = -0.1f;
 	}
-	if (positionY < 1)
+	else if (ironman->transform->GetPosition().y < -30)
 	{
-		increaseValue = 1.5f;
+		ironmanPosIncreaseYAxis = 0.1f;
 	}
 
-	m_HelicopterBig->transform->Rotate(rotate, glm::vec3(0.0f, 0.0, 1.0f));
-	m_HelicopterBig->transform->Translate(glm::vec3(0.0f, increaseValue * deltaTime, 0.0f));
-	m_HelicopterSmall->transform->Rotate(rotate, glm::vec3(0.0f, 0.0, 1.0f));
-	ironman->transform->Translate(glm::vec3(0.0f, increaseValue, 0.0f));
-
+	m_HelicopterBig->transform->Rotate(helicopterRotateYAxis, glm::vec3(0.0f, 1.0, 0.0f));
+	m_HelicopterSmall->transform->Rotate(helicopterRotateYAxis, glm::vec3(0.0f, 1.0, 0.0f));
+	ironman->transform->Translate(glm::vec3(0.0f, ironmanPosIncreaseYAxis, 0.0f));
 }
 
 std::shared_ptr<MeshData> DemoScene3D::createCubeMeshData()
@@ -238,43 +238,46 @@ std::shared_ptr<MeshData> DemoScene3D::createPlainMeshData()
 }
 void DemoScene3D::handleOnRightKey()
 {
-	getCamera()->MoveRight(m_CameraSpeed * m_DeltaTime);
+	//getCamera()->MoveRight(m_CameraSpeed * m_DeltaTime);
+	auto pos = m_HelicopterBig->transform->GetPosition();
+	m_HelicopterBig->transform->Translate(glm::vec3(m_MoveSpeed * m_DeltaTime, 0.0f, 0.0f));
 }
 
 void DemoScene3D::handleOnLeftKey()
 {
-	getCamera()->MoveLeft(m_CameraSpeed * m_DeltaTime);
+	//getCamera()->MoveLeft(m_CameraSpeed * m_DeltaTime);
+	auto pos = m_HelicopterBig->transform->GetPosition();
+	m_HelicopterBig->transform->Translate(glm::vec3(-(m_MoveSpeed * m_DeltaTime), 0.0f, 0.0f));
 }
 
 void DemoScene3D::handleOnUpKey()
 {
-	getCamera()->MoveForward(m_CameraSpeed * m_DeltaTime);
+	//getCamera()->MoveForward(m_CameraSpeed * m_DeltaTime);
+	auto pos = m_HelicopterBig->transform->GetPosition();
+	m_HelicopterBig->transform->Translate(glm::vec3(0.0f, 0.0f, m_MoveSpeed * m_DeltaTime));
 }
 
 void DemoScene3D::handleOnDownKey()
 {
-	getCamera()->MoveBack(m_CameraSpeed * m_DeltaTime);
+	//getCamera()->MoveBack(m_CameraSpeed * m_DeltaTime);
+	auto pos = m_HelicopterBig->transform->GetPosition();
+	m_HelicopterBig->transform->Translate(glm::vec3(0.0f, 0.0f, -(m_MoveSpeed * m_DeltaTime)));
 }
 
 void DemoScene3D::handleOnShiftKey()
 {
-	m_CameraSpeed = 15.0f;
+	m_MoveSpeed = 15.0f;
 }
 
 void DemoScene3D::handleOnShiftReleasedKey()
 {
-	m_CameraSpeed = 5.0f;
+	m_MoveSpeed = 5.0f;
 }
 
 
 void DemoScene3D::handleOnSpaceKey()
 {
-	if (ironmanTimeCounter > 2.0f)
-	{
-		//ironman->setActive(!ironman->getActive());
-		destroyGameEntity(ironman, false);
-		ironmanTimeCounter = 0.0f;
-	}
+	ironman->setActive(!ironman->getActive());
 }
 
 void DemoScene3D::initializeSkybox()
