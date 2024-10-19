@@ -18,7 +18,7 @@ namespace GameEngine
 		void HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY);
 		void HandleKeys(int* keys, GLfloat deltaTime);
 		
-		
+		void Rotate(float yawValue, float pitchValue);
 		glm::vec3 getCameraPosition();
 
 		glm::mat4 CalculateViewMatrix();

@@ -42,6 +42,21 @@ namespace GameEngine {
 		update();
 	}
 
+	void Camera::Rotate(float yawValue, float pitchValue)
+	{
+		m_Yaw += yawValue;
+		m_Pitch += pitchValue;
+		if (m_Pitch > 89.0f)
+		{
+			m_Pitch = 89.0f;
+		}
+		else if (m_Pitch < -89.0f)
+		{
+			m_Pitch = -89.0f;
+		}
+		update();
+	}
+
 	void Camera::HandleKeys(int* keys, GLfloat deltaTime)
 	{
 		if (keys[GLFW_KEY_LEFT_SHIFT] == KEY_STATE_PRESS)
