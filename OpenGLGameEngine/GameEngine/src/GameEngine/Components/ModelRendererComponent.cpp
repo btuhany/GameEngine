@@ -19,7 +19,7 @@ namespace GameEngine
 
 	bool ModelRendererComponent::IsShadowRenderable()
 	{
-		return false;
+		return true;
 	}
 
 	void ModelRendererComponent::DrawModel(GLuint uniformModel)

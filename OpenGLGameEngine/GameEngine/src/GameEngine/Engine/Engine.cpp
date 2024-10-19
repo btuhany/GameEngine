@@ -54,7 +54,7 @@ namespace GameEngine {
 		}
 	}
 
-	void Engine::Run()
+	void Engine::Run(GameModeType gameModeType)
 	{
 		if (m_ShouldStop)
 			return;
@@ -62,28 +62,36 @@ namespace GameEngine {
 		GLfloat deltaTime = 0.0f;
 		GLfloat lastTime = 0.0f;
 
+		bool renderDirLightShadow = false;
+		if (gameModeType == GameModeType::ThreeDimensional)
+		{
+			std::shared_ptr<DirectionalLight> sceneDirLight = m_Scene->getDirectionalLight();
+			if (sceneDirLight == nullptr)
+			{
+				LOG_CORE_ERROR("Directional light is not set");
+				renderDirLightShadow = false;
+			}
+			else
+			{
+				renderDirLightShadow = sceneDirLight->getShadowMap() != nullptr;
+			}
 
-		std::shared_ptr<DirectionalLight> sceneDirLight = m_Scene->getDirectionalLight();
-		bool renderDirLightShadow;
-		if (sceneDirLight == nullptr)
-		{
-			LOG_CORE_ERROR("Directional light is not set");
-			renderDirLightShadow = false;
-		}
-		else
-		{
-			renderDirLightShadow = sceneDirLight->getShadowMap() != nullptr;
+			if (!renderDirLightShadow)
+			{
+				LOG_CORE_INFO("Directional light has no shadow map, make sure correct dir light constructor (with shadowmaps) is used if you want to render dir light shadows!");
+			}
 		}
 
-		if (!renderDirLightShadow)
+		bool renderOmniLightShadow = false;
+		if (gameModeType == GameModeType::ThreeDimensional)
 		{
-			LOG_CORE_INFO("Directional light has no shadow map, make sure correct dir light constructor (with shadowmaps) is used if you want to render dir light shadows!");
+			renderOmniLightShadow = m_Scene->IsOmniShadowShaderSet();
+			if (!renderOmniLightShadow)
+			{
+				LOG_CORE_INFO("Omni light shadow shader is not set, make sure point and spot lights don't have shadow maps!");
+			}
 		}
-		bool renderOmniLightShadow = m_Scene->IsOmniShadowShaderSet();
-		if (!renderOmniLightShadow)
-		{
-			LOG_CORE_INFO("Omni light shadow shader is not set, make sure point and spot lights don't have shadow maps!");
-		}
+
 
 		bool handleInputs = true;
 		if (m_InputHandler == nullptr)

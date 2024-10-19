@@ -12,6 +12,13 @@
 #include "../Render/Renderer.h"
 
 namespace GameEngine {
+
+	enum class GameModeType
+	{
+		TwoDimensional = 0,
+		ThreeDimensional
+	};
+
 	class ENGINE_API Engine
 	{
 	public:
@@ -20,7 +27,7 @@ namespace GameEngine {
 		~Engine();
 		void Initialize(Scene* scene);
 		void Start();
-		void Run();
+		void Run(GameModeType gameModeType);
 		void Stop();
 	private:
 		Window* m_MainWindow;

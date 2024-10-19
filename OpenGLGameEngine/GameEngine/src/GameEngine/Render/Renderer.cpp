@@ -146,7 +146,8 @@ namespace GameEngine
 			m_DirLightShadowShader->SetDirectionalLightTransform(&lightTransform);
 			m_DirLightShadowShader->Validate();
 
-			m_RendererComponents[i]->Render(m_DirLightShadowShader->GetModelLocation());
+			if (m_RendererComponents[i]->IsShadowRenderable())
+				m_RendererComponents[i]->Render(m_DirLightShadowShader->GetModelLocation());
 		}
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
@@ -187,7 +188,8 @@ namespace GameEngine
 				glUniform1f(m_OmniShadowShader->GetFarPlaneLocation(), pointLight->GetFarPlane());
 				m_OmniShadowShader->SetLightMatrices(pointLight->CalculateLightTransform());
 
-				m_RendererComponents[j]->Render(m_OmniShadowShader->GetModelLocation());
+				if (m_RendererComponents[j]->IsShadowRenderable())
+					m_RendererComponents[j]->Render(m_OmniShadowShader->GetModelLocation());
 			}
 			//for (size_t j = 0; j < m_meshRendererComponents.size(); j++)
 			//{
@@ -222,7 +224,8 @@ namespace GameEngine
 				glUniform1f(m_OmniShadowShader->GetFarPlaneLocation(), spotLight->GetFarPlane());
 				m_OmniShadowShader->SetLightMatrices(spotLight->CalculateLightTransform());
 
-				m_RendererComponents[j]->Render(m_OmniShadowShader->GetModelLocation());
+				if (m_RendererComponents[j]->IsShadowRenderable())
+					m_RendererComponents[j]->Render(m_OmniShadowShader->GetModelLocation());
 			}
 			//for (size_t j = 0; j < m_meshRendererComponents.size(); j++)
 			//{
