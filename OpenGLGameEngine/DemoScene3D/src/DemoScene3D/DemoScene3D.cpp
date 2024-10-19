@@ -339,6 +339,7 @@ void DemoScene3D::handleOnRotateRightKey()
 
 void DemoScene3D::handleOnPauseKey()
 {
+	m_StopUpdate = !m_StopUpdate;
 }
 
 void DemoScene3D::handleOnShaderChangeKey()

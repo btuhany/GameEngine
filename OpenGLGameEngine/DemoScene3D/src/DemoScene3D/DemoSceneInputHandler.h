@@ -21,6 +21,5 @@ public:
 	SimpleEvent<> OnShaderChangeKeyEvent;
 	void HandleKeys(int* keys, GLfloat deltaTime) override;
 	void HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY) override;
-
 };
 
