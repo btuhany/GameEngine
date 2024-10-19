@@ -7,6 +7,7 @@ namespace GameEngine
         m_IsActive = false;
 		transform = std::make_shared<Transform>();
 		AddComponent<Transform>(transform);
+        setName("NoNameGameEntity");
     }
     bool GameEntity::IsActive()
     {
