@@ -19,6 +19,8 @@ namespace GameEngine
 	private:
 		glm::mat4 m_ModelMatrix = glm::mat4(1.0f);
 		glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
+		glm::vec3 m_Scale = glm::vec3(1.0f, 1.0f, 1.0f);
+		glm::mat4 m_Rotation = glm::mat4(1.0f);;
 	};
 }
 
