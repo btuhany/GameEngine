@@ -37,5 +37,8 @@ namespace GameEngine {
 		bool m_IsInitialized;
 		bool m_ShouldStop;
 		bool m_ShadowPassActive;
+		bool checkValidateDirLightShadowRendering(GameModeType gameModeType);
+		bool checkValidateOmniLightShadowRendering(GameModeType gameModeType);
+		bool checkValidateInputHandler();
 	};
 }

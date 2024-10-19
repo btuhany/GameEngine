@@ -62,6 +62,42 @@ namespace GameEngine {
 		GLfloat deltaTime = 0.0f;
 		GLfloat lastTime = 0.0f;
 
+		bool renderDirLightShadow = checkValidateDirLightShadowRendering(gameModeType);
+		bool renderOmniLightShadow = checkValidateOmniLightShadowRendering(gameModeType);
+		bool handleInputs = checkValidateInputHandler();
+
+		
+		while (!m_MainWindow->GetShouldClose())
+		{
+			if (m_ShouldStop)
+				continue; //break;
+
+			GLfloat timeNow = glfwGetTime(); //SDL_GetPerformanceCounter();
+			deltaTime = timeNow - lastTime; // (timeNow - lastTime)*1000 / SDL_GetPerformanceFrequency();
+			lastTime = timeNow;
+
+			m_Scene->Update(deltaTime);
+
+			glfwPollEvents();
+
+			if (handleInputs)
+			{
+				m_InputHandler->HandleKeys(m_MainWindow->GetKeys(), deltaTime);
+				m_Scene->getCamera()->HandleMouse(m_MainWindow->GetMouseDeltaX(), m_MainWindow->GetMouseDeltaY());
+			}
+
+			m_Renderer->Draw(m_ShadowPassActive, renderDirLightShadow, renderOmniLightShadow);
+
+			m_MainWindow->SwapBuffers();
+		}
+	}
+
+	void Engine::Stop()
+	{
+		m_ShouldStop = true;
+	}
+	bool Engine::checkValidateDirLightShadowRendering(GameModeType gameModeType)
+	{
 		bool renderDirLightShadow = false;
 		if (gameModeType == GameModeType::ThreeDimensional)
 		{
@@ -81,7 +117,10 @@ namespace GameEngine {
 				LOG_CORE_INFO("Directional light has no shadow map, make sure correct dir light constructor (with shadowmaps) is used if you want to render dir light shadows!");
 			}
 		}
-
+		return renderDirLightShadow;
+	}
+	bool Engine::checkValidateOmniLightShadowRendering(GameModeType gameModeType)
+	{
 		bool renderOmniLightShadow = false;
 		if (gameModeType == GameModeType::ThreeDimensional)
 		{
@@ -91,44 +130,16 @@ namespace GameEngine {
 				LOG_CORE_INFO("Omni light shadow shader is not set, make sure point and spot lights don't have shadow maps!");
 			}
 		}
-
-
+		return renderOmniLightShadow;
+	}
+	bool Engine::checkValidateInputHandler()
+	{
 		bool handleInputs = true;
 		if (m_InputHandler == nullptr)
 		{
 			LOG_CORE_INFO("Engine input handler is not set!");
 			handleInputs = false;
 		}
-		
-
-		while (!m_MainWindow->GetShouldClose())
-		{
-			if (m_ShouldStop)
-				continue; //break;
-
-			GLfloat timeNow = glfwGetTime(); //SDL_GetPerformanceCounter();
-			deltaTime = timeNow - lastTime; // (timeNow - lastTime)*1000 / SDL_GetPerformanceFrequency();
-			lastTime = timeNow;
-
-			m_Scene->Update(deltaTime);
-
-
-			glfwPollEvents();
-
-			if (handleInputs)
-			{
-				m_InputHandler->HandleKeys(m_MainWindow->GetKeys(), deltaTime);
-				m_Scene->getCamera()->HandleMouse(m_MainWindow->GetMouseDeltaX(), m_MainWindow->GetMouseDeltaY());
-			}
-
-			m_Renderer->Draw(m_ShadowPassActive, renderDirLightShadow, renderOmniLightShadow);
-
-			m_MainWindow->SwapBuffers();
-		}
-	}
-
-	void Engine::Stop()
-	{
-		m_ShouldStop = true;
+		return handleInputs;
 	}
 }
