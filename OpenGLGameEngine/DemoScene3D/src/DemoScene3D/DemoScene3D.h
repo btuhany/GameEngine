@@ -14,6 +14,10 @@ public:
 	void Update(GLfloat deltaTime) override;
 private:
 	void initializeSkybox();
+	void initializeInputCallbacks();
+	void initializeGameObjects();
+	void initializeShadowShaders();
+	void initializeLights();
 	std::shared_ptr<MeshData> createCubeMeshData();
 	std::shared_ptr<MeshData> createPlainMeshData();
 	std::shared_ptr<ModelEntity> m_HelicopterSmall;
