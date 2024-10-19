@@ -8,4 +8,8 @@ namespace GameEngine
 		material = materialData;
 		shader = shaderData;
 	}
+	void RenderData::SetRenderShader(std::shared_ptr<Shader> newRenderShader)
+	{
+		shader = newRenderShader;
+	}
 }

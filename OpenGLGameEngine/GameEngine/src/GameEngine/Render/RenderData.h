@@ -17,6 +17,7 @@ namespace GameEngine
 		std::shared_ptr<Texture> texture;
 		std::shared_ptr<Material> material;
 		std::shared_ptr<Shader> shader;
+		void SetRenderShader(std::shared_ptr<Shader> newRenderShader);
 	};
 }
 
