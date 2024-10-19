@@ -33,7 +33,7 @@ namespace GameEngine {
 
 		m_MainWindow->Initialize();
 		m_Scene->Initialize();
-		m_Renderer->Initialize(m_Scene);
+		m_Renderer->Initialize(m_Scene, m_MainWindow->getBufferRatio());
 
 		m_IsInitialized = true;
 	}
@@ -61,10 +61,9 @@ namespace GameEngine {
 
 		GLfloat deltaTime = 0.0f;
 		GLfloat lastTime = 0.0f;
-		glm::mat4 projection = m_Scene->getCamera()->CalcGetProjectionMatrix((GLfloat)m_MainWindow->GetBufferWidth() / m_MainWindow->GetBufferHeight());
+
 
 		std::shared_ptr<DirectionalLight> sceneDirLight = m_Scene->getDirectionalLight();
-
 		bool renderDirLightShadow;
 		if (sceneDirLight == nullptr)
 		{
@@ -105,22 +104,16 @@ namespace GameEngine {
 
 			m_Scene->Update(deltaTime);
 
+
 			glfwPollEvents();
 
 			if (handleInputs)
-				m_InputHandler->HandleKeys(m_MainWindow->GetKeys(), deltaTime);
-			m_Scene->getCamera()->HandleMouse(m_MainWindow->GetMouseDeltaX(), m_MainWindow->GetMouseDeltaY());
-
-			if (m_ShadowPassActive)
 			{
-				if (renderDirLightShadow)
-					m_Renderer->DirectionalShadowMapPass(m_Scene->getDirectionalLight());
-				if (renderOmniLightShadow)
-					m_Renderer->OmniShadowMapPass(m_Scene->getOmniShadowShader(), m_Scene->m_PointLightList, m_Scene->getPointLightCount(),
-						m_Scene->m_SpotLightList, m_Scene->m_SpotLightCount);
+				m_InputHandler->HandleKeys(m_MainWindow->GetKeys(), deltaTime);
+				m_Scene->getCamera()->HandleMouse(m_MainWindow->GetMouseDeltaX(), m_MainWindow->GetMouseDeltaY());
 			}
-			m_Renderer->RenderPass(projection, m_Scene->m_PointLightList, m_Scene->getPointLightCount(),
-				m_Scene->m_SpotLightList, m_Scene->m_SpotLightCount);
+
+			m_Renderer->Draw(m_ShadowPassActive, renderDirLightShadow, renderOmniLightShadow);
 
 			m_MainWindow->SwapBuffers();
 		}

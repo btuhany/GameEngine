@@ -27,6 +27,7 @@ namespace GameEngine {
 
 		void ClearKeyCache();
 
+		GLfloat getBufferRatio();
 
 		~Window();
 	private:

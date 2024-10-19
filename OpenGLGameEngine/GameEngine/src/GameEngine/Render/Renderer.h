@@ -16,18 +16,16 @@ namespace GameEngine
 	class ENGINE_API Renderer
 	{
 	public:
-		//TODO initialize from scene
 		Renderer();
 		~Renderer();
-		//Renderer(std::shared_ptr<Skybox> skybox, glm::vec3 backgroundColor, std::shared_ptr<Camera> camera);
-		void Initialize(Scene* scene);
+		void Initialize(Scene* scene, GLfloat bufferRatio);
+
+		void Draw(bool shadowPassActive, bool renderDirLightShadow, bool renderOmniLightShadow);
+
 		void RenderPass(glm::mat4 projectionMatrix, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount);
 		void DirectionalShadowMapPass(std::shared_ptr<DirectionalLight> dLight);
 		void OmniShadowMapPass(std::shared_ptr<Shader> omniShadowShader, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount);
 	private:
-		//std::vector<std::shared_ptr<MeshRendererComponent>> m_meshRendererComponents;
-		//std::vector<std::shared_ptr<ModelRendererComponent>> m_modelRendererComponents;
-		//void OnComponentAssigned(std::shared_ptr<ComponentAssignedEvent> componentAssignEvent);
 		std::vector<std::shared_ptr<RendererComponent>> m_RendererComponents;
 		glm::vec3 m_BackgroundColor;
 		std::shared_ptr<Skybox> m_Skybox;
@@ -35,9 +33,11 @@ namespace GameEngine
 		std::shared_ptr<Shader> m_DirLightShadowShader;
 		std::shared_ptr<Shader> m_OmniShadowShader;
 		std::shared_ptr<DirectionalLight> m_DirLight;
+		Scene* m_Scene;
 		bool m_IsInitialized = false;
 		void onComponentEvent(std::shared_ptr<ComponentEvent> componentEvent);
 		bool isAbleToRender(std::shared_ptr<RendererComponent> rendererComponent);
+		GLfloat m_BufferRatio;
 	};
 }
 

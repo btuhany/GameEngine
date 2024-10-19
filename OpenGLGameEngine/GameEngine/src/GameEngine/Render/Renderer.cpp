@@ -15,7 +15,7 @@ namespace GameEngine
 			this->onComponentEvent(event);
 			});
 	}
-	void Renderer::Initialize(Scene* scene)
+	void Renderer::Initialize(Scene* scene, GLfloat bufferRatio)
 	{
 		if (!(scene->IsInitialized()))
 		{
@@ -28,7 +28,25 @@ namespace GameEngine
 		m_BackgroundColor = scene->getBackgroundColor();
 		m_DirLightShadowShader = scene->getDirectionalLightShadowShader();
 		m_OmniShadowShader = scene->getOmniShadowShader();
+		m_Scene = scene;
+		m_BufferRatio = bufferRatio;
 		m_IsInitialized = true;
+	}
+
+	void Renderer::Draw(bool shadowPassActive, bool renderDirLightShadow, bool renderOmniLightShadow)
+	{
+		glm::mat4 projection = m_Scene->getCamera()->
+			CalcGetProjectionMatrix(m_BufferRatio);
+		if (shadowPassActive)
+		{
+			if (renderDirLightShadow)
+				DirectionalShadowMapPass(m_DirLight);
+			if (renderOmniLightShadow)
+				OmniShadowMapPass(m_OmniShadowShader, m_Scene->m_PointLightList, m_Scene->getPointLightCount(),
+					m_Scene->m_SpotLightList, m_Scene->m_SpotLightCount);
+		}
+		RenderPass(projection, m_Scene->m_PointLightList, m_Scene->getPointLightCount(),
+			m_Scene->m_SpotLightList, m_Scene->m_SpotLightCount);
 	}
 
 	void Renderer::RenderPass(glm::mat4 projectionMatrix, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount)

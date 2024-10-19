@@ -168,4 +168,8 @@ namespace GameEngine {
 			m_Keys[m_KeysCache[i]] = KEY_STATE_NONE;
 		}
 	}
+	GLfloat Window::getBufferRatio()
+	{
+		return (GLfloat)m_BufferWidth / m_BufferHeight;
+	}
 }
