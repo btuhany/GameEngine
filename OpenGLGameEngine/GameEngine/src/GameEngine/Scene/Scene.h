@@ -40,9 +40,7 @@ namespace GameEngine {
 		bool IsInitialized();
 
 		PointLight m_PointLightList[MAX_POINT_LIGHTS];
-		int m_PointLightCount = 0;
 		SpotLight m_SpotLightList[MAX_SPOT_LIGHTS];
-		int m_SpotLightCount = 0;
 	protected:
 		void setSkybox(std::shared_ptr<Skybox> skybox);
 		void setCamera(std::shared_ptr<Camera> camera);
@@ -64,5 +62,8 @@ namespace GameEngine {
 
 		glm::vec3 m_BackgroundColour = glm::vec3(0.0f, 0.0f, 0.0f);
 		bool m_IsInitialized = false;
+
+		int m_SpotLightCount = 0;
+		int m_PointLightCount = 0;
 	};
 }

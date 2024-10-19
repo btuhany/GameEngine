@@ -43,10 +43,10 @@ namespace GameEngine
 				DirectionalShadowMapPass(m_DirLight);
 			if (renderOmniLightShadow)
 				OmniShadowMapPass(m_OmniShadowShader, m_Scene->m_PointLightList, m_Scene->getPointLightCount(),
-					m_Scene->m_SpotLightList, m_Scene->m_SpotLightCount);
+					m_Scene->m_SpotLightList, m_Scene->getSpotLightCount());
 		}
 		RenderPass(projection, m_Scene->m_PointLightList, m_Scene->getPointLightCount(),
-			m_Scene->m_SpotLightList, m_Scene->m_SpotLightCount);
+			m_Scene->m_SpotLightList, m_Scene->getSpotLightCount());
 	}
 
 	void Renderer::RenderPass(glm::mat4 projectionMatrix, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount)
