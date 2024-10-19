@@ -162,6 +162,8 @@ void DemoScene3D::initializeInputCallbacks()
 	m_InputReader->OnPressedRotateRightKeyEvent.AddHandler([this]() {handleOnRotateRightKey(); });
 	m_InputReader->OnPauseKeyEvent.AddHandler([this]() {handleOnPauseKey(); });
 	m_InputReader->OnShaderChangeKeyEvent.AddHandler([this]() {handleOnShaderChangeKey(); });
+	m_InputReader->OnSelectLeftObjectKeyEvent.AddHandler([this]() {handleOnSelectLeftObjectKey(); });
+	m_InputReader->OnSelectRightObjectKeyEvent.AddHandler([this]() {handleOnSelectRightObjectKey(); });
 }
 
 void DemoScene3D::initializeGameObjects()
@@ -358,5 +360,16 @@ void DemoScene3D::handleOnPauseKey()
 
 void DemoScene3D::handleOnShaderChangeKey()
 {
+
+}
+
+void DemoScene3D::handleOnSelectRightObjectKey()
+{
+	m_HelicopterBig->GetComponent<ModelRendererComponent>()->ChangeRenderShader(m_NormalRenderShader);
+}
+
+void DemoScene3D::handleOnSelectLeftObjectKey()
+{
+	m_HelicopterBig->GetComponent<ModelRendererComponent>()->ChangeRenderShader(m_MainRenderShader);
 }
 

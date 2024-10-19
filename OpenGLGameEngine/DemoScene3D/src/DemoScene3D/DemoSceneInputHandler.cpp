@@ -58,6 +58,14 @@ void DemoSceneInputHandler::HandleKeys(int* keys, GLfloat deltaTime)
 	{
 		OnShaderChangeKeyEvent.Trigger();
 	}
+	if (keys[GLFW_KEY_RIGHT] == KEY_STATE_RELEASE)
+	{
+		OnSelectRightObjectKeyEvent.Trigger();
+	}
+	if (keys[GLFW_KEY_LEFT] == KEY_STATE_RELEASE)
+	{
+		OnSelectLeftObjectKeyEvent.Trigger();
+	}
 }
 
 void DemoSceneInputHandler::HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY)

@@ -37,6 +37,8 @@ private:
 	void handleOnRotateRightKey();
 	void handleOnPauseKey();
 	void handleOnShaderChangeKey();
+	void handleOnSelectRightObjectKey();
+	void handleOnSelectLeftObjectKey();
 	DemoSceneInputHandler* m_InputReader;
 	float m_ObjectMoveSpeed;
 	float m_ObjectRotateSpeed;

@@ -18,6 +18,11 @@ namespace GameEngine
 		return m_MeshRenderData->shader;
 	}
 
+	void MeshRendererComponent::ChangeRenderShader(std::shared_ptr<Shader> newRenderShader)
+	{
+		auto newMeshRenderData = std::make_shared<MeshRenderData>(m_MeshRenderData->mesh, m_MeshRenderData->texture, m_MeshRenderData->material, newRenderShader);
+		m_MeshRenderData = newMeshRenderData;
+	}
 	bool MeshRendererComponent::IsShadowRenderable()
 	{
 		return true;

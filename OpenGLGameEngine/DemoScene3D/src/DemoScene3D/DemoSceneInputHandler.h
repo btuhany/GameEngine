@@ -19,6 +19,8 @@ public:
 	SimpleEvent<> OnPressedRotateRightKeyEvent;
 	SimpleEvent<> OnPauseKeyEvent;
 	SimpleEvent<> OnShaderChangeKeyEvent;
+	SimpleEvent<> OnSelectRightObjectKeyEvent;
+	SimpleEvent<> OnSelectLeftObjectKeyEvent;
 	void HandleKeys(int* keys, GLfloat deltaTime) override;
 	void HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY) override;
 };

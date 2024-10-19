@@ -14,6 +14,7 @@ namespace GameEngine
 		virtual void Render(GLuint modelLocation) = 0;
 		virtual void HandleOnPreOwnerDestroyed() override;
 		virtual std::shared_ptr<Shader> getRenderDataShader();
+		virtual void ChangeRenderShader(std::shared_ptr<Shader> newRenderShader) = 0;
 		ComponentType getType() override;
 		virtual bool IsShadowRenderable() = 0;
 	};

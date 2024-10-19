@@ -14,6 +14,7 @@ namespace GameEngine
 		void Render(GLuint modelLocation) override;
 		void setMeshRenderData(std::shared_ptr<MeshRenderData> meshRenderData);
 		std::shared_ptr<Shader> getRenderDataShader() override;
+		void ChangeRenderShader(std::shared_ptr<Shader> newRenderShader) override;
 		bool IsShadowRenderable() override;
 	private:
 		std::shared_ptr<MeshRenderData> m_MeshRenderData;
