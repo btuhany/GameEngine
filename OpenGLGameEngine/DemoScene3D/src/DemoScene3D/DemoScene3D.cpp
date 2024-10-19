@@ -42,14 +42,14 @@ void DemoScene3D::Start()
 	m_HelicopterSmall->transform->Rotate(-90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	m_HelicopterSmall->transform->Rotate(180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-	m_HelicopterBig->transform->Translate(glm::vec3(0.0f, -7.0f, -10.0f));
 	m_HelicopterBig->transform->Scale(glm::vec3(2.0f, 2.0f, 2.0f));
 	m_HelicopterBig->transform->Rotate(-90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	m_HelicopterBig->transform->Rotate(180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-	m_HelicopterBig->transform->Translate(glm::vec3(5.0f, 1.0f, -5.0f));
+	m_HelicopterBig->transform->Translate(glm::vec3(-15.0f, -6.0f, -15.0f));
 }
 
-float helicopterRotateYAxis = 0.0f;
+float smallHelicopterRotateYAxis = 0.0f;
+float bigHelicopterRotateYAxis = 0.0f;
 float ironmanPosIncreaseYAxis = 0.1f;
 void DemoScene3D::Update(GLfloat deltaTime)
 {
@@ -58,7 +58,8 @@ void DemoScene3D::Update(GLfloat deltaTime)
 	if (m_StopUpdate)
 		return;
 
-	helicopterRotateYAxis = deltaTime * 12.5f;
+	smallHelicopterRotateYAxis = deltaTime * 12.5f;
+	bigHelicopterRotateYAxis = deltaTime * -15.5f;
 	if (ironman->transform->GetPosition().y > 10)
 	{
 		ironmanPosIncreaseYAxis = -0.1f;
@@ -68,8 +69,8 @@ void DemoScene3D::Update(GLfloat deltaTime)
 		ironmanPosIncreaseYAxis = 0.1f;
 	}
 
-	m_HelicopterBig->transform->Rotate(helicopterRotateYAxis, glm::vec3(0.0f, 1.0, 0.0f));
-	m_HelicopterSmall->transform->Rotate(helicopterRotateYAxis, glm::vec3(0.0f, 1.0, 0.0f));
+	m_HelicopterBig->transform->Rotate(bigHelicopterRotateYAxis, glm::vec3(0.0f, 1.0, 0.0f));
+	m_HelicopterSmall->transform->Rotate(smallHelicopterRotateYAxis, glm::vec3(0.0f, 1.0, 0.0f));
 	ironman->transform->Translate(glm::vec3(0.0f, ironmanPosIncreaseYAxis, 0.0f));
 }
 
