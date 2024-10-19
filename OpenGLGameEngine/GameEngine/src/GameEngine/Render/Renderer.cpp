@@ -17,7 +17,7 @@ namespace GameEngine
 	}
 	void Renderer::Initialize(Scene* scene)
 	{
-		if (!(scene->isInitialized))
+		if (!(scene->IsInitialized()))
 		{
 			LOG_CORE_ERROR("Renderer | Initialize | Scene not initialized!");
 			return;

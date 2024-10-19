@@ -22,7 +22,7 @@ namespace GameEngine {
 
 	void Scene::Initialize()
 	{
-		isInitialized = true;
+		m_IsInitialized = true;
 	}
 
 	void Scene::Start()
@@ -99,6 +99,11 @@ namespace GameEngine {
 		return m_OmniShadowShader != nullptr;
 	}
 
+	bool Scene::IsInitialized()
+	{
+		return m_IsInitialized;
+	}
+
 	void Scene::setOmniShadowShader(std::shared_ptr<Shader> omniShadowShader)
 	{
 		m_OmniShadowShader = omniShadowShader;
@@ -108,21 +113,6 @@ namespace GameEngine {
 	void Scene::setCamera(std::shared_ptr<Camera> camera)
 	{
 		m_MainCamera = camera;
-	}
-	void Scene::updateObjects()
-	{
-		//for (size_t i = 0; i < m_RenderableObjectList.size(); i++)
-		{
-			//m_ObjectList[i]->Tick();
-		}
-	}
-
-	void Scene::startObjects()
-	{
-		//for (size_t i = 0; i < m_RenderableObjectList.size(); i++)
-		{
-			//m_ObjectList[i]->Start();
-		}
 	}
 
 	void Scene::addPointLight(const PointLight* pLight)

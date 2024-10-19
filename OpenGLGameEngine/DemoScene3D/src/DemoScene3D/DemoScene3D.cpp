@@ -27,11 +27,14 @@ void DemoScene3D::Initialize()
 	m_InputReader->OnPressedShiftEvent.AddHandler([this]() {handleOnShiftKey();});
 	m_InputReader->OnReleasedShiftEvent.AddHandler([this]() {handleOnShiftReleasedKey();});
 	m_InputReader->OnPressedSpaceEvent.AddHandler([this]() {handleOnSpaceKey(); });
+
 	static const char* vShaderLocation = "src/DemoScene3D/Shaders/shader.vert";
 	static const char* fShaderLocation = "src/DemoScene3D/Shaders/shader.frag";
+
 	std::shared_ptr<Shader> rendererShader = std::make_shared<Shader>();
 	rendererShader->CreateFromFiles(vShaderLocation, fShaderLocation);
 	rendererShader->SetUseDirLightShadow(true); //TODO
+
 	std::shared_ptr<Shader> rendererShader2 = std::make_shared<Shader>();
 	rendererShader2->CreateFromFiles(vShaderLocation, fShaderLocation);
 
@@ -235,22 +238,22 @@ std::shared_ptr<MeshData> DemoScene3D::createPlainMeshData()
 }
 void DemoScene3D::handleOnRightKey()
 {
-	m_MainCamera->MoveRight(m_CameraSpeed * m_DeltaTime);
+	getCamera()->MoveRight(m_CameraSpeed * m_DeltaTime);
 }
 
 void DemoScene3D::handleOnLeftKey()
 {
-	m_MainCamera->MoveLeft(m_CameraSpeed * m_DeltaTime);
+	getCamera()->MoveLeft(m_CameraSpeed * m_DeltaTime);
 }
 
 void DemoScene3D::handleOnUpKey()
 {
-	m_MainCamera->MoveForward(m_CameraSpeed * m_DeltaTime);
+	getCamera()->MoveForward(m_CameraSpeed * m_DeltaTime);
 }
 
 void DemoScene3D::handleOnDownKey()
 {
-	m_MainCamera->MoveBack(m_CameraSpeed * m_DeltaTime);
+	getCamera()->MoveBack(m_CameraSpeed * m_DeltaTime);
 }
 
 void DemoScene3D::handleOnShiftKey()
