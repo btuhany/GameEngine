@@ -18,6 +18,11 @@ namespace GameEngine
 		return m_MeshRenderData->shader;
 	}
 
+	bool MeshRendererComponent::IsShadowRenderable()
+	{
+		return true;
+	}
+
 	void MeshRendererComponent::drawMesh(GLuint uniformModel)
 	{
 		if (m_OwnerEntity.expired())

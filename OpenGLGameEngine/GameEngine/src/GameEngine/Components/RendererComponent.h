@@ -15,5 +15,6 @@ namespace GameEngine
 		virtual void HandleOnPreOwnerDestroyed() override;
 		virtual std::shared_ptr<Shader> getRenderDataShader();
 		ComponentType getType() override;
+		virtual bool IsShadowRenderable() = 0;
 	};
 }

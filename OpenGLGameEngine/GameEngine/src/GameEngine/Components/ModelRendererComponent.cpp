@@ -17,6 +17,11 @@ namespace GameEngine
 		return m_ModelRenderData->shader;
 	}
 
+	bool ModelRendererComponent::IsShadowRenderable()
+	{
+		return false;
+	}
+
 	void ModelRendererComponent::DrawModel(GLuint uniformModel)
 	{
 		//TODOby
