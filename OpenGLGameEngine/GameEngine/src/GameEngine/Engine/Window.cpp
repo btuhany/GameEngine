@@ -124,18 +124,18 @@ namespace GameEngine {
 			if (action == GLFW_PRESS)
 			{
 				theWindow->m_Keys[key] = KEY_STATE_PRESS;
-				printf("Pressed: %d\n", key);
+				//printf("Pressed: %d\n", key);
 			}
 			else if (action == GLFW_RELEASE)
 			{
 				theWindow->m_Keys[key] = KEY_STATE_RELEASE;
 				theWindow->m_KeysCache.push_back(key);
-				printf("Released: %d\n", key);
+				//printf("Released: %d\n", key);
 			}
 			else if (action == GLFW_REPEAT)
 			{
 				theWindow->m_Keys[key] = KEY_STATE_HELD;
-				printf("Hold: %d\n", key);
+				//printf("Hold: %d\n", key);
 			}
 		}
 	}
