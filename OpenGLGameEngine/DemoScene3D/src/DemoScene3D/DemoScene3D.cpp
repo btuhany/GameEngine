@@ -19,13 +19,13 @@ void DemoScene3D::Initialize()
 {
 	Scene::Initialize();
 
-	initializeInputCallbacks();
-	initializeShadowShaders();
-
-
-	setCamera(std::make_shared<Camera>(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.0f, 0.1f, 60.0f, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
+	setCamera(std::make_shared<Camera>(glm::vec3(-10.0f, 0.0f, 0.0f), 
+		glm::vec3(0.0f, 1.0f, 0.0f), 
+		0.0f, 0.0f, 5.0f, 0.1f, 60.0f, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
 	setBackgroundColor(glm::vec3(0.0f, 1.0f, 0.0f));
 
+	initializeInputCallbacks();
+	initializeShadowShaders();
 	initializeSkybox();
 	initializeGameObjects();
 	initializeLights();
@@ -161,7 +161,6 @@ void DemoScene3D::handleOnShiftReleasedKey()
 	m_MoveSpeed = 5.0f;
 }
 
-
 void DemoScene3D::handleOnSpaceKey()
 {
 	ironman->setActive(!ironman->getActive());
@@ -269,31 +268,31 @@ void DemoScene3D::initializeShadowShaders()
 
 void DemoScene3D::initializeLights()
 {
-	std::shared_ptr<DirectionalLight> dirLight = std::make_shared<DirectionalLight>(0.0f, 0.7f,
+	std::shared_ptr<DirectionalLight> dirLight = std::make_shared<DirectionalLight>(0.0f, 0.02f,
 		0.2f, 0.5f, 1.0f,
 		0.4f, -0.8f, 0.01f, 1024, 1024);
 	setDirectionalLight(dirLight);
 
-	//addPointLight(new PointLight(0.0f, 500.5f,
-	//	0.3f, 0.7f, 0.0f,
-	//	7.0f, 15.0f, 5.0f,
-	//	0.03f, 1.0f, 1.0f,
-	//	2048, 2048,
-	//	0.01f, 100.0f));
-	//addPointLight(new PointLight(0.0f, 255.5f,
-	//	1.0f, 0.0f, 1.0f,
-	//	15.0f, 35.0f, 30.0f,
-	//	0.5f, 0.1f, 0.3f,
-	//	1024, 1024,
-	//	0.01f, 300.0f));
-	//addSpotLight(new SpotLight(0.0f, 80.5f,
-	//	1.0f, 0.0f, 0.0f,
-	//	0.0f, 20.0f, 0.0f,
-	//	0.0f, -1.0f, 0.6f,
-	//	1.1f, 1.0f, 0.01f,
-	//	60.0f,
-	//	720, 720,
-	//	0.01f, 100.0f));
+	addPointLight(new PointLight(0.0f, 500.5f,
+		0.3f, 0.7f, 0.0f,
+		7.0f, 15.0f, 5.0f,
+		0.03f, 1.0f, 1.0f,
+		2048, 2048,
+		0.01f, 100.0f));
+	addPointLight(new PointLight(0.0f, 255.5f,
+		1.0f, 0.0f, 1.0f,
+		15.0f, 35.0f, 30.0f,
+		0.5f, 0.1f, 0.3f,
+		1024, 1024,
+		0.01f, 300.0f));
+	addSpotLight(new SpotLight(0.0f, 80.5f,
+		1.0f, 0.0f, 0.0f,
+		0.0f, 20.0f, 0.0f,
+		0.0f, -1.0f, 0.6f,
+		1.1f, 1.0f, 0.01f,
+		60.0f,
+		720, 720,
+		0.01f, 100.0f));
 	//addSpotLight(new SpotLight(0.0f, 155.0f,
 	//	0.0f, 0.5f, 1.0f,
 	//	0.0f, -10.0f, 0.0f,
