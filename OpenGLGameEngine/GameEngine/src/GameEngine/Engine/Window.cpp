@@ -124,7 +124,6 @@ namespace GameEngine {
 			if (action == GLFW_PRESS)
 			{
 				theWindow->m_Keys[key] = KEY_STATE_PRESS;
-				theWindow->m_KeysCache.push_back(key);
 				printf("Pressed: %d\n", key);
 			}
 			else if (action == GLFW_RELEASE)
@@ -136,7 +135,6 @@ namespace GameEngine {
 			else if (action == GLFW_REPEAT)
 			{
 				theWindow->m_Keys[key] = KEY_STATE_HELD;
-				theWindow->m_KeysCache.push_back(key);
 				printf("Hold: %d\n", key);
 			}
 		}
@@ -167,6 +165,7 @@ namespace GameEngine {
 		{
 			m_Keys[m_KeysCache[i]] = KEY_STATE_NONE;
 		}
+		m_KeysCache.clear();
 	}
 	GLfloat Window::getBufferRatio()
 	{

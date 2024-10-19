@@ -102,6 +102,7 @@ namespace GameEngine {
 			m_Renderer->Draw(m_ShadowPassActive, renderDirLightShadow, renderOmniLightShadow);
 
 			m_MainWindow->SwapBuffers();
+			m_MainWindow->ClearKeyCache();
 		}
 	}
 
