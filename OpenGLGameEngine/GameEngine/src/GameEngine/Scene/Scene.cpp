@@ -11,13 +11,6 @@ namespace GameEngine {
 
 	Scene::~Scene()
 	{
-		printf("\n deleted scene \n");
-		//TODO: m_ShadowMapRenderableObject clear?
-		//for (auto obj : m_RenderableObjectList) {
-		//	obj->ClearRenderableObject();
-		//}
-		//m_RenderableObjectList.clear();
-		//MeshRenderer::ClearRenderers();
 	}
 
 	void Scene::Initialize()

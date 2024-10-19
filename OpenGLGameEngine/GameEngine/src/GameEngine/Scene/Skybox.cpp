@@ -11,7 +11,6 @@ namespace GameEngine {
 		m_SkyShader->CreateFromFiles(vertexLocation, fragmentLocation);
 		m_UniformProjection = m_SkyShader->GetProjectionLocation();
 		m_UniformView = m_SkyShader->GetViewLocation();
-		printf("Demo scene initialized3!");
 		//Texture setup
 		glGenTextures(1, &m_TextureId);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, m_TextureId);
@@ -31,7 +30,6 @@ namespace GameEngine {
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, texData);
 			stbi_image_free(texData);
 		}
-		printf("\n Demo scene initialized4!");
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
@@ -75,8 +73,6 @@ namespace GameEngine {
 
 		m_SkyMeshData = std::make_shared<MeshData>();
 		m_SkyMeshData->CreateMesh(skyboxVertices, skyboxIndices, 64, 36);
-		printf("\n Demo scene initialized5!");
-		printf("\n Demo scene initialized6!");
 	}
 
 	void Skybox::DrawSkybox(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
