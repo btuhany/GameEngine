@@ -80,16 +80,21 @@ namespace GameEngine {
 
 			glfwPollEvents();
 
+			//TODO
+			if (m_MainWindow->GetKeys()[GLFW_KEY_0] == KEY_STATE_RELEASE)
+			{
+				m_DebugInputActive = !m_DebugInputActive;
+			}
+
 			if (handleInputs)
 			{
-				if (m_DebugInputActtive)
+				if (m_DebugInputActive)
 				{
 					m_Scene->getCamera()->HandleMouse(m_MainWindow->GetMouseDeltaX(), m_MainWindow->GetMouseDeltaY());
 					m_Scene->getCamera()->HandleKeys(m_MainWindow->GetKeys(), deltaTime);
 				}
 				else
 				{
-					m_Scene->getCamera()->HandleMouse(m_MainWindow->GetMouseDeltaX(), m_MainWindow->GetMouseDeltaY());
 					m_InputHandler->HandleKeys(m_MainWindow->GetKeys(), deltaTime);
 				}
 			}
@@ -106,7 +111,7 @@ namespace GameEngine {
 	}
 	void Engine::setDebugInputActive(bool active)
 	{
-		m_DebugInputActtive = active;
+		m_DebugInputActive = active;
 	}
 	bool Engine::checkValidateDirLightShadowRendering(GameModeType gameModeType)
 	{
