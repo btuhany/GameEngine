@@ -3,14 +3,14 @@
 - Key release state is broken
 - Mesh Renderers should be initialized before the start
 
-
+*******************************************
 *** NAMING CONVENTION ***
 private member -> m_PrivateMember
 public member -> privateMember
 private function -> privateFunction()
 public function -> PublicFunction
 get and set functions -> getOrSetFunction()
-*************************
+*******************************************
 
 08.24
 TODO: Create a RenderableObject base class that contains a Renderer an calls Render() function [X]
@@ -43,6 +43,6 @@ TODO:
 - Review scene class [X]
 
 13.10.24
-- review scene class again []
-- review entry point []
-- start engine visual diagram
+- review scene class again [X]
+- review entry point [X]
+- start engine visual diagram [CANCEL]
