@@ -30,7 +30,7 @@ void DemoSceneInputHandler::HandleKeys(int* keys, GLfloat deltaTime)
 	{
 		OnPresssedDownEvent.Trigger();
 	}
-	if (keys[GLFW_KEY_SPACE] == KEY_STATE_RELEASE)
+	if (keys[GLFW_KEY_SPACE] == KEY_STATE_PRESS || keys[GLFW_KEY_SPACE] == KEY_STATE_HELD)
 	{
 		OnPressedSpaceEvent.Trigger();
 	}

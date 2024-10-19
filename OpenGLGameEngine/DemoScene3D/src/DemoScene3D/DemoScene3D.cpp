@@ -29,6 +29,7 @@ void DemoScene3D::Initialize()
 	getCamera()->MoveForward(25.0f);
 	getCamera()->Rotate(0.0f, -90.0f);
 	getCamera()->Rotate(90.0f, -30.0f);
+
 	setBackgroundColor(glm::vec3(0.0f, 1.0f, 0.0f));
 	initializeInputCallbacks();
 	initializeShadowShaders();
@@ -327,15 +328,17 @@ void DemoScene3D::handleOnShiftKey(int keyState)
 
 void DemoScene3D::handleOnSpaceKey()
 {
-	ironman->setActive(!ironman->getActive());
+	m_HelicopterBig->transform->Translate(glm::vec3(0.0f, m_ObjectMoveSpeed * 0.05f, 0.0f));
 }
 
 void DemoScene3D::handleOnCtrlKey()
 {
+	m_HelicopterBig->transform->Translate(glm::vec3(0.0f, -m_ObjectMoveSpeed * 0.05f, 0.0f));
 }
 
 void DemoScene3D::handleOnEnableDisableKey()
 {
+	m_HelicopterBig->setActive(!m_HelicopterBig->IsActive());
 }
 
 void DemoScene3D::handleOnRotateLeftKey()
