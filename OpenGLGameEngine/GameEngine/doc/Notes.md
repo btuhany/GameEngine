@@ -4,7 +4,7 @@
 - Mesh Renderers should be initialized before the start
 
 *******************************************
-*** NAMING CONVENTION ***
+********** NAMING CONVENTION **************
 private member -> m_PrivateMember
 public member -> privateMember
 private function -> privateFunction()

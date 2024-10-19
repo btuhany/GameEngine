@@ -42,6 +42,34 @@ namespace GameEngine {
 		update();
 	}
 
+	void Camera::HandleKeys(int* keys, GLfloat deltaTime)
+	{
+		if (keys[GLFW_KEY_LEFT_SHIFT] == KEY_STATE_PRESS)
+		{
+			m_MoveSpeed = 15.0f;
+		}
+		else if (keys[GLFW_KEY_LEFT_SHIFT] == KEY_STATE_RELEASE)
+		{
+			m_MoveSpeed = 5.0f;
+		}
+		if (keys[GLFW_KEY_W] == KEY_STATE_PRESS || keys[GLFW_KEY_W] == KEY_STATE_HELD)
+		{
+			MoveForward(m_MoveSpeed * deltaTime);
+		}
+		if (keys[GLFW_KEY_D] == KEY_STATE_PRESS || keys[GLFW_KEY_D] == KEY_STATE_HELD)
+		{
+			MoveRight(m_MoveSpeed * deltaTime);
+		}
+		if (keys[GLFW_KEY_A] == KEY_STATE_PRESS || keys[GLFW_KEY_A] == KEY_STATE_HELD)
+		{
+			MoveLeft(m_MoveSpeed * deltaTime);
+		}
+		if (keys[GLFW_KEY_S] == KEY_STATE_PRESS || keys[GLFW_KEY_S] == KEY_STATE_HELD)
+		{
+			MoveBack(m_MoveSpeed * deltaTime);
+		}
+	}
+
 	glm::vec3 Camera::getCameraPosition()
 	{
 		return m_Position;

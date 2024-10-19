@@ -82,8 +82,16 @@ namespace GameEngine {
 
 			if (handleInputs)
 			{
-				m_InputHandler->HandleKeys(m_MainWindow->GetKeys(), deltaTime);
-				m_Scene->getCamera()->HandleMouse(m_MainWindow->GetMouseDeltaX(), m_MainWindow->GetMouseDeltaY());
+				if (m_DebugInputActtive)
+				{
+					m_Scene->getCamera()->HandleMouse(m_MainWindow->GetMouseDeltaX(), m_MainWindow->GetMouseDeltaY());
+					m_Scene->getCamera()->HandleKeys(m_MainWindow->GetKeys(), deltaTime);
+				}
+				else
+				{
+					m_Scene->getCamera()->HandleMouse(m_MainWindow->GetMouseDeltaX(), m_MainWindow->GetMouseDeltaY());
+					m_InputHandler->HandleKeys(m_MainWindow->GetKeys(), deltaTime);
+				}
 			}
 
 			m_Renderer->Draw(m_ShadowPassActive, renderDirLightShadow, renderOmniLightShadow);
@@ -95,6 +103,10 @@ namespace GameEngine {
 	void Engine::Stop()
 	{
 		m_ShouldStop = true;
+	}
+	void Engine::setDebugInputActive(bool active)
+	{
+		m_DebugInputActtive = active;
 	}
 	bool Engine::checkValidateDirLightShadowRendering(GameModeType gameModeType)
 	{

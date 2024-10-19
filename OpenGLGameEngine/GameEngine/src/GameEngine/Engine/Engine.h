@@ -29,6 +29,7 @@ namespace GameEngine {
 		void Start();
 		void Run(GameModeType gameModeType);
 		void Stop();
+		void setDebugInputActive(bool active);
 	private:
 		Window* m_MainWindow;
 		Scene* m_Scene;
@@ -37,6 +38,7 @@ namespace GameEngine {
 		bool m_IsInitialized;
 		bool m_ShouldStop;
 		bool m_ShadowPassActive;
+		bool m_DebugInputActtive;
 		bool checkValidateDirLightShadowRendering(GameModeType gameModeType);
 		bool checkValidateOmniLightShadowRendering(GameModeType gameModeType);
 		bool checkValidateInputHandler();
