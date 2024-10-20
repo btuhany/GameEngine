@@ -11,6 +11,7 @@
 #include "../Entities/ModelEntity.h"
 #include  <iostream>
 #include <stdio.h>
+#include "../Event/SceneCameraChangedEvent.h"
 namespace GameEngine {
 	class ENGINE_API Scene
 	{

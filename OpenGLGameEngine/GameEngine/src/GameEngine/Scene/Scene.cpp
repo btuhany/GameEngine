@@ -105,6 +105,12 @@ namespace GameEngine {
 
 	void Scene::setCamera(std::shared_ptr<Camera> camera)
 	{
+		if (m_MainCamera != nullptr)
+		{
+			auto sceneCameraChangedEventData = std::make_shared<SceneCameraChangedEvent>();
+			sceneCameraChangedEventData->camera = camera;
+			EventManager::GetInstance().Publish(sceneCameraChangedEventData);
+		}
 		m_MainCamera = camera;
 	}
 

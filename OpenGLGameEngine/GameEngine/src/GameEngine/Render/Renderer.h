@@ -9,6 +9,7 @@
 #include "../Entities/ModelEntity.h"
 #include "../Event/EventManager.h"
 #include "../Event/ComponentEvent.h"
+#include "../Event/SceneCameraChangedEvent.h"
 #include "../Debug/Log.h"
 #include "stdio.h"
 namespace GameEngine
@@ -36,6 +37,7 @@ namespace GameEngine
 		Scene* m_Scene;
 		bool m_IsInitialized = false;
 		void onComponentEvent(std::shared_ptr<ComponentEvent> componentEvent);
+		void onSceneCameraChangedEvent(std::shared_ptr<SceneCameraChangedEvent> sceneCameraChangedEventData);
 		bool isAbleToRender(std::shared_ptr<RendererComponent> rendererComponent);
 		GLfloat m_BufferRatio;
 	};

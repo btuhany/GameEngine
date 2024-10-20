@@ -4,7 +4,7 @@
 #include "Event.h" 
 namespace GameEngine
 {
-	enum class ComponentAction
+	enum class ENGINE_API ComponentAction
 	{
 		None = 0,
 		Added = 1,

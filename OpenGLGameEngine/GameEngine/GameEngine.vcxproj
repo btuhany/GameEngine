@@ -35,6 +35,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameEngine\Render\SpriteRenderData.cpp" />
+    <ClCompile Include="src\GameEngine\Components\SpriteRendererComponent.cpp" />
     <ClCompile Include="src\GameEngine\Render\RenderData.cpp" />
     <ClCompile Include="src\GameEngine\Render\Renderer.cpp" />
     <ClCompile Include="src\GameEngine\Resource\ModelData.cpp" />
@@ -71,6 +73,9 @@
     <ClCompile Include="src\GameEngine\Components\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameEngine\Event\SceneCameraChangedEvent.h" />
+    <ClInclude Include="src\GameEngine\Render\SpriteRenderData.h" />
+    <ClInclude Include="src\GameEngine\Components\SpriteRendererComponent.h" />
     <ClInclude Include="src\GameEngine\Render\RenderData.h" />
     <ClInclude Include="src\GameEngine\Event\ComponentEvent.h" />
     <ClInclude Include="src\GameEngine\Render\Renderer.h" />

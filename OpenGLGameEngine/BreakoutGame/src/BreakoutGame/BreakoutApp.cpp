@@ -11,11 +11,14 @@ BreakoutApp::~BreakoutApp()
 void BreakoutApp::Run()
 {
 	GameEngine::Log::Init();
-	GameEngine::Engine engine = GameEngine::Engine(new GameEngine::Window(1366, 768, "Breakout"));
+	BreakoutSceneInputHandler inputHandler = BreakoutSceneInputHandler();
+	BreakoutScene breakoutScene = BreakoutScene(&inputHandler);
 
-	engine.Initialize(new BreakoutScene());
+	GameEngine::Engine engine = GameEngine::Engine(new Window(1366, 768, "Breakout"), &inputHandler, true);
+	engine.Initialize(&breakoutScene);
+	engine.setDebugInputActive(false);
 	engine.Start();
-	engine.Run();
+	engine.Run(GameModeType::TwoDimensional);
 }
 
 GameEngine::Application* GameEngine::CreateApplication()
