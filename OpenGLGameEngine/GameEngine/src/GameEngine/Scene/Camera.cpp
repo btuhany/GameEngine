@@ -12,7 +12,7 @@ namespace GameEngine {
 		m_Yaw = startYawVal;
 		m_Pitch = startPitchVal;
 		m_Front = glm::vec3(0.0f, 0.0f, -1.0f);
-		m_Position = glm::cross(m_WorldUp, startPosition);;
+		m_Position = startPosition;
 
 		m_MoveSpeed = startMoveSpeed;
 		m_RotateSpeed = startRotateSpeed;

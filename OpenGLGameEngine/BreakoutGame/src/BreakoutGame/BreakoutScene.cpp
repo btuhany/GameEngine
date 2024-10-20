@@ -17,7 +17,7 @@ void BreakoutScene::Initialize()
 {
 	initializeInputCallbacks();
 	setCamera(std::make_shared<Camera>(
-		glm::vec3(0.0f, 0.0f, -5.0f),
+		glm::vec3(-10.0f, 0.0f, 0.0f),
 		glm::vec3(0.0f, 1.0f, 0.0f),
 		0.0f, 0.0f, 5.0f, 0.1f, 30, 0.1f, 100.0f, CAMERA_TYPE_ORTHOGONAL));
 
@@ -107,14 +107,14 @@ void BreakoutScene::changeCameraType()
 	if (getCamera()->getCameraType() == CAMERA_TYPE_PERSPECTIVE)
 	{
 		setCamera(std::make_shared<Camera>(
-			glm::vec3(0.0f, 0.0f, -5.0f),
+			glm::vec3(-10.0f, 0.0f, 0.0f),
 			glm::vec3(0.0f, 1.0f, 0.0f),
 			0.0f, 0.0f, 5.0f, 0.1f, 30.0f, 0.1f, 100.0f, CAMERA_TYPE_ORTHOGONAL));
 	}
 	else if (getCamera()->getCameraType() == CAMERA_TYPE_ORTHOGONAL)
 	{
 		setCamera(std::make_shared<Camera>(
-			glm::vec3(0.0f, 0.0f, 0.0f),
+			glm::vec3(-10.0f, 0.0f, 0.0f),
 			glm::vec3(0.0f, 1.0f, 0.0f),
 			0.0f, 0.0f, 5.0f, 0.1f, 60.0f, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
 	}
