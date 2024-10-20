@@ -13,5 +13,7 @@ public:
 private:
 	BreakoutSceneInputHandler* m_InputHandler;
 	std::shared_ptr<MeshData> createCubeMeshData();
+	void initializeInputCallbacks();
+	void changeCameraType();
 };
 

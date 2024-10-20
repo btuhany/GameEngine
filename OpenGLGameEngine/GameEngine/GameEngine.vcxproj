@@ -73,6 +73,7 @@
     <ClCompile Include="src\GameEngine\Components\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameEngine\Event\SceneCameraChangedEvent.h" />
     <ClInclude Include="src\GameEngine\Render\SpriteRenderData.h" />
     <ClInclude Include="src\GameEngine\Components\SpriteRendererComponent.h" />
     <ClInclude Include="src\GameEngine\Render\RenderData.h" />

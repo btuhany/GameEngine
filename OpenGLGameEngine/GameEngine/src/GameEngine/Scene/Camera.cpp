@@ -155,6 +155,11 @@ namespace GameEngine {
 		return m_Projection;
 	}
 
+	CameraType Camera::getCameraType()
+	{
+		return m_Type;
+	}
+
 	Camera::~Camera()
 	{
 	}

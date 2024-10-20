@@ -260,6 +260,9 @@
     <ClInclude Include="src\GameEngine\Render\SpriteRenderData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\Event\SceneCameraChangedEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Resources\Shaders\shader.vert">

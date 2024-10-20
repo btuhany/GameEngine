@@ -8,11 +8,18 @@ namespace GameEngine
 			[this](std::shared_ptr<ComponentEvent> event) {
 			this->onComponentEvent(event);
 			}, 10);
+		EventManager::GetInstance().Subscribe<SceneCameraChangedEvent>(
+			[this](std::shared_ptr<SceneCameraChangedEvent> eventData) {
+				this->onSceneCameraChangedEvent(eventData);
+			}, 10);
 	}
 	Renderer::~Renderer()
 	{
 		EventManager::GetInstance().Unsubscribe<ComponentEvent>([this](std::shared_ptr<ComponentEvent> event) {
 			this->onComponentEvent(event);
+			});
+		EventManager::GetInstance().Unsubscribe<SceneCameraChangedEvent>([this](std::shared_ptr<SceneCameraChangedEvent> event) {
+			this->onSceneCameraChangedEvent(event);
 			});
 	}
 	void Renderer::Initialize(Scene* scene, GLfloat bufferRatio)
@@ -261,6 +268,11 @@ namespace GameEngine
 				}
 			}
 		}
+	}
+
+	void Renderer::onSceneCameraChangedEvent(std::shared_ptr<SceneCameraChangedEvent> sceneCameraChangedEventData)
+	{
+		m_Camera = sceneCameraChangedEventData->camera;
 	}
 
 	bool Renderer::isAbleToRender(std::shared_ptr<RendererComponent> rendererComponent)

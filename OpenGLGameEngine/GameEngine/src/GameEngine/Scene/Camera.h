@@ -29,6 +29,7 @@ namespace GameEngine
 		void MoveUp(float value);
 		void MoveDown(float value);
 		glm::mat4 CalcGetProjectionMatrix(GLfloat aspectRatio);
+		CameraType getCameraType();
 		~Camera();
 
 	private:

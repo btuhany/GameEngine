@@ -15,10 +15,11 @@ BreakoutScene::~BreakoutScene()
 
 void BreakoutScene::Initialize()
 {
+	initializeInputCallbacks();
 	setCamera(std::make_shared<Camera>(
 		glm::vec3(0.0f, 0.0f, 0.0f),
 		glm::vec3(0.0f, 1.0f, 0.0f),
-		0.0f, 0.0f, 5.0f, 0.1f, 30, -1.0f, 100.0f, CAMERA_TYPE_ORTHOGONAL));
+		0.0f, 0.0f, 5.0f, 0.1f, 30, 0.1f, 100.0f, CAMERA_TYPE_ORTHOGONAL));
 
 
 	static const char* vShaderLocation = "src/BreakoutGame/Shaders/shader.vert";
@@ -90,4 +91,31 @@ std::shared_ptr<MeshData> BreakoutScene::createCubeMeshData()
 	std::shared_ptr<MeshData> cubeMesh = std::make_shared<MeshData>();
 	cubeMesh->CreateMesh(vertices, indices, 64, 36);
 	return cubeMesh;
+}
+
+void BreakoutScene::initializeInputCallbacks()
+{
+	m_InputHandler->OnPressedCameraTypeChangeKeyEvent.AddHandler(
+		[this]() {
+			changeCameraType();
+		});
+}
+
+
+void BreakoutScene::changeCameraType()
+{
+	if (getCamera()->getCameraType() == CAMERA_TYPE_PERSPECTIVE)
+	{
+		setCamera(std::make_shared<Camera>(
+			glm::vec3(0.0f, 0.0f, 0.0f),
+			glm::vec3(0.0f, 1.0f, 0.0f),
+			0.0f, 0.0f, 5.0f, 0.1f, 30.0f, 0.1f, 100.0f, CAMERA_TYPE_ORTHOGONAL));
+	}
+	else if (getCamera()->getCameraType() == CAMERA_TYPE_ORTHOGONAL)
+	{
+		setCamera(std::make_shared<Camera>(
+			glm::vec3(0.0f, 0.0f, 0.0f),
+			glm::vec3(0.0f, 1.0f, 0.0f),
+			0.0f, 0.0f, 5.0f, 0.1f, 60.0f, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
+	}
 }
