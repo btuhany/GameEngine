@@ -20,15 +20,15 @@ void DemoScene3D::Initialize()
 {
 	Scene::Initialize();
 
-	setCamera(std::make_shared<Camera>(glm::vec3(-10.0f, 0.0f, 0.0f), 
+	setCamera(std::make_shared<Camera>(glm::vec3(0.0f, 5.0f, 45.0f), 
 		glm::vec3(0.0f, 1.0f, 0.0f), 
-		0.0f, 0.0f, 5.0f, 0.1f, 60.0f, 0.1f, 400.0f, CAMERA_TYPE_PERSPECTIVE));
-	getCamera()->MoveLeft(45.0f);
-	getCamera()->MoveForward(10.0f);
-	getCamera()->Rotate(0.0f, 90.0f);
-	getCamera()->MoveForward(25.0f);
-	getCamera()->Rotate(0.0f, -90.0f);
-	getCamera()->Rotate(90.0f, -30.0f);
+		-90.0f, 0.0f, 5.0f, 0.1f, 60.0f, 0.1f, 400.0f, CAMERA_TYPE_PERSPECTIVE));
+	//getCamera()->MoveLeft(45.0f);
+	//getCamera()->MoveForward(10.0f);
+	//getCamera()->Rotate(0.0f, 90.0f);
+	//getCamera()->MoveForward(25.0f);
+	//getCamera()->Rotate(0.0f, -90.0f);
+	//getCamera()->Rotate(90.0f, -30.0f);
 
 	setBackgroundColor(glm::vec3(0.0f, 1.0f, 0.0f));
 	initializeInputCallbacks();
@@ -310,7 +310,7 @@ void DemoScene3D::handleOnUpKey()
 		return;
 	//getCamera()->MoveForward(m_CameraSpeed * m_DeltaTime);
 	auto pos = m_GameEntities[m_CurrentObjectIndex]->transform->GetPosition();
-	m_GameEntities[m_CurrentObjectIndex]->transform->Translate(glm::vec3(0.0f, 0.0f, m_ObjectMoveSpeed * m_DeltaTime));
+	m_GameEntities[m_CurrentObjectIndex]->transform->Translate(glm::vec3(0.0f, 0.0f, -(m_ObjectMoveSpeed * m_DeltaTime)));
 }
 
 void DemoScene3D::handleOnDownKey()
@@ -319,7 +319,7 @@ void DemoScene3D::handleOnDownKey()
 		return;
 	//getCamera()->MoveBack(m_CameraSpeed * m_DeltaTime);
 	auto pos = m_GameEntities[m_CurrentObjectIndex]->transform->GetPosition();
-	m_GameEntities[m_CurrentObjectIndex]->transform->Translate(glm::vec3(0.0f, 0.0f, -(m_ObjectMoveSpeed * m_DeltaTime)));
+	m_GameEntities[m_CurrentObjectIndex]->transform->Translate(glm::vec3(0.0f, 0.0f, (m_ObjectMoveSpeed * m_DeltaTime)));
 }
 
 void DemoScene3D::handleOnShiftKey(int keyState)
