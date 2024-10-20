@@ -83,6 +83,14 @@ namespace GameEngine {
 		{
 			MoveBack(m_MoveSpeed * deltaTime);
 		}
+		if (keys[GLFW_KEY_SPACE] == KEY_STATE_PRESS || keys[GLFW_KEY_SPACE] == KEY_STATE_HELD)
+		{
+			MoveUp(m_MoveSpeed * deltaTime);
+		}
+		if (keys[GLFW_KEY_LEFT_CONTROL] == KEY_STATE_PRESS || keys[GLFW_KEY_LEFT_CONTROL] == KEY_STATE_HELD)
+		{
+			MoveDown(m_MoveSpeed * deltaTime);
+		}
 	}
 
 	glm::vec3 Camera::getCameraPosition()
@@ -114,6 +122,16 @@ namespace GameEngine {
 	{
 		m_Position -= m_Right * value;
 
+	}
+
+	void Camera::MoveUp(float value)
+	{
+		m_Position += m_Up * value;
+	}
+
+	void Camera::MoveDown(float value)
+	{
+		m_Position -= m_Up * value;
 	}
 
 	glm::mat4 Camera::CalcGetProjectionMatrix(GLfloat aspectRatio)

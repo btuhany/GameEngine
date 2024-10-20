@@ -26,7 +26,8 @@ namespace GameEngine
 		void MoveBack(float value);
 		void MoveRight(float value);
 		void MoveLeft(float value);
-
+		void MoveUp(float value);
+		void MoveDown(float value);
 		glm::mat4 CalcGetProjectionMatrix(GLfloat aspectRatio);
 		~Camera();
 
