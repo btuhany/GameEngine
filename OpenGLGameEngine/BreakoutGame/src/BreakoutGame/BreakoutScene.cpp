@@ -106,16 +106,22 @@ void BreakoutScene::changeCameraType()
 {
 	if (getCamera()->getCameraType() == CAMERA_TYPE_PERSPECTIVE)
 	{
+		auto pos = getCamera()->getPosition();
+		auto yaw = getCamera()->getYawValue();
+		auto pitch = getCamera()->getPitchValue();
 		setCamera(std::make_shared<Camera>(
-			glm::vec3(-10.0f, 0.0f, 0.0f),
+			pos,
 			glm::vec3(0.0f, 1.0f, 0.0f),
-			0.0f, 0.0f, 5.0f, 0.1f, 30.0f, 0.1f, 100.0f, CAMERA_TYPE_ORTHOGONAL));
+			yaw, pitch, 5.0f, 0.1f, 30.0f, 0.1f, 100.0f, CAMERA_TYPE_ORTHOGONAL));
 	}
 	else if (getCamera()->getCameraType() == CAMERA_TYPE_ORTHOGONAL)
 	{
+		auto pos = getCamera()->getPosition();
+		auto yaw = getCamera()->getYawValue();
+		auto pitch = getCamera()->getPitchValue();
 		setCamera(std::make_shared<Camera>(
-			glm::vec3(-10.0f, 0.0f, 0.0f),
+			pos,
 			glm::vec3(0.0f, 1.0f, 0.0f),
-			0.0f, 0.0f, 5.0f, 0.1f, 60.0f, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
+			yaw, pitch, 5.0f, 0.1f, 60.0f, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
 	}
 }

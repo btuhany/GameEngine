@@ -97,9 +97,19 @@ namespace GameEngine {
 		}
 	}
 
-	glm::vec3 Camera::getCameraPosition()
+	glm::vec3 Camera::getPosition()
 	{
 		return m_Position;
+	}
+
+	float Camera::getYawValue()
+	{
+		return m_Yaw;
+	}
+
+	float Camera::getPitchValue()
+	{
+		return m_Pitch;
 	}
 
 	glm::mat4 Camera::CalculateViewMatrix()

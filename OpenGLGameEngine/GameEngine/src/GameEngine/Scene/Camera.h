@@ -19,7 +19,9 @@ namespace GameEngine
 		void HandleKeys(int* keys, GLfloat deltaTime);
 		
 		void Rotate(float yawValue, float pitchValue);
-		glm::vec3 getCameraPosition();
+		glm::vec3 getPosition();
+		float getYawValue();
+		float getPitchValue();
 
 		glm::mat4 CalculateViewMatrix();
 		void MoveForward(float value);
