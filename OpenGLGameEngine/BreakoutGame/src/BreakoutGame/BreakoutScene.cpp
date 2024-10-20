@@ -17,9 +17,9 @@ void BreakoutScene::Initialize()
 {
 	initializeInputCallbacks();
 	setCamera(std::make_shared<Camera>(
-		glm::vec3(-10.0f, 0.0f, 0.0f),
+		glm::vec3(0.0f, 0.0f, 10.0f),
 		glm::vec3(0.0f, 1.0f, 0.0f),
-		0.0f, 0.0f, 5.0f, 0.1f, 30, 0.1f, 100.0f, CAMERA_TYPE_ORTHOGONAL));
+		-90.0f, 0.0f, 5.0f, 0.1f, 60, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
 
 
 	static const char* vShaderLocation = "src/BreakoutGame/Shaders/shader.vert";
@@ -37,7 +37,7 @@ void BreakoutScene::Initialize()
 
 	std::shared_ptr<MeshEntity> cubeMeshEntity = std::make_shared<MeshEntity>(meshRenderData);
 	cubeMeshEntity->setName("spiderManUglyCube");
-	cubeMeshEntity->transform->SetPosition(glm::vec3(5.0f, 5.0f, 5.0f));
+	cubeMeshEntity->transform->SetPosition(glm::vec3(5.0f, 5.0f, 0.0f));
 	instantiateGameEntity(cubeMeshEntity);
 
 	std::shared_ptr<MeshEntity> cubeMeshEntity2 = std::make_shared<MeshEntity>(meshRenderData);
