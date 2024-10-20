@@ -8,11 +8,11 @@ namespace GameEngine {
 
 	Camera::Camera(glm::vec3 startPosition, glm::vec3 startUpVector, GLfloat startYawVal, GLfloat startPitchVal, GLfloat startMoveSpeed, GLfloat startRotateSpeed, float fov, float nearValue, float farValue, CameraType type)
 	{
-		m_Position = startPosition;
 		m_WorldUp = startUpVector;
 		m_Yaw = startYawVal;
 		m_Pitch = startPitchVal;
 		m_Front = glm::vec3(0.0f, 0.0f, -1.0f);
+		m_Position = glm::cross(m_WorldUp, startPosition);;
 
 		m_MoveSpeed = startMoveSpeed;
 		m_RotateSpeed = startRotateSpeed;
@@ -90,6 +90,10 @@ namespace GameEngine {
 		if (keys[GLFW_KEY_LEFT_CONTROL] == KEY_STATE_PRESS || keys[GLFW_KEY_LEFT_CONTROL] == KEY_STATE_HELD)
 		{
 			MoveDown(m_MoveSpeed * deltaTime);
+		}
+		if (keys[GLFW_KEY_G] == KEY_STATE_RELEASE)
+		{
+			m_Position = glm::cross(m_WorldUp, glm::vec3(0.0f, 0.0f, -5.0f));
 		}
 	}
 
