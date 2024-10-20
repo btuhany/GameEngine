@@ -124,7 +124,7 @@ namespace GameEngine {
 		}
 		else if (m_Type == CAMERA_TYPE_ORTHOGONAL)
 		{
-			m_Projection = glm::ortho(-80.0f, 80.0f, -80.0f, 80.0f, m_NearPlane, m_FarPlane);
+			m_Projection = glm::ortho(-m_Fov, m_Fov, -m_Fov, m_Fov, m_NearPlane, m_FarPlane);
 		}
 		else
 		{

@@ -12,5 +12,6 @@ public:
 	void Update(GLfloat deltaTime) override;
 private:
 	BreakoutSceneInputHandler* m_InputHandler;
+	std::shared_ptr<MeshData> createCubeMeshData();
 };
 
