@@ -142,7 +142,7 @@ namespace GameEngine {
 		}
 		else if (m_Type == CAMERA_TYPE_ORTHOGONAL)
 		{
-			m_Projection = glm::ortho(-m_Fov, m_Fov, -m_Fov, m_Fov, m_NearPlane, m_FarPlane);
+			m_Projection = glm::ortho(0.0f, m_Fov * aspectRatio, -m_Fov, 0.0f, m_NearPlane, m_FarPlane);
 		}
 		else
 		{
@@ -161,6 +161,7 @@ namespace GameEngine {
 		m_Front.y = sin(glm::radians(m_Pitch));
 		m_Front.z = sin(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
 		m_Front = glm::normalize(m_Front);
+		
 		//we need right vector first
 		m_Right = glm::normalize(glm::cross(m_Front, m_WorldUp));
 		m_Up = glm::normalize(glm::cross(m_Right, m_Front));

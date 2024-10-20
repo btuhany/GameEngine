@@ -18,7 +18,8 @@ void BreakoutScene::Initialize()
 	setCamera(std::make_shared<Camera>(
 		glm::vec3(0.0f, 0.0f, 0.0f),
 		glm::vec3(0.0f, 1.0f, 0.0f),
-		0.0f, 0.0f, 5.0f, 0.1f, 10, 0.1f, 400.0f, CAMERA_TYPE_ORTHOGONAL));
+		0.0f, 0.0f, 5.0f, 0.1f, 30, -1.0f, 100.0f, CAMERA_TYPE_ORTHOGONAL));
+
 
 	static const char* vShaderLocation = "src/BreakoutGame/Shaders/shader.vert";
 	static const char* fShaderLocation = "src/BreakoutGame/Shaders/shader.frag";
@@ -34,10 +35,14 @@ void BreakoutScene::Initialize()
 	std::shared_ptr<MeshRenderData> meshRenderData = std::make_shared<MeshRenderData>(createCubeMeshData(), spidermanTexture, shinyMaterial, mainShader);
 
 	std::shared_ptr<MeshEntity> cubeMeshEntity = std::make_shared<MeshEntity>(meshRenderData);
-	//cubeMeshEntity->GetComponent<Transform>()->Translate(glm::vec3(36.0f, -7.0f, -12.0f));
-	//cubeMeshEntity->transform->Scale(glm::vec3(3.0f, 3.0f, 1.5f));
 	cubeMeshEntity->setName("spiderManUglyCube");
+	cubeMeshEntity->transform->SetPosition(glm::vec3(5.0f, 5.0f, 5.0f));
 	instantiateGameEntity(cubeMeshEntity);
+
+	std::shared_ptr<MeshEntity> cubeMeshEntity2 = std::make_shared<MeshEntity>(meshRenderData);
+	cubeMeshEntity2->setName("spiderManUglyCube");
+	cubeMeshEntity2->transform->SetPosition(glm::vec3(0.0, 0.0f, 0.0f));
+	instantiateGameEntity(cubeMeshEntity2);
 
 
 	LOG_INFO("Breakout scene initialized!");
