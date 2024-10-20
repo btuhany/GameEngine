@@ -51,7 +51,6 @@ namespace GameEngine
 
 	void Renderer::RenderPass(glm::mat4 projectionMatrix, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount)
 	{
-		//TODO Initialize check;
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glViewport(0, 0, 1366, 768);
 		//Clear window
