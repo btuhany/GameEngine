@@ -28,10 +28,14 @@ void BreakoutScene::Initialize()
 	mainShader->CreateFromFiles(vShaderLocation, fShaderLocation);
 
 	std::shared_ptr<Material> shinyMaterial = std::make_shared<Material>(590.0f, 475.5f);
+
 	std::shared_ptr<Texture> spidermanTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/spiderman.png");
 	spidermanTexture->LoadTextureWithAlpha();
 
+	std::shared_ptr<Texture> breakoutTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/01-Breakout-Tiles.PNG");
+	breakoutTexture->LoadTextureWithAlpha();
 
+	std::shared_ptr<SpriteRenderData> breakoutSpriteRenderData = std::make_shared<SpriteRenderData>(breakoutTexture, shinyMaterial, mainShader);
 	std::shared_ptr<SpriteRenderData> spriteRenderData = std::make_shared<SpriteRenderData>(spidermanTexture, shinyMaterial, mainShader);
 
 	std::shared_ptr<SpriteEntity> quadEntity = std::make_shared<SpriteEntity>(spriteRenderData);
@@ -39,11 +43,13 @@ void BreakoutScene::Initialize()
 	quadEntity->transform->SetPosition(glm::vec3(5.0f, 5.0f, -5.0f));
 	instantiateGameEntity(quadEntity);
 
-	std::shared_ptr<SpriteEntity> spriteEntity = std::make_shared<SpriteEntity>(spriteRenderData);
-	spriteEntity->setName("spiderManUglyQuad1");
-	spriteEntity->transform->SetPosition(glm::vec3(0.0, 0.0f, 0.0f));
-	instantiateGameEntity(spriteEntity);
-
+	for (size_t i = 0; i < 1; i++)
+	{
+		std::shared_ptr<SpriteEntity> spriteEntity = std::make_shared<SpriteEntity>(breakoutSpriteRenderData);
+		spriteEntity->setName("spiderManUglyQuad1");
+		spriteEntity->transform->SetPosition(glm::vec3(i * 10.0f, 0.0f, 0.0f));
+		instantiateGameEntity(spriteEntity);
+	}
 
 	LOG_INFO("Breakout scene initialized!");
 	Scene::Initialize();
