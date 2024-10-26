@@ -21,6 +21,11 @@ namespace GameEngine
 		m_Scale = scaleVector;
 		updateModelMatrix();
 	}
+	void Transform::Scale(float xVal, float yVal, float zVal)
+	{
+		m_Scale = glm::vec3(m_Scale.x * xVal, m_Scale.y * yVal, m_Scale.z * zVal);
+		updateModelMatrix();
+	}
 	void Transform::SetPosition(glm::vec3 newPosition)
 	{
 		m_Position = newPosition;
@@ -33,6 +38,10 @@ namespace GameEngine
 	glm::vec3 Transform::GetPosition()
 	{
 		return m_Position;
+	}
+	glm::vec3 Transform::GetScale()
+	{
+		return m_Scale;
 	}
 	ComponentType Transform::getType()
 	{

@@ -10,6 +10,7 @@ DemoScene3D::DemoScene3D(DemoSceneInputHandler* input) : Scene()
 	m_InputReader = input;
 	m_ObjectMoveSpeed = 5.0f;
 	m_ObjectRotateSpeed = 2.0f;
+	m_ObjectScaleSpeed = 0.05f;
 }
 
 DemoScene3D::~DemoScene3D()
@@ -164,6 +165,8 @@ void DemoScene3D::initializeInputCallbacks()
 	m_InputReader->OnShaderChangeKeyEvent.AddHandler([this]() {handleOnShaderChangeKey(); });
 	m_InputReader->OnSelectLeftObjectKeyEvent.AddHandler([this]() {handleOnSelectLeftObjectKey(); });
 	m_InputReader->OnSelectRightObjectKeyEvent.AddHandler([this]() {handleOnSelectRightObjectKey(); });
+	m_InputReader->OnScaleUpKeyEvent.AddHandler([this]() {handleOnScaleUpKey(); });
+	m_InputReader->OnScaleDownKeyEvent.AddHandler([this]() {handleOnScaleDownKey(); });
 }
 
 void DemoScene3D::initializeGameObjects()
@@ -444,5 +447,23 @@ void DemoScene3D::handleOnSelectLeftObjectKey()
 	auto rendererComponent = currentObject->GetComponentOfBaseType<RendererComponent>();
 	if (rendererComponent != nullptr)
 		rendererComponent->ChangeRenderShader(m_NormalRenderShader);
+}
+
+void DemoScene3D::handleOnScaleUpKey()
+{
+	if (m_CurrentObjectIndex == -1)
+		return;
+	auto gameObjTransform = m_GameEntities[m_CurrentObjectIndex]->transform;
+	auto gameObjScale = gameObjTransform->GetScale();
+	gameObjTransform->Scale(gameObjScale + glm::vec3(m_ObjectScaleSpeed));
+}
+
+void DemoScene3D::handleOnScaleDownKey()
+{
+	if (m_CurrentObjectIndex == -1)
+		return;
+	auto gameObjTransform = m_GameEntities[m_CurrentObjectIndex]->transform;
+	auto gameObjScale = gameObjTransform->GetScale();
+	gameObjTransform->Scale(gameObjScale - glm::vec3(m_ObjectScaleSpeed));
 }
 

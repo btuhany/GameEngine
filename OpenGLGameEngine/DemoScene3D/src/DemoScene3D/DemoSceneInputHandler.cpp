@@ -66,6 +66,14 @@ void DemoSceneInputHandler::HandleKeys(int* keys, GLfloat deltaTime)
 	{
 		OnSelectLeftObjectKeyEvent.Trigger();
 	}
+	if (keys[GLFW_KEY_J] == KEY_STATE_PRESS || keys[GLFW_KEY_J] == KEY_STATE_HELD)
+	{
+		OnScaleUpKeyEvent.Trigger();
+	}
+	if (keys[GLFW_KEY_K] == KEY_STATE_PRESS || keys[GLFW_KEY_K] == KEY_STATE_HELD)
+	{
+		OnScaleDownKeyEvent.Trigger();
+	}
 }
 
 void DemoSceneInputHandler::HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY)
