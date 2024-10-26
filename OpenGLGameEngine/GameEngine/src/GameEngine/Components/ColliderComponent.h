@@ -8,12 +8,21 @@ namespace GameEngine
 	{
 		BoxCollider2D = 0
 	};
+	enum class CollisionType
+	{
+		Static = 0,
+		Dynamic = 1
+	};
 	class ENGINE_API ColliderComponent : public Component
 	{
 	public:
 		ColliderComponent();
+		void setCollisionType(CollisionType collisionType);
+		CollisionType getCollisionType();
 		ComponentType getType() override;
 		virtual ColliderType getColliderType() = 0;
+	protected:
+		CollisionType m_CollisionType;
 	};
 }
 

@@ -55,6 +55,7 @@ void BreakoutScene::Initialize()
 		spriteEntity->setName("spiderManUglyQuad1");
 		spriteEntity->transform->SetPosition(glm::vec3(i * 10.0f, 0.0f, 0.0f));
 		auto boxCollider2DComp = std::make_shared<BoxCollider2DComponent>(3.0f, 3.0f);
+		boxCollider2DComp->setCollisionType(CollisionType::Static);
 		spriteEntity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp);
 		instantiateGameEntity(spriteEntity);
 	}
@@ -64,6 +65,7 @@ void BreakoutScene::Initialize()
 	m_SpriteEntity->setName("spiderManUglyQuad2");
 	m_SpriteEntity->transform->SetPosition(glm::vec3(10.0f, 0.0f, 0.0f));
 	auto boxCollider2DComp2 = std::make_shared<BoxCollider2DComponent>(1.0f,1.0f);
+	boxCollider2DComp2->setCollisionType(CollisionType::Dynamic);
 	m_SpriteEntity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp2);
 	instantiateGameEntity(m_SpriteEntity);
 
