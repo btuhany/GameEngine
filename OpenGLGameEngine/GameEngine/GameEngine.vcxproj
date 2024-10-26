@@ -35,6 +35,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameEngine\Collision\CollisionManager.cpp" />
+    <ClCompile Include="src\GameEngine\Components\ColliderComponent.cpp" />
     <ClCompile Include="src\GameEngine\Entities\SpriteEntity.cpp" />
     <ClCompile Include="src\GameEngine\Render\SpriteRenderData.cpp" />
     <ClCompile Include="src\GameEngine\Components\SpriteRendererComponent.cpp" />
@@ -74,6 +76,8 @@
     <ClCompile Include="src\GameEngine\Components\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameEngine\Collision\CollisionManager.h" />
+    <ClInclude Include="src\GameEngine\Components\ColliderComponent.h" />
     <ClInclude Include="src\GameEngine\Entities\SpriteEntity.h" />
     <ClInclude Include="src\GameEngine\Event\SceneCameraChangedEvent.h" />
     <ClInclude Include="src\GameEngine\Render\SpriteRenderData.h" />

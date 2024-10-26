@@ -129,6 +129,12 @@
     <ClCompile Include="src\GameEngine\Entities\SpriteEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameEngine\Components\ColliderComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\Collision\CollisionManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameEngine\Scene\Camera.h">
@@ -267,6 +273,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Entities\SpriteEntity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Components\ColliderComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Collision\CollisionManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
