@@ -6,6 +6,22 @@ void BreakoutSceneInputHandler::HandleKeys(int* keys, GLfloat deltaTime)
 	{
 		OnPressedCameraTypeChangeKeyEvent.Trigger();
 	}
+	if (keys[GLFW_KEY_LEFT] == KEY_STATE_PRESS || keys[GLFW_KEY_LEFT] == KEY_STATE_HELD)
+	{
+		OnLeftArrowKeyEvent.Trigger();
+	}
+	if (keys[GLFW_KEY_RIGHT] == KEY_STATE_PRESS || keys[GLFW_KEY_RIGHT] == KEY_STATE_HELD)
+	{
+		OnRightArrowKeyEvent.Trigger();
+	}
+	if (keys[GLFW_KEY_UP] == KEY_STATE_PRESS || keys[GLFW_KEY_UP] == KEY_STATE_HELD)
+	{
+		OnUpArrowKeyEvent.Trigger();
+	}
+	if (keys[GLFW_KEY_DOWN] == KEY_STATE_PRESS || keys[GLFW_KEY_DOWN] == KEY_STATE_HELD)
+	{
+		OnDownArrowKeyEvent.Trigger();
+	}
 }
 
 void BreakoutSceneInputHandler::HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY)

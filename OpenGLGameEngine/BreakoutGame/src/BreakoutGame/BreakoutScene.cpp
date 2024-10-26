@@ -7,6 +7,7 @@ BreakoutScene::BreakoutScene() : Scene()
 BreakoutScene::BreakoutScene(BreakoutSceneInputHandler* inputHandler) : Scene()
 {
 	m_InputHandler = inputHandler;
+	m_ObjectMoveSpeed = 5.0f;
 }
 
 BreakoutScene::~BreakoutScene()
@@ -35,7 +36,12 @@ void BreakoutScene::Initialize()
 	std::shared_ptr<Texture> breakoutTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/01-Breakout-Tiles.PNG");
 	breakoutTexture->LoadTextureWithAlpha();
 
+	std::shared_ptr<Texture> breakoutTexture2 = std::make_shared<Texture>("src/BreakoutGame/Textures/05-Breakout-Tiles.PNG");
+	breakoutTexture2->LoadTextureWithAlpha();
+
+
 	std::shared_ptr<SpriteRenderData> breakoutSpriteRenderData = std::make_shared<SpriteRenderData>(breakoutTexture, shinyMaterial, mainShader);
+	std::shared_ptr<SpriteRenderData> breakoutSpriteRenderData2 = std::make_shared<SpriteRenderData>(breakoutTexture2, shinyMaterial, mainShader);
 	std::shared_ptr<SpriteRenderData> spriteRenderData = std::make_shared<SpriteRenderData>(spidermanTexture, shinyMaterial, mainShader);
 
 	std::shared_ptr<SpriteEntity> quadEntity = std::make_shared<SpriteEntity>(spriteRenderData);
@@ -51,6 +57,12 @@ void BreakoutScene::Initialize()
 		instantiateGameEntity(spriteEntity);
 	}
 
+
+	m_SpriteEntity = std::make_shared<SpriteEntity>(breakoutSpriteRenderData2);
+	m_SpriteEntity->setName("spiderManUglyQuad2");
+	m_SpriteEntity->transform->SetPosition(glm::vec3(10.0f, 0.0f, 0.0f));
+	instantiateGameEntity(m_SpriteEntity);
+
 	LOG_INFO("Breakout scene initialized!");
 	Scene::Initialize();
 }
@@ -61,6 +73,7 @@ void BreakoutScene::Start()
 
 void BreakoutScene::Update(GLfloat deltaTime)
 {
+	m_DeltaTime = deltaTime;
 }
 
 std::shared_ptr<MeshData> BreakoutScene::createCubeMeshData()
@@ -90,6 +103,22 @@ void BreakoutScene::initializeInputCallbacks()
 		[this]() {
 			changeCameraType();
 		});
+	m_InputHandler->OnLeftArrowKeyEvent.AddHandler(
+		[this]() {
+			handleOnLeftKey();
+		});
+	m_InputHandler->OnRightArrowKeyEvent.AddHandler(
+		[this]() {
+			handleOnRightKey();
+		});
+	m_InputHandler->OnDownArrowKeyEvent.AddHandler(
+		[this]() {
+			handleOnDownKey();
+		});
+	m_InputHandler->OnUpArrowKeyEvent.AddHandler(
+		[this]() {
+			handleOnUpKey();
+		});
 }
 
 
@@ -115,4 +144,24 @@ void BreakoutScene::changeCameraType()
 			glm::vec3(0.0f, 1.0f, 0.0f),
 			yaw, pitch, 5.0f, 0.1f, 60.0f, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
 	}
+}
+
+void BreakoutScene::handleOnLeftKey()
+{
+	m_SpriteEntity->transform->Translate(glm::vec3(-(m_ObjectMoveSpeed * m_DeltaTime), 0.0f, 0.0f));
+}
+
+void BreakoutScene::handleOnRightKey()
+{
+	m_SpriteEntity->transform->Translate(glm::vec3((m_ObjectMoveSpeed * m_DeltaTime), 0.0f, 0.0f));
+}
+
+void BreakoutScene::handleOnDownKey()
+{
+	m_SpriteEntity->transform->Translate(glm::vec3(0.0f, -(m_ObjectMoveSpeed * m_DeltaTime), 0.0f));
+}
+
+void BreakoutScene::handleOnUpKey()
+{
+	m_SpriteEntity->transform->Translate(glm::vec3(0.0f, (m_ObjectMoveSpeed * m_DeltaTime), 0.0f));
 }
