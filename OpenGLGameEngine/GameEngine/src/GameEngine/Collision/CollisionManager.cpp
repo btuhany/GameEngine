@@ -20,24 +20,64 @@ namespace GameEngine
 	{
 		for (size_t i = 0; i < m_ColliderComponents.size(); i++)
 		{
-			if (m_ColliderComponents[i]->getCollisionType() != CollisionType::Dynamic)
+			auto dynamicCollider = m_ColliderComponents[i];
+			if (dynamicCollider->getCollisionType() != CollisionType::Dynamic)
 			{
 				continue;
 			}
 
+			bool isInBounds = false;
 			for (size_t j = 0; j < m_ColliderComponents.size(); j++)
 			{
 				if (i == j)
 					continue;
 
-				if (m_ColliderComponents[i]->getColliderType() == ColliderType::BoxCollider2D)
+				auto otherCollider = m_ColliderComponents[j];
+				if (dynamicCollider->getColliderType() == ColliderType::BoxCollider2D)
 				{
-					if (m_ColliderComponents[j]->getColliderType() == ColliderType::BoxCollider2D)
+					if (otherCollider->getColliderType() == ColliderType::BoxCollider2D)
 					{
-						auto boxColliderComponentA = std::static_pointer_cast<BoxCollider2DComponent>(m_ColliderComponents[i]);
-						auto boxColliderComponentB = std::static_pointer_cast<BoxCollider2DComponent>(m_ColliderComponents[j]);
-						checkBounds(boxColliderComponentA, boxColliderComponentB);
+						auto boxColliderComponentA = std::static_pointer_cast<BoxCollider2DComponent>(dynamicCollider);
+						auto boxColliderComponentB = std::static_pointer_cast<BoxCollider2DComponent>(otherCollider);
+						isInBounds = checkBounds(boxColliderComponentA, boxColliderComponentB);
 					}
+				}
+			}
+
+			auto collisionState = dynamicCollider->getCollisionState();
+			if (isInBounds)
+			{
+				switch (collisionState)
+				{
+					case GameEngine::CollisionState::None:
+						dynamicCollider->setCollisionState(CollisionState::Enter);
+						break;
+					case GameEngine::CollisionState::Enter:
+						dynamicCollider->setCollisionState(CollisionState::Stay);
+						break;
+					case GameEngine::CollisionState::Stay:
+						printf("Collision stay \n");
+						break;
+					case GameEngine::CollisionState::Exit:
+						dynamicCollider->setCollisionState(CollisionState::Enter);
+						break;
+					default:
+						break;
+				}
+			}
+			else
+			{
+				switch (collisionState)
+				{
+				case GameEngine::CollisionState::Enter:
+				case GameEngine::CollisionState::Stay:
+					dynamicCollider->setCollisionState(CollisionState::Exit);
+					break;
+				case GameEngine::CollisionState::Exit:
+					dynamicCollider->setCollisionState(CollisionState::None);
+					break;
+				default:
+					break;
 				}
 			}
 		}
@@ -73,7 +113,7 @@ namespace GameEngine
 				if (boundsB[(int)BoxColliderPosTypes::TopRight].y > node.y 
 					&& node.y > boundsB[(int)BoxColliderPosTypes::BottomLeft].y)
 				{
-					printf("Collision! node: %d", i);
+					//printf("\n Collision! node: %d", i);
 					return true;
 				}
 			}

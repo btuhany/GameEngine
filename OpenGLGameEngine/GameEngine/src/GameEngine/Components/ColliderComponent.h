@@ -13,6 +13,13 @@ namespace GameEngine
 		Static = 0,
 		Dynamic = 1
 	};
+	enum class CollisionState
+	{
+		None = 0,
+		Enter = 1,
+		Stay = 2,
+		Exit = 3
+	};
 	class ENGINE_API ColliderComponent : public Component
 	{
 	public:
@@ -20,9 +27,12 @@ namespace GameEngine
 		void setCollisionType(CollisionType collisionType);
 		CollisionType getCollisionType();
 		ComponentType getType() override;
+		void setCollisionState(CollisionState state);
+		CollisionState getCollisionState();
 		virtual ColliderType getColliderType() = 0;
 	protected:
 		CollisionType m_CollisionType;
+		CollisionState m_CollisionState;
 	};
 }
 
