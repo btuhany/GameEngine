@@ -18,7 +18,7 @@ namespace GameEngine
 		void ChangeRenderShader(std::shared_ptr<Shader> newRenderShader) override;
 		bool IsShadowRenderable() override;
 	private:
-		void DrawModel(GLuint uniformModel);
+		void drawModel(GLuint uniformModel);
 		std::shared_ptr<ModelRenderData> m_ModelRenderData;
 	};
 }
