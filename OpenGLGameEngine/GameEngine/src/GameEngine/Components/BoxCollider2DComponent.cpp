@@ -2,6 +2,11 @@
 
 namespace GameEngine
 {
+	BoxCollider2DComponent::BoxCollider2DComponent(float width, float height) : ColliderComponent()
+	{
+		m_Width = width;
+		m_Height = height;
+	}
 	float BoxCollider2DComponent::getWidth()
 	{
 		return m_Width;

@@ -54,6 +54,8 @@ void BreakoutScene::Initialize()
 		std::shared_ptr<SpriteEntity> spriteEntity = std::make_shared<SpriteEntity>(breakoutSpriteRenderData);
 		spriteEntity->setName("spiderManUglyQuad1");
 		spriteEntity->transform->SetPosition(glm::vec3(i * 10.0f, 0.0f, 0.0f));
+		auto boxCollider2DComp = std::make_shared<BoxCollider2DComponent>(3.0f, 3.0f);
+		spriteEntity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp);
 		instantiateGameEntity(spriteEntity);
 	}
 
@@ -61,6 +63,8 @@ void BreakoutScene::Initialize()
 	m_SpriteEntity = std::make_shared<SpriteEntity>(breakoutSpriteRenderData2);
 	m_SpriteEntity->setName("spiderManUglyQuad2");
 	m_SpriteEntity->transform->SetPosition(glm::vec3(10.0f, 0.0f, 0.0f));
+	auto boxCollider2DComp2 = std::make_shared<BoxCollider2DComponent>(1.0f,1.0f);
+	m_SpriteEntity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp2);
 	instantiateGameEntity(m_SpriteEntity);
 
 	LOG_INFO("Breakout scene initialized!");

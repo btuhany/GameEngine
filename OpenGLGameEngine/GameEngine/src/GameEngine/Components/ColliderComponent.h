@@ -11,6 +11,7 @@ namespace GameEngine
 	class ENGINE_API ColliderComponent : public Component
 	{
 	public:
+		ColliderComponent();
 		ComponentType getType() override;
 		virtual ColliderType getColliderType() = 0;
 	};

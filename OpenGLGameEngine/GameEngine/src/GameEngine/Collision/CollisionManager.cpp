@@ -30,7 +30,7 @@ namespace GameEngine
 					if (m_ColliderComponents[j]->getColliderType() == ColliderType::BoxCollider2D)
 					{
 						auto boxColliderComponentA = std::static_pointer_cast<BoxCollider2DComponent>(m_ColliderComponents[i]);
-						auto boxColliderComponentB = std::static_pointer_cast<BoxCollider2DComponent>(m_ColliderComponents[i]);
+						auto boxColliderComponentB = std::static_pointer_cast<BoxCollider2DComponent>(m_ColliderComponents[j]);
 						checkBounds(boxColliderComponentA, boxColliderComponentB);
 					}
 				}
@@ -62,12 +62,13 @@ namespace GameEngine
 		for (size_t i = 0; i < 4; i++)
 		{
 			auto node = boundsA[i];
-			if (boundsB[(int)BoxColliderPosTypes::TopLeft].x > node.x 
-				&& node.x > boundsB[(int)BoxColliderPosTypes::BottomRight].x) 
+			if (boundsB[(int)BoxColliderPosTypes::TopRight].x > node.x 
+				&& node.x > boundsB[(int)BoxColliderPosTypes::BottomLeft].x) 
 			{
-				if (boundsB[(int)BoxColliderPosTypes::TopLeft].y > node.y 
-					&& node.y > boundsB[(int)BoxColliderPosTypes::BottomRight].y)
+				if (boundsB[(int)BoxColliderPosTypes::TopRight].y > node.y 
+					&& node.y > boundsB[(int)BoxColliderPosTypes::BottomLeft].y)
 				{
+					printf("Collision! node: %d", i);
 					return true;
 				}
 			}
