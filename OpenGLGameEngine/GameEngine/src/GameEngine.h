@@ -13,5 +13,6 @@
 #include "GameEngine/Entities/MeshEntity.h"
 #include "GameEngine/Components/Transform.h"
 #include "GameEngine/Components/Component.h"
+#include "GameEngine/Entities/SpriteEntity.h"
 
 using namespace GameEngine;

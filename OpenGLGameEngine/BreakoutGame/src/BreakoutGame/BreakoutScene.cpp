@@ -20,8 +20,7 @@ void BreakoutScene::Initialize()
 		glm::vec3(0.0f, 0.0f, 10.0f),
 		glm::vec3(0.0f, 1.0f, 0.0f),
 		-90.0f, 0.0f, 5.0f, 0.1f, 60, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
-
-
+	
 	static const char* vShaderLocation = "src/BreakoutGame/Shaders/shader.vert";
 	static const char* fShaderLocation = "src/BreakoutGame/Shaders/shader.frag";
 
@@ -33,17 +32,17 @@ void BreakoutScene::Initialize()
 	spidermanTexture->LoadTextureWithAlpha();
 
 
-	std::shared_ptr<MeshRenderData> meshRenderData = std::make_shared<MeshRenderData>(createCubeMeshData(), spidermanTexture, shinyMaterial, mainShader);
+	std::shared_ptr<SpriteRenderData> spriteRenderData = std::make_shared<SpriteRenderData>(spidermanTexture, shinyMaterial, mainShader);
 
-	std::shared_ptr<MeshEntity> cubeMeshEntity = std::make_shared<MeshEntity>(meshRenderData);
-	cubeMeshEntity->setName("spiderManUglyCube");
-	cubeMeshEntity->transform->SetPosition(glm::vec3(5.0f, 5.0f, 0.0f));
-	instantiateGameEntity(cubeMeshEntity);
+	std::shared_ptr<SpriteEntity> quadEntity = std::make_shared<SpriteEntity>(spriteRenderData);
+	quadEntity->setName("spiderManUglyQuad2");
+	quadEntity->transform->SetPosition(glm::vec3(5.0f, 5.0f, -5.0f));
+	instantiateGameEntity(quadEntity);
 
-	std::shared_ptr<MeshEntity> cubeMeshEntity2 = std::make_shared<MeshEntity>(meshRenderData);
-	cubeMeshEntity2->setName("spiderManUglyCube");
-	cubeMeshEntity2->transform->SetPosition(glm::vec3(0.0, 0.0f, 0.0f));
-	instantiateGameEntity(cubeMeshEntity2);
+	std::shared_ptr<SpriteEntity> spriteEntity = std::make_shared<SpriteEntity>(spriteRenderData);
+	spriteEntity->setName("spiderManUglyQuad1");
+	spriteEntity->transform->SetPosition(glm::vec3(0.0, 0.0f, 0.0f));
+	instantiateGameEntity(spriteEntity);
 
 
 	LOG_INFO("Breakout scene initialized!");
@@ -63,33 +62,19 @@ std::shared_ptr<MeshData> BreakoutScene::createCubeMeshData()
 	GLfloat vertices[] =
 	{
 		//x      y     z		 u     y			normals
-		-1.0f, -1.0f, 1.0f, 	1.0f, 0.0f,		-1.0f, -1.0f, 1.0f,
-		-1.0f, -1.0f, -1.0f,		0.0f, 0.0f,		-1.0f, -1.0f, -1.0f,
-		1.0f, -1.0f, -1.0f,		0.0f, 1.0f,		1.0f, -1.0f, -1.0f,
-		1.0f, -1.0f, 1.0f,	1.0f, 1.0f,		1.0f, -1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,		1.0f, 0.0f,		1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f, -1.0f,		0.0f, 0.0f,		1.0f, 1.0f, -1.0f,
-		-1.0f, 1.0f, -1.0f,		1.0f, 0.0f,		-1.0f, 1.0f, -1.0f,
-		-1.0f, 1.0f, 1.0f,		0.0f, 0.0f,		-1.0f, 1.0f, 1.0f
+		-1.0f, -1.0f, 0.0f, 	0.0f, 1.0f,		0.0f, 0.0f, 1.0f,
+		1.0f, -1.0f, 0.0f,	1.0f, 1.0f,		0.0f, 0.0f, 1.0f,
+		1.0f, 1.0f, 0.0f,		1.0f, 0.0f,		0.0f, 0.0f, 1.0f,
+		-1.0f, 1.0f, 0.0f,		0.0f, 0.0f,		0.0f, 0.0f, 1.0f
 	};
 
 	unsigned int indices[] = {
-	2, 0, 1,
-	3, 0, 2,
-	4, 2, 5,
-	3, 2, 4,
-	7, 3, 4,
-	0, 3, 7,
-	1, 0, 6,
-	6, 0, 7,
-	1, 6, 2,
-	2, 6, 5,
-	4, 5, 6,
-	4, 6, 7
+		0,1,2,
+		2,3,0
 	};
 
 	std::shared_ptr<MeshData> cubeMesh = std::make_shared<MeshData>();
-	cubeMesh->CreateMesh(vertices, indices, 64, 36);
+	cubeMesh->CreateMesh(vertices, indices, 32, 6);
 	return cubeMesh;
 }
 
