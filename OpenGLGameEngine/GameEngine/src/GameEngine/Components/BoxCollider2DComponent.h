@@ -1,6 +1,6 @@
 #pragma once
 #include <array>
-#include "Core.h"
+#include "../Core.h"
 #include "ColliderComponent.h"
 #include "../Debugging/Log.h"
 #include "../Entities/GameEntity.h"

@@ -10,6 +10,7 @@
 #include "Input.h"
 #include "../Scene/CameraTypeEnum.h"
 #include "../Render/Renderer.h"
+#include "../Collision/CollisionManager.h"
 
 namespace GameEngine {
 
@@ -25,7 +26,7 @@ namespace GameEngine {
 		Engine(Window* window, bool shadowPassActive);
 		Engine(Window* window, Input* input, bool shadowPassActive);
 		~Engine();
-		void Initialize(Scene* scene);
+		void Initialize(Scene* scene, bool activateCollisionSystem);
 		void Start();
 		void Run(GameModeType gameModeType);
 		void Stop();
@@ -35,10 +36,12 @@ namespace GameEngine {
 		Scene* m_Scene;
 		Input* m_InputHandler;
 		Renderer* m_Renderer;
+		CollisionManager* m_CollisionManager;
 		bool m_IsInitialized;
 		bool m_ShouldStop;
 		bool m_ShadowPassActive;
 		bool m_DebugInputActive;
+		bool m_IsCollisionsEnabled;
 		bool checkValidateDirLightShadowRendering(GameModeType gameModeType);
 		bool checkValidateOmniLightShadowRendering(GameModeType gameModeType);
 		bool checkValidateInputHandler();

@@ -1,5 +1,5 @@
 #pragma once
-#include "Core.h"
+#include "../Core.h"
 #include "Component.h"
 #include "../Math/Vector3.h"
 namespace GameEngine

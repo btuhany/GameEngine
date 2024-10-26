@@ -1,6 +1,6 @@
 #pragma once
 #include <cmath>
-#include "Core.h"
+#include "../Core.h"
 namespace GameEngine
 {
     struct ENGINE_API Vector2 {

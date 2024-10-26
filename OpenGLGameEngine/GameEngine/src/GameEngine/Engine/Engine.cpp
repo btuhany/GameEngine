@@ -17,17 +17,23 @@ namespace GameEngine {
 		m_IsInitialized = false;
 		m_ShouldStop = false;
 		m_ShadowPassActive = shadowPassActive;
-
 	}
 
 	Engine::~Engine()
 	{
 		delete m_MainWindow;
 		delete m_Renderer;
+		delete m_CollisionManager;
 	}
 
-	void Engine::Initialize(Scene* scene)
+	void Engine::Initialize(Scene* scene, bool activateCollisionSystem = false)
 	{
+		if (activateCollisionSystem)
+		{
+			m_CollisionManager = new CollisionManager();
+		}
+
+		m_IsCollisionsEnabled = activateCollisionSystem;
 		m_Renderer = new Renderer();
 		m_Scene = scene;
 
@@ -99,7 +105,16 @@ namespace GameEngine {
 				}
 			}
 
+			if (m_IsCollisionsEnabled)
+			{
+				m_CollisionManager->Tick();
+			}
+
+
+
 			m_Renderer->Draw(m_ShadowPassActive, renderDirLightShadow, renderOmniLightShadow);
+
+
 
 			m_MainWindow->SwapBuffers();
 			m_MainWindow->ClearKeyCache();

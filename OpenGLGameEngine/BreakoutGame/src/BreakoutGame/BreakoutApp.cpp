@@ -15,7 +15,7 @@ void BreakoutApp::Run()
 	BreakoutScene breakoutScene = BreakoutScene(&inputHandler);
 
 	GameEngine::Engine engine = GameEngine::Engine(new Window(1366, 768, "Breakout"), &inputHandler, true);
-	engine.Initialize(&breakoutScene);
+	engine.Initialize(&breakoutScene, true);
 	engine.setDebugInputActive(false);
 	engine.Start();
 	engine.Run(GameModeType::TwoDimensional);
