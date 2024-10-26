@@ -55,7 +55,7 @@
     <ClCompile Include="src\GameEngine\Event\SimpleEvent.cpp" />
     <ClCompile Include="src\GameEngine\Engine\Input.cpp" />
     <ClCompile Include="src\GameEngine\Engine\Application.cpp" />
-    <ClCompile Include="src\GameEngine\Debug\Log.cpp" />
+    <ClCompile Include="src\GameEngine\Debugging\Log.cpp" />
     <ClCompile Include="src\GameEngine\Scene\Camera.cpp" />
     <ClCompile Include="src\GameEngine\Scene\DirectionalLight.cpp" />
     <ClCompile Include="src\GameEngine\Scene\Light.cpp" />
@@ -99,7 +99,7 @@
     <ClInclude Include="src\GameEngine\Engine\Input.h" />
     <ClInclude Include="src\GameEngine\Engine\Application.h" />
     <ClInclude Include="src\EntryPoint.h" />
-    <ClInclude Include="src\GameEngine\Debug\Log.h" />
+    <ClInclude Include="src\GameEngine\Debugging\Log.h" />
     <ClInclude Include="src\GameEngine\Scene\Camera.h" />
     <ClInclude Include="src\GameEngine\ConstantValues.h" />
     <ClInclude Include="src\GameEngine\Core.h" />

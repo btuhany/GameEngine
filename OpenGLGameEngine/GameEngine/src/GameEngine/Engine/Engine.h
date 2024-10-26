@@ -6,7 +6,7 @@
 #include "../Scene/Scene.h"
 #include "Window.h"
 #include "../Scene/Camera.h"
-#include "../Debug/Log.h"
+#include "../Debugging/Log.h"
 #include "Input.h"
 #include "../Scene/CameraTypeEnum.h"
 #include "../Render/Renderer.h"

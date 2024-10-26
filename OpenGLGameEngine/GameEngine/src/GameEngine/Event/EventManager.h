@@ -5,7 +5,7 @@
 #include <iostream>
 #include "../Core.h"
 #include "Event.h"
-#include "../Debug/Log.h"
+#include "../Debugging/Log.h"
 
 namespace GameEngine
 {

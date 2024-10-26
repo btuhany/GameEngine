@@ -5,7 +5,7 @@
 #include "GameEngine/Scene/Camera.h"
 #include "GameEngine/ConstantValues.h"
 #include "GameEngine/Resource/Shader.h"
-#include "GameEngine/Debug/Log.h"
+#include "GameEngine/Debugging/Log.h"
 #include "GameEngine/Engine/Application.h"
 #include "GameEngine/Engine/Input.h"
 #include "GameEngine/Event/SimpleEvent.h"

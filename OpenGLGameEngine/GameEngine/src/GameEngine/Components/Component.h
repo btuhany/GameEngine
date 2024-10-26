@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include "../Core.h"
-#include "../Debug/Log.h"
+#include "../Debugging/Log.h"
 
 namespace GameEngine
 {

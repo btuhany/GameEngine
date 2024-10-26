@@ -60,7 +60,7 @@
     <ClCompile Include="src\GameEngine\Scene\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Debug\Log.cpp">
+    <ClCompile Include="src\GameEngine\Debugging\Log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Engine\Application.cpp">
@@ -179,7 +179,7 @@
     <ClInclude Include="src\GameEngine\Core.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Debug\Log.h">
+    <ClInclude Include="src\GameEngine\Debugging\Log.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\EntryPoint.h">
