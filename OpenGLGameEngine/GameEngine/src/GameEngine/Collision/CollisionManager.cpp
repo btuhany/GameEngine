@@ -28,62 +28,33 @@ namespace GameEngine
 
 		for (size_t i = 0; i < m_ColliderComponents.size(); i++)
 		{
-			auto dynamicCollider = m_ColliderComponents[i];
-
-			bool isInBounds = false;
+			auto controlledCollider = m_ColliderComponents[i];
 			for (size_t j = 0; j < m_ColliderComponents.size(); j++)
 			{
 				if (i == j)
 					continue;
 
 				auto otherCollider = m_ColliderComponents[j];
-				if (dynamicCollider->getColliderType() == ColliderType::BoxCollider2D)
+				if (controlledCollider->getColliderType() == ColliderType::BoxCollider2D)
 				{
 					if (otherCollider->getColliderType() == ColliderType::BoxCollider2D)
 					{
-						auto boxColliderComponentA = std::static_pointer_cast<BoxCollider2DComponent>(dynamicCollider);
-						auto boxColliderComponentB = std::static_pointer_cast<BoxCollider2DComponent>(otherCollider);
-						isInBounds = checkBounds(boxColliderComponentA, boxColliderComponentB);
+						auto controlledBoxCollider = std::static_pointer_cast<BoxCollider2DComponent>(controlledCollider);
+						auto otherBoxCollider = std::static_pointer_cast<BoxCollider2DComponent>(otherCollider);
+						bool isInBounds = checkBounds(controlledBoxCollider, otherBoxCollider);
+
+						if (controlledCollider->detector != nullptr)
+						{
+							if (isInBounds)
+								controlledCollider->detector->HandleOnCollisionDetected(otherCollider);
+							else
+								controlledCollider->detector->HandleOnCollisionNotDetected(otherCollider);
+
+						}
 					}
 				}
 			}
 
-			auto collisionState = dynamicCollider->getCollisionState();
-			if (isInBounds)
-			{
-				switch (collisionState)
-				{
-					case GameEngine::CollisionState::None:
-						dynamicCollider->setCollisionState(CollisionState::Enter);
-						break;
-					case GameEngine::CollisionState::Enter:
-						dynamicCollider->setCollisionState(CollisionState::Stay);
-						break;
-					case GameEngine::CollisionState::Stay:
-						printf("Collision stay \n");
-						break;
-					case GameEngine::CollisionState::Exit:
-						dynamicCollider->setCollisionState(CollisionState::Enter);
-						break;
-					default:
-						break;
-				}
-			}
-			else
-			{
-				switch (collisionState)
-				{
-				case GameEngine::CollisionState::Enter:
-				case GameEngine::CollisionState::Stay:
-					dynamicCollider->setCollisionState(CollisionState::Exit);
-					break;
-				case GameEngine::CollisionState::Exit:
-					dynamicCollider->setCollisionState(CollisionState::None);
-					break;
-				default:
-					break;
-				}
-			}
 		}
 	}
 	void CollisionManager::onComponentEvent(std::shared_ptr<ComponentEvent> componentEvent)

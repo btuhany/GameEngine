@@ -3,20 +3,18 @@ namespace GameEngine
 {
 	ColliderComponent::ColliderComponent()
 	{
-		m_CollisionState = CollisionState::None;
+		detector = nullptr;
+	}
+	ColliderComponent::ColliderComponent(std::shared_ptr<CollisionDetector> collisionDetector)
+	{
+		detector = collisionDetector;
 	}
 	ComponentType ColliderComponent::getType()
 	{
 		return ComponentType::Collision;
 	}
-	void ColliderComponent::setCollisionState(CollisionState state)
+	ColliderType ColliderComponent::getColliderType()
 	{
-		
-		printf("\n Collision state: %d", (int)state);
-		m_CollisionState = state;
-	}
-	CollisionState ColliderComponent::getCollisionState()
-	{
-		return m_CollisionState;
+		return ColliderType::None;
 	}
 }

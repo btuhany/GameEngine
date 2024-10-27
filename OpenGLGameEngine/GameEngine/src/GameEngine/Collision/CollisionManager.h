@@ -1,9 +1,11 @@
 #pragma once
 #include "../Core.h"
+#include "CollisionEnum.h"
 #include "../Event/EventManager.h"
 #include "../Event/ComponentEvent.h"
 #include "../Components/ColliderComponent.h"
 #include "../Components/BoxCollider2DComponent.h"
+#include "../Collision/CollisionDetector.h"
 namespace GameEngine
 {
 	class ENGINE_API CollisionManager

@@ -1,4 +1,5 @@
 #pragma once
+#include <string.h>
 #include <GameEngine.h>
 #include "BreakoutSceneInputHandler.h"
 class BreakoutScene : public Scene

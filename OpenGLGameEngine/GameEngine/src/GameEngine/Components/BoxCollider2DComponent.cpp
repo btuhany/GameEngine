@@ -7,6 +7,11 @@ namespace GameEngine
 		m_Width = width;
 		m_Height = height;
 	}
+	BoxCollider2DComponent::BoxCollider2DComponent(float width, float height, std::shared_ptr<CollisionDetector> collisionDetector) : ColliderComponent(collisionDetector)
+	{
+		m_Width = width;
+		m_Height = height;
+	}
 	float BoxCollider2DComponent::getWidth()
 	{
 		return m_Width;
