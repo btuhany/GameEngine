@@ -29,11 +29,13 @@ namespace GameEngine
 		for (size_t i = 0; i < m_ColliderComponents.size(); i++)
 		{
 			auto controlledCollider = m_ColliderComponents[i];
+
 			for (size_t j = 0; j < m_ColliderComponents.size(); j++)
 			{
 				if (i == j)
 					continue;
 
+				bool isInBounds = false;
 				auto otherCollider = m_ColliderComponents[j];
 				if (controlledCollider->getColliderType() == ColliderType::BoxCollider2D)
 				{
@@ -41,13 +43,13 @@ namespace GameEngine
 					{
 						auto controlledBoxCollider = std::static_pointer_cast<BoxCollider2DComponent>(controlledCollider);
 						auto otherBoxCollider = std::static_pointer_cast<BoxCollider2DComponent>(otherCollider);
-						bool isInBounds = checkBounds(controlledBoxCollider, otherBoxCollider);
-
-						if (controlledCollider->detector != nullptr)
-						{
-							controlledCollider->detector->ProcessCollisionResult(isInBounds, otherCollider);
-						}
+						isInBounds = AreBoxCollidersCollide(controlledBoxCollider, otherBoxCollider);
 					}
+				}
+
+				if (controlledCollider->detector != nullptr)
+				{
+					controlledCollider->detector->ProcessCollisionResult(isInBounds, otherCollider);
 				}
 			}
 
@@ -65,7 +67,7 @@ namespace GameEngine
 			}
 		}
 	}
-	bool CollisionManager::checkBounds(std::shared_ptr<BoxCollider2DComponent> boxColliderA, std::shared_ptr<BoxCollider2DComponent> boxColliderB)
+	bool CollisionManager::AreBoxCollidersCollide(std::shared_ptr<BoxCollider2DComponent> boxColliderA, std::shared_ptr<BoxCollider2DComponent> boxColliderB)
 	{
 		if (boxColliderA->getEntity().expired() || boxColliderB->getEntity().expired())
 		{
@@ -83,6 +85,20 @@ namespace GameEngine
 			{
 				if (boundsB[(int)BoxColliderPosTypes::TopRight].y > node.y 
 					&& node.y > boundsB[(int)BoxColliderPosTypes::BottomLeft].y)
+				{
+					//printf("\n Collision! node: %d", i);
+					return true;
+				}
+			}
+		}
+		for (size_t i = 0; i < 4; i++)
+		{
+			auto node = boundsB[i];
+			if (boundsA[(int)BoxColliderPosTypes::TopRight].x > node.x
+				&& node.x > boundsA[(int)BoxColliderPosTypes::BottomLeft].x)
+			{
+				if (boundsA[(int)BoxColliderPosTypes::TopRight].y > node.y
+					&& node.y > boundsA[(int)BoxColliderPosTypes::BottomLeft].y)
 				{
 					//printf("\n Collision! node: %d", i);
 					return true;
