@@ -21,10 +21,6 @@ namespace GameEngine
 		for (size_t i = 0; i < m_ColliderComponents.size(); i++)
 		{
 			auto dynamicCollider = m_ColliderComponents[i];
-			if (dynamicCollider->getCollisionType() != CollisionType::Dynamic)
-			{
-				continue;
-			}
 
 			bool isInBounds = false;
 			for (size_t j = 0; j < m_ColliderComponents.size(); j++)
