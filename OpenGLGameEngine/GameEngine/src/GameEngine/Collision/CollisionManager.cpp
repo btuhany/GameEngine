@@ -16,7 +16,7 @@ namespace GameEngine
 				this->onComponentEvent(event);
 			});
 	}
-	void CollisionManager::Tick()
+	void CollisionManager::Update()
 	{
 		for (size_t i = 0; i < m_ColliderComponents.size(); i++)
 		{

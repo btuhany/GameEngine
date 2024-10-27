@@ -11,7 +11,7 @@ namespace GameEngine
 	public:
 		CollisionManager();
 		~CollisionManager();
-		void Tick();
+		void Update();
 	private:
 		void onComponentEvent(std::shared_ptr<ComponentEvent> componentEvent);
 		std::vector<std::shared_ptr<ColliderComponent>> m_ColliderComponents;
