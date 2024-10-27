@@ -45,11 +45,7 @@ namespace GameEngine
 
 						if (controlledCollider->detector != nullptr)
 						{
-							if (isInBounds)
-								controlledCollider->detector->HandleOnCollisionDetected(otherCollider);
-							else
-								controlledCollider->detector->HandleOnCollisionNotDetected(otherCollider);
-
+							controlledCollider->detector->ProcessCollisionResult(isInBounds, otherCollider);
 						}
 					}
 				}

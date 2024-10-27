@@ -1,19 +1,8 @@
 #include "CollisionDetector.h"
 namespace GameEngine
 {
-	void CollisionDetector::HandleOnCollisionDetected(std::shared_ptr<ColliderComponent> detectedCollider)
+	void CollisionDetector::processOnDetectionSuccess(std::shared_ptr<ColliderComponent> detectedCollider)
 	{
-		//if (detectedCollider.expired())
-		//{
-		//	LOG_CORE_ERROR("HandleOnCollisionDetected | detected collider has expired");
-		//	return;
-		//}
-		//auto collider = detectedCollider.lock();
-		//if (collider->getEntity().expired())
-		//{
-		//	LOG_CORE_ERROR("HandleOnCollisionDetected | detected collider owner entity has expired");
-		//	return;
-		//}
 		auto it = m_CurrentCollisions.find(detectedCollider);
 		if (it != m_CurrentCollisions.end())
 		{
@@ -43,19 +32,8 @@ namespace GameEngine
 		}
 	}
 
-	void CollisionDetector::HandleOnCollisionNotDetected(std::shared_ptr<ColliderComponent> detectedCollider)
+	void CollisionDetector::processOnDetectionFailed(std::shared_ptr<ColliderComponent> detectedCollider)
 	{
-		//if (detectedCollider.expired())
-		//{
-		//	LOG_CORE_ERROR("HandleOnCollisionDetected | detected collider has expired");
-		//	return;
-		//}
-		//auto collider = detectedCollider.lock();
-		//if (collider->getEntity().expired())
-		//{
-		//	LOG_CORE_ERROR("HandleOnCollisionDetected | detected collider owner entity has expired");
-		//	return;
-		//}
 		auto it = m_CurrentCollisions.find(detectedCollider);
 		if (it != m_CurrentCollisions.end())
 		{
@@ -79,6 +57,14 @@ namespace GameEngine
 				break;
 			}
 		}
+	}
+
+	void CollisionDetector::ProcessCollisionResult(bool isCollided, std::shared_ptr<ColliderComponent> otherCollider)
+	{
+		if (isCollided)
+			processOnDetectionSuccess(otherCollider);
+		else
+			processOnDetectionFailed(otherCollider);
 	}
 
 	void CollisionDetector::HandleOnCollisionEnter(std::shared_ptr<ColliderComponent> otherCollider)
