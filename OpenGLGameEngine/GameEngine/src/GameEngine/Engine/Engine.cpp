@@ -67,6 +67,8 @@ namespace GameEngine {
 
 		GLfloat deltaTime = 0.0f;
 		GLfloat lastTime = 0.0f;
+		const GLfloat targetFPS = 70.0f;
+		const GLfloat targetFrameTime = 1000.0f / targetFPS;
 
 		bool renderDirLightShadow = checkValidateDirLightShadowRendering(gameModeType);
 		bool renderOmniLightShadow = checkValidateOmniLightShadowRendering(gameModeType);
@@ -118,6 +120,13 @@ namespace GameEngine {
 
 			m_MainWindow->SwapBuffers();
 			m_MainWindow->ClearKeyCache();
+
+			GLfloat frameTime = glfwGetTime() - timeNow;
+			GLfloat sleepTime = targetFrameTime - frameTime * 1000.0f;
+			if (sleepTime > 0)
+			{
+				std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(sleepTime)));
+			}
 		}
 	}
 
