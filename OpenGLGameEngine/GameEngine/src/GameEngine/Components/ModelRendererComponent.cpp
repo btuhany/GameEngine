@@ -4,7 +4,7 @@ namespace GameEngine
 {
 	void ModelRendererComponent::Render(GLuint modelLocation)
 	{
-		DrawModel(modelLocation);
+		drawModel(modelLocation);
 	}
 
 	void ModelRendererComponent::setModelRenderData(std::shared_ptr<ModelRenderData> modelRenderData)
@@ -28,7 +28,7 @@ namespace GameEngine
 		return true;
 	}
 
-	void ModelRendererComponent::DrawModel(GLuint uniformModel)
+	void ModelRendererComponent::drawModel(GLuint uniformModel)
 	{
 		//TODOby
 		if (m_OwnerEntity.expired())

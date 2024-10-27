@@ -35,6 +35,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameEngine\Collision\CollisionDetector.cpp" />
+    <ClCompile Include="src\GameEngine\Components\BoxCollider2DComponent.cpp" />
+    <ClCompile Include="src\GameEngine\Collision\CollisionManager.cpp" />
+    <ClCompile Include="src\GameEngine\Components\ColliderComponent.cpp" />
+    <ClCompile Include="src\GameEngine\Entities\SpriteEntity.cpp" />
     <ClCompile Include="src\GameEngine\Render\SpriteRenderData.cpp" />
     <ClCompile Include="src\GameEngine\Components\SpriteRendererComponent.cpp" />
     <ClCompile Include="src\GameEngine\Render\RenderData.cpp" />
@@ -55,7 +60,7 @@
     <ClCompile Include="src\GameEngine\Event\SimpleEvent.cpp" />
     <ClCompile Include="src\GameEngine\Engine\Input.cpp" />
     <ClCompile Include="src\GameEngine\Engine\Application.cpp" />
-    <ClCompile Include="src\GameEngine\Debug\Log.cpp" />
+    <ClCompile Include="src\GameEngine\Debugging\Log.cpp" />
     <ClCompile Include="src\GameEngine\Scene\Camera.cpp" />
     <ClCompile Include="src\GameEngine\Scene\DirectionalLight.cpp" />
     <ClCompile Include="src\GameEngine\Scene\Light.cpp" />
@@ -71,8 +76,16 @@
     <ClCompile Include="src\GameEngine\Engine\Window.cpp" />
     <ClCompile Include="src\GameEngine\Scene\Scene.cpp" />
     <ClCompile Include="src\GameEngine\Components\Transform.cpp" />
+    <ClCompile Include="src\GameEngine\Math\Vector2.cpp" />
+    <ClCompile Include="src\GameEngine\Math\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameEngine\Collision\CollisionDetector.h" />
+    <ClInclude Include="src\GameEngine\Collision\CollisionEnum.h" />
+    <ClInclude Include="src\GameEngine\Components\BoxCollider2DComponent.h" />
+    <ClInclude Include="src\GameEngine\Collision\CollisionManager.h" />
+    <ClInclude Include="src\GameEngine\Components\ColliderComponent.h" />
+    <ClInclude Include="src\GameEngine\Entities\SpriteEntity.h" />
     <ClInclude Include="src\GameEngine\Event\SceneCameraChangedEvent.h" />
     <ClInclude Include="src\GameEngine\Render\SpriteRenderData.h" />
     <ClInclude Include="src\GameEngine\Components\SpriteRendererComponent.h" />
@@ -99,7 +112,7 @@
     <ClInclude Include="src\GameEngine\Engine\Input.h" />
     <ClInclude Include="src\GameEngine\Engine\Application.h" />
     <ClInclude Include="src\EntryPoint.h" />
-    <ClInclude Include="src\GameEngine\Debug\Log.h" />
+    <ClInclude Include="src\GameEngine\Debugging\Log.h" />
     <ClInclude Include="src\GameEngine\Scene\Camera.h" />
     <ClInclude Include="src\GameEngine\ConstantValues.h" />
     <ClInclude Include="src\GameEngine\Core.h" />
@@ -118,6 +131,8 @@
     <ClInclude Include="src\GameEngine\Engine\Engine.h" />
     <ClInclude Include="src\GameEngine\Scene\Scene.h" />
     <ClInclude Include="src\GameEngine\Components\Transform.h" />
+    <ClInclude Include="src\GameEngine\Math\Vector2.h" />
+    <ClInclude Include="src\GameEngine\Math\Vector3.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assimp-vc143-mt.dll" />

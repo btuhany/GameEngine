@@ -1,6 +1,7 @@
 #pragma once
 #include "RendererComponent.h"
 #include "../Render/SpriteRenderData.h"
+#include "../Entities/GameEntity.h"
 namespace GameEngine
 {
 	class ENGINE_API SpriteRendererComponent : public RendererComponent

@@ -1,4 +1,5 @@
 #pragma once
+#include <string.h>
 #include <GameEngine.h>
 #include "BreakoutSceneInputHandler.h"
 class BreakoutScene : public Scene
@@ -11,9 +12,18 @@ public:
 	void Start() override;
 	void Update(GLfloat deltaTime) override;
 private:
+	std::shared_ptr<SpriteEntity> m_SpriteEntity;
+	float m_ObjectMoveSpeed;
+	float m_DeltaTime;
+
 	BreakoutSceneInputHandler* m_InputHandler;
 	std::shared_ptr<MeshData> createCubeMeshData();
 	void initializeInputCallbacks();
 	void changeCameraType();
+
+	void handleOnLeftKey();
+	void handleOnRightKey();
+	void handleOnDownKey();
+	void handleOnUpKey();
 };
 

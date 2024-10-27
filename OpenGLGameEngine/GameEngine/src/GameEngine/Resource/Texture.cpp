@@ -99,4 +99,8 @@ namespace GameEngine {
 		m_BitDepth = 0;
 		m_FileLocation = "";
 	}
+	float Texture::GetAspectRatio()
+	{
+		return m_Width / m_Height;
+	}
 }

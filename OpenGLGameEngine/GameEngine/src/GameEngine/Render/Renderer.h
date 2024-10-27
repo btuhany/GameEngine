@@ -10,7 +10,7 @@
 #include "../Event/EventManager.h"
 #include "../Event/ComponentEvent.h"
 #include "../Event/SceneCameraChangedEvent.h"
-#include "../Debug/Log.h"
+#include "../Debugging/Log.h"
 #include "stdio.h"
 namespace GameEngine
 {

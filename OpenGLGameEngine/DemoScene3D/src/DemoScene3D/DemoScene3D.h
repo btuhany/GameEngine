@@ -39,9 +39,12 @@ private:
 	void handleOnShaderChangeKey();
 	void handleOnSelectRightObjectKey();
 	void handleOnSelectLeftObjectKey();
+	void handleOnScaleUpKey();
+	void handleOnScaleDownKey();
 	DemoSceneInputHandler* m_InputReader;
 	float m_ObjectMoveSpeed;
 	float m_ObjectRotateSpeed;
+	float m_ObjectScaleSpeed;
 	float m_DeltaTime;
 	std::shared_ptr<Shader> m_MainRenderShader;
 	std::shared_ptr<Shader> m_NormalRenderShader;

@@ -10,6 +10,7 @@ DemoScene3D::DemoScene3D(DemoSceneInputHandler* input) : Scene()
 	m_InputReader = input;
 	m_ObjectMoveSpeed = 5.0f;
 	m_ObjectRotateSpeed = 2.0f;
+	m_ObjectScaleSpeed = 0.05f;
 }
 
 DemoScene3D::~DemoScene3D()
@@ -20,15 +21,15 @@ void DemoScene3D::Initialize()
 {
 	Scene::Initialize();
 
-	setCamera(std::make_shared<Camera>(glm::vec3(-10.0f, 0.0f, 0.0f), 
+	setCamera(std::make_shared<Camera>(glm::vec3(0.0f, 5.0f, 45.0f), 
 		glm::vec3(0.0f, 1.0f, 0.0f), 
-		0.0f, 0.0f, 5.0f, 0.1f, 60.0f, 0.1f, 400.0f, CAMERA_TYPE_PERSPECTIVE));
-	getCamera()->MoveLeft(45.0f);
-	getCamera()->MoveForward(10.0f);
-	getCamera()->Rotate(0.0f, 90.0f);
-	getCamera()->MoveForward(25.0f);
-	getCamera()->Rotate(0.0f, -90.0f);
-	getCamera()->Rotate(90.0f, -30.0f);
+		-90.0f, 0.0f, 5.0f, 0.1f, 60.0f, 0.1f, 400.0f, CAMERA_TYPE_PERSPECTIVE));
+	//getCamera()->MoveLeft(45.0f);
+	//getCamera()->MoveForward(10.0f);
+	//getCamera()->Rotate(0.0f, 90.0f);
+	//getCamera()->MoveForward(25.0f);
+	//getCamera()->Rotate(0.0f, -90.0f);
+	//getCamera()->Rotate(90.0f, -30.0f);
 
 	setBackgroundColor(glm::vec3(0.0f, 1.0f, 0.0f));
 	initializeInputCallbacks();
@@ -164,6 +165,8 @@ void DemoScene3D::initializeInputCallbacks()
 	m_InputReader->OnShaderChangeKeyEvent.AddHandler([this]() {handleOnShaderChangeKey(); });
 	m_InputReader->OnSelectLeftObjectKeyEvent.AddHandler([this]() {handleOnSelectLeftObjectKey(); });
 	m_InputReader->OnSelectRightObjectKeyEvent.AddHandler([this]() {handleOnSelectRightObjectKey(); });
+	m_InputReader->OnScaleUpKeyEvent.AddHandler([this]() {handleOnScaleUpKey(); });
+	m_InputReader->OnScaleDownKeyEvent.AddHandler([this]() {handleOnScaleDownKey(); });
 }
 
 void DemoScene3D::initializeGameObjects()
@@ -310,7 +313,7 @@ void DemoScene3D::handleOnUpKey()
 		return;
 	//getCamera()->MoveForward(m_CameraSpeed * m_DeltaTime);
 	auto pos = m_GameEntities[m_CurrentObjectIndex]->transform->GetPosition();
-	m_GameEntities[m_CurrentObjectIndex]->transform->Translate(glm::vec3(0.0f, 0.0f, m_ObjectMoveSpeed * m_DeltaTime));
+	m_GameEntities[m_CurrentObjectIndex]->transform->Translate(glm::vec3(0.0f, 0.0f, -(m_ObjectMoveSpeed * m_DeltaTime)));
 }
 
 void DemoScene3D::handleOnDownKey()
@@ -319,7 +322,7 @@ void DemoScene3D::handleOnDownKey()
 		return;
 	//getCamera()->MoveBack(m_CameraSpeed * m_DeltaTime);
 	auto pos = m_GameEntities[m_CurrentObjectIndex]->transform->GetPosition();
-	m_GameEntities[m_CurrentObjectIndex]->transform->Translate(glm::vec3(0.0f, 0.0f, -(m_ObjectMoveSpeed * m_DeltaTime)));
+	m_GameEntities[m_CurrentObjectIndex]->transform->Translate(glm::vec3(0.0f, 0.0f, (m_ObjectMoveSpeed * m_DeltaTime)));
 }
 
 void DemoScene3D::handleOnShiftKey(int keyState)
@@ -444,5 +447,23 @@ void DemoScene3D::handleOnSelectLeftObjectKey()
 	auto rendererComponent = currentObject->GetComponentOfBaseType<RendererComponent>();
 	if (rendererComponent != nullptr)
 		rendererComponent->ChangeRenderShader(m_NormalRenderShader);
+}
+
+void DemoScene3D::handleOnScaleUpKey()
+{
+	if (m_CurrentObjectIndex == -1)
+		return;
+	auto gameObjTransform = m_GameEntities[m_CurrentObjectIndex]->transform;
+	auto gameObjScale = gameObjTransform->GetScale();
+	gameObjTransform->Scale(gameObjScale + glm::vec3(m_ObjectScaleSpeed));
+}
+
+void DemoScene3D::handleOnScaleDownKey()
+{
+	if (m_CurrentObjectIndex == -1)
+		return;
+	auto gameObjTransform = m_GameEntities[m_CurrentObjectIndex]->transform;
+	auto gameObjScale = gameObjTransform->GetScale();
+	gameObjTransform->Scale(gameObjScale - glm::vec3(m_ObjectScaleSpeed));
 }
 

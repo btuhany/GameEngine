@@ -1,7 +1,7 @@
 #pragma once
 #include "../Core.h"
 #include "CameraTypeEnum.h"
-#include "../Debug/Log.h"
+#include "../Debugging/Log.h"
 #include <GL\glew.h>
 #include <glm\glm.hpp>
 #include <glm\gtc\matrix_transform.hpp>
@@ -19,7 +19,9 @@ namespace GameEngine
 		void HandleKeys(int* keys, GLfloat deltaTime);
 		
 		void Rotate(float yawValue, float pitchValue);
-		glm::vec3 getCameraPosition();
+		glm::vec3 getPosition();
+		float getYawValue();
+		float getPitchValue();
 
 		glm::mat4 CalculateViewMatrix();
 		void MoveForward(float value);

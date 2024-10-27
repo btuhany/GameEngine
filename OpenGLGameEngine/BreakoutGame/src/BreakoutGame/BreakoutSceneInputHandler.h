@@ -4,6 +4,10 @@ class BreakoutSceneInputHandler : public Input
 {
 public:
 	SimpleEvent<> OnPressedCameraTypeChangeKeyEvent;
+	SimpleEvent<> OnLeftArrowKeyEvent;
+	SimpleEvent<> OnRightArrowKeyEvent;
+	SimpleEvent<> OnUpArrowKeyEvent;
+	SimpleEvent<> OnDownArrowKeyEvent;
 	void HandleKeys(int* keys, GLfloat deltaTime) override;
 	void HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY) override;
 };

@@ -12,7 +12,7 @@ namespace GameEngine {
 		m_Yaw = startYawVal;
 		m_Pitch = startPitchVal;
 		m_Front = glm::vec3(0.0f, 0.0f, -1.0f);
-		m_Position = glm::cross(m_WorldUp, startPosition);;
+		m_Position = startPosition;
 
 		m_MoveSpeed = startMoveSpeed;
 		m_RotateSpeed = startRotateSpeed;
@@ -97,9 +97,19 @@ namespace GameEngine {
 		}
 	}
 
-	glm::vec3 Camera::getCameraPosition()
+	glm::vec3 Camera::getPosition()
 	{
 		return m_Position;
+	}
+
+	float Camera::getYawValue()
+	{
+		return m_Yaw;
+	}
+
+	float Camera::getPitchValue()
+	{
+		return m_Pitch;
 	}
 
 	glm::mat4 Camera::CalculateViewMatrix()
@@ -146,7 +156,9 @@ namespace GameEngine {
 		}
 		else if (m_Type == CAMERA_TYPE_ORTHOGONAL)
 		{
-			m_Projection = glm::ortho(0.0f, m_Fov * aspectRatio, -m_Fov, 0.0f, m_NearPlane, m_FarPlane);
+			auto sceneWidth = m_Fov * aspectRatio;
+			auto sceneHeight = m_Fov;
+			m_Projection = glm::ortho(-(sceneWidth / 2), sceneWidth / 2, -(sceneHeight / 2), sceneHeight / 2, m_NearPlane, m_FarPlane);
 		}
 		else
 		{

@@ -91,7 +91,7 @@ namespace GameEngine
 			auto renderShader = renderComponent->getRenderDataShader();
 			renderShader->UseShader();
 
-			glUniform3f(renderShader->GetCameraPositionLocation(), m_Camera->getCameraPosition().x, m_Camera->getCameraPosition().y, m_Camera->getCameraPosition().z);
+			glUniform3f(renderShader->GetCameraPositionLocation(), m_Camera->getPosition().x, m_Camera->getPosition().y, m_Camera->getPosition().z);
 			glUniformMatrix4fv(renderShader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 			glUniformMatrix4fv(renderShader->GetViewLocation(), 1, GL_FALSE, glm::value_ptr(m_Camera->CalculateViewMatrix()));
 

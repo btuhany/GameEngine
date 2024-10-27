@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include "../Core.h"
-#include "../Debug/Log.h"
+#include "../Debugging/Log.h"
 
 namespace GameEngine
 {
@@ -11,7 +11,8 @@ namespace GameEngine
 		MeshRenderer = 1,
 		ModelRenderer = 2,
 		Renderer = 3,
-		Transform = 4
+		Transform = 4,
+		Collision = 5
 	};
 
 	class GameEntity; //Forward decleration for circular dependency

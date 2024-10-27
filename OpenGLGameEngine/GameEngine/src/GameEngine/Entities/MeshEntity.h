@@ -1,7 +1,7 @@
 #pragma once
 #include "RenderableEntity.h"
 #include "../Components/MeshRendererComponent.h"
-#include "../Debug/Log.h"
+#include "../Debugging/Log.h"
 #include "../Components/Component.h"
 namespace GameEngine
 {
