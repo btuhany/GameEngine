@@ -11,11 +11,13 @@ namespace GameEngine
 	public:
 		CollisionManager();
 		~CollisionManager();
-		void Update();
+		void Update(float deltaTime);
 	private:
 		void onComponentEvent(std::shared_ptr<ComponentEvent> componentEvent);
 		std::vector<std::shared_ptr<ColliderComponent>> m_ColliderComponents;
 		bool checkBounds(std::shared_ptr<BoxCollider2DComponent> boxColliderA, std::shared_ptr<BoxCollider2DComponent> boxColliderB);
+		float m_TimeCounter = 0.0f;
+		const float m_UpdateCollisionDuration = 0.2f;
 	};
 }
 

@@ -110,7 +110,7 @@ namespace GameEngine {
 
 			if (m_IsCollisionsEnabled)
 			{
-				m_CollisionManager->Update();
+				m_CollisionManager->Update(deltaTime);
 			}
 
 			m_Renderer->Draw(m_ShadowPassActive, renderDirLightShadow, renderOmniLightShadow);

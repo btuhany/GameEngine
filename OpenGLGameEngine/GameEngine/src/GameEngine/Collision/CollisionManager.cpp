@@ -3,6 +3,7 @@ namespace GameEngine
 {
 	CollisionManager::CollisionManager()
 	{
+		m_TimeCounter = 0.0f;
 		EventManager::GetInstance().Subscribe<ComponentEvent>(
 			[this](std::shared_ptr<ComponentEvent> event) {
 				this->onComponentEvent(event);
@@ -16,8 +17,15 @@ namespace GameEngine
 				this->onComponentEvent(event);
 			});
 	}
-	void CollisionManager::Update()
+	void CollisionManager::Update(float deltaTime)
 	{
+		m_TimeCounter += deltaTime;
+		if (m_TimeCounter <= m_UpdateCollisionDuration)
+		{
+			return;
+		}
+		m_TimeCounter = 0.0f;
+
 		for (size_t i = 0; i < m_ColliderComponents.size(); i++)
 		{
 			auto dynamicCollider = m_ColliderComponents[i];
