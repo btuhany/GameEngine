@@ -9,12 +9,14 @@ namespace GameEngine
 	class ENGINE_API ColliderComponent : public Component
 	{
 	public:
-		ColliderComponent();
-		ColliderComponent(std::shared_ptr<CollisionDetector> collisionDetector);
+		ColliderComponent(CollisionType collisionType);
+		ColliderComponent(CollisionType collisionType, std::shared_ptr<CollisionDetector> collisionDetector);
 		ComponentType getType() override;
 		virtual ColliderType getColliderType();
+		CollisionType getCollisionType();
 		std::shared_ptr<CollisionDetector> detector;
-
+	private:
+		CollisionType m_CollisionType;
 	};
 }
 

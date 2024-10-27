@@ -2,12 +2,12 @@
 
 namespace GameEngine
 {
-	BoxCollider2DComponent::BoxCollider2DComponent(float width, float height) : ColliderComponent()
+	BoxCollider2DComponent::BoxCollider2DComponent(float width, float height, CollisionType collisionType) : ColliderComponent(collisionType)
 	{
 		m_Width = width;
 		m_Height = height;
 	}
-	BoxCollider2DComponent::BoxCollider2DComponent(float width, float height, std::shared_ptr<CollisionDetector> collisionDetector) : ColliderComponent(collisionDetector)
+	BoxCollider2DComponent::BoxCollider2DComponent(float width, float height, CollisionType collisionType, std::shared_ptr<CollisionDetector> collisionDetector) : ColliderComponent(collisionType, collisionDetector)
 	{
 		m_Width = width;
 		m_Height = height;

@@ -1,13 +1,15 @@
 #include "ColliderComponent.h"
 namespace GameEngine
 {
-	ColliderComponent::ColliderComponent()
+	ColliderComponent::ColliderComponent(CollisionType collisionType)
 	{
+		m_CollisionType = collisionType;
 		detector = nullptr;
 	}
-	ColliderComponent::ColliderComponent(std::shared_ptr<CollisionDetector> collisionDetector)
+	ColliderComponent::ColliderComponent(CollisionType collisionType, std::shared_ptr<CollisionDetector> collisionDetector)
 	{
 		detector = collisionDetector;
+		m_CollisionType = collisionType;
 	}
 	ComponentType ColliderComponent::getType()
 	{
@@ -16,5 +18,9 @@ namespace GameEngine
 	ColliderType ColliderComponent::getColliderType()
 	{
 		return ColliderType::None;
+	}
+	CollisionType ColliderComponent::getCollisionType()
+	{
+		return m_CollisionType;
 	}
 }

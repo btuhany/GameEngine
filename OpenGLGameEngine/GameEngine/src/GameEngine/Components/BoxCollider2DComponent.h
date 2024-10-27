@@ -17,8 +17,8 @@ namespace GameEngine
 	class ENGINE_API BoxCollider2DComponent : public ColliderComponent
 	{
 	public:
-		BoxCollider2DComponent(float width, float height);
-		BoxCollider2DComponent(float width, float height, std::shared_ptr<CollisionDetector> collisionDetector);
+		BoxCollider2DComponent(float width, float height, CollisionType collisionType);
+		BoxCollider2DComponent(float width, float height, CollisionType collisionType, std::shared_ptr<CollisionDetector> collisionDetector);
 		float getWidth();
 		float getHeight();
 		std::array<Vector2, 4> getBoundNodes();

@@ -7,6 +7,11 @@ namespace GameEngine
 		None = 0,
 		BoxCollider2D = 1
 	};
+	enum class ENGINE_API CollisionType
+	{
+		Static = 0,
+		Dynamic = 1
+	};
 	enum class ENGINE_API CollisionState
 	{
 		None = 0,

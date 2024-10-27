@@ -55,7 +55,7 @@ void BreakoutScene::Initialize()
 		std::string name = std::to_string(i) + "-Tiles obj ";
 		spriteEntity->setName(name);
 		spriteEntity->transform->SetPosition(glm::vec3(i * 6.0f, 0.0f, 0.0f));
-		auto boxCollider2DComp = std::make_shared<BoxCollider2DComponent>(3.0f, 3.0f);
+		auto boxCollider2DComp = std::make_shared<BoxCollider2DComponent>(3.0f, 3.0f, CollisionType::Static);
 		spriteEntity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp);
 		instantiateGameEntity(spriteEntity);
 	}
@@ -64,7 +64,7 @@ void BreakoutScene::Initialize()
 	m_SpriteEntity = std::make_shared<SpriteEntity>(breakoutSpriteRenderData2);
 	m_SpriteEntity->setName("05-Breakout-Tiles obj");
 	m_SpriteEntity->transform->SetPosition(glm::vec3(20.0f, 0.0f, 0.0f));
-	auto boxCollider2DComp2 = std::make_shared<BoxCollider2DComponent>(5.0f,5.0f,std::make_shared<CollisionDetector>());
+	auto boxCollider2DComp2 = std::make_shared<BoxCollider2DComponent>(5.0f,5.0f, CollisionType::Static, std::make_shared<CollisionDetector>());
 	m_SpriteEntity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp2);
 	instantiateGameEntity(m_SpriteEntity);
 
