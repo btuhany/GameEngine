@@ -6,7 +6,7 @@ namespace GameEngine {
 	{
 		m_MainWindow = window;
 		m_IsInitialized = false;
-		m_ShouldStop = false;
+		m_ShouldPause = false;
 		m_ShadowPassActive = shadowPassActive;
 	}
 
@@ -15,7 +15,7 @@ namespace GameEngine {
 		m_MainWindow = window;
 		m_InputHandler = input;
 		m_IsInitialized = false;
-		m_ShouldStop = false;
+		m_ShouldPause = false;
 		m_ShadowPassActive = shadowPassActive;
 	}
 
@@ -56,13 +56,14 @@ namespace GameEngine {
 		if (m_Scene->getCamera() == nullptr)
 		{
 			LOG_CORE_ERROR("Camera is not initialized!");
-			m_ShouldStop = true;
+			m_ShouldPause = true;
 		}
 	}
 
+
 	void Engine::Run(GameModeType gameModeType)
 	{
-		if (m_ShouldStop)
+		if (m_ShouldPause)
 			return;
 
 		GLfloat deltaTime = 0.0f;
@@ -77,7 +78,7 @@ namespace GameEngine {
 		
 		while (!m_MainWindow->GetShouldClose())
 		{
-			if (m_ShouldStop)
+			if (m_ShouldPause)
 				continue; //break;
 
 			GLfloat timeNow = glfwGetTime(); //SDL_GetPerformanceCounter();
@@ -112,11 +113,7 @@ namespace GameEngine {
 				m_CollisionManager->Tick();
 			}
 
-
-
 			m_Renderer->Draw(m_ShadowPassActive, renderDirLightShadow, renderOmniLightShadow);
-
-
 
 			m_MainWindow->SwapBuffers();
 			m_MainWindow->ClearKeyCache();
@@ -130,9 +127,9 @@ namespace GameEngine {
 		}
 	}
 
-	void Engine::Stop()
+	void Engine::Pause()
 	{
-		m_ShouldStop = true;
+		m_ShouldPause = true;
 	}
 	void Engine::setDebugInputActive(bool active)
 	{

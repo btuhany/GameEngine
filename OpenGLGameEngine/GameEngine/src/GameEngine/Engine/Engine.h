@@ -29,7 +29,7 @@ namespace GameEngine {
 		void Initialize(Scene* scene, bool activateCollisionSystem = false);
 		void Start();
 		void Run(GameModeType gameModeType);
-		void Stop();
+		void Pause();
 		void setDebugInputActive(bool active);
 	private:
 		Window* m_MainWindow;
@@ -38,7 +38,7 @@ namespace GameEngine {
 		Renderer* m_Renderer;
 		CollisionManager* m_CollisionManager;
 		bool m_IsInitialized;
-		bool m_ShouldStop;
+		bool m_ShouldPause;
 		bool m_ShadowPassActive;
 		bool m_DebugInputActive;
 		bool m_IsCollisionsEnabled;
