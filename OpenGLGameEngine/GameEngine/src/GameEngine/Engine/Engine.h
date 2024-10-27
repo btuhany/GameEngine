@@ -26,7 +26,7 @@ namespace GameEngine {
 		Engine(Window* window, bool shadowPassActive);
 		Engine(Window* window, Input* input, bool shadowPassActive);
 		~Engine();
-		void Initialize(Scene* scene, bool activateCollisionSystem);
+		void Initialize(Scene* scene, bool activateCollisionSystem = false);
 		void Start();
 		void Run(GameModeType gameModeType);
 		void Stop();

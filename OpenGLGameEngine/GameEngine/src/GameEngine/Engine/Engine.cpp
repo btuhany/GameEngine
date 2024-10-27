@@ -26,7 +26,7 @@ namespace GameEngine {
 		delete m_CollisionManager;
 	}
 
-	void Engine::Initialize(Scene* scene, bool activateCollisionSystem = false)
+	void Engine::Initialize(Scene* scene, bool activateCollisionSystem)
 	{
 		if (activateCollisionSystem)
 		{
