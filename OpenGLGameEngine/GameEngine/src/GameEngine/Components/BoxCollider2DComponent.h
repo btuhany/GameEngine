@@ -5,6 +5,9 @@
 #include "../Debugging/Log.h"
 #include "../Entities/GameEntity.h"
 #include "../Math/Vector2.h"
+#include "../Resource/MeshData.h"
+#include "../Resource/Shader.h"
+#include "../Render/Renderer.h"
 namespace GameEngine
 {
 	enum class BoxColliderPosTypes
@@ -22,10 +25,14 @@ namespace GameEngine
 		float getWidth();
 		float getHeight();
 		std::array<Vector2, 4> getBoundNodes();
+		void HandleOnAfterOwnerInstantiated() override;
 		ColliderType getColliderType() override;
 	private:
 		float m_Width;
 		float m_Height;
+
+		void initializeDebugRender();
+		std::shared_ptr<MeshData> createDebugMesh();
 	};
 }
 

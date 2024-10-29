@@ -138,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="assimp-vc143-mt.dll" />
+    <None Include="doc\GameEngineRender.drawio" />
     <None Include="doc\Notes.md" />
     <None Include="glew32.dll" />
     <None Include="src\Resources\Shaders\directional_shadow_map.frag" />

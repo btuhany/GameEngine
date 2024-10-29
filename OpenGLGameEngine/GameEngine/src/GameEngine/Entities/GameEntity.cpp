@@ -32,9 +32,9 @@ namespace GameEngine
     {
         m_IsInstantiated = true;
         for (auto it = m_ComponentMap.begin(); it != m_ComponentMap.end(); ++it) {
-            it->second->HandleOnAfterOwnerInstantiated();
             it->second->AssignToEntity(shared_from_this());
             it->second->setEnabled(true);
+            it->second->HandleOnAfterOwnerInstantiated();
         }
     }
     void GameEntity::HandleOnPreDestroyed()

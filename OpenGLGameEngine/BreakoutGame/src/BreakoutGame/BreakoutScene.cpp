@@ -69,13 +69,7 @@ void BreakoutScene::Initialize()
 	instantiateGameEntity(m_SpriteEntity);
 
 
-	static const char* vColliderDebugShaderLocation = "src/BreakoutGame/Shaders/colliderDebugShader.vert";
-	static const char* fColliderDebugShaderLocation = "src/BreakoutGame/Shaders/colliderDebugShader.frag";
-	std::shared_ptr<Shader> colliderDebugShader = std::make_shared<Shader>();
-	colliderDebugShader->CreateFromFiles(vColliderDebugShaderLocation, fColliderDebugShaderLocation);
 
-	auto debugMeshRenderData = std::make_shared<DebugRenderData>(createCubeMeshData(), colliderDebugShader);
-	Renderer::DebugMeshRenderDataTransformMap[debugMeshRenderData] = m_SpriteEntity->transform;
 	LOG_INFO("Breakout scene initialized!");
 	Scene::Initialize();
 }
@@ -87,27 +81,6 @@ void BreakoutScene::Start()
 void BreakoutScene::Update(GLfloat deltaTime)
 {
 	m_DeltaTime = deltaTime;
-}
-
-std::shared_ptr<MeshData> BreakoutScene::createCubeMeshData()
-{
-	GLfloat vertices[] =
-	{
-		//x      y     z		 u     y			normals
-		-1.0f, -1.0f, 0.0f, 	0.0f, 1.0f,		0.0f, 0.0f, 1.0f,
-		1.0f, -1.0f, 0.0f,	1.0f, 1.0f,		0.0f, 0.0f, 1.0f,
-		1.0f, 1.0f, 0.0f,		1.0f, 0.0f,		0.0f, 0.0f, 1.0f,
-		-1.0f, 1.0f, 0.0f,		0.0f, 0.0f,		0.0f, 0.0f, 1.0f
-	};
-
-	unsigned int indices[] = {
-		0,1,2,
-		2,3,0
-	};
-
-	std::shared_ptr<MeshData> cubeMesh = std::make_shared<MeshData>();
-	cubeMesh->CreateMesh(vertices, indices, 32, 6);
-	return cubeMesh;
 }
 
 void BreakoutScene::initializeInputCallbacks()

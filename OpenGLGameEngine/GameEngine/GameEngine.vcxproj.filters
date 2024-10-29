@@ -342,5 +342,6 @@
     <None Include="src\Resources\Shaders\skybox.frag" />
     <None Include="src\Resources\Shaders\skybox.vert" />
     <None Include="doc\Notes.md" />
+    <None Include="doc\GameEngineRender.drawio" />
   </ItemGroup>
 </Project>

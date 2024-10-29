@@ -18,7 +18,6 @@ private:
 	float m_DeltaTime;
 
 	BreakoutSceneInputHandler* m_InputHandler;
-	std::shared_ptr<MeshData> createCubeMeshData();
 	void initializeInputCallbacks();
 	void changeCameraType();
 

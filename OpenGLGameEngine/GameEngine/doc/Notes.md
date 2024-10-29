@@ -13,7 +13,7 @@ get and set functions -> getOrSetFunction()
 **************************************************
 ******************** TODO ************************
 - [] Renderer components with render date template
-- [] Engine starting settings static class
+- [] Engine starting settings static class (set DEBUG_MODE and shadow modes from a single place)
 **************************************************
 
 08.24

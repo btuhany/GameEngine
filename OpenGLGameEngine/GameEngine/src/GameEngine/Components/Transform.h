@@ -17,6 +17,7 @@ namespace GameEngine
 		void SetPosition(glm::vec3 newPosition);
 		glm::mat4 GetModelMatrix();
 		glm::vec3 GetPosition();
+		glm::mat4 getRotation();
 		glm::vec3 GetScale();
 		ComponentType getType() override;
 	private:

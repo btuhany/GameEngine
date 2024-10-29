@@ -39,6 +39,10 @@ namespace GameEngine
 	{
 		return m_Position;
 	}
+	glm::mat4 Transform::getRotation()
+	{
+		return m_Rotation;
+	}
 	glm::vec3 Transform::GetScale()
 	{
 		return m_Scale;

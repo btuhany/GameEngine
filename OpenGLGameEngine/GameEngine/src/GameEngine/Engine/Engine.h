@@ -13,7 +13,6 @@
 #include "../Collision/CollisionManager.h"
 
 namespace GameEngine {
-
 	enum class GameModeType
 	{
 		TwoDimensional = 0,
