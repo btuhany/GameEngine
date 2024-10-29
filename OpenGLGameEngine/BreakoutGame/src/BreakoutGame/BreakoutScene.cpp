@@ -67,11 +67,8 @@ void BreakoutScene::Initialize()
 	auto collisionDetector = std::make_shared<CollisionDetector>();
 	auto boxCollider2DComp2 = std::make_shared<BoxCollider2DComponent>(6.0f,2.0f, CollisionType::Dynamic, collisionDetector);
 	collisionDetector->AddCollisionCallback(CollisionState::Enter,
-		[](std::shared_ptr<ColliderComponent> collider) {
-			auto entity = collider->getEntity().lock();
-			if (entity) {
-				std::cout << "!!Collision Enter detected with entity: " << entity->getName() << std::endl;
-			}
+		[this](std::shared_ptr<ColliderComponent> collider) {
+			destroyGameEntity(collider->getEntity().lock(), false);
 		});
 	m_SpriteEntity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp2);
 	instantiateGameEntity(m_SpriteEntity);
