@@ -13,6 +13,7 @@ get and set functions -> getOrSetFunction()
 **************************************************
 ******************** TODO ************************
 - [] Renderer components with render date template
+- [] Engine starting settings static class
 **************************************************
 
 08.24

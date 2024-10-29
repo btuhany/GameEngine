@@ -68,7 +68,13 @@ void BreakoutScene::Initialize()
 	m_SpriteEntity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp2);
 	instantiateGameEntity(m_SpriteEntity);
 
-	auto debugMeshRenderData = std::make_shared<MeshRenderData>(createCubeMeshData(), spidermanTexture, shinyMaterial, mainShader);
+
+	static const char* vColliderDebugShaderLocation = "src/BreakoutGame/Shaders/colliderDebugShader.vert";
+	static const char* fColliderDebugShaderLocation = "src/BreakoutGame/Shaders/colliderDebugShader.frag";
+	std::shared_ptr<Shader> colliderDebugShader = std::make_shared<Shader>();
+	colliderDebugShader->CreateFromFiles(vColliderDebugShaderLocation, fColliderDebugShaderLocation);
+
+	auto debugMeshRenderData = std::make_shared<DebugRenderData>(createCubeMeshData(), colliderDebugShader);
 	Renderer::DebugMeshRenderDataTransformMap[debugMeshRenderData] = m_SpriteEntity->transform;
 	LOG_INFO("Breakout scene initialized!");
 	Scene::Initialize();

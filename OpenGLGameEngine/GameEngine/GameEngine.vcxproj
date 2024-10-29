@@ -35,6 +35,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameEngine\Render\DebugRenderData.cpp" />
     <ClCompile Include="src\GameEngine\Collision\CollisionDetector.cpp" />
     <ClCompile Include="src\GameEngine\Components\BoxCollider2DComponent.cpp" />
     <ClCompile Include="src\GameEngine\Collision\CollisionManager.cpp" />
@@ -80,6 +81,7 @@
     <ClCompile Include="src\GameEngine\Math\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameEngine\Render\DebugRenderData.h" />
     <ClInclude Include="src\GameEngine\Collision\CollisionDetector.h" />
     <ClInclude Include="src\GameEngine\Collision\CollisionEnum.h" />
     <ClInclude Include="src\GameEngine\Components\BoxCollider2DComponent.h" />

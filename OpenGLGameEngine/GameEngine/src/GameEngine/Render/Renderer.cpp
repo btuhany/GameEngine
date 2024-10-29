@@ -76,26 +76,24 @@ namespace GameEngine
 				continue;
 			}
 			auto modelMat = transformWeakPtr.lock()->GetModelMatrix();
-			glm::mat4 offsetMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+			glm::mat4 offsetMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.1f));
 			modelMat = offsetMatrix * modelMat;
 			auto debugMeshRenderData = pair.first;
-			auto renderShader = debugMeshRenderData->shader;
-			renderShader->UseShader();
+			auto debugShader = debugMeshRenderData->shader;
+			debugShader->UseShader();
 
-			glUniform3f(renderShader->GetCameraPositionLocation(), m_Camera->getPosition().x, m_Camera->getPosition().y, m_Camera->getPosition().z);
-			glUniformMatrix4fv(renderShader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-			glUniformMatrix4fv(renderShader->GetViewLocation(), 1, GL_FALSE, glm::value_ptr(m_Camera->CalculateViewMatrix()));
+			glUniform3f(debugShader->GetCameraPositionLocation(), m_Camera->getPosition().x, m_Camera->getPosition().y, m_Camera->getPosition().z);
+			glUniformMatrix4fv(debugShader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+			glUniformMatrix4fv(debugShader->GetViewLocation(), 1, GL_FALSE, glm::value_ptr(m_Camera->CalculateViewMatrix()));
 
-			renderShader->SetTextureUnit(2);
+			//debugShader->SetTextureUnit(2);
 
 			glUniformMatrix4fv(debugMeshRenderData->shader->GetModelLocation(), 1, GL_FALSE, glm::value_ptr(modelMat));
-			debugMeshRenderData->material->UseMaterial(debugMeshRenderData->shader->GetMatSpecularIntensityLocation(), debugMeshRenderData->shader->GetMatShininessLocation());
-			if (debugMeshRenderData->texture != NULL)
-			{
-				debugMeshRenderData->texture->UseTexture();
-			}
-
-
+			//debugMeshRenderData->material->UseMaterial(debugMeshRenderData->shader->GetMatSpecularIntensityLocation(), debugMeshRenderData->shader->GetMatShininessLocation());
+			//if (debugMeshRenderData->texture != NULL)
+			//{
+			//	debugMeshRenderData->texture->UseTexture();
+			//}
 			auto meshData = debugMeshRenderData->mesh;
 			glBindVertexArray(meshData->GetVAO());
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshData->GetIBO());
@@ -337,5 +335,5 @@ namespace GameEngine
 		return rendererComponent->getEnabled() && ownerEntity->getActive();  //Scene control in the future
 	}
 
-	std::unordered_map<std::shared_ptr<MeshRenderData>, std::weak_ptr<Transform>> Renderer::DebugMeshRenderDataTransformMap;
+	std::unordered_map<std::shared_ptr<DebugRenderData>, std::weak_ptr<Transform>> Renderer::DebugMeshRenderDataTransformMap;
 }

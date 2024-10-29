@@ -15,6 +15,7 @@
 #include "../Components/Transform.h"
 #include "stdio.h"
 #include <unordered_map>
+#include "../Render/DebugRenderData.h"
 namespace GameEngine
 {
 	class ENGINE_API Renderer
@@ -47,7 +48,7 @@ namespace GameEngine
 
 #if _DEBUG
 	public:
-		static std::unordered_map<std::shared_ptr<MeshRenderData>, std::weak_ptr<Transform>> DebugMeshRenderDataTransformMap;
+		static std::unordered_map<std::shared_ptr<DebugRenderData>, std::weak_ptr<Transform>> DebugMeshRenderDataTransformMap;
 #endif
 	};
 }
