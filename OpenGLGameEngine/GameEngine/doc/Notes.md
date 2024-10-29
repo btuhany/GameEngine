@@ -55,5 +55,6 @@ TODO:
 - BoxCollider2D debugger [X]
 - Collider check with scales[X]
 - Collider callbacks [X]
-- GameObject destroy renderer system check []
-- GameObject destory collision system check []
+- GameObject destroy renderer system check [X]
+- GameObject destory collision system check [X]
+- publishing event of object deactivating/activating and listening from managers
