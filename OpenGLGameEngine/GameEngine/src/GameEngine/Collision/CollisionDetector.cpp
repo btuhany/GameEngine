@@ -69,20 +69,29 @@ namespace GameEngine
 
 	void CollisionDetector::HandleOnCollisionEnter(std::shared_ptr<ColliderComponent> otherCollider)
 	{
-		auto gameEntityName = otherCollider->getEntity().lock()->getName();
-		std::cout << "HandleOnCollision Enter with: " << gameEntityName << std::endl;
+		if (SETTINGS_COLLIDER_DEBUG_MODE)
+		{
+			auto gameEntityName = otherCollider->getEntity().lock()->getName();
+			std::cout << "HandleOnCollision Enter with: " << gameEntityName << std::endl;
+		}
 	}
 
 	void CollisionDetector::HandleOnCollisionStay(std::shared_ptr<ColliderComponent> otherCollider)
 	{
-		auto gameEntityName = otherCollider->getEntity().lock()->getName();
-		std::cout << "HandleOnCollision Stay with: " << gameEntityName << std::endl;
+		if (SETTINGS_COLLIDER_DEBUG_MODE)
+		{
+			auto gameEntityName = otherCollider->getEntity().lock()->getName();
+			std::cout << "HandleOnCollision Stay with: " << gameEntityName << std::endl;
+		}
 	}
 
 	void CollisionDetector::HandleOnCollisionExit(std::shared_ptr<ColliderComponent> otherCollider)
 	{
-		auto gameEntityName = otherCollider->getEntity().lock()->getName();
-		std::cout << "HandleOnCollision Exit with: " << gameEntityName << std::endl;
+		if (SETTINGS_COLLIDER_DEBUG_MODE)
+		{
+			auto gameEntityName = otherCollider->getEntity().lock()->getName();
+			std::cout << "HandleOnCollision Exit with: " << gameEntityName << std::endl;
+		}
 	}
 
 	void CollisionDetector::updateCollisionState(std::shared_ptr<ColliderComponent> collider, CollisionState state)

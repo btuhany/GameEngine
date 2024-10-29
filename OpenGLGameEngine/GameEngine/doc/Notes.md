@@ -52,8 +52,8 @@ TODO:
 - start engine visual diagram [CANCEL]
 
 29.10.24 daily
-- BoxCollider2D debugger []
-- Collider check with scales[]
+- BoxCollider2D debugger [X]
+- Collider check with scales[X]
 - Collider callbacks []
 - GameObject destroy renderer system check []
 - GameObject destory collision system check []

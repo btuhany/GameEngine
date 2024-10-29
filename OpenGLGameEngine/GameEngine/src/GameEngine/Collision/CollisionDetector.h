@@ -4,6 +4,7 @@
 #include "../Debugging/Log.h"
 #include "../Entities/GameEntity.h"
 #include "../Components/ColliderComponent.h"
+#include "../StartModeSettings.h"
 
 namespace GameEngine
 {

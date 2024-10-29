@@ -56,7 +56,7 @@ namespace GameEngine
 			m_Scene->m_SpotLightList, m_Scene->getSpotLightCount());
 
 #if _DEBUG
-		if (SETTINGS_DEBUG_MODE)
+		if (SETTINGS_COLLIDER_DEBUG_MODE)
 		{
 			DebugPass(projection);
 		}

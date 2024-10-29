@@ -56,7 +56,7 @@ namespace GameEngine
 
 	void BoxCollider2DComponent::initializeDebugRender()
 	{
-		if (SETTINGS_DEBUG_MODE)
+		if (SETTINGS_COLLIDER_DEBUG_MODE)
 		{
 			if (m_OwnerEntity.expired())
 			{
