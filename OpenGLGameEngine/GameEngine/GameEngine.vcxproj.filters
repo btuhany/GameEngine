@@ -314,6 +314,9 @@
     <ClInclude Include="src\GameEngine\Render\DebugRenderData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\StartModeSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Resources\Shaders\shader.vert">

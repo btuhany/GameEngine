@@ -109,6 +109,7 @@
     <ClInclude Include="src\GameEngine\Components\Component.h" />
     <ClInclude Include="src\GameEngine\Entities\GameEntity.h" />
     <ClInclude Include="src\GameEngine\Resource\Sprite.h" />
+    <ClInclude Include="src\GameEngine\StartModeSettings.h" />
     <ClInclude Include="src\GameEngine\Scene\CameraTypeEnum.h" />
     <ClInclude Include="src\GameEngine\Event\SimpleEvent.h" />
     <ClInclude Include="src\GameEngine\Engine\Input.h" />

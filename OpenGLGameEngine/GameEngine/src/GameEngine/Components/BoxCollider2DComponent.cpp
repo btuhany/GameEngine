@@ -49,13 +49,14 @@ namespace GameEngine
 
 	void BoxCollider2DComponent::HandleOnAfterOwnerInstantiated()
 	{
+#if _DEBUG
 		initializeDebugRender();
+#endif
 	}
 
 	void BoxCollider2DComponent::initializeDebugRender()
 	{
-#if _DEBUG
-		if (true)
+		if (SETTINGS_DEBUG_MODE)
 		{
 			if (m_OwnerEntity.expired())
 			{
@@ -70,7 +71,7 @@ namespace GameEngine
 			auto debugMeshRenderData = std::make_shared<DebugRenderData>(createDebugMesh(), colliderDebugShader);
 			Renderer::DebugMeshRenderDataTransformMap[debugMeshRenderData] = m_OwnerEntity.lock()->transform;
 		}
-#endif
+
 	}
 	std::shared_ptr<MeshData> BoxCollider2DComponent::createDebugMesh()
 	{

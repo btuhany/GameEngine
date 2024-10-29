@@ -16,6 +16,7 @@
 #include "stdio.h"
 #include <unordered_map>
 #include "../Render/DebugRenderData.h"
+#include "../StartModeSettings.h"
 namespace GameEngine
 {
 	class ENGINE_API Renderer

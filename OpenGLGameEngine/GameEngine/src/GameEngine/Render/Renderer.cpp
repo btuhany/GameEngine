@@ -40,7 +40,6 @@ namespace GameEngine
 		m_IsInitialized = true;
 	}
 
-	bool DEBUG_MODE = true;
 	void Renderer::Draw(bool shadowPassActive, bool renderDirLightShadow, bool renderOmniLightShadow)
 	{
 		glm::mat4 projection = m_Scene->getCamera()->
@@ -57,7 +56,7 @@ namespace GameEngine
 			m_Scene->m_SpotLightList, m_Scene->getSpotLightCount());
 
 #if _DEBUG
-		if (DEBUG_MODE)
+		if (SETTINGS_DEBUG_MODE)
 		{
 			DebugPass(projection);
 		}

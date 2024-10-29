@@ -8,6 +8,7 @@
 #include "../Resource/MeshData.h"
 #include "../Resource/Shader.h"
 #include "../Render/Renderer.h"
+#include "../StartModeSettings.h"
 namespace GameEngine
 {
 	enum class BoxColliderPosType
