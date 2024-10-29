@@ -64,7 +64,15 @@ void BreakoutScene::Initialize()
 	m_SpriteEntity = std::make_shared<SpriteEntity>(breakoutSpriteRenderData2);
 	m_SpriteEntity->setName("05-Breakout-Tiles obj");
 	m_SpriteEntity->transform->SetPosition(glm::vec3(20.0f, 0.0f, 0.0f));
-	auto boxCollider2DComp2 = std::make_shared<BoxCollider2DComponent>(6.0f,2.0f, CollisionType::Dynamic, std::make_shared<CollisionDetector>());
+	auto collisionDetector = std::make_shared<CollisionDetector>();
+	auto boxCollider2DComp2 = std::make_shared<BoxCollider2DComponent>(6.0f,2.0f, CollisionType::Dynamic, collisionDetector);
+	collisionDetector->AddCollisionCallback(CollisionState::Enter,
+		[](std::shared_ptr<ColliderComponent> collider) {
+			auto entity = collider->getEntity().lock();
+			if (entity) {
+				std::cout << "!!Collision Enter detected with entity: " << entity->getName() << std::endl;
+			}
+		});
 	m_SpriteEntity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp2);
 	instantiateGameEntity(m_SpriteEntity);
 

@@ -67,12 +67,32 @@ namespace GameEngine
 			processOnDetectionFailed(otherCollider);
 	}
 
+	void CollisionDetector::AddCollisionCallback(CollisionState state, std::function<void(std::shared_ptr<ColliderComponent>)> callback)
+	{
+		m_CollisionCallbacks[state] = callback;
+	}
+
+	void CollisionDetector::RemoveCollisionCallback(CollisionState state)
+	{
+		m_CollisionCallbacks.erase(state);
+	}
+
+	void CollisionDetector::ClearCallbacks()
+	{
+		m_CollisionCallbacks.clear();
+	}
+
 	void CollisionDetector::HandleOnCollisionEnter(std::shared_ptr<ColliderComponent> otherCollider)
 	{
 		if (SETTINGS_COLLIDER_DEBUG_MODE)
 		{
 			auto gameEntityName = otherCollider->getEntity().lock()->getName();
 			std::cout << "HandleOnCollision Enter with: " << gameEntityName << std::endl;
+		}
+		auto it = m_CollisionCallbacks.find(CollisionState::Enter);
+		if (it != m_CollisionCallbacks.end() && it->second)
+		{
+			it->second(otherCollider);
 		}
 	}
 
@@ -83,6 +103,11 @@ namespace GameEngine
 			auto gameEntityName = otherCollider->getEntity().lock()->getName();
 			std::cout << "HandleOnCollision Stay with: " << gameEntityName << std::endl;
 		}
+		auto it = m_CollisionCallbacks.find(CollisionState::Stay);
+		if (it != m_CollisionCallbacks.end() && it->second)
+		{
+			it->second(otherCollider);
+		}
 	}
 
 	void CollisionDetector::HandleOnCollisionExit(std::shared_ptr<ColliderComponent> otherCollider)
@@ -91,6 +116,11 @@ namespace GameEngine
 		{
 			auto gameEntityName = otherCollider->getEntity().lock()->getName();
 			std::cout << "HandleOnCollision Exit with: " << gameEntityName << std::endl;
+		}
+		auto it = m_CollisionCallbacks.find(CollisionState::Exit);
+		if (it != m_CollisionCallbacks.end() && it->second)
+		{
+			it->second(otherCollider);
 		}
 	}
 
