@@ -10,7 +10,7 @@
 #include "../Render/Renderer.h"
 namespace GameEngine
 {
-	enum class BoxColliderPosTypes
+	enum class BoxColliderPosType
 	{
 		TopLeft = 0,
 		TopRight = 1,
@@ -33,6 +33,7 @@ namespace GameEngine
 
 		void initializeDebugRender();
 		std::shared_ptr<MeshData> createDebugMesh();
+		Vector2 getNodePosition(BoxColliderPosType position);
 	};
 }
 

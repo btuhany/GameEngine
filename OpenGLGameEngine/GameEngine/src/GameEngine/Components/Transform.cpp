@@ -16,6 +16,10 @@ namespace GameEngine
 		updateModelMatrix();
 	}
 
+	/// <summary>
+	/// Use scale function with float parameters instead. TODO
+	/// </summary>
+	/// <param name="scaleVector"></param>
 	void Transform::Scale(glm::vec3 scaleVector)
 	{
 		m_Scale = scaleVector;
