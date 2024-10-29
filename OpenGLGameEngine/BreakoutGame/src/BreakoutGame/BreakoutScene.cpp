@@ -36,7 +36,7 @@ void BreakoutScene::Initialize()
 	std::shared_ptr<Texture> breakoutTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/01-Breakout-Tiles.PNG");
 	breakoutTexture->LoadTextureWithAlpha();
 
-	std::shared_ptr<Texture> breakoutTexture2 = std::make_shared<Texture>("src/BreakoutGame/Textures/01-Breakout-Tiles.PNG");
+	std::shared_ptr<Texture> breakoutTexture2 = std::make_shared<Texture>("src/BreakoutGame/Textures/05-Breakout-Tiles.PNG");
 	breakoutTexture2->LoadTextureWithAlpha();
 
 
@@ -64,7 +64,6 @@ void BreakoutScene::Initialize()
 	m_SpriteEntity = std::make_shared<SpriteEntity>(breakoutSpriteRenderData2);
 	m_SpriteEntity->setName("05-Breakout-Tiles obj");
 	m_SpriteEntity->transform->SetPosition(glm::vec3(20.0f, 0.0f, 0.0f));
-	m_SpriteEntity->transform->Scale(2.0f, 1.0f ,1.0f);
 	auto boxCollider2DComp2 = std::make_shared<BoxCollider2DComponent>(6.0f,2.0f, CollisionType::Dynamic, std::make_shared<CollisionDetector>());
 	m_SpriteEntity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp2);
 	instantiateGameEntity(m_SpriteEntity);
