@@ -49,3 +49,10 @@ TODO:
 - review scene class again [X]
 - review entry point [X]
 - start engine visual diagram [CANCEL]
+
+29.10.24 daily
+- BoxCollider2D debugger []
+- Collider check with scales[]
+- Collider callbacks []
+- GameObject destroy renderer system check []
+- GameObject destory collision system check []
