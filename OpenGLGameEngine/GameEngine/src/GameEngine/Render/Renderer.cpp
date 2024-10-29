@@ -40,6 +40,7 @@ namespace GameEngine
 		m_IsInitialized = true;
 	}
 
+	bool DEBUG_MODE = true;
 	void Renderer::Draw(bool shadowPassActive, bool renderDirLightShadow, bool renderOmniLightShadow)
 	{
 		glm::mat4 projection = m_Scene->getCamera()->
@@ -54,12 +55,62 @@ namespace GameEngine
 		}
 		RenderPass(projection, m_Scene->m_PointLightList, m_Scene->getPointLightCount(),
 			m_Scene->m_SpotLightList, m_Scene->getSpotLightCount());
+
+#if _DEBUG
+		if (DEBUG_MODE)
+		{
+			DebugPass(projection);
+		}
+#endif
+	}
+
+	void Renderer::DebugPass(glm::mat4 projectionMatrix)
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		for (const auto& pair : Renderer::DebugMeshRenderDataTransformMap)
+		{
+			auto transformWeakPtr = pair.second;
+			if (transformWeakPtr.expired())
+			{
+				//TODO get expired list and remove from map after
+				continue;
+			}
+			auto modelMat = transformWeakPtr.lock()->GetModelMatrix();
+			glm::mat4 offsetMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+			modelMat = offsetMatrix * modelMat;
+			auto debugMeshRenderData = pair.first;
+			auto renderShader = debugMeshRenderData->shader;
+			renderShader->UseShader();
+
+			glUniform3f(renderShader->GetCameraPositionLocation(), m_Camera->getPosition().x, m_Camera->getPosition().y, m_Camera->getPosition().z);
+			glUniformMatrix4fv(renderShader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+			glUniformMatrix4fv(renderShader->GetViewLocation(), 1, GL_FALSE, glm::value_ptr(m_Camera->CalculateViewMatrix()));
+
+			renderShader->SetTextureUnit(2);
+
+			glUniformMatrix4fv(debugMeshRenderData->shader->GetModelLocation(), 1, GL_FALSE, glm::value_ptr(modelMat));
+			debugMeshRenderData->material->UseMaterial(debugMeshRenderData->shader->GetMatSpecularIntensityLocation(), debugMeshRenderData->shader->GetMatShininessLocation());
+			if (debugMeshRenderData->texture != NULL)
+			{
+				debugMeshRenderData->texture->UseTexture();
+			}
+
+
+			auto meshData = debugMeshRenderData->mesh;
+			glBindVertexArray(meshData->GetVAO());
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshData->GetIBO());
+			glDrawElements(GL_TRIANGLES, meshData->GetIndexCount(), GL_UNSIGNED_INT, 0);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+			glBindVertexArray(0);
+
+		}
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 
 	void Renderer::RenderPass(glm::mat4 projectionMatrix, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount)
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		glViewport(0, 0, 1366, 768);
+		glViewport(0, 0, 1920, 1080);
 		//Clear window
 		glClearColor(m_BackgroundColor.x, m_BackgroundColor.y, m_BackgroundColor.z, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -286,4 +337,5 @@ namespace GameEngine
 		return rendererComponent->getEnabled() && ownerEntity->getActive();  //Scene control in the future
 	}
 
+	std::unordered_map<std::shared_ptr<MeshRenderData>, std::weak_ptr<Transform>> Renderer::DebugMeshRenderDataTransformMap;
 }

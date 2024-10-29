@@ -68,6 +68,8 @@ void BreakoutScene::Initialize()
 	m_SpriteEntity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp2);
 	instantiateGameEntity(m_SpriteEntity);
 
+	auto debugMeshRenderData = std::make_shared<MeshRenderData>(createCubeMeshData(), spidermanTexture, shinyMaterial, mainShader);
+	Renderer::DebugMeshRenderDataTransformMap[debugMeshRenderData] = m_SpriteEntity->transform;
 	LOG_INFO("Breakout scene initialized!");
 	Scene::Initialize();
 }

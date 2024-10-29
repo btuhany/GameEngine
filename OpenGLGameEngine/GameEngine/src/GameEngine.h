@@ -14,5 +14,6 @@
 #include "GameEngine/Components/Transform.h"
 #include "GameEngine/Components/Component.h"
 #include "GameEngine/Entities/SpriteEntity.h"
+#include "GameEngine/Render/Renderer.h"
 
 using namespace GameEngine;
