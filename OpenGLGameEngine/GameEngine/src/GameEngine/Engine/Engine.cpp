@@ -122,6 +122,7 @@ namespace GameEngine {
 			GLfloat sleepTime = targetFrameTime - frameTime * 1000.0f;
 			if (sleepTime > 0)
 			{
+				//TODO causes input lag
 				std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(sleepTime)));
 			}
 		}

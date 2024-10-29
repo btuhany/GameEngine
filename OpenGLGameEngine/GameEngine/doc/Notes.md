@@ -14,6 +14,7 @@ get and set functions -> getOrSetFunction()
 ******************** TODO ************************
 - [] Renderer components with render date template
 - [] Engine starting settings static class (set DEBUG_MODE and shadow modes from a single place)
+- [] Fixing input lag due to thread sleep
 **************************************************
 
 08.24
@@ -57,4 +58,7 @@ TODO:
 - Collider callbacks [X]
 - GameObject destroy renderer system check [X]
 - GameObject destory collision system check [X]
-- publishing event of object deactivating/activating and listening from managers
+
+- 29.10.24
+- publishing event of object deactivating/activating and listening from managers []
+- Fixing input lag due to thread sleep []
