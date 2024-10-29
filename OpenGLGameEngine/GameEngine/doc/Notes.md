@@ -54,6 +54,6 @@ TODO:
 29.10.24 daily
 - BoxCollider2D debugger [X]
 - Collider check with scales[X]
-- Collider callbacks []
+- Collider callbacks [X]
 - GameObject destroy renderer system check []
 - GameObject destory collision system check []
