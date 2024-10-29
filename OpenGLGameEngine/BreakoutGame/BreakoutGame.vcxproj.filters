@@ -41,5 +41,7 @@
     <None Include="glew32.dll" />
     <None Include="src\BreakoutGame\Shaders\shader.frag" />
     <None Include="src\BreakoutGame\Shaders\shader.vert" />
+    <None Include="src\BreakoutGame\Shaders\colliderDebugShader.frag" />
+    <None Include="src\BreakoutGame\Shaders\colliderDebugShader.vert" />
   </ItemGroup>
 </Project>

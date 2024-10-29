@@ -55,7 +55,7 @@ void BreakoutScene::Initialize()
 		std::string name = std::to_string(i) + "-Tiles obj ";
 		spriteEntity->setName(name);
 		spriteEntity->transform->SetPosition(glm::vec3(i * 6.0f, 0.0f, 0.0f));
-		auto boxCollider2DComp = std::make_shared<BoxCollider2DComponent>(3.0f, 3.0f, CollisionType::Static);
+		auto boxCollider2DComp = std::make_shared<BoxCollider2DComponent>(6.0f, 2.0f, CollisionType::Static);
 		spriteEntity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp);
 		instantiateGameEntity(spriteEntity);
 	}
@@ -64,9 +64,19 @@ void BreakoutScene::Initialize()
 	m_SpriteEntity = std::make_shared<SpriteEntity>(breakoutSpriteRenderData2);
 	m_SpriteEntity->setName("05-Breakout-Tiles obj");
 	m_SpriteEntity->transform->SetPosition(glm::vec3(20.0f, 0.0f, 0.0f));
-	auto boxCollider2DComp2 = std::make_shared<BoxCollider2DComponent>(5.0f,5.0f, CollisionType::Static, std::make_shared<CollisionDetector>());
+	auto collisionDetector = std::make_shared<CollisionDetector>();
+	auto boxCollider2DComp2 = std::make_shared<BoxCollider2DComponent>(6.0f,2.0f, CollisionType::Dynamic, collisionDetector);
+	collisionDetector->AddCollisionCallback(CollisionState::Enter,
+		[](std::shared_ptr<ColliderComponent> collider) {
+			auto entity = collider->getEntity().lock();
+			if (entity) {
+				std::cout << "!!Collision Enter detected with entity: " << entity->getName() << std::endl;
+			}
+		});
 	m_SpriteEntity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp2);
 	instantiateGameEntity(m_SpriteEntity);
+
+
 
 	LOG_INFO("Breakout scene initialized!");
 	Scene::Initialize();
@@ -79,27 +89,6 @@ void BreakoutScene::Start()
 void BreakoutScene::Update(GLfloat deltaTime)
 {
 	m_DeltaTime = deltaTime;
-}
-
-std::shared_ptr<MeshData> BreakoutScene::createCubeMeshData()
-{
-	GLfloat vertices[] =
-	{
-		//x      y     z		 u     y			normals
-		-1.0f, -1.0f, 0.0f, 	0.0f, 1.0f,		0.0f, 0.0f, 1.0f,
-		1.0f, -1.0f, 0.0f,	1.0f, 1.0f,		0.0f, 0.0f, 1.0f,
-		1.0f, 1.0f, 0.0f,		1.0f, 0.0f,		0.0f, 0.0f, 1.0f,
-		-1.0f, 1.0f, 0.0f,		0.0f, 0.0f,		0.0f, 0.0f, 1.0f
-	};
-
-	unsigned int indices[] = {
-		0,1,2,
-		2,3,0
-	};
-
-	std::shared_ptr<MeshData> cubeMesh = std::make_shared<MeshData>();
-	cubeMesh->CreateMesh(vertices, indices, 32, 6);
-	return cubeMesh;
 }
 
 void BreakoutScene::initializeInputCallbacks()

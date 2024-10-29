@@ -16,6 +16,10 @@ namespace GameEngine
 		updateModelMatrix();
 	}
 
+	/// <summary>
+	/// Use scale function with float parameters instead. TODO
+	/// </summary>
+	/// <param name="scaleVector"></param>
 	void Transform::Scale(glm::vec3 scaleVector)
 	{
 		m_Scale = scaleVector;
@@ -35,11 +39,15 @@ namespace GameEngine
 	{
 		return m_ModelMatrix;
 	}
-	glm::vec3 Transform::GetPosition()
+	glm::vec3 Transform::getPosition()
 	{
 		return m_Position;
 	}
-	glm::vec3 Transform::GetScale()
+	glm::mat4 Transform::getRotation()
+	{
+		return m_Rotation;
+	}
+	glm::vec3 Transform::getScale()
 	{
 		return m_Scale;
 	}

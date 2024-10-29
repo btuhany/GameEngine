@@ -13,6 +13,7 @@ get and set functions -> getOrSetFunction()
 **************************************************
 ******************** TODO ************************
 - [] Renderer components with render date template
+- [] Engine starting settings static class (set DEBUG_MODE and shadow modes from a single place)
 **************************************************
 
 08.24
@@ -49,3 +50,10 @@ TODO:
 - review scene class again [X]
 - review entry point [X]
 - start engine visual diagram [CANCEL]
+
+29.10.24 daily
+- BoxCollider2D debugger [X]
+- Collider check with scales[X]
+- Collider callbacks [X]
+- GameObject destroy renderer system check []
+- GameObject destory collision system check []

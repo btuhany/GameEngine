@@ -82,11 +82,11 @@ namespace GameEngine
 		for (size_t i = 0; i < 4; i++)
 		{
 			auto node = boundsA[i];
-			if (boundsB[(int)BoxColliderPosTypes::TopRight].x > node.x 
-				&& node.x > boundsB[(int)BoxColliderPosTypes::BottomLeft].x) 
+			if (boundsB[(int)BoxColliderPosType::TopRight].x > node.x 
+				&& node.x > boundsB[(int)BoxColliderPosType::BottomLeft].x) 
 			{
-				if (boundsB[(int)BoxColliderPosTypes::TopRight].y > node.y 
-					&& node.y > boundsB[(int)BoxColliderPosTypes::BottomLeft].y)
+				if (boundsB[(int)BoxColliderPosType::TopRight].y > node.y 
+					&& node.y > boundsB[(int)BoxColliderPosType::BottomLeft].y)
 				{
 					//printf("\n Collision! node: %d", i);
 					return true;
@@ -96,11 +96,11 @@ namespace GameEngine
 		for (size_t i = 0; i < 4; i++)
 		{
 			auto node = boundsB[i];
-			if (boundsA[(int)BoxColliderPosTypes::TopRight].x > node.x
-				&& node.x > boundsA[(int)BoxColliderPosTypes::BottomLeft].x)
+			if (boundsA[(int)BoxColliderPosType::TopRight].x > node.x
+				&& node.x > boundsA[(int)BoxColliderPosType::BottomLeft].x)
 			{
-				if (boundsA[(int)BoxColliderPosTypes::TopRight].y > node.y
-					&& node.y > boundsA[(int)BoxColliderPosTypes::BottomLeft].y)
+				if (boundsA[(int)BoxColliderPosType::TopRight].y > node.y
+					&& node.y > boundsA[(int)BoxColliderPosType::BottomLeft].y)
 				{
 					//printf("\n Collision! node: %d", i);
 					return true;

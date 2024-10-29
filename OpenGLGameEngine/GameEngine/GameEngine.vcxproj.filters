@@ -147,6 +147,9 @@
     <ClCompile Include="src\GameEngine\Collision\CollisionDetector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameEngine\Render\DebugRenderData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameEngine\Scene\Camera.h">
@@ -308,6 +311,12 @@
     <ClInclude Include="src\GameEngine\Collision\CollisionEnum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\Render\DebugRenderData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\StartModeSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Resources\Shaders\shader.vert">
@@ -336,5 +345,6 @@
     <None Include="src\Resources\Shaders\skybox.frag" />
     <None Include="src\Resources\Shaders\skybox.vert" />
     <None Include="doc\Notes.md" />
+    <None Include="doc\GameEngineRender.drawio" />
   </ItemGroup>
 </Project>
