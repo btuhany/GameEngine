@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <string>
 #include "Camera.h"
 #include "../Engine/Window.h"
 #include "Skybox.h"
@@ -40,6 +41,7 @@ namespace GameEngine {
 		bool IsOmniShadowShaderSet();
 		bool IsInitialized();
 
+		std::shared_ptr<GameEntity> FindGameObject(std::string name);
 		PointLight m_PointLightList[MAX_POINT_LIGHTS];
 		SpotLight m_SpotLightList[MAX_SPOT_LIGHTS];
 	protected:

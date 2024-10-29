@@ -68,6 +68,19 @@ namespace GameEngine
 				m_ColliderComponents.push_back(colliderComp);
 			}
 		}
+		else if (componentEvent->compAction == ComponentAction::OwnerPreDestroyed)
+		{
+			auto componentType = componentEvent->comp->getType();
+			if (componentType == ComponentType::Collision)
+			{
+				auto colliderComp = std::static_pointer_cast<ColliderComponent>(componentEvent->comp);
+				auto it = std::find(m_ColliderComponents.begin(), m_ColliderComponents.end(), colliderComp);
+				if (it != m_ColliderComponents.end())
+				{
+					m_ColliderComponents.erase(it);
+				}
+			}
+		}
 	}
 	bool CollisionManager::AreBoxCollidersCollide(std::shared_ptr<BoxCollider2DComponent> boxColliderA, std::shared_ptr<BoxCollider2DComponent> boxColliderB)
 	{

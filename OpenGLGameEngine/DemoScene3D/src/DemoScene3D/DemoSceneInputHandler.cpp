@@ -74,6 +74,10 @@ void DemoSceneInputHandler::HandleKeys(int* keys, GLfloat deltaTime)
 	{
 		OnScaleDownKeyEvent.Trigger();
 	}
+	if (keys[GLFW_KEY_Y] == KEY_STATE_RELEASE)
+	{
+		OnDestroyKeyEvent.Trigger();
+	}
 }
 
 void DemoSceneInputHandler::HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY)

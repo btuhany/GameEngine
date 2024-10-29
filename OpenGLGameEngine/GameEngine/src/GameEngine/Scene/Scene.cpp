@@ -97,6 +97,19 @@ namespace GameEngine {
 		return m_IsInitialized;
 	}
 
+	std::shared_ptr<GameEntity> Scene::FindGameObject(std::string name)
+	{
+		for (size_t i = 0; i < m_GameEntities.size(); i++)
+		{
+			auto gameObj = m_GameEntities[i];
+			if (gameObj->getName() == name)
+			{
+				return gameObj;
+			}
+		}
+		return nullptr;
+	}
+
 	void Scene::setOmniShadowShader(std::shared_ptr<Shader> omniShadowShader)
 	{
 		m_OmniShadowShader = omniShadowShader;

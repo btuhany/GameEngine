@@ -43,9 +43,27 @@ void DemoScene3D::Initialize()
 
 void DemoScene3D::Start()
 {
+	auto ironman = FindGameObject("ironMan");
+	if (ironman == nullptr)
+	{
+		printf("Error! ironman is null");
+	}
+	auto m_HelicopterSmall = FindGameObject("helicopterSmall");
+	if (m_HelicopterSmall == nullptr)
+	{
+		printf("Error! m_HelicopterSmall is null");
+	}
+	auto m_HelicopterBig = FindGameObject("helicopterBig");
+	if (m_HelicopterBig == nullptr)
+	{
+		printf("Error! m_HelicopterBig is null");
+	}
+
+
 	ironman->transform->Scale(glm::vec3(0.1f, 0.1f, 0.1f));
 	ironman->transform->Rotate(-60.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 	ironman->transform->SetPosition(glm::vec3(20.0f, 1.0f, -10.0f));
+
 
 	m_HelicopterSmall->transform->Rotate(-90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	m_HelicopterSmall->transform->Rotate(180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
@@ -66,20 +84,31 @@ void DemoScene3D::Update(GLfloat deltaTime)
 	if (m_StopUpdate)
 		return;
 
-	smallHelicopterRotateYAxis = deltaTime * 12.5f;
-	bigHelicopterRotateYAxis = deltaTime * -15.5f;
-	if (ironman->transform->getPosition().y > 10)
+	auto ironman = FindGameObject("ironMan");
+	if (ironman != nullptr)
 	{
-		ironmanPosIncreaseYAxis = -0.1f;
+		if (ironman->transform->getPosition().y > 10)
+		{
+			ironmanPosIncreaseYAxis = -0.1f;
+		}
+		else if (ironman->transform->getPosition().y < -30)
+		{
+			ironmanPosIncreaseYAxis = 0.1f;
+		}
+		ironman->transform->Translate(glm::vec3(0.0f, ironmanPosIncreaseYAxis, 0.0f));
 	}
-	else if (ironman->transform->getPosition().y < -30)
+	auto m_HelicopterSmall = FindGameObject("helicopterSmall");
+	if (m_HelicopterSmall != nullptr)
 	{
-		ironmanPosIncreaseYAxis = 0.1f;
+		smallHelicopterRotateYAxis = deltaTime * 12.5f;
+		m_HelicopterSmall->transform->Rotate(smallHelicopterRotateYAxis, glm::vec3(0.0f, 1.0, 0.0f));
 	}
-
-	m_HelicopterBig->transform->Rotate(bigHelicopterRotateYAxis, glm::vec3(0.0f, 1.0, 0.0f));
-	m_HelicopterSmall->transform->Rotate(smallHelicopterRotateYAxis, glm::vec3(0.0f, 1.0, 0.0f));
-	ironman->transform->Translate(glm::vec3(0.0f, ironmanPosIncreaseYAxis, 0.0f));
+	auto m_HelicopterBig = FindGameObject("helicopterBig");
+	if (m_HelicopterBig != nullptr)
+	{
+		bigHelicopterRotateYAxis = deltaTime * -15.5f;
+		m_HelicopterBig->transform->Rotate(bigHelicopterRotateYAxis, glm::vec3(0.0f, 1.0, 0.0f));
+	}
 }
 
 std::shared_ptr<MeshData> DemoScene3D::createCubeMeshData()
@@ -159,6 +188,7 @@ void DemoScene3D::initializeInputCallbacks()
 	m_InputReader->OnPressedSpaceEvent.AddHandler([this]() {handleOnSpaceKey(); });
 	m_InputReader->OnPressedCtrlEvent.AddHandler([this]() {handleOnCtrlKey(); });
 	m_InputReader->OnEnableDisableKeyEvent.AddHandler([this]() {handleOnEnableDisableKey(); });
+	m_InputReader->OnDestroyKeyEvent.AddHandler([this]() {handleOnDestroyObjectKey(); });
 	m_InputReader->OnPressedRotateLeftKeyEvent.AddHandler([this]() {handleOnRotateLeftKey(); });
 	m_InputReader->OnPressedRotateRightKeyEvent.AddHandler([this]() {handleOnRotateRightKey(); });
 	m_InputReader->OnPauseKeyEvent.AddHandler([this]() {handleOnPauseKey(); });
@@ -202,9 +232,9 @@ void DemoScene3D::initializeGameObjects()
 	std::shared_ptr<MeshRenderData> plainRenderData = std::make_shared<MeshRenderData>(createPlainMeshData(), spidermanTexture, roughMaterial, m_MainRenderShader);
 
 
-	m_HelicopterBig = std::make_shared<ModelEntity>(helicopterRenderData);
-	m_HelicopterSmall = std::make_shared<ModelEntity>(helicopterRenderData);
-	ironman = std::make_shared<ModelEntity>(ironmanRenderData);
+	auto m_HelicopterBig = std::make_shared<ModelEntity>(helicopterRenderData);
+	auto m_HelicopterSmall = std::make_shared<ModelEntity>(helicopterRenderData);
+	auto ironman = std::make_shared<ModelEntity>(ironmanRenderData);
 
 	m_HelicopterBig->setName("helicopterBig");
 	instantiateGameEntity(m_HelicopterBig);
@@ -359,6 +389,13 @@ void DemoScene3D::handleOnEnableDisableKey()
 	if (m_CurrentObjectIndex == -1)
 		return;
 	m_GameEntities[m_CurrentObjectIndex]->setActive(!m_GameEntities[m_CurrentObjectIndex]->IsActive());
+}
+
+void DemoScene3D::handleOnDestroyObjectKey()
+{
+	if (m_CurrentObjectIndex == -1)
+		return;
+	destroyGameEntity(m_GameEntities[m_CurrentObjectIndex], false);
 }
 
 void DemoScene3D::handleOnRotateLeftKey()
