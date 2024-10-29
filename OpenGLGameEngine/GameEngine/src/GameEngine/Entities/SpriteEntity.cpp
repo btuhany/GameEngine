@@ -8,7 +8,7 @@ namespace GameEngine
 		renderer->setSpriteRenderData(spriteRenderData);
 		auto aspectRatio = spriteRenderData->texture->GetAspectRatio();
 		AddComponent<SpriteRendererComponent>(renderer);
-		auto scale = transform->GetScale();
+		auto scale = transform->getScale();
 		transform->Scale(scale.x * aspectRatio, scale.y, scale.z);
 	}
 }

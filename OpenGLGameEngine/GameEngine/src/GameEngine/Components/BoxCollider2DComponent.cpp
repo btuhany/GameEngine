@@ -30,7 +30,7 @@ namespace GameEngine
 			return boundArr;
 		}
 
-		auto ownerPos = m_OwnerEntity.lock()->transform->GetPosition();
+		auto ownerPos = m_OwnerEntity.lock()->transform->getPosition();
 
 		//top-left
 		boundArr[(int)BoxColliderPosTypes::TopLeft] = Vector2(

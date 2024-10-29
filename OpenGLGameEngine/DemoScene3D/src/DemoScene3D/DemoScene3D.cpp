@@ -68,11 +68,11 @@ void DemoScene3D::Update(GLfloat deltaTime)
 
 	smallHelicopterRotateYAxis = deltaTime * 12.5f;
 	bigHelicopterRotateYAxis = deltaTime * -15.5f;
-	if (ironman->transform->GetPosition().y > 10)
+	if (ironman->transform->getPosition().y > 10)
 	{
 		ironmanPosIncreaseYAxis = -0.1f;
 	}
-	else if (ironman->transform->GetPosition().y < -30)
+	else if (ironman->transform->getPosition().y < -30)
 	{
 		ironmanPosIncreaseYAxis = 0.1f;
 	}
@@ -294,7 +294,7 @@ void DemoScene3D::handleOnRightKey()
 	if (m_CurrentObjectIndex == -1)
 		return;
 
-	auto pos = m_GameEntities[m_CurrentObjectIndex]->transform->GetPosition();
+	auto pos = m_GameEntities[m_CurrentObjectIndex]->transform->getPosition();
 	m_GameEntities[m_CurrentObjectIndex]->transform->Translate(glm::vec3(m_ObjectMoveSpeed * m_DeltaTime, 0.0f, 0.0f));
 }
 
@@ -303,7 +303,7 @@ void DemoScene3D::handleOnLeftKey()
 	if (m_CurrentObjectIndex == -1)
 		return;
 	//getCamera()->MoveLeft(m_CameraSpeed * m_DeltaTime);
-	auto pos = m_GameEntities[m_CurrentObjectIndex]->transform->GetPosition();
+	auto pos = m_GameEntities[m_CurrentObjectIndex]->transform->getPosition();
 	m_GameEntities[m_CurrentObjectIndex]->transform->Translate(glm::vec3(-(m_ObjectMoveSpeed * m_DeltaTime), 0.0f, 0.0f));
 }
 
@@ -312,7 +312,7 @@ void DemoScene3D::handleOnUpKey()
 	if (m_CurrentObjectIndex == -1)
 		return;
 	//getCamera()->MoveForward(m_CameraSpeed * m_DeltaTime);
-	auto pos = m_GameEntities[m_CurrentObjectIndex]->transform->GetPosition();
+	auto pos = m_GameEntities[m_CurrentObjectIndex]->transform->getPosition();
 	m_GameEntities[m_CurrentObjectIndex]->transform->Translate(glm::vec3(0.0f, 0.0f, -(m_ObjectMoveSpeed * m_DeltaTime)));
 }
 
@@ -321,7 +321,7 @@ void DemoScene3D::handleOnDownKey()
 	if (m_CurrentObjectIndex == -1)
 		return;
 	//getCamera()->MoveBack(m_CameraSpeed * m_DeltaTime);
-	auto pos = m_GameEntities[m_CurrentObjectIndex]->transform->GetPosition();
+	auto pos = m_GameEntities[m_CurrentObjectIndex]->transform->getPosition();
 	m_GameEntities[m_CurrentObjectIndex]->transform->Translate(glm::vec3(0.0f, 0.0f, (m_ObjectMoveSpeed * m_DeltaTime)));
 }
 
@@ -454,7 +454,7 @@ void DemoScene3D::handleOnScaleUpKey()
 	if (m_CurrentObjectIndex == -1)
 		return;
 	auto gameObjTransform = m_GameEntities[m_CurrentObjectIndex]->transform;
-	auto gameObjScale = gameObjTransform->GetScale();
+	auto gameObjScale = gameObjTransform->getScale();
 	gameObjTransform->Scale(gameObjScale + glm::vec3(m_ObjectScaleSpeed));
 }
 
@@ -463,7 +463,7 @@ void DemoScene3D::handleOnScaleDownKey()
 	if (m_CurrentObjectIndex == -1)
 		return;
 	auto gameObjTransform = m_GameEntities[m_CurrentObjectIndex]->transform;
-	auto gameObjScale = gameObjTransform->GetScale();
+	auto gameObjScale = gameObjTransform->getScale();
 	gameObjTransform->Scale(gameObjScale - glm::vec3(m_ObjectScaleSpeed));
 }
 

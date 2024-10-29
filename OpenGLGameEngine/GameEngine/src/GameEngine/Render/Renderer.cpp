@@ -78,7 +78,7 @@ namespace GameEngine
 			auto transform = transformWeakPtr.lock();
 			auto modelMat = transform->GetModelMatrix();
 			glm::mat4 offsetModel = glm::translate(
-				glm::mat4(1.0f), glm::vec3(transform->GetPosition().x, transform->GetPosition().y, transform->GetPosition().z + 0.1f)) * 
+				glm::mat4(1.0f), glm::vec3(transform->getPosition().x, transform->getPosition().y, transform->getPosition().z + 0.1f)) * 
 				glm::mat4(transform->getRotation());
 
 			auto debugMeshRenderData = pair.first;

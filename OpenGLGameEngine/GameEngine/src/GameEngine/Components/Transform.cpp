@@ -35,7 +35,7 @@ namespace GameEngine
 	{
 		return m_ModelMatrix;
 	}
-	glm::vec3 Transform::GetPosition()
+	glm::vec3 Transform::getPosition()
 	{
 		return m_Position;
 	}
@@ -43,7 +43,7 @@ namespace GameEngine
 	{
 		return m_Rotation;
 	}
-	glm::vec3 Transform::GetScale()
+	glm::vec3 Transform::getScale()
 	{
 		return m_Scale;
 	}

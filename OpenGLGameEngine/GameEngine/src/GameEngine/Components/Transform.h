@@ -16,9 +16,9 @@ namespace GameEngine
 		void Scale(float xVal, float yVal, float zVal);
 		void SetPosition(glm::vec3 newPosition);
 		glm::mat4 GetModelMatrix();
-		glm::vec3 GetPosition();
+		glm::vec3 getPosition();
 		glm::mat4 getRotation();
-		glm::vec3 GetScale();
+		glm::vec3 getScale();
 		ComponentType getType() override;
 	private:
 		glm::mat4 m_ModelMatrix = glm::mat4(1.0f);
