@@ -20,11 +20,6 @@ private:
 	void initializeLights();
 	std::shared_ptr<MeshData> createCubeMeshData();
 	std::shared_ptr<MeshData> createPlainMeshData();
-	std::shared_ptr<ModelEntity> m_HelicopterSmall;
-	std::shared_ptr<ModelEntity> ironman;
-	std::shared_ptr<MeshEntity> spidermanPlain;
-	std::shared_ptr<MeshEntity> spidermanCube;
-	std::shared_ptr<ModelEntity> m_HelicopterBig;
 	void handleOnRightKey();
 	void handleOnLeftKey();
 	void handleOnUpKey();
@@ -33,6 +28,7 @@ private:
 	void handleOnSpaceKey();
 	void handleOnCtrlKey();
 	void handleOnEnableDisableKey();
+	void handleOnDestroyObjectKey();
 	void handleOnRotateLeftKey();
 	void handleOnRotateRightKey();
 	void handleOnPauseKey();

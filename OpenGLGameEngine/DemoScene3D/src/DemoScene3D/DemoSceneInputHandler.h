@@ -15,6 +15,7 @@ public:
 	SimpleEvent<> OnPressedSpaceEvent;
 	SimpleEvent<> OnPressedCtrlEvent;
 	SimpleEvent<> OnEnableDisableKeyEvent;
+	SimpleEvent<> OnDestroyKeyEvent;
 	SimpleEvent<> OnPressedRotateLeftKeyEvent;
 	SimpleEvent<> OnPressedRotateRightKeyEvent;
 	SimpleEvent<> OnPauseKeyEvent;
