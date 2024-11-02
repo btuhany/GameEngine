@@ -12,6 +12,7 @@ namespace GameEngine
 		ColliderComponent(CollisionType collisionType);
 		ColliderComponent(CollisionType collisionType, std::shared_ptr<CollisionDetector> collisionDetector);
 		ComponentType getType() override;
+		void HandleOnOwnerSetActive(bool isActive) override;
 		virtual ColliderType getColliderType();
 		CollisionType getCollisionType();
 		std::shared_ptr<CollisionDetector> detector;

@@ -28,4 +28,8 @@ namespace GameEngine
 	{
 		return m_IsEnabled;
 	}
+	std::weak_ptr<GameEntity> Component::getOwnerEntity()
+	{
+		return m_OwnerEntity;
+	}
 }

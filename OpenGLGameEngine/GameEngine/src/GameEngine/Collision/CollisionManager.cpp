@@ -59,19 +59,20 @@ namespace GameEngine
 	}
 	void CollisionManager::onComponentEvent(std::shared_ptr<ComponentEvent> componentEvent)
 	{
-		if (componentEvent->compAction == ComponentAction::Added)
+		auto componentType = componentEvent->comp->getType();
+		auto compAction = componentEvent->compAction;
+		if (componentType == ComponentType::Collision)
 		{
-			auto componentType = componentEvent->comp->getType();
-			if (componentType == ComponentType::Collision)
+			if (compAction == ComponentAction::Added || compAction == ComponentAction::OwnerEnabled)
 			{
 				auto colliderComp = std::static_pointer_cast<ColliderComponent>(componentEvent->comp);
-				m_ColliderComponents.push_back(colliderComp);
+				auto it = std::find(m_ColliderComponents.begin(), m_ColliderComponents.end(), colliderComp);
+				if (it == m_ColliderComponents.end())
+				{
+					m_ColliderComponents.push_back(colliderComp);
+				}
 			}
-		}
-		else if (componentEvent->compAction == ComponentAction::OwnerPreDestroyed)
-		{
-			auto componentType = componentEvent->comp->getType();
-			if (componentType == ComponentType::Collision)
+			else if (compAction == ComponentAction::OwnerPreDestroyed || compAction == ComponentAction::OwnerDisabled)
 			{
 				auto colliderComp = std::static_pointer_cast<ColliderComponent>(componentEvent->comp);
 				auto it = std::find(m_ColliderComponents.begin(), m_ColliderComponents.end(), colliderComp);

@@ -54,6 +54,56 @@ namespace GameEngine
 #endif
 	}
 
+	void BoxCollider2DComponent::HandleOnOwnerSetActive(bool isActive)
+	{
+#if _DEBUG
+		if (SETTINGS_COLLIDER_DEBUG_MODE)
+		{
+			if (m_OwnerEntity.expired())
+			{
+				LOG_CORE_ERROR("BoxCollider2DComponent | HandleOnOwnerSetActive owner is null");
+				return;
+			}
+
+			auto it = Renderer::DebugMeshRenderDataTransformMap.find(m_OwnerEntity.lock());
+			if (isActive)
+			{
+				if (it == Renderer::DebugMeshRenderDataTransformMap.end())
+				{
+					Renderer::DebugMeshRenderDataTransformMap[m_OwnerEntity.lock()] = m_DebugMeshRenderData;
+				}
+			}
+			else
+			{
+				if (it != Renderer::DebugMeshRenderDataTransformMap.end())
+				{
+					Renderer::DebugMeshRenderDataTransformMap.erase(it);
+				}
+			}
+		}
+#endif
+	}
+
+	void BoxCollider2DComponent::HandleOnPreOwnerDestroyed()
+	{
+#if _DEBUG
+		if (SETTINGS_COLLIDER_DEBUG_MODE)
+		{
+			if (m_OwnerEntity.expired())
+			{
+				LOG_CORE_ERROR("BoxCollider2DComponent | HandleOnOwnerSetActive owner is null");
+				return;
+			}
+
+			auto it = Renderer::DebugMeshRenderDataTransformMap.find(m_OwnerEntity.lock());
+			if (it != Renderer::DebugMeshRenderDataTransformMap.end())
+			{
+				Renderer::DebugMeshRenderDataTransformMap.erase(it);
+			}
+		}
+#endif
+	}
+
 	void BoxCollider2DComponent::initializeDebugRender()
 	{
 		if (SETTINGS_COLLIDER_DEBUG_MODE)
@@ -68,8 +118,10 @@ namespace GameEngine
 			std::shared_ptr<Shader> colliderDebugShader = std::make_shared<Shader>();
 			colliderDebugShader->CreateFromFiles(vColliderDebugShaderLocation, fColliderDebugShaderLocation);
 
-			auto debugMeshRenderData = std::make_shared<DebugRenderData>(createDebugMesh(), colliderDebugShader);
-			Renderer::DebugMeshRenderDataTransformMap[debugMeshRenderData] = m_OwnerEntity.lock()->transform;
+			m_DebugMeshRenderData = std::make_shared<DebugRenderData>(createDebugMesh(), colliderDebugShader);
+			auto it = Renderer::DebugMeshRenderDataTransformMap.find(m_OwnerEntity.lock());
+			if (it == Renderer::DebugMeshRenderDataTransformMap.end())
+				Renderer::DebugMeshRenderDataTransformMap[m_OwnerEntity.lock()] = m_DebugMeshRenderData;
 		}
 
 	}

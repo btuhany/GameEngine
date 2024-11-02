@@ -27,6 +27,8 @@ namespace GameEngine
 		float getHeight();
 		std::array<Vector2, 4> getBoundNodes();
 		void HandleOnAfterOwnerInstantiated() override;
+		void HandleOnOwnerSetActive(bool isActive) override;
+		void HandleOnPreOwnerDestroyed() override;
 		ColliderType getColliderType() override;
 	private:
 		float m_Width;
@@ -35,6 +37,12 @@ namespace GameEngine
 		void initializeDebugRender();
 		std::shared_ptr<MeshData> createDebugMesh();
 		Vector2 getNodePosition(BoxColliderPosType position);
+
+
+#if _DEBUG
+	private:
+		std::shared_ptr<DebugRenderData> m_DebugMeshRenderData;
+#endif
 	};
 }
 

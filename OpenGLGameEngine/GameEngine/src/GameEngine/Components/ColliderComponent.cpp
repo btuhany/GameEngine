@@ -15,6 +15,10 @@ namespace GameEngine
 	{
 		return ComponentType::Collision;
 	}
+	void ColliderComponent::HandleOnOwnerSetActive(bool isActive)
+	{
+
+	}
 	ColliderType ColliderComponent::getColliderType()
 	{
 		return ColliderType::None;

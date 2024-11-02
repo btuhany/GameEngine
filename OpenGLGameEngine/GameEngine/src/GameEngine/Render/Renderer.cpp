@@ -68,19 +68,14 @@ namespace GameEngine
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		for (const auto& pair : Renderer::DebugMeshRenderDataTransformMap)
 		{
-			auto transformWeakPtr = pair.second;
-			if (transformWeakPtr.expired())
-			{
-				//TODO get expired list and remove from map after
-				continue;
-			}
-			auto transform = transformWeakPtr.lock();
+			auto gameEntity = pair.first;
+			auto transform = gameEntity->transform;
 			auto modelMat = transform->GetModelMatrix();
 			glm::mat4 offsetModel = glm::translate(
 				glm::mat4(1.0f), glm::vec3(transform->getPosition().x, transform->getPosition().y, transform->getPosition().z + 0.1f)) * 
 				glm::mat4(transform->getRotation());
 
-			auto debugMeshRenderData = pair.first;
+			auto debugMeshRenderData = pair.second;
 			auto debugShader = debugMeshRenderData->shader;
 			debugShader->UseShader();
 
@@ -289,19 +284,17 @@ namespace GameEngine
 	}
 	void Renderer::onComponentEvent(std::shared_ptr<ComponentEvent> componentEvent)
 	{
-		if (componentEvent->compAction == ComponentAction::Added)
+		auto compAction = componentEvent->compAction;
+		auto componentType = componentEvent->comp->getType();
+
+		if (componentType == ComponentType::Renderer)
 		{
-			auto componentType = componentEvent->comp->getType();
-			if (componentType == ComponentType::Renderer)
+			if (compAction == ComponentAction::Added)
 			{
 				auto rendererComponent = std::static_pointer_cast<RendererComponent>(componentEvent->comp);
 				m_RendererComponents.push_back(rendererComponent);
 			}
-		}
-		else if (componentEvent->compAction == ComponentAction::OwnerPreDestroyed)
-		{
-			auto componentType = componentEvent->comp->getType();
-			if (componentType == ComponentType::Renderer)
+			else if (compAction == ComponentAction::OwnerPreDestroyed || compAction == ComponentAction::OwnerDisabled)
 			{
 				auto rendererComponent = std::static_pointer_cast<RendererComponent>(componentEvent->comp);
 				auto it = std::find(m_RendererComponents.begin(), m_RendererComponents.end(), rendererComponent);
@@ -311,6 +304,7 @@ namespace GameEngine
 				}
 			}
 		}
+		
 	}
 
 	void Renderer::onSceneCameraChangedEvent(std::shared_ptr<SceneCameraChangedEvent> sceneCameraChangedEventData)
@@ -329,5 +323,5 @@ namespace GameEngine
 		return rendererComponent->getEnabled() && ownerEntity->getActive();  //Scene control in the future
 	}
 
-	std::unordered_map<std::shared_ptr<DebugRenderData>, std::weak_ptr<Transform>> Renderer::DebugMeshRenderDataTransformMap;
+	std::unordered_map<std::shared_ptr<GameEntity>, std::shared_ptr<DebugRenderData>> Renderer::DebugMeshRenderDataTransformMap;
 }
