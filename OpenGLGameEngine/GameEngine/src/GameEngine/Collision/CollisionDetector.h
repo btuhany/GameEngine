@@ -16,6 +16,7 @@ namespace GameEngine
 		void AddCollisionCallback(CollisionState state, std::function<void(std::shared_ptr<ColliderComponent>)> callback);
 		void RemoveCollisionCallback(CollisionState state);
 		void ClearCallbacks();
+		void RemoveColliderFromCurrentCollisions(std::shared_ptr<ColliderComponent> removedCollider);
 		void HandleOnCollisionEnter(std::shared_ptr<ColliderComponent> otherCollider);
 		void HandleOnCollisionStay(std::shared_ptr<ColliderComponent> otherCollider);
 		void HandleOnCollisionExit(std::shared_ptr<ColliderComponent> otherCollider);

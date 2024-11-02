@@ -82,6 +82,13 @@ namespace GameEngine
 		m_CollisionCallbacks.clear();
 	}
 
+	void CollisionDetector::RemoveColliderFromCurrentCollisions(std::shared_ptr<ColliderComponent> removedCollider)
+	{
+		auto it = m_CurrentCollisions.find(removedCollider);
+		if (it != m_CurrentCollisions.end())
+			m_CurrentCollisions.erase(removedCollider);
+	}
+
 	void CollisionDetector::HandleOnCollisionEnter(std::shared_ptr<ColliderComponent> otherCollider)
 	{
 		if (SETTINGS_COLLIDER_DEBUG_MODE)

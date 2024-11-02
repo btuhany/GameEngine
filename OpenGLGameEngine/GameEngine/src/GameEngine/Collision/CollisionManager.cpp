@@ -80,6 +80,18 @@ namespace GameEngine
 				{
 					m_ColliderComponents.erase(it);
 				}
+
+				for (size_t i = 0; i < m_ColliderComponents.size(); i++)
+				{
+					auto controlledCollider = m_ColliderComponents[i];
+					if (controlledCollider->getCollisionType() == CollisionType::Dynamic)
+					{
+						if (controlledCollider->detector != nullptr)
+						{
+							controlledCollider->detector->RemoveColliderFromCurrentCollisions(colliderComp);
+						}
+					}
+				}
 			}
 		}
 	}
