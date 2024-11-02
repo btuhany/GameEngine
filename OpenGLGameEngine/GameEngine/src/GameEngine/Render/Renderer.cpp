@@ -289,10 +289,12 @@ namespace GameEngine
 
 		if (componentType == ComponentType::Renderer)
 		{
-			if (compAction == ComponentAction::Added)
+			if (compAction == ComponentAction::Added || compAction == ComponentAction::OwnerEnabled)
 			{
 				auto rendererComponent = std::static_pointer_cast<RendererComponent>(componentEvent->comp);
-				m_RendererComponents.push_back(rendererComponent);
+				auto it = std::find(m_RendererComponents.begin(), m_RendererComponents.end(), rendererComponent);
+				if (it == m_RendererComponents.end())
+					m_RendererComponents.push_back(rendererComponent);
 			}
 			else if (compAction == ComponentAction::OwnerPreDestroyed || compAction == ComponentAction::OwnerDisabled)
 			{
