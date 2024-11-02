@@ -15,6 +15,7 @@ get and set functions -> getOrSetFunction()
 - [] Renderer components with render date template
 - [] Engine starting settings static class (set DEBUG_MODE and shadow modes from a single place)
 - [] Fixing input lag due to thread sleep
+- [] Fix anonim calls for events
 **************************************************
 
 08.24

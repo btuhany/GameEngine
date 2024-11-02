@@ -6,7 +6,7 @@ namespace GameEngine
 		m_TimeCounter = 0.0f;
 		EventManager::GetInstance().Subscribe<ComponentEvent>(
 			[this](std::shared_ptr<ComponentEvent> event) {
-				this->onComponentEvent(event);
+				m_ComponentEventProcessBufferList.push_back(event);
 			}, 10);
 	}
 
@@ -14,7 +14,7 @@ namespace GameEngine
 	{
 		EventManager::GetInstance().Unsubscribe<ComponentEvent>(
 			[this](std::shared_ptr<ComponentEvent> event) {
-				this->onComponentEvent(event);
+				m_ComponentEventProcessBufferList.push_back(event);
 			});
 	}
 	void CollisionManager::Update(float deltaTime)
@@ -26,6 +26,7 @@ namespace GameEngine
 		}
 		m_TimeCounter = 0.0f;
 
+		printf("\na");
 		for (size_t i = 0; i < m_ColliderComponents.size(); i++)
 		{
 			auto controlledCollider = m_ColliderComponents[i];
@@ -54,7 +55,11 @@ namespace GameEngine
 					controlledCollider->detector->ProcessCollisionResult(isInBounds, otherCollider);
 				}
 			}
-
+		}
+		for (size_t i = 0; i < m_ComponentEventProcessBufferList.size(); i++)
+		{
+			auto compEventData = m_ComponentEventProcessBufferList[i];
+			onComponentEvent(compEventData);
 		}
 	}
 	void CollisionManager::onComponentEvent(std::shared_ptr<ComponentEvent> componentEvent)
