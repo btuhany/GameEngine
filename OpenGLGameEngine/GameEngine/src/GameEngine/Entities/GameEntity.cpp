@@ -16,9 +16,9 @@ namespace GameEngine
     void GameEntity::setActive(bool isActive)
     {
         m_IsActive = isActive;
-        /*for (auto it = m_ComponentMap.begin(); it != m_ComponentMap.end(); ++it) {
-            it->second->setEnabled(isActive);
-        }*/
+        for (auto it = m_ComponentMap.begin(); it != m_ComponentMap.end(); ++it) {
+            it->second->HandleOnOwnerSetActive(isActive);
+        }
     }
     bool GameEntity::getActive()
     {
