@@ -48,21 +48,10 @@ namespace BreakoutGame
 			instantiateGameEntity(spriteEntity);
 		}
 
-		m_SpriteEntity = std::make_shared<SpriteEntity>(breakoutSpriteRenderData2);
-		m_SpriteEntity->setName("05-Breakout-Tiles obj");
-		m_SpriteEntity->transform->SetPosition(glm::vec3(20.0f, -6.0f, 0.0f));
-		auto collisionDetector = std::make_shared<CollisionDetector>();
-		auto boxCollider2DComp2 = std::make_shared<BoxCollider2DComponent>(6.0f, 2.0f, CollisionType::Dynamic, collisionDetector);
-		collisionDetector->AddCollisionCallback(CollisionState::Enter,
-			[this](std::shared_ptr<ColliderComponent> collider) {
-				if (!(collider->getEntity().expired()))
-				{
-					auto ownerEntity = collider->getEntity().lock();
-					ownerEntity->setActive(false);
-				}
-			});
-		m_SpriteEntity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp2);
-		instantiateGameEntity(m_SpriteEntity);
+		m_Paddle = std::make_shared<Paddle>();
+		m_Paddle->Initialize(mainShader);
+		auto paddleEntity = m_Paddle->getEntity();
+		instantiateGameEntity(paddleEntity);
 
 		m_Ball = std::make_shared<Ball>();
 		m_Ball->Initialize(mainShader);
@@ -76,23 +65,25 @@ namespace BreakoutGame
 	void BreakoutScene::Start()
 	{
 		m_Ball->Start();
+		m_Paddle->Start();
 	}
 
 	void BreakoutScene::Update(GLfloat deltaTime)
 	{
 		m_DeltaTime = deltaTime;
 		m_Ball->Tick(deltaTime);
+		m_Paddle->Tick(deltaTime);
 	}
 
 	void BreakoutScene::initializeInputCallbacks()
 	{
 		m_InputHandler->OnPressedCameraTypeChangeKeyEvent.AddHandler(
 			[this]() {
-				//changeCameraType();
-				for (size_t i = 0; i < m_GameEntities.size(); i++)
-				{
-					m_GameEntities[i]->setActive(true);
-				}
+				changeCameraType();
+				//for (size_t i = 0; i < m_GameEntities.size(); i++)
+				//{
+				//	m_GameEntities[i]->setActive(true);
+				//}
 			});
 		m_InputHandler->OnLeftArrowKeyEvent.AddHandler(
 			[this]() {
@@ -139,22 +130,20 @@ namespace BreakoutGame
 
 	void BreakoutScene::handleOnLeftKey()
 	{
-		m_SpriteEntity->transform->Translate(glm::vec3(-(m_ObjectMoveSpeed * m_DeltaTime), 0.0f, 0.0f));
+		m_Paddle->MoveLeft();
 	}
 
 	void BreakoutScene::handleOnRightKey()
 	{
-		m_SpriteEntity->transform->Translate(glm::vec3((m_ObjectMoveSpeed * m_DeltaTime), 0.0f, 0.0f));
+		m_Paddle->MoveRight();
 	}
 
 	void BreakoutScene::handleOnDownKey()
 	{
-		m_SpriteEntity->transform->Translate(glm::vec3(0.0f, -(m_ObjectMoveSpeed * m_DeltaTime), 0.0f));
 	}
 
 	void BreakoutScene::handleOnUpKey()
 	{
-		m_SpriteEntity->transform->Translate(glm::vec3(0.0f, (m_ObjectMoveSpeed * m_DeltaTime), 0.0f));
 	}
 
 }

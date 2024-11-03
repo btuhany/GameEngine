@@ -4,6 +4,7 @@
 #include <GameEngine.h>
 #include "BreakoutSceneInputHandler.h"
 #include "Ball.h"
+#include "Paddle.h"
 
 namespace BreakoutGame
 {
@@ -17,7 +18,6 @@ namespace BreakoutGame
 		void Start() override;
 		void Update(GLfloat deltaTime) override;
 	private:
-		std::shared_ptr<SpriteEntity> m_SpriteEntity;
 		float m_ObjectMoveSpeed;
 		float m_DeltaTime;
 
@@ -31,6 +31,7 @@ namespace BreakoutGame
 		void handleOnUpKey();
 
 		std::shared_ptr<Ball> m_Ball;
+		std::shared_ptr<Paddle> m_Paddle;
 	};
 
 
