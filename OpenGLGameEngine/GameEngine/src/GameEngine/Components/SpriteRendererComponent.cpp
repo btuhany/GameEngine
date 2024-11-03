@@ -35,8 +35,13 @@ namespace GameEngine
 		}
 		auto ownerEntityPtr = m_OwnerEntity.lock();
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(ownerEntityPtr->transform->GetModelMatrix()));
-		m_SpriteRenderData->material->UseMaterial(m_SpriteRenderData->shader->GetMatSpecularIntensityLocation(), m_SpriteRenderData->shader->GetMatShininessLocation());
-		if (m_SpriteRenderData->texture != NULL)
+
+		if (m_SpriteRenderData->material != nullptr)
+		{
+			m_SpriteRenderData->material->UseMaterial(m_SpriteRenderData->shader->GetMatSpecularIntensityLocation(), m_SpriteRenderData->shader->GetMatShininessLocation());
+		}
+
+		if (m_SpriteRenderData->texture != nullptr)
 		{
 			m_SpriteRenderData->texture->UseTexture();
 		}
