@@ -38,6 +38,9 @@ namespace BreakoutGame
 
 	void Ball::Tick(float deltaTime)
 	{
+		if (!m_Entity->getActive())
+			return;
+
 		m_Entity->transform->Translate(m_MovementVector * deltaTime);
 	}
 
@@ -47,6 +50,9 @@ namespace BreakoutGame
 	}
 	void Ball::onCollisionEnter(std::shared_ptr<ColliderComponent> otherCollider)
 	{
+		if (!m_Entity->getActive())
+			return;
+
 		m_Speed *= (-1.0f);
 		m_MovementVector = glm::vec3(m_Speed, 0.0f, 0.0f);
 	}

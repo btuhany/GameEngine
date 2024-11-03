@@ -26,40 +26,27 @@ namespace BreakoutGame
 
 		static const char* vShaderLocation = "src/BreakoutGame/Shaders/shader.vert";
 		static const char* fShaderLocation = "src/BreakoutGame/Shaders/shader.frag";
-
 		std::shared_ptr<Shader> mainShader = std::make_shared<Shader>();
 		mainShader->CreateFromFiles(vShaderLocation, fShaderLocation);
 
-		std::shared_ptr<Texture> spidermanTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/spiderman.png");
-		spidermanTexture->LoadTextureWithAlpha();
+		std::shared_ptr<Texture> blueTex = std::make_shared<Texture>("src/BreakoutGame/Textures/01-Breakout-Tiles.PNG");
+		blueTex->LoadTextureWithAlpha();
+		std::shared_ptr<Texture> purpleTex = std::make_shared<Texture>("src/BreakoutGame/Textures/05-Breakout-Tiles.PNG");
+		purpleTex->LoadTextureWithAlpha();
 
-		std::shared_ptr<Texture> breakoutTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/01-Breakout-Tiles.PNG");
-		breakoutTexture->LoadTextureWithAlpha();
-
-		std::shared_ptr<Texture> breakoutTexture2 = std::make_shared<Texture>("src/BreakoutGame/Textures/05-Breakout-Tiles.PNG");
-		breakoutTexture2->LoadTextureWithAlpha();
-
-
-		std::shared_ptr<SpriteRenderData> breakoutSpriteRenderData = std::make_shared<SpriteRenderData>(breakoutTexture, nullptr, mainShader);
-		std::shared_ptr<SpriteRenderData> breakoutSpriteRenderData2 = std::make_shared<SpriteRenderData>(breakoutTexture2, nullptr, mainShader);
-		std::shared_ptr<SpriteRenderData> spriteRenderData = std::make_shared<SpriteRenderData>(spidermanTexture, nullptr, mainShader);
-
-		std::shared_ptr<SpriteEntity> quadEntity = std::make_shared<SpriteEntity>(spriteRenderData);
-		quadEntity->setName("spiderManUglyQuad2");
-		quadEntity->transform->SetPosition(glm::vec3(5.0f, 5.0f, -5.0f));
-		instantiateGameEntity(quadEntity);
+		std::shared_ptr<SpriteRenderData> breakoutSpriteRenderData = std::make_shared<SpriteRenderData>(blueTex, nullptr, mainShader);
+		std::shared_ptr<SpriteRenderData> breakoutSpriteRenderData2 = std::make_shared<SpriteRenderData>(purpleTex, nullptr, mainShader);
 
 		for (size_t i = 0; i < 2; i++)
 		{
 			std::shared_ptr<SpriteEntity> spriteEntity = std::make_shared<SpriteEntity>(breakoutSpriteRenderData);
-			std::string name = std::to_string(i) + "-Tiles obj ";
+			std::string name = std::to_string(i) + ".Tile";
 			spriteEntity->setName(name);
 			spriteEntity->transform->SetPosition(glm::vec3(-3.0f + (i * 15.0f), 0.0f, 0.0f));
 			auto boxCollider2DComp = std::make_shared<BoxCollider2DComponent>(6.0f, 2.0f, CollisionType::Static);
 			spriteEntity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp);
 			instantiateGameEntity(spriteEntity);
 		}
-
 
 		m_SpriteEntity = std::make_shared<SpriteEntity>(breakoutSpriteRenderData2);
 		m_SpriteEntity->setName("05-Breakout-Tiles obj");
@@ -101,7 +88,11 @@ namespace BreakoutGame
 	{
 		m_InputHandler->OnPressedCameraTypeChangeKeyEvent.AddHandler(
 			[this]() {
-				changeCameraType();
+				//changeCameraType();
+				for (size_t i = 0; i < m_GameEntities.size(); i++)
+				{
+					m_GameEntities[i]->setActive(true);
+				}
 			});
 		m_InputHandler->OnLeftArrowKeyEvent.AddHandler(
 			[this]() {
