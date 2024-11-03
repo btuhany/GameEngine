@@ -40,9 +40,9 @@ void BreakoutScene::Initialize()
 	breakoutTexture2->LoadTextureWithAlpha();
 
 
-	std::shared_ptr<SpriteRenderData> breakoutSpriteRenderData = std::make_shared<SpriteRenderData>(breakoutTexture, shinyMaterial, mainShader);
-	std::shared_ptr<SpriteRenderData> breakoutSpriteRenderData2 = std::make_shared<SpriteRenderData>(breakoutTexture2, shinyMaterial, mainShader);
-	std::shared_ptr<SpriteRenderData> spriteRenderData = std::make_shared<SpriteRenderData>(spidermanTexture, shinyMaterial, mainShader);
+	std::shared_ptr<SpriteRenderData> breakoutSpriteRenderData = std::make_shared<SpriteRenderData>(breakoutTexture, nullptr, mainShader);
+	std::shared_ptr<SpriteRenderData> breakoutSpriteRenderData2 = std::make_shared<SpriteRenderData>(breakoutTexture2, nullptr, mainShader);
+	std::shared_ptr<SpriteRenderData> spriteRenderData = std::make_shared<SpriteRenderData>(spidermanTexture, nullptr, mainShader);
 
 	std::shared_ptr<SpriteEntity> quadEntity = std::make_shared<SpriteEntity>(spriteRenderData);
 	quadEntity->setName("spiderManUglyQuad2");
