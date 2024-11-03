@@ -19,22 +19,35 @@ namespace BreakoutGame
 		std::string name = "Ball";
 		m_Entity->setName(name);
 
-		m_Entity->transform->SetPosition(glm::vec3(-10.0f, 0.0f, 0.0f));
+		auto detector = std::make_shared<CollisionDetector>();
+		auto boxCollider = std::make_shared<BoxCollider2DComponent>(1.8f, 1.8f, CollisionType::Dynamic, detector);
+		detector->AddCollisionCallback(CollisionState::Enter,
+			[this](std::shared_ptr<ColliderComponent> collider) {
+				onCollisionEnter(collider);
+			});
 
-		auto boxCollider = std::make_shared<BoxCollider2DComponent>(1.0f, 1.0f, CollisionType::Dynamic);
 		m_Entity->AddComponent(boxCollider);
 	}
 
 	void Ball::Start()
 	{
+		m_Speed = 5.0f;
+		m_Entity->transform->SetPosition(glm::vec3(5.0f, 0.0f, 0.0f));
+		m_MovementVector = glm::vec3(m_Speed, 0.0f, 0.0f);
 	}
 
 	void Ball::Tick(float deltaTime)
 	{
+		m_Entity->transform->Translate(m_MovementVector * deltaTime);
 	}
 
 	std::shared_ptr<SpriteEntity> Ball::getEntity()
 	{
 		return m_Entity;
+	}
+	void Ball::onCollisionEnter(std::shared_ptr<ColliderComponent> otherCollider)
+	{
+		m_Speed *= (-1.0f);
+		m_MovementVector = glm::vec3(m_Speed, 0.0f, 0.0f);
 	}
 }
