@@ -55,16 +55,17 @@ TODO:
 - review entry point [X]
 - start engine visual diagram [CANCEL]
 
-29.10.24 daily
+daily 29.10.24 
 - BoxCollider2D debugger [X]
 - Collider check with scales[X]
 - Collider callbacks [X]
 - GameObject destroy renderer system check [X]
 - GameObject destory collision system check [X]
 
-- 29.10.24
+29.10.24
 - publishing event of object deactivating/activating and listening from managers [X]
 - Fixing input lag due to thread sleep []
 
-- 03.11.24
-- Renderer code review fix []
+03.11.24
+- Renderer code review []
+- Tags for entities []
