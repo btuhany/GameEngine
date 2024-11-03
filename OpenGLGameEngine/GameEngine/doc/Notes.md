@@ -69,3 +69,4 @@ daily 29.10.24
 03.11.24
 - Renderer code review []
 - Tags for entities []
+- Transparent sprites
