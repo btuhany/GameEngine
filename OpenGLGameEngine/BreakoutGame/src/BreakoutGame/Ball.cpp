@@ -25,6 +25,14 @@ namespace BreakoutGame
 		m_Entity->AddComponent(boxCollider);
 	}
 
+	void Ball::Start()
+	{
+	}
+
+	void Ball::Tick(float deltaTime)
+	{
+	}
+
 	std::shared_ptr<SpriteEntity> Ball::getEntity()
 	{
 		return m_Entity;

@@ -6,6 +6,7 @@ namespace BreakoutGame
 	{
 	public:
 		void Initialize();
+		void Start();
 		void Tick(float deltaTime);
 		std::shared_ptr<SpriteEntity> getEntity();
 	private:

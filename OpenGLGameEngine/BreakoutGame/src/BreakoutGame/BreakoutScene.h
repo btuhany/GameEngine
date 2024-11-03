@@ -29,6 +29,8 @@ namespace BreakoutGame
 		void handleOnRightKey();
 		void handleOnDownKey();
 		void handleOnUpKey();
+
+		std::shared_ptr<Ball> m_Ball;
 	};
 
 

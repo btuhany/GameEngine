@@ -77,9 +77,9 @@ namespace BreakoutGame
 		m_SpriteEntity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp2);
 		instantiateGameEntity(m_SpriteEntity);
 
-		auto ball = std::make_shared<Ball>();
-		ball->Initialize();
-		auto ballEntity = ball->getEntity();
+		m_Ball = std::make_shared<Ball>();
+		m_Ball->Initialize();
+		auto ballEntity = m_Ball->getEntity();
 		instantiateGameEntity(ballEntity);
 
 		LOG_INFO("Breakout scene initialized!");
@@ -88,11 +88,13 @@ namespace BreakoutGame
 
 	void BreakoutScene::Start()
 	{
+		m_Ball->Start();
 	}
 
 	void BreakoutScene::Update(GLfloat deltaTime)
 	{
 		m_DeltaTime = deltaTime;
+		m_Ball->Tick(deltaTime);
 	}
 
 	void BreakoutScene::initializeInputCallbacks()
