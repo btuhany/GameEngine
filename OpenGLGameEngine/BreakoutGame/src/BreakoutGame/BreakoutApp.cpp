@@ -12,7 +12,7 @@ void BreakoutApp::Run()
 {
 	GameEngine::Log::Init();
 	BreakoutSceneInputHandler inputHandler = BreakoutSceneInputHandler();
-	BreakoutScene breakoutScene = BreakoutScene(&inputHandler);
+	BreakoutGame::BreakoutScene breakoutScene = BreakoutGame::BreakoutScene(&inputHandler);
 
 	GameEngine::Engine engine = GameEngine::Engine(new Window(1920, 1080, "Breakout"), &inputHandler, true);
 	engine.Initialize(&breakoutScene, true);

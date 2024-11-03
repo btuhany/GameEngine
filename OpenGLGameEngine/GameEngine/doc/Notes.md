@@ -10,13 +10,14 @@ public function -> PublicFunction
 get and set functions -> getOrSetFunction()
 *******************************************
 
-**************************************************
-******************** TODO ************************
+************************************************************
+******************** TODO **********************************
 - [] Renderer components with render date template
 - [] Engine starting settings static class (set DEBUG_MODE and shadow modes from a single place)
 - [] Fixing input lag due to thread sleep
 - [] Fix anonim calls for events
-**************************************************
+- [] Collider scale and doesn't scale with transform scale
+************************************************************
 
 08.24
 TODO: Create a RenderableObject base class that contains a Renderer an calls Render() function [X]
@@ -61,5 +62,8 @@ TODO:
 - GameObject destory collision system check [X]
 
 - 29.10.24
-- publishing event of object deactivating/activating and listening from managers []
+- publishing event of object deactivating/activating and listening from managers [X]
 - Fixing input lag due to thread sleep []
+
+- 03.11.24
+- Renderer code review fix []

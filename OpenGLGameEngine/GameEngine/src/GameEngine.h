@@ -15,5 +15,6 @@
 #include "GameEngine/Components/Component.h"
 #include "GameEngine/Entities/SpriteEntity.h"
 #include "GameEngine/Render/Renderer.h"
+#include  "GameEngine/Components/BoxCollider2DComponent.h"
 
 using namespace GameEngine;
