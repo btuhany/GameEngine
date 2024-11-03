@@ -26,7 +26,6 @@ namespace GameEngine
 		}
 		m_TimeCounter = 0.0f;
 
-		printf("\na");
 		for (size_t i = 0; i < m_ColliderComponents.size(); i++)
 		{
 			auto controlledCollider = m_ColliderComponents[i];
