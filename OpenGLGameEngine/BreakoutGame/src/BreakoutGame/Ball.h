@@ -5,7 +5,7 @@ namespace BreakoutGame
 	class Ball
 	{
 	public:
-		void Initialize();
+		void Initialize(std::shared_ptr<Shader> shader);
 		void Start();
 		void Tick(float deltaTime);
 		std::shared_ptr<SpriteEntity> getEntity();

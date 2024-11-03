@@ -2,17 +2,12 @@
 
 namespace BreakoutGame
 {
-	void Ball::Initialize()
+	void Ball::Initialize(std::shared_ptr<Shader> shader)
 	{
-		static const char* vShaderLocation = "src/BreakoutGame/Shaders/shader.vert";
-		static const char* fShaderLocation = "src/BreakoutGame/Shaders/shader.frag";
-		std::shared_ptr<Shader> mainShader = std::make_shared<Shader>();
-		mainShader->CreateFromFiles(vShaderLocation, fShaderLocation);
-
 		std::shared_ptr<Texture> texture = std::make_shared<Texture>("src/BreakoutGame/Textures/58-Breakout-Tiles.PNG");
 		texture->LoadTextureWithAlpha();
 
-		std::shared_ptr<SpriteRenderData> renderData = std::make_shared<SpriteRenderData>(texture, nullptr, mainShader);
+		std::shared_ptr<SpriteRenderData> renderData = std::make_shared<SpriteRenderData>(texture, nullptr, shader);
 
 		m_Entity = std::make_shared<SpriteEntity>(renderData);
 

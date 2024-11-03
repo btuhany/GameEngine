@@ -65,7 +65,7 @@ namespace BreakoutGame
 		instantiateGameEntity(m_SpriteEntity);
 
 		m_Ball = std::make_shared<Ball>();
-		m_Ball->Initialize();
+		m_Ball->Initialize(mainShader);
 		auto ballEntity = m_Ball->getEntity();
 		instantiateGameEntity(ballEntity);
 
