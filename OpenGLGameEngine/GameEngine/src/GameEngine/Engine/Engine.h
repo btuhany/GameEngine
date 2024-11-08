@@ -25,9 +25,9 @@ namespace GameEngine {
 		Engine(Window* window, bool shadowPassActive);
 		Engine(Window* window, Input* input, bool shadowPassActive);
 		~Engine();
-		void Initialize(Scene* scene, bool activateCollisionSystem = false);
+		void Initialize(Scene* scene, GameModeType gameModeType, bool activateCollisionSystem = false);
 		void Start();
-		void Run(GameModeType gameModeType);
+		void Run();
 		void Pause();
 		void setDebugInputActive(bool active);
 	private:
@@ -36,6 +36,7 @@ namespace GameEngine {
 		Input* m_InputHandler;
 		Renderer* m_Renderer;
 		CollisionManager* m_CollisionManager;
+		GameModeType m_GameModeType;
 		bool m_IsInitialized;
 		bool m_ShouldPause;
 		bool m_ShadowPassActive;

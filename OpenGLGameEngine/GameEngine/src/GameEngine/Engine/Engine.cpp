@@ -26,7 +26,7 @@ namespace GameEngine {
 		delete m_CollisionManager;
 	}
 
-	void Engine::Initialize(Scene* scene, bool activateCollisionSystem)
+	void Engine::Initialize(Scene* scene, GameModeType gameModeType, bool activateCollisionSystem)
 	{
 		if (activateCollisionSystem)
 		{
@@ -40,6 +40,13 @@ namespace GameEngine {
 		m_MainWindow->Initialize();
 		m_Scene->Initialize();
 		m_Renderer->Initialize(m_Scene, m_MainWindow->getBufferRatio());
+		m_GameModeType = gameModeType;
+		//TODO move to renderer
+		if (gameModeType == GameModeType::TwoDimensional)
+		{
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		}
 
 		m_IsInitialized = true;
 	}
@@ -61,7 +68,7 @@ namespace GameEngine {
 	}
 
 
-	void Engine::Run(GameModeType gameModeType)
+	void Engine::Run()
 	{
 		if (m_ShouldPause)
 			return;
@@ -71,8 +78,8 @@ namespace GameEngine {
 		const GLfloat targetFPS = 70.0f;
 		const GLfloat targetFrameTime = 1000.0f / targetFPS;
 
-		bool renderDirLightShadow = checkValidateDirLightShadowRendering(gameModeType);
-		bool renderOmniLightShadow = checkValidateOmniLightShadowRendering(gameModeType);
+		bool renderDirLightShadow = checkValidateDirLightShadowRendering(m_GameModeType);
+		bool renderOmniLightShadow = checkValidateOmniLightShadowRendering(m_GameModeType);
 		bool handleInputs = checkValidateInputHandler();
 
 		
