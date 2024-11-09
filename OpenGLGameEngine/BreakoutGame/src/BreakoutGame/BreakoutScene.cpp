@@ -101,6 +101,10 @@ namespace BreakoutGame
 			[this]() {
 				handleOnUpKey();
 			});
+		m_InputHandler->OnBallDebugKeyEvent.AddHandler(
+			[this]() {
+				handleOnBallDebugKey();
+			});
 	}
 
 
@@ -144,6 +148,11 @@ namespace BreakoutGame
 
 	void BreakoutScene::handleOnUpKey()
 	{
+	}
+
+	void BreakoutScene::handleOnBallDebugKey()
+	{
+
 	}
 
 }

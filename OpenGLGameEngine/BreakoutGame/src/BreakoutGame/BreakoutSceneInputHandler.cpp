@@ -22,6 +22,10 @@ void BreakoutSceneInputHandler::HandleKeys(int* keys, GLfloat deltaTime)
 	{
 		OnDownArrowKeyEvent.Trigger();
 	}
+	if (keys[GLFW_KEY_D] == KEY_STATE_RELEASE)
+	{
+		OnBallDebugKeyEvent.Trigger();
+	}
 }
 
 void BreakoutSceneInputHandler::HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY)
