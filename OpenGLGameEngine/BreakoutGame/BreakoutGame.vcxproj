@@ -164,6 +164,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\BreakoutGame\BreakoutObject.h" />
     <ClInclude Include="src\BreakoutGame\Paddle.h" />
     <ClInclude Include="src\BreakoutGame\Ball.h" />
     <ClInclude Include="src\BreakoutGame\BreakoutSceneInputHandler.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="src\BreakoutGame\BreakoutApp.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\BreakoutGame\BreakoutObject.cpp" />
     <ClCompile Include="src\BreakoutGame\Paddle.cpp" />
     <ClCompile Include="src\BreakoutGame\Ball.cpp" />
     <ClCompile Include="src\BreakoutGame\BreakoutSceneInputHandler.cpp" />

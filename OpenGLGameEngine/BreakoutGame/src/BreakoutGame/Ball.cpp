@@ -54,6 +54,12 @@ namespace BreakoutGame
 		auto rightVector = glm::vec3(1.0f, 0.0f, 0.0f);
 		m_Entity->transform->Translate(rightVector * m_Speed * m_DeltaTime);
 	}
+	void Ball::MoveUp()
+	{
+	}
+	void Ball::MoveDown()
+	{
+	}
 	void Ball::onCollisionEnter(std::shared_ptr<ColliderComponent> otherCollider)
 	{
 		if (!m_Entity->getActive())
