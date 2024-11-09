@@ -130,12 +130,12 @@ namespace BreakoutGame
 
 	void BreakoutScene::handleOnLeftKey()
 	{
-		m_Paddle->MoveLeft();
+		m_Ball->MoveLeft();
 	}
 
 	void BreakoutScene::handleOnRightKey()
 	{
-		m_Paddle->MoveRight();
+		m_Ball->MoveRight();
 	}
 
 	void BreakoutScene::handleOnDownKey()

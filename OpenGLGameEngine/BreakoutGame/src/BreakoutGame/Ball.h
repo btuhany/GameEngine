@@ -9,11 +9,14 @@ namespace BreakoutGame
 		void Start();
 		void Tick(float deltaTime);
 		std::shared_ptr<SpriteEntity> getEntity();
+		void MoveLeft();
+		void MoveRight();
 	private:
 		std::shared_ptr<SpriteEntity> m_Entity;
 		void onCollisionEnter(std::shared_ptr<ColliderComponent> otherCollider);
 		glm::vec3 m_MovementVector = glm::vec3(0.0f);
 		float m_Speed = 0.01f;
+		float m_DeltaTime;
 	};
 }
 

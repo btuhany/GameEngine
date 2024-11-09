@@ -55,11 +55,14 @@ namespace GameEngine
 				}
 			}
 		}
+
+		//processing component events after update, in case of deactivating or destroying objects in collision events
 		for (size_t i = 0; i < m_ComponentEventProcessBufferList.size(); i++)
 		{
 			auto compEventData = m_ComponentEventProcessBufferList[i];
 			onComponentEvent(compEventData);
 		}
+		m_ComponentEventProcessBufferList.clear();
 	}
 	void CollisionManager::onComponentEvent(std::shared_ptr<ComponentEvent> componentEvent)
 	{
@@ -109,6 +112,8 @@ namespace GameEngine
 		auto boundsA = boxColliderA->getBoundNodes();
 		auto boundsB = boxColliderB->getBoundNodes();
 
+
+		//TODO could be more optimized but i dont care for optimization for now, its better for the code readability.
 		for (size_t i = 0; i < 4; i++)
 		{
 			auto node = boundsA[i];

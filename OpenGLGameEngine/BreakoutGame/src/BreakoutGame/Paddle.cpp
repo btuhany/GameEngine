@@ -14,13 +14,13 @@ namespace BreakoutGame
 		std::string name = "Paddle";
 		m_Entity->setName(name);
 
-		//auto boxCollider = std::make_shared<BoxCollider2DComponent>(1.8f, 1.8f, CollisionType::Static);
-		//m_Entity->AddComponent(boxCollider);
+		auto boxCollider = std::make_shared<BoxCollider2DComponent>(1.8f, 1.8f, CollisionType::Static);
+		m_Entity->AddComponent(boxCollider);
 	}
 	void Paddle::Start()
 	{
 		m_Speed = 4.0f;
-		m_Entity->transform->SetPosition(glm::vec3(-5.0f, -10.0f, 0.0f));
+		m_Entity->transform->SetPosition(glm::vec3(-5.0f, 0.5f, 0.0f));
 	}
 	void Paddle::Tick(float deltaTime)
 	{
