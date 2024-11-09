@@ -28,7 +28,6 @@ namespace GameEngine
 		void setEnabled(bool isEnable);
 		bool getEnabled();
 		virtual ComponentType getType() = 0;
-		std::weak_ptr<GameEntity> getOwnerEntity();
 	protected:
 		std::weak_ptr<GameEntity> m_OwnerEntity;
 	private:
