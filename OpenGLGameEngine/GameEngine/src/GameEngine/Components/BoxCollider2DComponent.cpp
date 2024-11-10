@@ -48,7 +48,7 @@ namespace GameEngine
 	}
 
 	/// <summary>
-	/// Calculates where a point is from 4 regions of the box. 
+	/// Calculates where a point is from 4 regions of the box. TODO optimize
 	/// </summary>
 	/// <param name="collisionPos"></param>
 	/// <returns></returns>
@@ -57,7 +57,7 @@ namespace GameEngine
 		auto entity = getEntity();
 		if (entity.expired())
 		{
-			return;
+			return Vector2::zero;
 		}
 		auto colliderEntityPos = Vector2(entity.lock()->transform->getPosition());
 		auto collisionVec = (collisionPos - colliderEntityPos).normalize();
@@ -65,12 +65,31 @@ namespace GameEngine
 		auto collidedNodes = getBoundNodes();
 		auto topRightVec = (collidedNodes[(int)BoxColliderPosType::TopRight] - colliderEntityPos).normalize();
 		auto bottomRightVec = (collidedNodes[(int)BoxColliderPosType::BottomRight] - colliderEntityPos).normalize();
+		auto topLeftVec = (collidedNodes[(int)BoxColliderPosType::TopLeft] - colliderEntityPos).normalize();
+		auto bottomLeftVec = (collidedNodes[(int)BoxColliderPosType::BottomLeft] - colliderEntityPos).normalize();
 
 		auto yPosInTopRightVec = collisionVec.x * (topRightVec.y / topRightVec.x);
 		auto yPosInBottomRightVec = collisionVec.x * (bottomRightVec.y / bottomRightVec.x);
 
-		std::cout << "Ball yPosInBottomRightVec, x: " << yPosInBottomRightVec << std::endl;
-		std::cout << "Ball yPosInTopRightVec, x: " << yPosInTopRightVec << std::endl;
+		//std::cout << "Ball yPosInBottomRightVec, x: " << yPosInBottomRightVec << std::endl;
+		//std::cout << "Ball yPosInTopRightVec, x: " << yPosInTopRightVec << std::endl;
+
+		if (Vector2::IsAligned(collisionVec, topRightVec, CORNER_ALIGN_CHECK_THRESHOLD))
+		{
+			return topRightVec;
+		}
+		else if (Vector2::IsAligned(collisionVec, topLeftVec, CORNER_ALIGN_CHECK_THRESHOLD))
+		{
+			return topLeftVec;
+		}
+		else if (Vector2::IsAligned(collisionVec, bottomLeftVec, CORNER_ALIGN_CHECK_THRESHOLD))
+		{
+			return bottomLeftVec;
+		}
+		else if (Vector2::IsAligned(collisionVec, bottomRightVec, CORNER_ALIGN_CHECK_THRESHOLD))
+		{
+			return bottomRightVec;
+		}
 
 		Vector2 normalVector = Vector2::zero;
 		if (collisionVec.x > 0)
@@ -128,10 +147,7 @@ namespace GameEngine
 			}
 		}
 
-		std::cout << "Ball HandleOnCollision Normal vector, x: " << normalVector.x << " y: " << normalVector.y << std::endl;
-
-		return normalVector;
-
+		return normalVector.normalize();
 	}
 
 	void BoxCollider2DComponent::HandleOnAfterOwnerInstantiated()

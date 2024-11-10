@@ -87,7 +87,7 @@ namespace BreakoutGame
 			{
 				LOG_ERROR("Normal Vector calculated as zero!");
 			}
-
+			std::cout << "Ball HandleOnCollision Normal vector, x: " << normalVec.x << " y: " << normalVec.y << std::endl;
 
 
 

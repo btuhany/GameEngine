@@ -42,6 +42,21 @@ namespace GameEngine
         return (len > 0) ? Vector2(x / len, y / len) : Vector2();
     }
 
+    float Vector2::Dot(Vector2 other)
+    {
+        return x * other.x + y * other.y;
+    }
+
+    const bool Vector2::IsAligned(Vector2 aVec, Vector2 bVec, float threshold)
+    {
+        Vector2 normA = aVec.normalize();
+        Vector2 normB = bVec.normalize();
+
+        float dotProduct = normA.Dot(normB);
+
+        return dotProduct >= threshold;
+    }
+
     const Vector2 Vector2::up(0.0f, 1.0f);
     const Vector2 Vector2::down(0.0f, -1.0f);
     const Vector2 Vector2::left(-1.0f, 0.0f);
