@@ -107,7 +107,7 @@ namespace GameEngine
 	{
 		auto collisionData = std::make_shared<CollisionData>();
 		collisionData->isInBounds = false;
-		collisionData->collidedNodePos = Vector3(0.0f, 0.0f, 0.0f);
+		collisionData->collidedNodePosList = std::vector<Vector3>();
 		collisionData->otherCollider = otherCollider;
 
 		if (controlledCollider->getEntity().expired() || otherCollider->getEntity().expired())
@@ -131,12 +131,7 @@ namespace GameEngine
 				if (boundsB[(int)BoxColliderPosType::TopRight].y >= node.y 
 					&& node.y >= boundsB[(int)BoxColliderPosType::BottomLeft].y)
 				{
-					//printf("\n Collision! node: %d", i);
-					
-					collisionData->isInBounds = true;
-					collisionData->collidedNodePos = Vector3(node.x, node.y, 0.0f);
-
-					return collisionData;
+					collisionData->collidedNodePosList.push_back(Vector3(node.x, node.y, 0.0f));
 				}
 			}
 		}
@@ -149,11 +144,14 @@ namespace GameEngine
 				if (boundsA[(int)BoxColliderPosType::TopRight].y >= node.y
 					&& node.y >= boundsA[(int)BoxColliderPosType::BottomLeft].y)
 				{
-					collisionData->isInBounds = true;
-					collisionData->collidedNodePos = Vector3(node.x, node.y, 0.0f);
-					return collisionData;
+					collisionData->collidedNodePosList.push_back(Vector3(node.x, node.y, 0.0f));
 				}
 			}
+		}
+
+		if (collisionData->collidedNodePosList.size() > 0)
+		{
+			collisionData->isInBounds = true;
 		}
 
 		return collisionData;

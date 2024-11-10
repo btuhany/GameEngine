@@ -6,9 +6,9 @@ namespace GameEngine
 	class ENGINE_API CollisionData
 	{
 	public:
-		bool isInBounds;
-		Vector3 collidedNodePos; //TODO detect all nodes collided
+		bool isInBounds;  //TODO unnecessary bool
+		std::vector<Vector3> collidedNodePosList;
 		std::shared_ptr<ColliderComponent> otherCollider;
-		CollisionData()	: isInBounds(false), collidedNodePos(0.0f, 0.0f, 0.0f), otherCollider(nullptr) {}
+		CollisionData()	: isInBounds(false), collidedNodePosList(std::vector<Vector3>()), otherCollider(nullptr) {}
 	};
 }

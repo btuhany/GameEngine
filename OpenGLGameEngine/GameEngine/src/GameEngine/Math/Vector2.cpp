@@ -29,6 +29,11 @@ namespace GameEngine
         return Vector2(x * scalar, y * scalar);
     }
 
+    Vector2 Vector2::operator/(float scalar) const
+    {
+        return Vector2(x / scalar, y / scalar);
+    }
+
     bool Vector2::operator==(const Vector2& other) const {
         return x == other.x && y == other.y;
     }
@@ -55,6 +60,13 @@ namespace GameEngine
         float dotProduct = normA.Dot(normB);
 
         return dotProduct >= threshold;
+    }
+
+    std::string Vector2::toString() const
+    {
+        std::ostringstream oss;
+        oss << "(" << x << ", " << y << ")";
+        return oss.str();
     }
 
     const Vector2 Vector2::up(0.0f, 1.0f);

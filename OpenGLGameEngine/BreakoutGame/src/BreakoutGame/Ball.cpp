@@ -16,9 +16,9 @@ namespace BreakoutGame
 
 		auto detector = std::make_shared<CollisionDetector>();
 		auto boxCollider = std::make_shared<BoxCollider2DComponent>(1.8f, 1.8f, CollisionType::Dynamic, detector);
-		detector->AddCollisionCallback(CollisionState::Stay,
+		detector->AddCollisionCallback(CollisionState::Enter,
 			[this](std::shared_ptr<CollisionData> collider) {
-				onCollisionStay(collider);
+				onCollisionEnter(collider);
 			});
 
 		m_Entity->AddComponent(boxCollider);
@@ -37,7 +37,7 @@ namespace BreakoutGame
 			return;
 
 		m_DeltaTime = deltaTime;
-		//m_Entity->transform->Translate(m_MovementVector * deltaTime);
+		m_Entity->transform->Translate(m_MovementVector * deltaTime);
 	}
 
 	std::shared_ptr<SpriteEntity> Ball::getEntity()
@@ -64,7 +64,7 @@ namespace BreakoutGame
 		auto downVector = glm::vec3(0.0f, -1.0f, 0.0f);
 		m_Entity->transform->Translate(downVector * m_Speed * m_DeltaTime);
 	}
-	void Ball::onCollisionStay(std::shared_ptr<CollisionData> collisionData)
+	void Ball::onCollisionEnter(std::shared_ptr<CollisionData> collisionData)
 	{
 		if (!m_Entity->getActive())
 			return;
@@ -82,19 +82,28 @@ namespace BreakoutGame
 		if (otherCollider->getColliderType() == ColliderType::BoxCollider2D)
 		{
 			auto boxCollider = std::static_pointer_cast<BoxCollider2DComponent>(otherCollider);
-			auto normalVec = boxCollider->ProcessGetNormalVector(collisionData->collidedNodePos);
+			auto avarageCollidedNodePos = Vector2::zero;
+			for (size_t i = 0; i < collisionData->collidedNodePosList.size(); i++)
+			{
+				auto pos = Vector2(collisionData->collidedNodePosList[i]);
+				avarageCollidedNodePos = avarageCollidedNodePos + (pos / collisionData->collidedNodePosList.size());
+			}
+
+			std::cout << "avarageCollidedNodePos: " << avarageCollidedNodePos.toString() << std::endl;
+			auto normalVec = boxCollider->ProcessGetNormalVector(avarageCollidedNodePos);
 			if (normalVec == Vector2::zero)
 			{
 				LOG_ERROR("Normal Vector calculated as zero!");
 			}
-			std::cout << "Ball HandleOnCollision Normal vector, x: " << normalVec.x << " y: " << normalVec.y << std::endl;
 
 
+			auto newMovementVector = glm::reflect(m_MovementVector, glm::vec3(normalVec.x, normalVec.y, 0.0f));
 
+			std::cout << "Ball Movement vector, x: " << m_MovementVector.x << " y: " << m_MovementVector.y << std::endl;
+			std::cout << "Ball Normal vector, x: " << normalVec.x << " y: " << normalVec.y << std::endl;
+			std::cout << "Ball New Movement vector, x: " << newMovementVector.x << " y: " << newMovementVector.y << std::endl;
 
+			m_MovementVector = newMovementVector;
 		}
-
-		//m_Speed *= (-1.0f);
-		//m_MovementVector = glm::vec3(m_Speed, 0.0f, 0.0f);
 	}
 }

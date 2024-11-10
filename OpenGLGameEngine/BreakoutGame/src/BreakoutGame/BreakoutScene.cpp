@@ -159,6 +159,7 @@ namespace BreakoutGame
 		if (isControllingBall)
 		{
 			m_ControlledObject = m_Paddle;
+			isControllingBall = false;
 		}
 		else
 		{
