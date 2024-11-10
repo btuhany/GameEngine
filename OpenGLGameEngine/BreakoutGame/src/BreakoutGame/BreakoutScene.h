@@ -33,6 +33,7 @@ namespace BreakoutGame
 
 		std::shared_ptr<Ball> m_Ball;
 		std::shared_ptr<Paddle> m_Paddle;
+		std::shared_ptr<BreakoutObject> m_ControlledObject;
 	};
 
 

@@ -64,6 +64,7 @@ namespace BreakoutGame
 
 	void BreakoutScene::Start()
 	{
+		m_ControlledObject = m_Paddle;
 		m_Ball->Start();
 		m_Paddle->Start();
 	}
@@ -134,12 +135,12 @@ namespace BreakoutGame
 
 	void BreakoutScene::handleOnLeftKey()
 	{
-		m_Ball->MoveLeft();
+		m_ControlledObject->MoveLeft();
 	}
 
 	void BreakoutScene::handleOnRightKey()
 	{
-		m_Ball->MoveRight();
+		m_ControlledObject->MoveRight();
 	}
 
 	void BreakoutScene::handleOnDownKey()
@@ -150,9 +151,18 @@ namespace BreakoutGame
 	{
 	}
 
+	bool isControllingBall = false;
 	void BreakoutScene::handleOnBallDebugKey()
 	{
-
+		if (isControllingBall)
+		{
+			m_ControlledObject = m_Paddle;
+		}
+		else
+		{
+			m_ControlledObject = m_Ball;
+			isControllingBall = true;
+		}
 	}
 
 }
