@@ -145,10 +145,12 @@ namespace BreakoutGame
 
 	void BreakoutScene::handleOnDownKey()
 	{
+		m_ControlledObject->MoveDown();
 	}
 
 	void BreakoutScene::handleOnUpKey()
 	{
+		m_ControlledObject->MoveUp();
 	}
 
 	bool isControllingBall = false;

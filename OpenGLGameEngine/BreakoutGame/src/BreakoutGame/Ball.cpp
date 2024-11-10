@@ -56,9 +56,13 @@ namespace BreakoutGame
 	}
 	void Ball::MoveUp()
 	{
+		auto upVector = glm::vec3(0.0f, 1.0f, 0.0f);
+		m_Entity->transform->Translate(upVector * m_Speed * m_DeltaTime);
 	}
 	void Ball::MoveDown()
 	{
+		auto downVector = glm::vec3(0.0f, -1.0f, 0.0f);
+		m_Entity->transform->Translate(downVector * m_Speed * m_DeltaTime);
 	}
 	void Ball::onCollisionEnter(std::shared_ptr<CollisionData> collisionData)
 	{

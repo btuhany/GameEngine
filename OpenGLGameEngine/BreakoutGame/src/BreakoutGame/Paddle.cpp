@@ -38,9 +38,13 @@ namespace BreakoutGame
 	}
 	void Paddle::MoveUp()
 	{
+		auto upVector = glm::vec3(0.0f, 1.0f, 0.0f);
+		m_Entity->transform->Translate(upVector * m_Speed * m_DeltaTime);
 	}
 	void Paddle::MoveDown()
 	{
+		auto downVector = glm::vec3(0.0f, -1.0f, 0.0f);
+		m_Entity->transform->Translate(downVector * m_Speed * m_DeltaTime);
 	}
 	std::shared_ptr<SpriteEntity> Paddle::getEntity()
 	{
