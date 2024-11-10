@@ -59,9 +59,9 @@ namespace GameEngine
 		}
 	}
 
-	void CollisionDetector::ProcessCollisionResult(bool isCollided, std::shared_ptr<ColliderComponent> otherCollider)
+	void CollisionDetector::ProcessCollisionResult(CollisionData collisionData, std::shared_ptr<ColliderComponent> otherCollider)
 	{
-		if (isCollided)
+		if (collisionData.isInBounds)
 			processOnDetectionSuccess(otherCollider);
 		else
 			processOnDetectionFailed(otherCollider);

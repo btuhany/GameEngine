@@ -6,13 +6,14 @@
 #include "../Entities/GameEntity.h"
 #include "../Components/ColliderComponent.h"
 #include "../StartModeSettings.h"
+#include "CollisionData.h"
 
 namespace GameEngine
 {
 	class ENGINE_API CollisionDetector
 	{
 	public:
-		void ProcessCollisionResult(bool isCollided, std::shared_ptr<ColliderComponent> otherCollider);
+		void ProcessCollisionResult(CollisionData collisionData, std::shared_ptr<ColliderComponent> otherCollider);
 		void AddCollisionCallback(CollisionState state, std::function<void(std::shared_ptr<ColliderComponent>)> callback);
 		void RemoveCollisionCallback(CollisionState state);
 		void ClearCallbacks();
