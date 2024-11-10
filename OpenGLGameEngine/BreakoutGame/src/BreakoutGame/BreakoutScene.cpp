@@ -20,7 +20,7 @@ namespace BreakoutGame
 	{
 		initializeInputCallbacks();
 		setCamera(std::make_shared<Camera>(
-			glm::vec3(0.0f, 0.0f, 10.0f),
+			glm::vec3(0.0f, 0.0f, 30.0f),
 			glm::vec3(0.0f, 1.0f, 0.0f),
 			-90.0f, 0.0f, 5.0f, 0.1f, 60, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
 
@@ -37,12 +37,36 @@ namespace BreakoutGame
 		std::shared_ptr<SpriteRenderData> breakoutSpriteRenderData = std::make_shared<SpriteRenderData>(blueTex, nullptr, mainShader);
 		std::shared_ptr<SpriteRenderData> breakoutSpriteRenderData2 = std::make_shared<SpriteRenderData>(purpleTex, nullptr, mainShader);
 
-		for (size_t i = 0; i < 2; i++)
+		float radius = 12.0f;
+		float angleIncrement = 2 * glm::pi<float>() / 10;
+
+		for (size_t i = 0; i < 10; i++)
 		{
 			std::shared_ptr<SpriteEntity> spriteEntity = std::make_shared<SpriteEntity>(breakoutSpriteRenderData);
 			std::string name = std::to_string(i) + ".Tile";
 			spriteEntity->setName(name);
-			spriteEntity->transform->SetPosition(glm::vec3(-3.0f + (i * 15.0f), 0.0f, 0.0f));
+
+			float angle = i * angleIncrement;
+			float x = radius * glm::cos(angle);
+			float y = radius * glm::sin(angle);
+
+			spriteEntity->transform->SetPosition(glm::vec3(x, y, 0.0f));
+			auto boxCollider2DComp = std::make_shared<BoxCollider2DComponent>(6.0f, 2.0f, CollisionType::Static);
+			spriteEntity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp);
+			instantiateGameEntity(spriteEntity);
+		}
+
+		for (size_t i = 0; i < 8; i++)
+		{
+			std::shared_ptr<SpriteEntity> spriteEntity = std::make_shared<SpriteEntity>(breakoutSpriteRenderData);
+			std::string name = std::to_string(i) + ".Tile";
+			spriteEntity->setName(name);
+
+			float angle = i * angleIncrement;
+			float x = 2.0f * radius * glm::cos(angle);
+			float y = 2.0f * radius * glm::sin(angle);
+
+			spriteEntity->transform->SetPosition(glm::vec3(x, y, 0.0f));
 			auto boxCollider2DComp = std::make_shared<BoxCollider2DComponent>(6.0f, 2.0f, CollisionType::Static);
 			spriteEntity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp);
 			instantiateGameEntity(spriteEntity);
