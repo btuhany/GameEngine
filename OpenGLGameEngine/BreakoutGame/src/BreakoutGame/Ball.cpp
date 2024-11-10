@@ -26,9 +26,9 @@ namespace BreakoutGame
 
 	void Ball::Start()
 	{
-		m_Speed = 2.0f;
+		m_Speed = 6.5f;
 		m_Entity->transform->SetPosition(glm::vec3(5.0f, 0.0f, 0.0f));
-		m_MovementVector = glm::vec3(m_Speed, 0.0f, 0.0f);
+		m_MovementVector = m_Speed * glm::normalize(glm::vec3(1.0f, 1.0f, 0.0f));
 	}
 
 	void Ball::Tick(float deltaTime)
@@ -97,13 +97,17 @@ namespace BreakoutGame
 			}
 
 
-			auto newMovementVector = glm::reflect(m_MovementVector, glm::vec3(normalVec.x, normalVec.y, 0.0f));
 
 			std::cout << "Ball Movement vector, x: " << m_MovementVector.x << " y: " << m_MovementVector.y << std::endl;
 			std::cout << "Ball Normal vector, x: " << normalVec.x << " y: " << normalVec.y << std::endl;
+
+			auto newMovementVector = glm::reflect(m_MovementVector, glm::vec3(normalVec.x, normalVec.y, 0.0f));
 			std::cout << "Ball New Movement vector, x: " << newMovementVector.x << " y: " << newMovementVector.y << std::endl;
 
 			m_MovementVector = newMovementVector;
+
+			if (colliderEntity->getName() != "Paddle")
+				colliderEntity->setActive(false);
 		}
 	}
 }
