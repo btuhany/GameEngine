@@ -20,7 +20,7 @@ namespace BreakoutGame
 	void Paddle::Start()
 	{
 		m_Speed = 4.0f;
-		m_Entity->transform->SetPosition(glm::vec3(-5.0f, 0.5f, 0.0f));
+		m_Entity->transform->SetPosition(glm::vec3(-0.1f, 5.0f, -0.3f));
 	}
 	void Paddle::Tick(float deltaTime)
 	{

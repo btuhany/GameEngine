@@ -37,13 +37,14 @@ namespace GameEngine
 				if (i == j)
 					continue;
 
-				auto collisionData = CollisionData();
 				auto otherCollider = m_ColliderComponents[j];
+				auto collisionData = std::shared_ptr<CollisionData>();
 				if (controlledCollider->getColliderType() == ColliderType::BoxCollider2D)
 				{
+					auto controlledBoxCollider = std::static_pointer_cast<BoxCollider2DComponent>(controlledCollider);
+
 					if (otherCollider->getColliderType() == ColliderType::BoxCollider2D)
 					{
-						auto controlledBoxCollider = std::static_pointer_cast<BoxCollider2DComponent>(controlledCollider);
 						auto otherBoxCollider = std::static_pointer_cast<BoxCollider2DComponent>(otherCollider);
 						collisionData = AreBoxCollidersCollide(controlledBoxCollider, otherBoxCollider);
 					}
@@ -51,7 +52,7 @@ namespace GameEngine
 
 				if (controlledCollider->detector != nullptr)
 				{
-					controlledCollider->detector->ProcessCollisionResult(collisionData, otherCollider);
+					controlledCollider->detector->ProcessCollisionResult(collisionData);
 				}
 			}
 		}
@@ -102,20 +103,21 @@ namespace GameEngine
 			}
 		}
 	}
-	CollisionData CollisionManager::AreBoxCollidersCollide(std::shared_ptr<BoxCollider2DComponent> boxColliderA, std::shared_ptr<BoxCollider2DComponent> boxColliderB)
+	std::shared_ptr<CollisionData> CollisionManager::AreBoxCollidersCollide(std::shared_ptr<BoxCollider2DComponent> controlledCollider, std::shared_ptr<BoxCollider2DComponent> otherCollider)
 	{
-		auto collisionData = CollisionData();
-		collisionData.isInBounds = false;
-		collisionData.collidedNodePos = Vector3(0.0f, 0.0f, 0.0f);
+		auto collisionData = std::make_shared<CollisionData>();
+		collisionData->isInBounds = false;
+		collisionData->collidedNodePos = Vector3(0.0f, 0.0f, 0.0f);
+		collisionData->otherCollider = otherCollider;
 
-		if (boxColliderA->getEntity().expired() || boxColliderB->getEntity().expired())
+		if (controlledCollider->getEntity().expired() || otherCollider->getEntity().expired())
 		{
 
 			return collisionData;
 		}
 
-		auto boundsA = boxColliderA->getBoundNodes();
-		auto boundsB = boxColliderB->getBoundNodes();
+		auto boundsA = controlledCollider->getBoundNodes();
+		auto boundsB = otherCollider->getBoundNodes();
 
 
 		//TODO could be more optimized but i dont care for optimization for now, its better for the code readability.
@@ -131,9 +133,8 @@ namespace GameEngine
 				{
 					//printf("\n Collision! node: %d", i);
 					
-					auto collisionData = CollisionData();
-					collisionData.isInBounds = true;
-					collisionData.collidedNodePos = Vector3(node.x, node.y, 0.0f);
+					collisionData->isInBounds = true;
+					collisionData->collidedNodePos = Vector3(node.x, node.y, 0.0f);
 
 					return collisionData;
 				}
@@ -148,8 +149,8 @@ namespace GameEngine
 				if (boundsA[(int)BoxColliderPosType::TopRight].y >= node.y
 					&& node.y >= boundsA[(int)BoxColliderPosType::BottomLeft].y)
 				{
-					collisionData.isInBounds = true;
-					collisionData.collidedNodePos = Vector3(node.x, node.y, 0.0f);
+					collisionData->isInBounds = true;
+					collisionData->collidedNodePos = Vector3(node.x, node.y, 0.0f);
 					return collisionData;
 				}
 			}

@@ -17,7 +17,7 @@ namespace BreakoutGame
 		auto detector = std::make_shared<CollisionDetector>();
 		auto boxCollider = std::make_shared<BoxCollider2DComponent>(1.8f, 1.8f, CollisionType::Dynamic, detector);
 		detector->AddCollisionCallback(CollisionState::Enter,
-			[this](std::shared_ptr<ColliderComponent> collider) {
+			[this](std::shared_ptr<CollisionData> collider) {
 				onCollisionEnter(collider);
 			});
 
@@ -60,12 +60,13 @@ namespace BreakoutGame
 	void Ball::MoveDown()
 	{
 	}
-	void Ball::onCollisionEnter(std::shared_ptr<ColliderComponent> otherCollider)
+	void Ball::onCollisionEnter(std::shared_ptr<CollisionData> collisionData)
 	{
 		if (!m_Entity->getActive())
 			return;
 
-		otherCollider->getEntity().lock()->setActive(false);
+		std::cout << "Ball HandleOnCollision Enter pos, x: " << collisionData->collidedNodePos.x << " y: " << collisionData->collidedNodePos.y << std::endl;
+		//otherCollider->otherCollider->getEntity().lock()->setActive(false);
 		//if (otherCollider->getColliderType() == ColliderType::BoxCollider2D)
 		//{
 		//	auto entity = otherCollider->getEntity();
