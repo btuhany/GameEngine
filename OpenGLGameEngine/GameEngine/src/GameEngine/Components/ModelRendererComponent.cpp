@@ -30,7 +30,7 @@ namespace GameEngine
 
 	void ModelRendererComponent::drawModel(GLuint uniformModel)
 	{
-		//TODOby
+		//TODO
 		if (m_OwnerEntity.expired())
 		{
 			LOG_CORE_WARN("ModelRendererComponent::DrawModel owner entity is exprired!");
