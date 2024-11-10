@@ -47,10 +47,163 @@ namespace GameEngine
 		return ColliderType::BoxCollider2D;
 	}
 
+	/// <summary>
+	/// Calculates where a point is from 4 regions of the box. TODO optimize
+	/// </summary>
+	/// <param name="collisionPos"></param>
+	/// <returns></returns>
+	Vector2 BoxCollider2DComponent::ProcessGetNormalVector(Vector2 collisionPos)
+	{
+		auto entity = getEntity();
+		if (entity.expired())
+		{
+			return Vector2::zero;
+		}
+		auto colliderEntityPos = Vector2(entity.lock()->transform->getPosition());
+		auto collisionVec = (collisionPos - colliderEntityPos).normalize();
+
+		auto collidedNodes = getBoundNodes();
+		auto topRightVec = (collidedNodes[(int)BoxColliderPosType::TopRight] - colliderEntityPos).normalize();
+		auto bottomRightVec = (collidedNodes[(int)BoxColliderPosType::BottomRight] - colliderEntityPos).normalize();
+		auto topLeftVec = (collidedNodes[(int)BoxColliderPosType::TopLeft] - colliderEntityPos).normalize();
+		auto bottomLeftVec = (collidedNodes[(int)BoxColliderPosType::BottomLeft] - colliderEntityPos).normalize();
+
+		auto yPosInTopRightVec = collisionVec.x * (topRightVec.y / topRightVec.x);
+		auto yPosInBottomRightVec = collisionVec.x * (bottomRightVec.y / bottomRightVec.x);
+
+		//std::cout << "Ball yPosInBottomRightVec, x: " << yPosInBottomRightVec << std::endl;
+		//std::cout << "Ball yPosInTopRightVec, x: " << yPosInTopRightVec << std::endl;
+
+		if (Vector2::IsAligned(collisionVec, topRightVec, CORNER_ALIGN_CHECK_THRESHOLD))
+		{
+			return topRightVec;
+		}
+		else if (Vector2::IsAligned(collisionVec, topLeftVec, CORNER_ALIGN_CHECK_THRESHOLD))
+		{
+			return topLeftVec;
+		}
+		else if (Vector2::IsAligned(collisionVec, bottomLeftVec, CORNER_ALIGN_CHECK_THRESHOLD))
+		{
+			return bottomLeftVec;
+		}
+		else if (Vector2::IsAligned(collisionVec, bottomRightVec, CORNER_ALIGN_CHECK_THRESHOLD))
+		{
+			return bottomRightVec;
+		}
+
+		Vector2 normalVector = Vector2::zero;
+		if (collisionVec.x > 0)
+		{
+			if (collisionVec.y > yPosInTopRightVec)
+			{
+				//UP
+				normalVector = Vector2::up;
+			}
+			else if (collisionVec.y <= yPosInTopRightVec && collisionVec.y >= yPosInBottomRightVec)
+			{
+				//RIGHT
+				normalVector = Vector2::right;
+			}
+			else if (collisionVec.y < yPosInBottomRightVec)
+			{
+				//DOWN
+				normalVector = Vector2::down;
+			}
+		}
+		else if (collisionVec.x < 0)
+		{
+			if (collisionVec.y > yPosInBottomRightVec)
+			{
+				//UP
+				normalVector = Vector2::up;
+			}
+			else if (collisionVec.y >= yPosInTopRightVec && collisionVec.y <= yPosInBottomRightVec)
+			{
+				//LEFT
+				normalVector = Vector2::left;
+			}
+			else if (collisionVec.y < yPosInTopRightVec)
+			{
+				//DOWN
+				normalVector = Vector2::down;
+			}
+		}
+		else if (collisionVec.x == 0)
+		{
+			if (collisionVec.y > 0)
+			{
+				//UP
+				normalVector = Vector2::up;
+			}
+			else if (collisionVec.y < 0)
+			{
+				//BOTTOM
+				normalVector = Vector2::down;
+			}
+			else if (collisionVec.y == 0)
+			{
+				//MID?
+				normalVector = Vector2::zero;
+			}
+		}
+
+		return normalVector.normalize();
+	}
+
 	void BoxCollider2DComponent::HandleOnAfterOwnerInstantiated()
 	{
 #if _DEBUG
 		initializeDebugRender();
+#endif
+	}
+
+	void BoxCollider2DComponent::HandleOnOwnerSetActive(bool isActive)
+	{
+#if _DEBUG
+		if (SETTINGS_COLLIDER_DEBUG_MODE)
+		{
+			if (m_OwnerEntity.expired())
+			{
+				LOG_CORE_ERROR("BoxCollider2DComponent | HandleOnOwnerSetActive owner is null");
+				return;
+			}
+
+			auto it = Renderer::DebugMeshRenderDataTransformMap.find(m_OwnerEntity.lock());
+			if (isActive)
+			{
+				if (it == Renderer::DebugMeshRenderDataTransformMap.end())
+				{
+					Renderer::DebugMeshRenderDataTransformMap[m_OwnerEntity.lock()] = m_DebugMeshRenderData;
+				}
+			}
+			else
+			{
+				if (it != Renderer::DebugMeshRenderDataTransformMap.end())
+				{
+					Renderer::DebugMeshRenderDataTransformMap.erase(it);
+				}
+			}
+		}
+#endif
+	}
+
+	void BoxCollider2DComponent::HandleOnPreOwnerDestroyed()
+	{
+#if _DEBUG
+		if (SETTINGS_COLLIDER_DEBUG_MODE)
+		{
+			if (m_OwnerEntity.expired())
+			{
+				LOG_CORE_ERROR("BoxCollider2DComponent | HandleOnOwnerSetActive owner is null");
+				return;
+			}
+
+			auto it = Renderer::DebugMeshRenderDataTransformMap.find(m_OwnerEntity.lock());
+			if (it != Renderer::DebugMeshRenderDataTransformMap.end())
+			{
+				Renderer::DebugMeshRenderDataTransformMap.erase(it);
+			}
+		}
 #endif
 	}
 
@@ -68,8 +221,10 @@ namespace GameEngine
 			std::shared_ptr<Shader> colliderDebugShader = std::make_shared<Shader>();
 			colliderDebugShader->CreateFromFiles(vColliderDebugShaderLocation, fColliderDebugShaderLocation);
 
-			auto debugMeshRenderData = std::make_shared<DebugRenderData>(createDebugMesh(), colliderDebugShader);
-			Renderer::DebugMeshRenderDataTransformMap[debugMeshRenderData] = m_OwnerEntity.lock()->transform;
+			m_DebugMeshRenderData = std::make_shared<DebugRenderData>(createDebugMesh(), colliderDebugShader);
+			auto it = Renderer::DebugMeshRenderDataTransformMap.find(m_OwnerEntity.lock());
+			if (it == Renderer::DebugMeshRenderDataTransformMap.end())
+				Renderer::DebugMeshRenderDataTransformMap[m_OwnerEntity.lock()] = m_DebugMeshRenderData;
 		}
 
 	}

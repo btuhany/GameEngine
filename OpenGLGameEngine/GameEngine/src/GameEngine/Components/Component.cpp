@@ -12,6 +12,10 @@ namespace GameEngine
 	void Component::HandleOnAfterOwnerInstantiated()
 	{
 	}
+	void Component::HandleOnOwnerSetActive(bool isActive)
+	{
+
+	}
 	std::weak_ptr<GameEntity> Component::getEntity()
 	{
 		return m_OwnerEntity;

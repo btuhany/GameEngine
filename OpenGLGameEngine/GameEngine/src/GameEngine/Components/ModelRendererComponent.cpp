@@ -30,7 +30,7 @@ namespace GameEngine
 
 	void ModelRendererComponent::drawModel(GLuint uniformModel)
 	{
-		//TODOby
+		//TODO
 		if (m_OwnerEntity.expired())
 		{
 			LOG_CORE_WARN("ModelRendererComponent::DrawModel owner entity is exprired!");
@@ -40,7 +40,7 @@ namespace GameEngine
 
 		m_ModelRenderData->material->UseMaterial(m_ModelRenderData->shader->GetMatSpecularIntensityLocation(), m_ModelRenderData->shader->GetMatShininessLocation());
 
-		if (m_ModelRenderData->texture != NULL)
+		if (m_ModelRenderData->texture != nullptr)
 		{
 			m_ModelRenderData->texture->UseTexture();
 		}

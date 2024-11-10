@@ -17,6 +17,8 @@
 #include <unordered_map>
 #include "../Render/DebugRenderData.h"
 #include "../StartModeSettings.h"
+#include "../Components/ColliderComponent.h"
+#include "../Entities/GameEntity.h"
 namespace GameEngine
 {
 	class ENGINE_API Renderer
@@ -47,10 +49,8 @@ namespace GameEngine
 		bool isAbleToRender(std::shared_ptr<RendererComponent> rendererComponent);
 		GLfloat m_BufferRatio;
 
-#if _DEBUG
 	public:
-		static std::unordered_map<std::shared_ptr<DebugRenderData>, std::weak_ptr<Transform>> DebugMeshRenderDataTransformMap;
-#endif
+		static std::unordered_map<std::shared_ptr<GameEntity>, std::shared_ptr<DebugRenderData>> DebugMeshRenderDataTransformMap;
 	};
 }
 

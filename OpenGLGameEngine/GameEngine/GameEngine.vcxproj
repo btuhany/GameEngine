@@ -81,6 +81,7 @@
     <ClCompile Include="src\GameEngine\Math\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameEngine\Collision\CollisionData.h" />
     <ClInclude Include="src\GameEngine\Render\DebugRenderData.h" />
     <ClInclude Include="src\GameEngine\Collision\CollisionDetector.h" />
     <ClInclude Include="src\GameEngine\Collision\CollisionEnum.h" />

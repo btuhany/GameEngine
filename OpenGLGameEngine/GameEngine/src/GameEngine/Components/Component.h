@@ -23,6 +23,7 @@ namespace GameEngine
 		void AssignToEntity(std::shared_ptr<GameEntity> entity);
 		virtual void HandleOnPreOwnerDestroyed();
 		virtual void HandleOnAfterOwnerInstantiated();
+		virtual void HandleOnOwnerSetActive(bool isActive);
 		std::weak_ptr<GameEntity> getEntity();
 		void setEnabled(bool isEnable);
 		bool getEnabled();

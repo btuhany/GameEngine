@@ -17,10 +17,10 @@ void DemoApp::Run()
 	DemoScene3D demoScene = DemoScene3D(&inputHandler);
 
 	GameEngine::Engine engine = GameEngine::Engine(new Window(1920, 1080, "DemoApp"), &inputHandler, true);
-	engine.Initialize(&demoScene);
+	engine.Initialize(&demoScene, GameModeType::ThreeDimensional);
 	engine.setDebugInputActive(false);
 	engine.Start();
-	engine.Run(GameModeType::ThreeDimensional);
+	engine.Run();
 }
 
 GameEngine::Application* GameEngine::CreateApplication()

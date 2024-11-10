@@ -1,8 +1,9 @@
 #include "CollisionDetector.h"
 namespace GameEngine
 {
-	void CollisionDetector::processOnDetectionSuccess(std::shared_ptr<ColliderComponent> detectedCollider)
+	void CollisionDetector::processOnDetectionSuccess(std::shared_ptr<CollisionData> collisionData)
 	{
+		auto detectedCollider = collisionData->otherCollider;
 		auto it = m_CurrentCollisions.find(detectedCollider);
 		if (it != m_CurrentCollisions.end())
 		{
@@ -10,16 +11,16 @@ namespace GameEngine
 			switch (currentState)
 			{
 			case GameEngine::CollisionState::None:
-				updateCollisionState(detectedCollider, CollisionState::Enter);
+				updateCollisionState(collisionData, CollisionState::Enter);
 				break;
 			case GameEngine::CollisionState::Enter:
-				updateCollisionState(detectedCollider, CollisionState::Stay);
+				updateCollisionState(collisionData, CollisionState::Stay);
 				break;
 			case GameEngine::CollisionState::Stay:
-				updateCollisionState(detectedCollider, CollisionState::Stay);
+				updateCollisionState(collisionData, CollisionState::Stay);
 				break;
 			case GameEngine::CollisionState::Exit:
-				updateCollisionState(detectedCollider, CollisionState::Enter);
+				updateCollisionState(collisionData, CollisionState::Enter);
 				break;
 			default:
 				break;
@@ -28,12 +29,13 @@ namespace GameEngine
 		}
 		else
 		{
-			updateCollisionState(detectedCollider, CollisionState::Enter);
+			updateCollisionState(collisionData, CollisionState::Enter);
 		}
 	}
 
-	void CollisionDetector::processOnDetectionFailed(std::shared_ptr<ColliderComponent> detectedCollider)
+	void CollisionDetector::processOnDetectionFailed(std::shared_ptr<CollisionData> collisionData)
 	{
+		auto detectedCollider = collisionData->otherCollider;
 		auto it = m_CurrentCollisions.find(detectedCollider);
 		if (it != m_CurrentCollisions.end())
 		{
@@ -42,16 +44,16 @@ namespace GameEngine
 			{
 			case GameEngine::CollisionState::None:
 				LOG_CORE_ERROR("Collision listener logic error! | None");
-				updateCollisionState(detectedCollider, CollisionState::None);
+				updateCollisionState(collisionData, CollisionState::None);
 				break;
 			case GameEngine::CollisionState::Enter:
-				updateCollisionState(detectedCollider, CollisionState::Exit);
+				updateCollisionState(collisionData, CollisionState::Exit);
 				break;
 			case GameEngine::CollisionState::Stay:
-				updateCollisionState(detectedCollider, CollisionState::Exit);
+				updateCollisionState(collisionData, CollisionState::Exit);
 				break;
 			case GameEngine::CollisionState::Exit:
-				updateCollisionState(detectedCollider, CollisionState::None);
+				updateCollisionState(collisionData, CollisionState::None);
 				break;
 			default:
 				break;
@@ -59,15 +61,15 @@ namespace GameEngine
 		}
 	}
 
-	void CollisionDetector::ProcessCollisionResult(bool isCollided, std::shared_ptr<ColliderComponent> otherCollider)
+	void CollisionDetector::ProcessCollisionResult(std::shared_ptr<CollisionData> collisionData)
 	{
-		if (isCollided)
-			processOnDetectionSuccess(otherCollider);
+		if (collisionData->isInBounds)
+			processOnDetectionSuccess(collisionData);
 		else
-			processOnDetectionFailed(otherCollider);
+			processOnDetectionFailed(collisionData);
 	}
 
-	void CollisionDetector::AddCollisionCallback(CollisionState state, std::function<void(std::shared_ptr<ColliderComponent>)> callback)
+	void CollisionDetector::AddCollisionCallback(CollisionState state, std::function<void(std::shared_ptr<CollisionData>)> callback)
 	{
 		m_CollisionCallbacks[state] = callback;
 	}
@@ -82,8 +84,16 @@ namespace GameEngine
 		m_CollisionCallbacks.clear();
 	}
 
-	void CollisionDetector::HandleOnCollisionEnter(std::shared_ptr<ColliderComponent> otherCollider)
+	void CollisionDetector::RemoveColliderFromCurrentCollisions(std::shared_ptr<ColliderComponent> removedCollider)
 	{
+		auto it = m_CurrentCollisions.find(removedCollider);
+		if (it != m_CurrentCollisions.end())
+			m_CurrentCollisions.erase(removedCollider);
+	}
+
+	void CollisionDetector::HandleOnCollisionEnter(std::shared_ptr<CollisionData> collisionData)
+	{
+		auto otherCollider = collisionData->otherCollider;
 		if (SETTINGS_COLLIDER_DEBUG_MODE)
 		{
 			auto gameEntityName = otherCollider->getEntity().lock()->getName();
@@ -92,26 +102,28 @@ namespace GameEngine
 		auto it = m_CollisionCallbacks.find(CollisionState::Enter);
 		if (it != m_CollisionCallbacks.end() && it->second)
 		{
-			it->second(otherCollider);
+			it->second(collisionData);
 		}
 	}
 
-	void CollisionDetector::HandleOnCollisionStay(std::shared_ptr<ColliderComponent> otherCollider)
+	void CollisionDetector::HandleOnCollisionStay(std::shared_ptr<CollisionData> collisionData)
 	{
+		auto otherCollider = collisionData->otherCollider;
 		if (SETTINGS_COLLIDER_DEBUG_MODE)
 		{
 			auto gameEntityName = otherCollider->getEntity().lock()->getName();
-			std::cout << "HandleOnCollision Stay with: " << gameEntityName << std::endl;
+			//std::cout << "HandleOnCollision Stay with: " << gameEntityName << std::endl;
 		}
 		auto it = m_CollisionCallbacks.find(CollisionState::Stay);
 		if (it != m_CollisionCallbacks.end() && it->second)
 		{
-			it->second(otherCollider);
+			it->second(collisionData);
 		}
 	}
 
-	void CollisionDetector::HandleOnCollisionExit(std::shared_ptr<ColliderComponent> otherCollider)
+	void CollisionDetector::HandleOnCollisionExit(std::shared_ptr<CollisionData> collisionData)
 	{
+		auto otherCollider = collisionData->otherCollider;
 		if (SETTINGS_COLLIDER_DEBUG_MODE)
 		{
 			auto gameEntityName = otherCollider->getEntity().lock()->getName();
@@ -120,26 +132,27 @@ namespace GameEngine
 		auto it = m_CollisionCallbacks.find(CollisionState::Exit);
 		if (it != m_CollisionCallbacks.end() && it->second)
 		{
-			it->second(otherCollider);
+			it->second(collisionData);
 		}
 	}
 
-	void CollisionDetector::updateCollisionState(std::shared_ptr<ColliderComponent> collider, CollisionState state)
+	void CollisionDetector::updateCollisionState(std::shared_ptr<CollisionData> collisionData, CollisionState state)
 	{
-		m_CurrentCollisions[collider] = state;
+		auto otherCollider = collisionData->otherCollider;
+		m_CurrentCollisions[otherCollider] = state;
 		switch (state)
 		{
 		case GameEngine::CollisionState::None:
-			m_CurrentCollisions.erase(collider);
+			m_CurrentCollisions.erase(otherCollider);
 			break;
 		case GameEngine::CollisionState::Enter:
-			HandleOnCollisionEnter(collider);
+			HandleOnCollisionEnter(collisionData);
 			break;
 		case GameEngine::CollisionState::Stay:
-			HandleOnCollisionStay(collider);
+			HandleOnCollisionStay(collisionData);
 			break;
 		case GameEngine::CollisionState::Exit:
-			HandleOnCollisionExit(collider);
+			HandleOnCollisionExit(collisionData);
 			break;
 		default:
 			break;

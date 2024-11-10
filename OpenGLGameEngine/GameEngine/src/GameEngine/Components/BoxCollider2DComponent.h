@@ -27,7 +27,10 @@ namespace GameEngine
 		float getHeight();
 		std::array<Vector2, 4> getBoundNodes();
 		void HandleOnAfterOwnerInstantiated() override;
+		void HandleOnOwnerSetActive(bool isActive) override;
+		void HandleOnPreOwnerDestroyed() override;
 		ColliderType getColliderType() override;
+		Vector2 ProcessGetNormalVector(Vector2 collisionPos);
 	private:
 		float m_Width;
 		float m_Height;
@@ -35,6 +38,12 @@ namespace GameEngine
 		void initializeDebugRender();
 		std::shared_ptr<MeshData> createDebugMesh();
 		Vector2 getNodePosition(BoxColliderPosType position);
+		const float CORNER_ALIGN_CHECK_THRESHOLD = 0.999f;
+
+#if _DEBUG
+	private:
+		std::shared_ptr<DebugRenderData> m_DebugMeshRenderData;
+#endif
 	};
 }
 

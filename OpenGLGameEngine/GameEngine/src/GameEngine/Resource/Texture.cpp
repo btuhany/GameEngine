@@ -101,6 +101,6 @@ namespace GameEngine {
 	}
 	float Texture::GetAspectRatio()
 	{
-		return m_Width / m_Height;
+		return (float) m_Width / (float) m_Height;
 	}
 }

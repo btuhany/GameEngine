@@ -3,27 +3,38 @@
 #include <unordered_map>
 #include <GameEngine.h>
 #include "BreakoutSceneInputHandler.h"
-class BreakoutScene : public Scene
+#include "Ball.h"
+#include "Paddle.h"
+
+namespace BreakoutGame
 {
-public:
-	BreakoutScene();
-	BreakoutScene(BreakoutSceneInputHandler* inputHandler);
-	~BreakoutScene();
-	void Initialize() override;
-	void Start() override;
-	void Update(GLfloat deltaTime) override;
-private:
-	std::shared_ptr<SpriteEntity> m_SpriteEntity;
-	float m_ObjectMoveSpeed;
-	float m_DeltaTime;
+	class BreakoutScene : public Scene
+	{
+	public:
+		BreakoutScene();
+		BreakoutScene(BreakoutSceneInputHandler* inputHandler);
+		~BreakoutScene();
+		void Initialize() override;
+		void Start() override;
+		void Update(GLfloat deltaTime) override;
+	private:
+		float m_ObjectMoveSpeed;
+		float m_DeltaTime;
 
-	BreakoutSceneInputHandler* m_InputHandler;
-	void initializeInputCallbacks();
-	void changeCameraType();
+		BreakoutSceneInputHandler* m_InputHandler;
+		void initializeInputCallbacks();
+		void changeCameraType();
 
-	void handleOnLeftKey();
-	void handleOnRightKey();
-	void handleOnDownKey();
-	void handleOnUpKey();
-};
+		void handleOnLeftKey();
+		void handleOnRightKey();
+		void handleOnDownKey();
+		void handleOnUpKey();
+		void handleOnBallDebugKey();
 
+		std::shared_ptr<Ball> m_Ball;
+		std::shared_ptr<Paddle> m_Paddle;
+		std::shared_ptr<BreakoutObject> m_ControlledObject;
+	};
+
+
+}

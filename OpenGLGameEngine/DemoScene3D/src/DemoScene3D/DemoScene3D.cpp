@@ -24,12 +24,6 @@ void DemoScene3D::Initialize()
 	setCamera(std::make_shared<Camera>(glm::vec3(0.0f, 5.0f, 45.0f), 
 		glm::vec3(0.0f, 1.0f, 0.0f), 
 		-90.0f, 0.0f, 5.0f, 0.1f, 60.0f, 0.1f, 400.0f, CAMERA_TYPE_PERSPECTIVE));
-	//getCamera()->MoveLeft(45.0f);
-	//getCamera()->MoveForward(10.0f);
-	//getCamera()->Rotate(0.0f, 90.0f);
-	//getCamera()->MoveForward(25.0f);
-	//getCamera()->Rotate(0.0f, -90.0f);
-	//getCamera()->Rotate(90.0f, -30.0f);
 
 	setBackgroundColor(glm::vec3(0.0f, 1.0f, 0.0f));
 	initializeInputCallbacks();
@@ -301,21 +295,21 @@ void DemoScene3D::initializeLights()
 		60.0f,
 		720, 720,
 		0.01f, 100.0f));
-	//addSpotLight(new SpotLight(0.0f, 155.0f,
-	//	0.0f, 0.5f, 1.0f,
-	//	0.0f, -10.0f, 0.0f,
-	//	0.0f, 0.5f, 0.0f,
-	//	0.1f, 0.1f, 0.1f,
-	//	100.0f,
-	//	0.01f, 200.0f));
-	//addSpotLight(new SpotLight(0.0f, 100.0f,
-	//	0.0f, 1.0f, 1.0f,
-	//	-7.0f, 12.0f, 8.0f,
-	//	0.7f, -0.6f, 0.3f,
-	//	0.8f, 0.01f, 0.8f,
-	//	100.0f,
-	//	1024, 1024,
-	//	0.01f, 200.0f));
+	addSpotLight(new SpotLight(0.0f, 155.0f,
+		0.0f, 0.5f, 1.0f,
+		0.0f, -10.0f, 0.0f,
+		0.0f, 0.5f, 0.0f,
+		0.1f, 0.1f, 0.1f,
+		100.0f,
+		0.01f, 200.0f));
+	addSpotLight(new SpotLight(0.0f, 100.0f,
+		0.0f, 1.0f, 1.0f,
+		-7.0f, 12.0f, 8.0f,
+		0.7f, -0.6f, 0.3f,
+		0.8f, 0.01f, 0.8f,
+		100.0f,
+		1024, 1024,
+		0.01f, 200.0f));
 }
 
 void DemoScene3D::handleOnRightKey()

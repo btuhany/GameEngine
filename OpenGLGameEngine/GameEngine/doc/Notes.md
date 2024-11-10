@@ -10,11 +10,15 @@ public function -> PublicFunction
 get and set functions -> getOrSetFunction()
 *******************************************
 
-**************************************************
-******************** TODO ************************
+************************************************************
+******************** TODO **********************************
 - [] Renderer components with render date template
 - [] Engine starting settings static class (set DEBUG_MODE and shadow modes from a single place)
-**************************************************
+- [] Fixing input lag due to thread sleep
+- [] Fix anonim calls for events
+- [] Collider scale and doesn't scale with transform scale
+- [] Abstract entity/components which use Initialize, Start, Tick
+************************************************************
 
 08.24
 TODO: Create a RenderableObject base class that contains a Renderer an calls Render() function [X]
@@ -51,10 +55,18 @@ TODO:
 - review entry point [X]
 - start engine visual diagram [CANCEL]
 
-29.10.24 daily
+daily 29.10.24 
 - BoxCollider2D debugger [X]
 - Collider check with scales[X]
 - Collider callbacks [X]
 - GameObject destroy renderer system check [X]
 - GameObject destory collision system check [X]
-- publishing event of object deactivating/activating and listening from managers
+
+29.10.24
+- publishing event of object deactivating/activating and listening from managers [X]
+- Fixing input lag due to thread sleep []
+
+03.11.24
+- Renderer code review []
+- Tags for entities []
+- Transparent sprites

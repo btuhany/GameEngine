@@ -16,9 +16,21 @@ namespace GameEngine
     void GameEntity::setActive(bool isActive)
     {
         m_IsActive = isActive;
-        /*for (auto it = m_ComponentMap.begin(); it != m_ComponentMap.end(); ++it) {
-            it->second->setEnabled(isActive);
-        }*/
+        for (auto it = m_ComponentMap.begin(); it != m_ComponentMap.end(); ++it) {
+            it->second->HandleOnOwnerSetActive(isActive);
+
+            auto compEventData = std::make_shared<ComponentEvent>();
+            compEventData->comp = it->second;
+            if (isActive)
+            {
+                compEventData->compAction = ComponentAction::OwnerEnabled;
+            }
+            else
+            {
+                compEventData->compAction = ComponentAction::OwnerDisabled;
+            }
+            EventManager::GetInstance().Publish(compEventData);
+        }
     }
     bool GameEntity::getActive()
     {
