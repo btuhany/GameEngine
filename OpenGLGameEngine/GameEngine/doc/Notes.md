@@ -75,3 +75,4 @@ daily 29.10.24
 - Renderer code review []
 - Tags for entities []
 - TEXT RENDERER []
+- Update method frame time calculations []
