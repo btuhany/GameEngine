@@ -16,9 +16,9 @@ namespace BreakoutGame
 
 		auto detector = std::make_shared<CollisionDetector>();
 		auto boxCollider = std::make_shared<BoxCollider2DComponent>(1.8f, 1.8f, CollisionType::Dynamic, detector);
-		detector->AddCollisionCallback(CollisionState::Enter,
+		detector->AddCollisionCallback(CollisionState::Stay,
 			[this](std::shared_ptr<CollisionData> collider) {
-				onCollisionEnter(collider);
+				onCollisionStay(collider);
 			});
 
 		m_Entity->AddComponent(boxCollider);
@@ -26,7 +26,7 @@ namespace BreakoutGame
 
 	void Ball::Start()
 	{
-		m_Speed = 5.0f;
+		m_Speed = 2.0f;
 		m_Entity->transform->SetPosition(glm::vec3(5.0f, 0.0f, 0.0f));
 		m_MovementVector = glm::vec3(m_Speed, 0.0f, 0.0f);
 	}
@@ -64,37 +64,35 @@ namespace BreakoutGame
 		auto downVector = glm::vec3(0.0f, -1.0f, 0.0f);
 		m_Entity->transform->Translate(downVector * m_Speed * m_DeltaTime);
 	}
-	void Ball::onCollisionEnter(std::shared_ptr<CollisionData> collisionData)
+	void Ball::onCollisionStay(std::shared_ptr<CollisionData> collisionData)
 	{
 		if (!m_Entity->getActive())
 			return;
 
-		std::cout << "Ball HandleOnCollision Enter pos, x: " << collisionData->collidedNodePos.x << " y: " << collisionData->collidedNodePos.y << std::endl;
-		//otherCollider->otherCollider->getEntity().lock()->setActive(false);
-		//if (otherCollider->getColliderType() == ColliderType::BoxCollider2D)
-		//{
-		//	auto entity = otherCollider->getEntity();
-		//	if (entity.expired())
-		//	{
-		//		return;
-		//	}
-		//	auto entitySharedPtr = entity.lock();
+		/*std::cout << "Ball HandleOnCollision Enter pos, x: " << collisionData->collidedNodePos.x << " y: " << collisionData->collidedNodePos.y << std::endl;*/
 
-		//	auto entityPos = entitySharedPtr->transform->getPosition();
-		//	auto ballPos = m_Entity->transform->getPosition();
+		auto otherCollider = collisionData->otherCollider;
+		auto colliderEntityPtr = otherCollider->getEntity();
+		if (colliderEntityPtr.expired())
+		{
+			return;
+		}
+		auto colliderEntity = colliderEntityPtr.lock();
 
-		//	auto relativeVector = glm::normalize(ballPos - entityPos);
+		if (otherCollider->getColliderType() == ColliderType::BoxCollider2D)
+		{
+			auto boxCollider = std::static_pointer_cast<BoxCollider2DComponent>(otherCollider);
+			auto normalVec = boxCollider->ProcessGetNormalVector(collisionData->collidedNodePos);
+			if (normalVec == Vector2::zero)
+			{
+				LOG_ERROR("Normal Vector calculated as zero!");
+			}
 
-		//	if (relativeVector.x > relativeVector.y)
-		//	{
-		//		
-		//	}
-		//	else if (relativeVector.x < relativeVector.y)
-		//	{
 
-		//	}
 
-		//}
+
+
+		}
 
 		//m_Speed *= (-1.0f);
 		//m_MovementVector = glm::vec3(m_Speed, 0.0f, 0.0f);

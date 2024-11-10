@@ -47,6 +47,93 @@ namespace GameEngine
 		return ColliderType::BoxCollider2D;
 	}
 
+	/// <summary>
+	/// Calculates where a point is from 4 regions of the box. 
+	/// </summary>
+	/// <param name="collisionPos"></param>
+	/// <returns></returns>
+	Vector2 BoxCollider2DComponent::ProcessGetNormalVector(Vector2 collisionPos)
+	{
+		auto entity = getEntity();
+		if (entity.expired())
+		{
+			return;
+		}
+		auto colliderEntityPos = Vector2(entity.lock()->transform->getPosition());
+		auto collisionVec = (collisionPos - colliderEntityPos).normalize();
+
+		auto collidedNodes = getBoundNodes();
+		auto topRightVec = (collidedNodes[(int)BoxColliderPosType::TopRight] - colliderEntityPos).normalize();
+		auto bottomRightVec = (collidedNodes[(int)BoxColliderPosType::BottomRight] - colliderEntityPos).normalize();
+
+		auto yPosInTopRightVec = collisionVec.x * (topRightVec.y / topRightVec.x);
+		auto yPosInBottomRightVec = collisionVec.x * (bottomRightVec.y / bottomRightVec.x);
+
+		std::cout << "Ball yPosInBottomRightVec, x: " << yPosInBottomRightVec << std::endl;
+		std::cout << "Ball yPosInTopRightVec, x: " << yPosInTopRightVec << std::endl;
+
+		Vector2 normalVector = Vector2::zero;
+		if (collisionVec.x > 0)
+		{
+			if (collisionVec.y > yPosInTopRightVec)
+			{
+				//UP
+				normalVector = Vector2::up;
+			}
+			else if (collisionVec.y <= yPosInTopRightVec && collisionVec.y >= yPosInBottomRightVec)
+			{
+				//RIGHT
+				normalVector = Vector2::right;
+			}
+			else if (collisionVec.y < yPosInBottomRightVec)
+			{
+				//DOWN
+				normalVector = Vector2::down;
+			}
+		}
+		else if (collisionVec.x < 0)
+		{
+			if (collisionVec.y > yPosInBottomRightVec)
+			{
+				//UP
+				normalVector = Vector2::up;
+			}
+			else if (collisionVec.y >= yPosInTopRightVec && collisionVec.y <= yPosInBottomRightVec)
+			{
+				//LEFT
+				normalVector = Vector2::left;
+			}
+			else if (collisionVec.y < yPosInTopRightVec)
+			{
+				//DOWN
+				normalVector = Vector2::down;
+			}
+		}
+		else if (collisionVec.x == 0)
+		{
+			if (collisionVec.y > 0)
+			{
+				//UP
+				normalVector = Vector2::up;
+			}
+			else if (collisionVec.y < 0)
+			{
+				//BOTTOM
+				normalVector = Vector2::down;
+			}
+			else if (collisionVec.y == 0)
+			{
+				//MID?
+				normalVector = Vector2::zero;
+			}
+		}
+
+		std::cout << "Ball HandleOnCollision Normal vector, x: " << normalVector.x << " y: " << normalVector.y << std::endl;
+
+		return normalVector;
+
+	}
+
 	void BoxCollider2DComponent::HandleOnAfterOwnerInstantiated()
 	{
 #if _DEBUG

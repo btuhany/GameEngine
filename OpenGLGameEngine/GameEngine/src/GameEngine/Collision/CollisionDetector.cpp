@@ -112,7 +112,7 @@ namespace GameEngine
 		if (SETTINGS_COLLIDER_DEBUG_MODE)
 		{
 			auto gameEntityName = otherCollider->getEntity().lock()->getName();
-			std::cout << "HandleOnCollision Stay with: " << gameEntityName << std::endl;
+			//std::cout << "HandleOnCollision Stay with: " << gameEntityName << std::endl;
 		}
 		auto it = m_CollisionCallbacks.find(CollisionState::Stay);
 		if (it != m_CollisionCallbacks.end() && it->second)

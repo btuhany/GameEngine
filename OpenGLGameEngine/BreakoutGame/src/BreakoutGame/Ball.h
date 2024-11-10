@@ -15,7 +15,7 @@ namespace BreakoutGame
 		void MoveDown() override;
 	private:
 		std::shared_ptr<SpriteEntity> m_Entity;
-		void onCollisionEnter(std::shared_ptr<CollisionData> collisionData);
+		void onCollisionStay(std::shared_ptr<CollisionData> collisionData);
 		glm::vec3 m_MovementVector = glm::vec3(0.0f);
 		float m_Speed = 0.01f;
 		float m_DeltaTime;

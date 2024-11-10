@@ -30,6 +30,7 @@ namespace GameEngine
 		void HandleOnOwnerSetActive(bool isActive) override;
 		void HandleOnPreOwnerDestroyed() override;
 		ColliderType getColliderType() override;
+		Vector2 ProcessGetNormalVector(Vector2 collisionPos);
 	private:
 		float m_Width;
 		float m_Height;
