@@ -150,6 +150,12 @@
     <ClCompile Include="src\GameEngine\Render\DebugRenderData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameEngine\Components\TextRendererComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\Render\TextData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameEngine\Scene\Camera.h">
@@ -318,6 +324,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Collision\CollisionData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Components\TextRendererComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Render\TextData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

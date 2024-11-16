@@ -79,6 +79,8 @@
     <ClCompile Include="src\GameEngine\Components\Transform.cpp" />
     <ClCompile Include="src\GameEngine\Math\Vector2.cpp" />
     <ClCompile Include="src\GameEngine\Math\Vector3.cpp" />
+    <ClCompile Include="src\GameEngine\Components\TextRendererComponent.cpp" />
+    <ClCompile Include="src\GameEngine\Render\TextData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameEngine\Collision\CollisionData.h" />
@@ -137,6 +139,8 @@
     <ClInclude Include="src\GameEngine\Components\Transform.h" />
     <ClInclude Include="src\GameEngine\Math\Vector2.h" />
     <ClInclude Include="src\GameEngine\Math\Vector3.h" />
+    <ClInclude Include="src\GameEngine\Components\TextRendererComponent.h" />
+    <ClInclude Include="src\GameEngine\Render\TextData.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assimp-vc143-mt.dll" />
