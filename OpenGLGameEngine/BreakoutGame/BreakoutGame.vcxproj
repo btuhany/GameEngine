@@ -157,7 +157,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)/OpenGLGameEngine;$(SolutionDir)/../ExternalLibs/GLEW/lib/Release/Win32;$(SolutionDir)/../ExternalLibs/GLFW/lib-vc2022;$(SolutionDir)/../ExternalLibs/ASSIMP/lib;$(SolutionDir)/../ExternalLibs/FreeType;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)/OpenGLGameEngine;$(SolutionDir)/../ExternalLibs/GLEW/lib/Release/Win32;$(SolutionDir)/../ExternalLibs/GLFW/lib-vc2022;$(SolutionDir)/../ExternalLibs/ASSIMP/lib;$(SolutionDir)/../ExternalLibs/FreeType/Lib;D:\Workspaces\GameEngine\ExternalLibs\FreeType\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;assimp-vc143-mt.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>

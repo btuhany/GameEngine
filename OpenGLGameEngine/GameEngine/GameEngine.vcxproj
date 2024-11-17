@@ -301,10 +301,13 @@
       <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)/OpenGLGameEngine;$(SolutionDir)/../ExternalLibs/GLEW/lib/Release/Win32;$(SolutionDir)/../ExternalLibs/GLFW/lib-vc2022;$(SolutionDir)/../ExternalLibs/ASSIMP/lib;$(SolutionDir)/../ExternalLibs/FreeType/freetype;$(SolutionDir)/../ExternalLibs/FreeType;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freetype.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)/OpenGLGameEngine;$(SolutionDir)/../ExternalLibs/GLEW/lib/Release/Win32;$(SolutionDir)/../ExternalLibs/GLFW/lib-vc2022;$(SolutionDir)/../ExternalLibs/ASSIMP/lib;$(SolutionDir)/../ExternalLibs/FreeType/Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>msvcrt.lib</IgnoreSpecificDefaultLibraries>
     </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDynamicLibrary|Win32'">
     <ClCompile>
