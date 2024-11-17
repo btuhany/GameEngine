@@ -4,7 +4,7 @@
 *******************************************
 ********** NAMING CONVENTION **************
 private member -> m_PrivateMember
-public member -> privateMember
+public member -> publicMember
 private function -> privateFunction()
 public function -> PublicFunction
 get and set functions -> getOrSetFunction()
@@ -18,6 +18,7 @@ get and set functions -> getOrSetFunction()
 - [] Fix anonim calls for events
 - [] Collider scale and doesn't scale with transform scale
 - [] Abstract entity/components which use Initialize, Start, Tick
+- [] Abstract managers (renderer, textRenderer, collision manager)
 ************************************************************
 
 08.24
