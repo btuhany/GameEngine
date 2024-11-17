@@ -2,6 +2,9 @@
 
 namespace GameEngine
 {
+	TextRendererComponent::TextRendererComponent()
+	{
+	}
 	void TextRendererComponent::Render(GLuint modelLocation)
 	{
 	}

@@ -24,6 +24,7 @@ namespace GameEngine {
 		delete m_MainWindow;
 		delete m_Renderer;
 		delete m_CollisionManager;
+		delete m_TextRenderManager;
 	}
 
 	void Engine::Initialize(Scene* scene, GameModeType gameModeType, bool activateCollisionSystem)
@@ -36,10 +37,12 @@ namespace GameEngine {
 		m_IsCollisionsEnabled = activateCollisionSystem;
 		m_Renderer = new Renderer();
 		m_Scene = scene;
+		m_TextRenderManager = new TextRenderManager();
 
 		m_MainWindow->Initialize();
 		m_Scene->Initialize();
 		m_Renderer->Initialize(m_Scene, m_MainWindow->getBufferRatio());
+		m_TextRenderManager->Initialize();
 		m_GameModeType = gameModeType;
 		//TODO move to renderer
 		if (gameModeType == GameModeType::TwoDimensional)

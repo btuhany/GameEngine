@@ -153,7 +153,10 @@
     <ClCompile Include="src\GameEngine\Components\TextRendererComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Render\TextData.cpp">
+    <ClCompile Include="src\GameEngine\Resource\TextData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\Render\TextRenderManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -329,7 +332,10 @@
     <ClInclude Include="src\GameEngine\Components\TextRendererComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Render\TextData.h">
+    <ClInclude Include="src\GameEngine\Resource\TextData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Render\TextRenderManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -361,5 +367,7 @@
     <None Include="src\Resources\Shaders\skybox.vert" />
     <None Include="doc\Notes.md" />
     <None Include="doc\GameEngineRender.drawio" />
+    <None Include="src\Resources\Shaders\text_shader.vert" />
+    <None Include="src\Resources\Shaders\text_shader.frag" />
   </ItemGroup>
 </Project>

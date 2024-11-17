@@ -45,6 +45,7 @@
     <ClCompile Include="src\GameEngine\Components\SpriteRendererComponent.cpp" />
     <ClCompile Include="src\GameEngine\Render\RenderData.cpp" />
     <ClCompile Include="src\GameEngine\Render\Renderer.cpp" />
+    <ClCompile Include="src\GameEngine\Render\TextRenderManager.cpp" />
     <ClCompile Include="src\GameEngine\Resource\ModelData.cpp" />
     <ClCompile Include="src\GameEngine\Render\ModelRenderData.cpp" />
     <ClCompile Include="src\GameEngine\Components\ModelRendererComponent.cpp" />
@@ -80,7 +81,7 @@
     <ClCompile Include="src\GameEngine\Math\Vector2.cpp" />
     <ClCompile Include="src\GameEngine\Math\Vector3.cpp" />
     <ClCompile Include="src\GameEngine\Components\TextRendererComponent.cpp" />
-    <ClCompile Include="src\GameEngine\Render\TextData.cpp" />
+    <ClCompile Include="src\GameEngine\Resource\TextData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameEngine\Collision\CollisionData.h" />
@@ -99,6 +100,7 @@
     <ClInclude Include="src\GameEngine\Render\Renderer.h" />
     <ClInclude Include="src\GameEngine\Event\EventManager.h" />
     <ClInclude Include="src\GameEngine\Event\Event.h" />
+    <ClInclude Include="src\GameEngine\Render\TextRenderManager.h" />
     <ClInclude Include="src\GameEngine\Resource\ModelData.h" />
     <ClInclude Include="src\GameEngine\Render\ModelRenderData.h" />
     <ClInclude Include="src\GameEngine\Components\ModelRendererComponent.h" />
@@ -140,7 +142,7 @@
     <ClInclude Include="src\GameEngine\Math\Vector2.h" />
     <ClInclude Include="src\GameEngine\Math\Vector3.h" />
     <ClInclude Include="src\GameEngine\Components\TextRendererComponent.h" />
-    <ClInclude Include="src\GameEngine\Render\TextData.h" />
+    <ClInclude Include="src\GameEngine\Resource\TextData.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assimp-vc143-mt.dll" />
@@ -156,6 +158,8 @@
     <None Include="src\Resources\Shaders\shader.vert" />
     <None Include="src\Resources\Shaders\skybox.frag" />
     <None Include="src\Resources\Shaders\skybox.vert" />
+    <None Include="src\Resources\Shaders\text_shader.frag" />
+    <None Include="src\Resources\Shaders\text_shader.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

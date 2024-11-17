@@ -11,6 +11,7 @@
 #include "../Scene/CameraTypeEnum.h"
 #include "../Render/Renderer.h"
 #include "../Collision/CollisionManager.h"
+#include "../Render/TextRenderManager.h"
 
 namespace GameEngine {
 	enum class GameModeType
@@ -31,11 +32,12 @@ namespace GameEngine {
 		void Pause();
 		void setDebugInputActive(bool active);
 	private:
-		Window* m_MainWindow;
-		Scene* m_Scene;
-		Input* m_InputHandler;
-		Renderer* m_Renderer;
-		CollisionManager* m_CollisionManager;
+		Window* m_MainWindow = nullptr;
+		Scene* m_Scene = nullptr;
+		Input* m_InputHandler = nullptr;
+		Renderer* m_Renderer = nullptr;
+		CollisionManager* m_CollisionManager = nullptr;
+		TextRenderManager* m_TextRenderManager = nullptr;
 		GameModeType m_GameModeType;
 		bool m_IsInitialized;
 		bool m_ShouldPause;
