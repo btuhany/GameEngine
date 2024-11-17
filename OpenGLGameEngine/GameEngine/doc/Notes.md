@@ -19,6 +19,8 @@ get and set functions -> getOrSetFunction()
 - [] Collider scale and doesn't scale with transform scale
 - [] Abstract entity/components which use Initialize, Start, Tick
 - [] Abstract managers (renderer, textRenderer, collision manager)
+- [] Check type of component when adding to entity if there is any same type
+- [] MeshData and TextData base class (Abstract mesh data class)
 ************************************************************
 
 08.24
