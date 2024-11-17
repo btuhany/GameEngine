@@ -13,13 +13,13 @@ namespace GameEngine
 		}
 
 		FT_Face face;
-		if (FT_New_Face(ft, "fonts/arial.ttf", 0, &face)) //TODO
+		if (FT_New_Face(ft, "src/BreakoutGame/Fonts/arial.ttf", 0, &face)) //TODO
 		{
 			LOG_CORE_ERROR("ERROR::FREETYPE: Failed to load font");
 			return;
 		}
 
-		FT_Set_Pixel_Sizes(face, 0, 48);  //0 means dynamically calculate the width based on height
+		FT_Set_Pixel_Sizes(face, 0, 150);  //0 means dynamically calculate the width based on height
 
 
 		if (FT_Load_Char(face, 'X', FT_LOAD_RENDER))
@@ -53,6 +53,7 @@ namespace GameEngine
                 GL_UNSIGNED_BYTE,
                 face->glyph->bitmap.buffer
             );
+
             // set texture options
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
@@ -66,34 +67,35 @@ namespace GameEngine
                 face->glyph->advance.x
             };
             charactersMap.insert(std::pair<char, TextCharacter>(c, character));
-
-            FT_Done_Face(face);
-            FT_Done_FreeType(ft);
         }
-
+        glBindTexture(GL_TEXTURE_2D, 0);
+        FT_Done_Face(face);
+        FT_Done_FreeType(ft);
         static const char* vShaderLocation = "src/BreakoutGame/Shaders/text_shader.vert";
         static const char* fShaderLocation = "src/BreakoutGame/Shaders/text_shader.frag";
         textShader = new Shader();
         textShader->CreateFromFiles(vShaderLocation, fShaderLocation);
+
+        textData = new TextData();
+        textData->CreateMesh();
 	}
     void TextRenderManager::Render()
     {
-        std::string text = "HELLO HELLO HELLO";
+        std::string text = "HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO HELLO ";
         auto VAO = textData->GetVAO();
         auto VBO = textData->GetVBO();
-        auto color = glm::vec3(1.0f, 1.0f, 0.0f);
-        float scale = 3.0f;
-        float x = 10.0f;
-        float y = 5.0f;
-
+        auto color = glm::vec3(0.0f, 1.0f, 0.0f);
+        float scale = 1.0f;
+        float x = 300.0f;
+        float y = 300.0f;
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glm::mat4 projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
+        glm::mat4 projection = glm::ortho(0.0f, 800.0f, -10.0f, 600.0f);
 
         textShader->UseShader();
         glUniform3f(glGetUniformLocation(textShader->shaderID, "textColor"), color.x, color.y, color.z);
-        glActiveTexture(GL_TEXTURE2);
+        glActiveTexture(GL_TEXTURE0);
         glBindVertexArray(VAO);
 
         std::string::const_iterator c;

@@ -1,5 +1,6 @@
 #pragma once
 #include <GL\glew.h>
+#include <glm/glm.hpp>
 #include "../Core.h"
 namespace GameEngine
 {
@@ -8,7 +9,7 @@ namespace GameEngine
 	public:
 		TextData();
 		~TextData();
-		void CreateMesh(GLfloat* vertices, unsigned int* indices, unsigned int numOfVertices, unsigned int numOfIndices);
+		void CreateMesh();
 		void ClearMesh();
 		GLuint GetVAO();
 		GLuint GetVBO();
