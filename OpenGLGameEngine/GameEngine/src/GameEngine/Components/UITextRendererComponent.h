@@ -4,14 +4,15 @@
 
 namespace GameEngine
 {
-	class ENGINE_API TextRendererComponent : public RendererComponent
+	class ENGINE_API UITextRendererComponent : public RendererComponent
 	{
 	public:
-		TextRendererComponent();
+		UITextRendererComponent();
 		void Render(GLuint modelLocation) override;
 		std::shared_ptr<Shader> getRenderDataShader() override;
 		void ChangeRenderShader(std::shared_ptr<Shader> newRenderShader) override;
 		bool IsShadowRenderable() override;
+		ComponentType getType() override;
 	private:
 		void drawText();
 	};

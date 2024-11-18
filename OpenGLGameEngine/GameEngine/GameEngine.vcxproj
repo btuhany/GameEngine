@@ -80,8 +80,11 @@
     <ClCompile Include="src\GameEngine\Components\Transform.cpp" />
     <ClCompile Include="src\GameEngine\Math\Vector2.cpp" />
     <ClCompile Include="src\GameEngine\Math\Vector3.cpp" />
-    <ClCompile Include="src\GameEngine\Components\TextRendererComponent.cpp" />
+    <ClCompile Include="src\GameEngine\Components\UITextRendererComponent.cpp" />
     <ClCompile Include="src\GameEngine\Resource\TextData.cpp" />
+    <ClCompile Include="src\GameEngine\Entities\UITextEntity.cpp" />
+    <ClCompile Include="src\GameEngine\Entities\UIEntity.cpp" />
+    <ClCompile Include="src\GameEngine\Components\UIRendererComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameEngine\Collision\CollisionData.h" />
@@ -141,8 +144,11 @@
     <ClInclude Include="src\GameEngine\Components\Transform.h" />
     <ClInclude Include="src\GameEngine\Math\Vector2.h" />
     <ClInclude Include="src\GameEngine\Math\Vector3.h" />
-    <ClInclude Include="src\GameEngine\Components\TextRendererComponent.h" />
+    <ClInclude Include="src\GameEngine\Components\UITextRendererComponent.h" />
     <ClInclude Include="src\GameEngine\Resource\TextData.h" />
+    <ClInclude Include="src\GameEngine\Entities\UITextEntity.h" />
+    <ClInclude Include="src\GameEngine\Entities\UIEntity.h" />
+    <ClInclude Include="src\GameEngine\Components\UIRendererComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assimp-vc143-mt.dll" />

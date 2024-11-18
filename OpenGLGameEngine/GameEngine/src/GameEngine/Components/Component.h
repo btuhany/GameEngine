@@ -12,7 +12,8 @@ namespace GameEngine
 		ModelRenderer = 2,
 		Renderer = 3,
 		Transform = 4,
-		Collision = 5
+		Collision = 5,
+		UIRenderer = 6
 	};
 
 	class GameEntity; //Forward decleration for circular dependency
