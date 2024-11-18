@@ -77,6 +77,11 @@ namespace BreakoutGame
 		auto paddleEntity = m_Paddle->getEntity();
 		instantiateGameEntity(paddleEntity);
 
+		auto uiRenderData = std::make_shared<UIRenderData>(mainShader);
+		auto uiEntity = std::make_shared<UIEntity>(uiRenderData);
+		instantiateGameEntity(uiEntity);
+
+
 		m_Ball = std::make_shared<Ball>();
 		m_Ball->Initialize(mainShader);
 		auto ballEntity = m_Ball->getEntity();

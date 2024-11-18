@@ -122,7 +122,7 @@ namespace GameEngine {
 
 			//TODO one function
 			m_Renderer->DrawScene(m_ShadowPassActive, renderDirLightShadow, renderOmniLightShadow);
-			//m_Renderer->DrawUI();
+			m_Renderer->DrawUI();
 
 			m_MainWindow->SwapBuffers();
 			m_MainWindow->ClearKeyCache();

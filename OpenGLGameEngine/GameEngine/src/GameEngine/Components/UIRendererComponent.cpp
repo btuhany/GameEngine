@@ -55,7 +55,11 @@ namespace GameEngine
 			indexOffset, indexOffset + 2, indexOffset + 3
 			});
 
-			glBindVertexArray(VAO);
+		glActiveTexture(GL_TEXTURE2);
+		glBindVertexArray(VAO);
+
+		//TODO
+		//glBindTexture(GL_TEXTURE_2D, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_DYNAMIC_DRAW);
 
@@ -71,5 +75,6 @@ namespace GameEngine
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
+
 	}
 }

@@ -161,7 +161,8 @@ namespace GameEngine
 
 		for (size_t i = 0; i < m_UIRendererComponents.size(); i++)
 		{
-			auto mainShader = m_UIRendererComponents[i]->getRenderDataShader();
+			auto uiRenderer = m_UIRendererComponents[i];
+			auto mainShader = uiRenderer->getRenderDataShader();
 			mainShader->UseShader();
 			glUniformMatrix4fv(mainShader->GetViewLocation(), 1, GL_FALSE, glm::value_ptr(m_Camera->CalculateViewMatrix()));
 			glUniformMatrix4fv(mainShader->GetModelLocation(), 1,
@@ -171,6 +172,9 @@ namespace GameEngine
 					glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f))
 				));
 			glUniformMatrix4fv(mainShader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(m_Camera->CalcGetProjectionMatrix(1080.0f / 1920.0f)));
+			glm::mat4 projectionMatrix = glm::ortho(-500.0f, 500.0f, -500.0f, 500.0f, -500.0f, 500.0f);
+			glUniformMatrix4fv(mainShader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+			uiRenderer->Render(uiRenderer->getRenderDataShader()->GetModelLocation());
 		}
 	}
 
