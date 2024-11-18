@@ -40,7 +40,7 @@ namespace GameEngine
 		m_IsInitialized = true;
 	}
 
-	void Renderer::Draw(bool shadowPassActive, bool renderDirLightShadow, bool renderOmniLightShadow)
+	void Renderer::DrawScene(bool shadowPassActive, bool renderDirLightShadow, bool renderOmniLightShadow)
 	{
 		glm::mat4 projection = m_Scene->getCamera()->
 			CalcGetProjectionMatrix(m_BufferRatio);
@@ -152,6 +152,11 @@ namespace GameEngine
 			renderShader->Validate();
 			renderComponent->Render(renderComponent->getRenderDataShader()->GetModelLocation());
 		}
+	}
+
+	void Renderer::DrawUI()
+	{
+
 	}
 
 	void Renderer::DirectionalShadowMapPass(std::shared_ptr<DirectionalLight> dLight)

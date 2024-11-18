@@ -28,9 +28,12 @@ namespace GameEngine
 		~Renderer();
 		void Initialize(Scene* scene, GLfloat bufferRatio);
 
-		void Draw(bool shadowPassActive, bool renderDirLightShadow, bool renderOmniLightShadow);
+		void DrawScene(bool shadowPassActive, bool renderDirLightShadow, bool renderOmniLightShadow);
 		void DebugPass(glm::mat4 projectionMatrix);
 		void RenderPass(glm::mat4 projectionMatrix, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount);
+
+		void DrawUI();
+
 		void DirectionalShadowMapPass(std::shared_ptr<DirectionalLight> dLight);
 		void OmniShadowMapPass(std::shared_ptr<Shader> omniShadowShader, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount);
 
