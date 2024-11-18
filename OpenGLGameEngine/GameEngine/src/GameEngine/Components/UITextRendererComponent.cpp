@@ -1,4 +1,4 @@
-#include "TextRendererComponent.h"
+#include "UITextRendererComponent.h"
 
 namespace GameEngine
 {
@@ -19,10 +19,6 @@ namespace GameEngine
 	bool UITextRendererComponent::IsShadowRenderable()
 	{
 		return false;
-	}
-	ComponentType UITextRendererComponent::getType()
-	{
-		return ComponentType::UIRenderer;
 	}
 	void UITextRendererComponent::drawText()
 	{

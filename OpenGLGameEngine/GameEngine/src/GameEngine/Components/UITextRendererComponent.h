@@ -12,7 +12,6 @@ namespace GameEngine
 		std::shared_ptr<Shader> getRenderDataShader() override;
 		void ChangeRenderShader(std::shared_ptr<Shader> newRenderShader) override;
 		bool IsShadowRenderable() override;
-		ComponentType getType() override;
 	private:
 		void drawText();
 	};

@@ -85,6 +85,7 @@
     <ClCompile Include="src\GameEngine\Entities\UITextEntity.cpp" />
     <ClCompile Include="src\GameEngine\Entities\UIEntity.cpp" />
     <ClCompile Include="src\GameEngine\Components\UIRendererComponent.cpp" />
+    <ClCompile Include="src\GameEngine\Render\UIRenderData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameEngine\Collision\CollisionData.h" />
@@ -149,6 +150,7 @@
     <ClInclude Include="src\GameEngine\Entities\UITextEntity.h" />
     <ClInclude Include="src\GameEngine\Entities\UIEntity.h" />
     <ClInclude Include="src\GameEngine\Components\UIRendererComponent.h" />
+    <ClInclude Include="src\GameEngine\Render\UIRenderData.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assimp-vc143-mt.dll" />

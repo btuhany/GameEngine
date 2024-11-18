@@ -156,7 +156,22 @@ namespace GameEngine
 
 	void Renderer::DrawUI()
 	{
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glViewport(0, 0, 1920, 1080);
 
+		for (size_t i = 0; i < m_UIRendererComponents.size(); i++)
+		{
+			auto mainShader = m_UIRendererComponents[i]->getRenderDataShader();
+			mainShader->UseShader();
+			glUniformMatrix4fv(mainShader->GetViewLocation(), 1, GL_FALSE, glm::value_ptr(m_Camera->CalculateViewMatrix()));
+			glUniformMatrix4fv(mainShader->GetModelLocation(), 1,
+				GL_FALSE, glm::value_ptr(
+					glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f)) *
+					glm::mat4(1.0f) *
+					glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f))
+				));
+			glUniformMatrix4fv(mainShader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(m_Camera->CalcGetProjectionMatrix(1080.0f / 1920.0f)));
+		}
 	}
 
 	void Renderer::DirectionalShadowMapPass(std::shared_ptr<DirectionalLight> dLight)
@@ -308,6 +323,26 @@ namespace GameEngine
 				if (it != m_RendererComponents.end())
 				{
 					m_RendererComponents.erase(it);
+				}
+			}
+		}
+		else if (componentType == ComponentType::UIRenderer)
+		{
+			//TODO
+			if (compAction == ComponentAction::Added || compAction == ComponentAction::OwnerEnabled)
+			{
+				auto rendererComponent = std::static_pointer_cast<UIRendererComponent>(componentEvent->comp);
+				auto it = std::find(m_UIRendererComponents.begin(), m_UIRendererComponents.end(), rendererComponent);
+				if (it == m_UIRendererComponents.end())
+					m_UIRendererComponents.push_back(rendererComponent);
+			}
+			else if (compAction == ComponentAction::OwnerPreDestroyed || compAction == ComponentAction::OwnerDisabled)
+			{
+				auto rendererComponent = std::static_pointer_cast<UIRendererComponent>(componentEvent->comp);
+				auto it = std::find(m_UIRendererComponents.begin(), m_UIRendererComponents.end(), rendererComponent);
+				if (it != m_UIRendererComponents.end())
+				{
+					m_UIRendererComponents.erase(it);
 				}
 			}
 		}

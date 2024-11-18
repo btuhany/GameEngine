@@ -19,6 +19,7 @@
 #include "../StartModeSettings.h"
 #include "../Components/ColliderComponent.h"
 #include "../Entities/GameEntity.h"
+#include "../Components/UIRendererComponent.h"
 namespace GameEngine
 {
 	class ENGINE_API Renderer
@@ -39,6 +40,7 @@ namespace GameEngine
 
 	private:
 		std::vector<std::shared_ptr<RendererComponent>> m_RendererComponents;
+		std::vector<std::shared_ptr<UIRendererComponent>> m_UIRendererComponents;
 		glm::vec3 m_BackgroundColor;
 		std::shared_ptr<Skybox> m_Skybox;
 		std::shared_ptr<Camera> m_Camera;

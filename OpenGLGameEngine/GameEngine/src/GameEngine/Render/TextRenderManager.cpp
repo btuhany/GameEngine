@@ -80,29 +80,6 @@ namespace GameEngine
         textShader = new Shader();
         textShader->CreateFromFiles(vShaderLocation, fShaderLocation);
 
-        glGenVertexArrays(1, &VAO);
-        glBindVertexArray(VAO);
-
-        // Generate and bind Vertex Buffer Object (VBO)
-        glGenBuffers(1, &VBO);
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-        // Define vertex attributes (position and texture coordinates)
-        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-        glEnableVertexAttribArray(1);
-
-        // Generate and bind Element Buffer Object (EBO)
-        glGenBuffers(1, &EBO);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-
-        // Unbind VAO (to avoid accidental modification)
-        glBindVertexArray(0);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-
         std::shared_ptr<Texture> blueTex = std::make_shared<Texture>("src/BreakoutGame/Textures/01-Breakout-Tiles.PNG");
         blueTex->LoadTextureWithAlpha();
         breakoutSpriteRenderData = std::make_shared<SpriteRenderData>(blueTex, nullptr, mainShader);
@@ -135,18 +112,14 @@ namespace GameEngine
             breakoutSpriteRenderData->texture->UseTexture();
         }
 
-        auto spriteMeshData = breakoutSpriteRenderData->quadMesh;
-        glBindVertexArray(spriteMeshData->GetVAO());
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, spriteMeshData->GetIBO());
-        glDrawElements(GL_TRIANGLES, spriteMeshData->GetIndexCount(), GL_UNSIGNED_INT, 0);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-        glBindVertexArray(0);
+
 
         glm::mat4 projectionMatrix = glm::ortho(-500.0f, 500.0f, -500.0f, 500.0f, -500.0f, 500.0f);
         glUniformMatrix4fv(textShader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
         auto hh = glGetUniformLocation(textShader->shaderID, "textColor");
         glActiveTexture(GL_TEXTURE2);
         glUniform3f(hh, 0.5f, 1.0f, 0.5f);
+
         glBindVertexArray(VAO);
 
         std::vector<float> vertices;

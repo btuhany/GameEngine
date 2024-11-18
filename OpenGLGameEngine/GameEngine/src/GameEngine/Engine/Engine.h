@@ -37,7 +37,6 @@ namespace GameEngine {
 		Input* m_InputHandler = nullptr;
 		Renderer* m_Renderer = nullptr;
 		CollisionManager* m_CollisionManager = nullptr;
-		TextRenderManager* m_TextRenderManager = nullptr;
 		GameModeType m_GameModeType;
 		bool m_IsInitialized;
 		bool m_ShouldPause;
