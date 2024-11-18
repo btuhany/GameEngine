@@ -21,6 +21,7 @@ get and set functions -> getOrSetFunction()
 - [] Abstract managers (renderer, textRenderer, collision manager)
 - [] Check type of component when adding to entity if there is any same type
 - [] MeshData and TextData base class (Abstract mesh data class)
+- [] FPS
 ************************************************************
 
 08.24
