@@ -27,7 +27,7 @@ namespace GameEngine
 	public:
 		Renderer();
 		~Renderer();
-		void Initialize(Scene* scene, GLfloat bufferRatio);
+		void Initialize(Scene* scene, GLfloat bufferRatio, float viewPortWidth, float viewPortHeight);
 
 		void DrawScene(bool shadowPassActive, bool renderDirLightShadow, bool renderOmniLightShadow);
 		void DebugPass(glm::mat4 projectionMatrix);
@@ -53,7 +53,8 @@ namespace GameEngine
 		void onSceneCameraChangedEvent(std::shared_ptr<SceneCameraChangedEvent> sceneCameraChangedEventData);
 		bool isAbleToRender(std::shared_ptr<RendererComponent> rendererComponent);
 		GLfloat m_BufferRatio;
-
+		float m_ViewPortWidth;
+		float m_ViewPortHeight;
 	public:
 		static std::unordered_map<std::shared_ptr<GameEntity>, std::shared_ptr<DebugRenderData>> DebugMeshRenderDataTransformMap;
 	};

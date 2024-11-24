@@ -88,7 +88,8 @@ namespace GameEngine
     {
         std::string text = "TOOK ME A DAY";
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        glViewport(0, 0, 1920, 1080);
+        glViewport(0, 0, 
+            1920, 1080);
         //Clear window
         //glClearColor(0.0f, 0.5f, 0.0f, 1.0f);
         //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

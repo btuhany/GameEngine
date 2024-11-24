@@ -22,7 +22,7 @@ namespace GameEngine
 			this->onSceneCameraChangedEvent(event);
 			});
 	}
-	void Renderer::Initialize(Scene* scene, GLfloat bufferRatio)
+	void Renderer::Initialize(Scene* scene, GLfloat bufferRatio, float viewPortWidth, float viewPortHeight)
 	{
 		if (!(scene->IsInitialized()))
 		{
@@ -37,6 +37,8 @@ namespace GameEngine
 		m_OmniShadowShader = scene->getOmniShadowShader();
 		m_Scene = scene;
 		m_BufferRatio = bufferRatio;
+		m_ViewPortWidth = viewPortWidth;
+		m_ViewPortHeight = viewPortHeight;
 		m_IsInitialized = true;
 	}
 
@@ -97,7 +99,7 @@ namespace GameEngine
 	void Renderer::RenderPass(glm::mat4 projectionMatrix, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount)
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		glViewport(0, 0, 1920, 1080);
+		glViewport(0, 0, m_ViewPortWidth, m_ViewPortHeight);
 		//Clear window
 		glClearColor(m_BackgroundColor.x, m_BackgroundColor.y, m_BackgroundColor.z, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
