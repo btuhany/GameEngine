@@ -77,10 +77,14 @@ namespace BreakoutGame
 		auto paddleEntity = m_Paddle->getEntity();
 		instantiateGameEntity(paddleEntity);
 
-		auto uiRenderData = std::make_shared<UIRenderData>(mainShader);
+
+		static const char* vUIShaderLocation = "src/BreakoutGame/Shaders/ui_shader.vert";
+		static const char* fUIShaderLocation = "src/BreakoutGame/Shaders/ui_shader.frag";
+		std::shared_ptr<Shader> uiShader = std::make_shared<Shader>();
+		uiShader->CreateFromFiles(vUIShaderLocation, fUIShaderLocation);
+		auto uiRenderData = std::make_shared<UIRenderData>(uiShader);
 		auto uiEntity = std::make_shared<UIEntity>(uiRenderData);
 		instantiateGameEntity(uiEntity);
-
 
 		m_Ball = std::make_shared<Ball>();
 		m_Ball->Initialize(mainShader);

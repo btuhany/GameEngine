@@ -30,44 +30,44 @@ namespace GameEngine
 		GLuint VBO = m_RenderData->VBO;
 		GLuint IBO = m_RenderData->IBO;
 
-		//TODO
-		std::vector<float> vertices;
-		std::vector<unsigned int> indices;
+		//EMPTY QUAD PANEL
+		//std::vector<float> vertices;
+		//std::vector<unsigned int> indices;
 		unsigned int indexOffset = 0;
 		float xpos = 10.0f;
-		float ypos = 0.0f;
-		float w = 30.0f;
-		float h = 30.0f;
+		float ypos = 500.0f;
+		float w = 500.0f;
+		float h = 300.0f;
 
-		float charVertices[4][4] = {
-			{ xpos,     ypos + h,   0.0f, 0.0f },
-			{ xpos,     ypos,       0.0f, 1.0f },
-			{ xpos + w, ypos,       1.0f, 1.0f },
-			{ xpos + w, ypos + h,   1.0f, 0.0f }
+		float vertices[] = {
+			xpos,     ypos + h, 0.0f, 0.0f, // Top-left
+			xpos,     ypos,     0.0f, 1.0f, // Bottom-left
+			xpos + w, ypos,     1.0f, 1.0f, // Bottom-right
+			xpos + w, ypos + h, 1.0f, 0.0f  // Top-right
 		};
-		for (int i = 0; i < 4; ++i)
-		{
-			vertices.insert(vertices.end(), { charVertices[i][0], charVertices[i][1], charVertices[i][2], charVertices[i][3] });
-		}
 
-		indices.insert(indices.end(), {
-			indexOffset, indexOffset + 1, indexOffset + 2,
-			indexOffset, indexOffset + 2, indexOffset + 3
-			});
+		// Index data
+		unsigned int indices[] = {
+			indexOffset, indexOffset + 1, indexOffset + 2, // First triangle
+			indexOffset, indexOffset + 2, indexOffset + 3  // Second triangle
+		};
 
 		glActiveTexture(GL_TEXTURE2);
 		glBindVertexArray(VAO);
 
-		//glBindTexture(GL_TEXTURE_2D, 0);
+		// Upload vertex data
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_DYNAMIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
 
+		// Upload index data
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_DYNAMIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_DYNAMIC_DRAW);
 
-		glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, 0);
+		// Draw elements
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 		// Clean up
+		//glBindTexture(GL_TEXTURE_2D, 0); TODO shoudl bind textures to zero afterwards?
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);

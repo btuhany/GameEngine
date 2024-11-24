@@ -159,24 +159,19 @@ namespace GameEngine
 	void Renderer::DrawUI()
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		glViewport(0, 0, 1920, 1080);
+		glViewport(0, 0, m_ViewPortWidth, m_ViewPortHeight);
 
 		//TODO ui shader can be common.
 		for (size_t i = 0; i < m_UIRendererComponents.size(); i++)
 		{
 			auto uiRenderer = m_UIRendererComponents[i];
-			auto mainShader = uiRenderer->getRenderDataShader();
-			mainShader->UseShader();
-			glUniformMatrix4fv(mainShader->GetViewLocation(), 1, GL_FALSE, glm::value_ptr(m_Camera->CalculateViewMatrix()));
-			glUniformMatrix4fv(mainShader->GetModelLocation(), 1,
-				GL_FALSE, glm::value_ptr(
-					glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f)) *
-					glm::mat4(1.0f) *
-					glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f))
-				));
-			//glUniformMatrix4fv(mainShader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(m_Camera->CalcGetProjectionMatrix(1080.0f / 1920.0f)));
-			glm::mat4 projectionMatrix = glm::ortho(-500.0f, 500.0f, -500.0f, 500.0f, -500.0f, 500.0f);
-			glUniformMatrix4fv(mainShader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+			auto shader = uiRenderer->getRenderDataShader();
+			shader->UseShader();
+			shader->SetTextureUnit(2);
+			glm::mat4 projectionMatrix = glm::ortho(0.0f, m_ViewPortWidth, 0.0f, m_ViewPortHeight, 0.0f, 1.0f);
+			glUniformMatrix4fv(shader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+			//Set texture
+			shader->Validate();
 			uiRenderer->Render(uiRenderer->getRenderDataShader()->GetModelLocation());
 		}
 	}
