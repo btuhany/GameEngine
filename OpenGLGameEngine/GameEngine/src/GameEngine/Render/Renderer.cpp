@@ -159,6 +159,7 @@ namespace GameEngine
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glViewport(0, 0, 1920, 1080);
 
+		//TODO ui shader can be common.
 		for (size_t i = 0; i < m_UIRendererComponents.size(); i++)
 		{
 			auto uiRenderer = m_UIRendererComponents[i];
@@ -171,7 +172,7 @@ namespace GameEngine
 					glm::mat4(1.0f) *
 					glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f))
 				));
-			glUniformMatrix4fv(mainShader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(m_Camera->CalcGetProjectionMatrix(1080.0f / 1920.0f)));
+			//glUniformMatrix4fv(mainShader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(m_Camera->CalcGetProjectionMatrix(1080.0f / 1920.0f)));
 			glm::mat4 projectionMatrix = glm::ortho(-500.0f, 500.0f, -500.0f, 500.0f, -500.0f, 500.0f);
 			glUniformMatrix4fv(mainShader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 			uiRenderer->Render(uiRenderer->getRenderDataShader()->GetModelLocation());
@@ -311,6 +312,8 @@ namespace GameEngine
 		auto compAction = componentEvent->compAction;
 		auto componentType = componentEvent->comp->getType();
 
+
+		//TODO fix if else structure
 		if (componentType == ComponentType::Renderer)
 		{
 			if (compAction == ComponentAction::Added || compAction == ComponentAction::OwnerEnabled)
@@ -332,7 +335,6 @@ namespace GameEngine
 		}
 		else if (componentType == ComponentType::UIRenderer)
 		{
-			//TODO
 			if (compAction == ComponentAction::Added || compAction == ComponentAction::OwnerEnabled)
 			{
 				auto rendererComponent = std::static_pointer_cast<UIRendererComponent>(componentEvent->comp);
