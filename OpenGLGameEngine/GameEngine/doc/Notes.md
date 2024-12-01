@@ -22,6 +22,7 @@ get and set functions -> getOrSetFunction()
 - [] Check type of component when adding to entity if there is any same type
 - [] MeshData and TextData base class (Abstract mesh data class)
 - [] FPS
+- [] UI Renderer abstraction, polymorphism fix
 ************************************************************
 
 08.24
@@ -76,10 +77,12 @@ daily 29.10.24
 - Transparent sprites [x]
 
 16.11.24
-- Renderer code review []
-- Tags for entities []
-- TEXT RENDERER []
-- Update method frame time calculations []
+- Renderer code review [O]
+- Tags for entities [O]
+- TEXT RENDERER [O]
+- Update method frame time calculations [O]
 
 1.12.24
-- AspectRatio []
+- Reversed aspect ratio fix []
+- Text transparent color fix []
+- TEXT RENDERER []
