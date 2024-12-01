@@ -26,6 +26,12 @@ namespace GameEngine
 	}
 	void UIRendererComponent::drawQuad()
 	{
+		
+		if (m_RenderData->texture != nullptr)
+		{
+			m_RenderData->texture->UseTexture();
+		}
+
 		GLuint VAO = m_RenderData->VAO;
 		GLuint VBO = m_RenderData->VBO;
 		GLuint IBO = m_RenderData->IBO;
@@ -62,6 +68,8 @@ namespace GameEngine
 		// Upload index data
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_DYNAMIC_DRAW);
+
+
 
 		// Draw elements
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

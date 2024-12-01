@@ -80,9 +80,11 @@ namespace BreakoutGame
 
 		static const char* vUIShaderLocation = "src/BreakoutGame/Shaders/ui_shader.vert";
 		static const char* fUIShaderLocation = "src/BreakoutGame/Shaders/ui_shader.frag";
+		std::shared_ptr<Texture> uiButtonPanelTex = std::make_shared<Texture>("src/BreakoutGame/Textures/button_ui_panel.PNG");
+		uiButtonPanelTex->LoadTextureWithAlpha();
 		std::shared_ptr<Shader> uiShader = std::make_shared<Shader>();
 		uiShader->CreateFromFiles(vUIShaderLocation, fUIShaderLocation);
-		auto uiRenderData = std::make_shared<UIRenderData>(uiShader);
+		auto uiRenderData = std::make_shared<UIRenderData>(uiShader, uiButtonPanelTex);
 		auto uiEntity = std::make_shared<UIEntity>(uiRenderData);
 		instantiateGameEntity(uiEntity);
 

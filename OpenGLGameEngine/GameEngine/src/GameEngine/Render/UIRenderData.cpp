@@ -7,6 +7,12 @@ namespace GameEngine
         shader = shaderData;
         createQuad();
     }
+    UIRenderData::UIRenderData(std::shared_ptr<Shader> shaderData, std::shared_ptr<Texture> textureData)
+    {
+        shader = shaderData;
+        texture = textureData;
+        createQuad();
+    }
     void UIRenderData::createQuad()
 	{
         glGenVertexArrays(1, &VAO);

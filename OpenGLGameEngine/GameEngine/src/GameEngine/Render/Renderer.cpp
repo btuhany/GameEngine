@@ -165,6 +165,10 @@ namespace GameEngine
 		for (size_t i = 0; i < m_UIRendererComponents.size(); i++)
 		{
 			auto uiRenderer = m_UIRendererComponents[i];
+			if (!isAbleToRender(uiRenderer))
+			{
+				continue;
+			}
 			auto shader = uiRenderer->getRenderDataShader();
 			shader->UseShader();
 			shader->SetTextureUnit(2);
