@@ -93,6 +93,7 @@ namespace GameEngine
         //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         auto shader = textComp->shader;
         shader->UseShader();
+        shader->SetTextureUnit(2);
         glUniformMatrix4fv(shader->GetViewLocation(), 1, GL_FALSE, glm::value_ptr(viewMatrix));
         glUniformMatrix4fv(shader->GetModelLocation(), 1,
             GL_FALSE, glm::value_ptr(
@@ -101,7 +102,6 @@ namespace GameEngine
                 glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f))
             ));
 
-        glm::mat4 orthoProjectionMatrix = glm::ortho(-500.0f, 500.0f, -500.0f, 500.0f, -500.0f, 500.0f);
         glUniformMatrix4fv(shader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
         /*auto uniformTextColorLocation = glGetUniformLocation(shader->shaderID, "textColor");
         glUniform3f(uniformTextColorLocation, 0.5f, 1.0f, 0.5f);*/
@@ -113,15 +113,15 @@ namespace GameEngine
         std::vector<unsigned int> indices;
 
         unsigned int indexOffset = 0;
-        float x = -500.0f;
-        float y = 0.0f;
+        float x = 500.0f;
+        float y = 500.0f;
         // Iterate through all characters and generate vertex and index data
         std::string::const_iterator c;
         for (c = text.begin(); c != text.end(); c++)
         {
             TextCharacter ch = charactersMap[*c];
-            float w = 30.0f;
-            float h = 30.0f;
+            float w = 50.0f;
+            float h = 50.0f;
             float xpos = x;
             float ypos = y;
             // Define the vertices for the current character
@@ -148,7 +148,7 @@ namespace GameEngine
             indexOffset += 4;
 
             // Advance the cursor for the next glyph (advance is in 1/64 pixels)
-            x += 40.0f;
+            x += 50.0f;
         
 
         // Update VBO with the complete vertex data for the string

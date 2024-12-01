@@ -166,7 +166,7 @@ namespace GameEngine
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glViewport(0, 0, m_ViewPortWidth, m_ViewPortHeight);
-
+		glm::mat4 projectionMatrix = glm::ortho(0.0f, m_ViewPortWidth, 0.0f, m_ViewPortHeight, 0.0f, 1.0f);
 		//TODO ui shader can be common.
 		for (size_t i = 0; i < m_UIRendererComponents.size(); i++)
 		{
@@ -178,13 +178,13 @@ namespace GameEngine
 			auto shader = uiRenderer->getRenderDataShader();
 			shader->UseShader();
 			shader->SetTextureUnit(2);
-			glm::mat4 projectionMatrix = glm::ortho(0.0f, m_ViewPortWidth, 0.0f, m_ViewPortHeight, 0.0f, 1.0f);
+
 			glUniformMatrix4fv(shader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 			//Set texture
 			shader->Validate();
 			uiRenderer->Render(uiRenderer->getRenderDataShader()->GetModelLocation());
 		}
-		m_TextRenderer->Render(m_Scene->getCamera()->CalculateViewMatrix(), m_Scene->getCamera()->CalcGetProjectionMatrix(1080.0f/1920.0f));
+		m_TextRenderer->Render(m_Scene->getCamera()->CalculateViewMatrix(), projectionMatrix);
 	}
 
 	void Renderer::DirectionalShadowMapPass(std::shared_ptr<DirectionalLight> dLight)
