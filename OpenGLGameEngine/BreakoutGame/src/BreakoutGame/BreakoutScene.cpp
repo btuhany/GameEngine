@@ -86,6 +86,9 @@ namespace BreakoutGame
 		uiShader->CreateFromFiles(vUIShaderLocation, fUIShaderLocation);
 		auto uiRenderData = std::make_shared<UIRenderData>(uiShader, uiButtonPanelTex);
 		auto uiEntity = std::make_shared<UIEntity>(uiRenderData);
+		uiEntity->transform->Translate(glm::vec3(1000.0f, 100.0f, 0.0f));
+		uiEntity->transform->Scale(glm::vec3(600.0f, 500.0f, 0.0f));
+		uiEntity->transform->Rotate(45.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 		instantiateGameEntity(uiEntity);
 
 		m_Ball = std::make_shared<Ball>();
