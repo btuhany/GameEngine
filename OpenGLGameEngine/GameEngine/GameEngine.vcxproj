@@ -45,7 +45,7 @@
     <ClCompile Include="src\GameEngine\Components\SpriteRendererComponent.cpp" />
     <ClCompile Include="src\GameEngine\Render\RenderData.cpp" />
     <ClCompile Include="src\GameEngine\Render\Renderer.cpp" />
-    <ClCompile Include="src\GameEngine\Render\TextRenderManager.cpp" />
+    <ClCompile Include="src\GameEngine\Render\TextRenderer.cpp" />
     <ClCompile Include="src\GameEngine\Resource\ModelData.cpp" />
     <ClCompile Include="src\GameEngine\Render\ModelRenderData.cpp" />
     <ClCompile Include="src\GameEngine\Components\ModelRendererComponent.cpp" />
@@ -104,7 +104,7 @@
     <ClInclude Include="src\GameEngine\Render\Renderer.h" />
     <ClInclude Include="src\GameEngine\Event\EventManager.h" />
     <ClInclude Include="src\GameEngine\Event\Event.h" />
-    <ClInclude Include="src\GameEngine\Render\TextRenderManager.h" />
+    <ClInclude Include="src\GameEngine\Render\TextRenderer.h" />
     <ClInclude Include="src\GameEngine\Resource\ModelData.h" />
     <ClInclude Include="src\GameEngine\Render\ModelRenderData.h" />
     <ClInclude Include="src\GameEngine\Components\ModelRendererComponent.h" />

@@ -11,7 +11,6 @@
 #include "../Scene/CameraTypeEnum.h"
 #include "../Render/Renderer.h"
 #include "../Collision/CollisionManager.h"
-#include "../Render/TextRenderManager.h"
 
 namespace GameEngine {
 	enum class GameModeType

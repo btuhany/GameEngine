@@ -1,4 +1,4 @@
-#include "TextRenderManager.h"
+#include "TextRenderer.h"
 namespace GameEngine
 {
     Shader* textShader;
@@ -6,7 +6,7 @@ namespace GameEngine
     GLuint VAO, VBO, EBO;
     std::shared_ptr<SpriteRenderData> breakoutSpriteRenderData;
     Scene* scenee;
-	void TextRenderManager::Initialize(std::shared_ptr<Shader> mainShader, Scene* scen2e)
+	void TextRenderer::Initialize(std::shared_ptr<Shader> mainShader, Scene* scen2e)
 	{
         scenee = scen2e;
 		FT_Library ft;
@@ -84,7 +84,7 @@ namespace GameEngine
         blueTex->LoadTextureWithAlpha();
         breakoutSpriteRenderData = std::make_shared<SpriteRenderData>(blueTex, nullptr, mainShader);
 	}
-    void TextRenderManager::Render()
+    void TextRenderer::Render()
     {
         std::string text = "TOOK ME A DAY";
         glBindFramebuffer(GL_FRAMEBUFFER, 0);

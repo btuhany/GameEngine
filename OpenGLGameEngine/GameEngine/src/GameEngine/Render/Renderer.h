@@ -47,6 +47,7 @@ namespace GameEngine
 		std::shared_ptr<Shader> m_DirLightShadowShader;
 		std::shared_ptr<Shader> m_OmniShadowShader;
 		std::shared_ptr<DirectionalLight> m_DirLight;
+		
 		Scene* m_Scene;
 		bool m_IsInitialized = false;
 		void onComponentEvent(std::shared_ptr<ComponentEvent> componentEvent);

@@ -23,7 +23,7 @@ namespace GameEngine
 		unsigned int	advance;
 	};
 
-	class ENGINE_API TextRenderManager
+	class ENGINE_API TextRenderer
 	{
 	public:
 		void Initialize(std::shared_ptr<Shader> mainShader, Scene* scenee);

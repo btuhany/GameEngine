@@ -156,7 +156,7 @@
     <ClCompile Include="src\GameEngine\Resource\TextData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Render\TextRenderManager.cpp">
+    <ClCompile Include="src\GameEngine\Render\TextRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Entities\UITextEntity.cpp">
@@ -347,7 +347,7 @@
     <ClInclude Include="src\GameEngine\Resource\TextData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Render\TextRenderManager.h">
+    <ClInclude Include="src\GameEngine\Render\TextRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Entities\UITextEntity.h">
