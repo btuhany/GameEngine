@@ -3,7 +3,8 @@
 #include "../Components/RendererComponent.h"
 #include "../Render/UIRenderData.h"
 
-
+#include "../Components/Transform.h"
+#include "../Entities/GameEntity.h"
 namespace GameEngine
 {
 	class ENGINE_API UIRendererComponent : public RendererComponent

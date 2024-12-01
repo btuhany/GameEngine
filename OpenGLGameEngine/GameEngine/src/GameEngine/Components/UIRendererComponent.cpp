@@ -26,7 +26,19 @@ namespace GameEngine
 	}
 	void UIRendererComponent::drawQuad()
 	{
-		
+		if (m_OwnerEntity.expired())
+		{
+			LOG_CORE_WARN("UIRendererComponent::DrawMesh owner entity is exprired!");
+			return;
+		}
+
+		auto transform = m_OwnerEntity.lock()->transform;
+		float xpos = transform->getPosition().x;
+		float ypos = transform->getPosition().y;
+		float w = transform->getScale().x;
+		float h = transform->getScale().y;
+
+
 		if (m_RenderData->texture != nullptr)
 		{
 			m_RenderData->texture->UseTexture();
@@ -40,10 +52,7 @@ namespace GameEngine
 		//std::vector<float> vertices;
 		//std::vector<unsigned int> indices;
 		unsigned int indexOffset = 0;
-		float xpos = 10.0f;
-		float ypos = 500.0f;
-		float w = 500.0f;
-		float h = 300.0f;
+
 
 		float vertices[] = {
 			xpos,     ypos + h, 0.0f, 0.0f, // Top-left
@@ -52,11 +61,30 @@ namespace GameEngine
 			xpos + w, ypos + h, 1.0f, 0.0f  // Top-right
 		};
 
-		// Index data
+		//float vertices[] = {
+		//	0.0f, 1.0f, 0.0f, 0.0f, // Top-left
+		//	0.0f, 0.0f, 0.0f, 1.0f, // Bottom-left
+		//	1.0f, 0.0f, 1.0f, 1.0f, // Bottom-right
+		//	1.0f, 1.0f, 1.0f, 0.0f  // Top-right
+		//};
+
+		//glm::mat4 rotation = transform->getRotation();
+		//// Apply rotation
+		//for (int i = 0; i < 4; ++i) {
+		//	glm::vec4 vertexPos(vertices[i * 4], vertices[i * 4 + 1], 0.0f, 1.0f); // x, y, z, w
+		//	vertexPos = rotation * vertexPos; // Apply rotation matrix
+
+		//	// Update vertex positions
+		//	vertices[i * 4] = vertexPos.x * w + xpos; // Scale and translate X
+		//	vertices[i * 4 + 1] = vertexPos.y * h + ypos; // Scale and translate Y
+		//}
+
+
 		unsigned int indices[] = {
 			indexOffset, indexOffset + 1, indexOffset + 2, // First triangle
 			indexOffset, indexOffset + 2, indexOffset + 3  // Second triangle
 		};
+
 
 		glActiveTexture(GL_TEXTURE2);
 		glBindVertexArray(VAO);
