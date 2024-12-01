@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include <GL\glew.h>
 #include <glm\glm.hpp>
 #include <glm\gtc\matrix_transform.hpp>
@@ -14,6 +15,7 @@
 #include "../Resource/Texture.h"
 #include "../Render/SpriteRenderData.h"
 #include "../Scene/Scene.h"
+#include "../Components/UITextRendererComponent.h"
 namespace GameEngine
 {
 	struct TextCharacter {
@@ -26,8 +28,11 @@ namespace GameEngine
 	class ENGINE_API TextRenderer
 	{
 	public:
-		void Initialize(std::shared_ptr<Shader> mainShader, Scene* scenee);
-		void Render();
+		void Initialize();
+		void Render(glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
+		void HandleOnComponentAdded(std::shared_ptr<UITextRendererComponent> textRenderer);
+		void HandleOnComponentRemoved(std::shared_ptr<UITextRendererComponent> textRenderer);
+		std::vector<std::shared_ptr<UITextRendererComponent>> m_Components;
 		std::map<char, TextCharacter> charactersMap;
 	};
 }

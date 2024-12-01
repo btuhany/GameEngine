@@ -1,14 +1,15 @@
 #include "TextRenderer.h"
 namespace GameEngine
 {
-    Shader* textShader;
-    MeshData* textData;
-    GLuint VAO, VBO, EBO;
-    std::shared_ptr<SpriteRenderData> breakoutSpriteRenderData;
-    Scene* scenee;
-	void TextRenderer::Initialize(std::shared_ptr<Shader> mainShader, Scene* scen2e)
+    //TODO Renderer comp events functions before initialization.
+	void TextRenderer::Initialize()
 	{
-        scenee = scen2e;
+        if (m_Components.size() <= 0)
+        {
+            LOG_CORE_INFO("INFO::TEXTRENDERER: Could not init there aren't any");
+            return;
+        }
+
 		FT_Library ft;
 		if (FT_Init_FreeType(&ft))
 		{
@@ -75,51 +76,36 @@ namespace GameEngine
         glBindTexture(GL_TEXTURE_2D, 0);
         FT_Done_Face(face);
         FT_Done_FreeType(ft);
-        static const char* vShaderLocation = "src/BreakoutGame/Shaders/text_shader.vert";
-        static const char* fShaderLocation = "src/BreakoutGame/Shaders/text_shader.frag";
-        textShader = new Shader();
-        textShader->CreateFromFiles(vShaderLocation, fShaderLocation);
-
-        std::shared_ptr<Texture> blueTex = std::make_shared<Texture>("src/BreakoutGame/Textures/01-Breakout-Tiles.PNG");
-        blueTex->LoadTextureWithAlpha();
-        breakoutSpriteRenderData = std::make_shared<SpriteRenderData>(blueTex, nullptr, mainShader);
+       
 	}
-    void TextRenderer::Render()
+    void TextRenderer::Render(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
     {
-        std::string text = "TOOK ME A DAY";
+        auto textComp = m_Components[0];
+        auto VAO = textComp->vao;
+        auto VBO = textComp->vbo;
+        auto IBO = textComp->ibo;
+        std::string text = textComp->text;
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glViewport(0, 0, 
             1920, 1080);
         //Clear window
         //glClearColor(0.0f, 0.5f, 0.0f, 1.0f);
         //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        auto mainShader = breakoutSpriteRenderData->shader;
-        mainShader->UseShader();
-        glUniformMatrix4fv(mainShader->GetViewLocation(), 1, GL_FALSE, glm::value_ptr(scenee->getCamera()->CalculateViewMatrix()));
-        glUniformMatrix4fv(mainShader->GetModelLocation(), 1,
+        auto shader = textComp->shader;
+        shader->UseShader();
+        glUniformMatrix4fv(shader->GetViewLocation(), 1, GL_FALSE, glm::value_ptr(viewMatrix));
+        glUniformMatrix4fv(shader->GetModelLocation(), 1,
             GL_FALSE, glm::value_ptr(
                 glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f)) * 
                 glm::mat4(1.0f) *
                 glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f))
             ));
-        glUniformMatrix4fv(mainShader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(scenee->getCamera()->CalcGetProjectionMatrix(1080.0f / 1920.0f)));
-        if (breakoutSpriteRenderData->material != nullptr)
-        {
-            breakoutSpriteRenderData->material->UseMaterial(breakoutSpriteRenderData->shader->GetMatSpecularIntensityLocation(), breakoutSpriteRenderData->shader->GetMatShininessLocation());
-        }
 
-        if (breakoutSpriteRenderData->texture != nullptr)
-        {
-            breakoutSpriteRenderData->texture->UseTexture();
-        }
-
-
-
-        glm::mat4 projectionMatrix = glm::ortho(-500.0f, 500.0f, -500.0f, 500.0f, -500.0f, 500.0f);
-        glUniformMatrix4fv(textShader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-        auto hh = glGetUniformLocation(textShader->shaderID, "textColor");
+        glm::mat4 orthoProjectionMatrix = glm::ortho(-500.0f, 500.0f, -500.0f, 500.0f, -500.0f, 500.0f);
+        glUniformMatrix4fv(shader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+        /*auto uniformTextColorLocation = glGetUniformLocation(shader->shaderID, "textColor");
+        glUniform3f(uniformTextColorLocation, 0.5f, 1.0f, 0.5f);*/
         glActiveTexture(GL_TEXTURE2);
-        glUniform3f(hh, 0.5f, 1.0f, 0.5f);
 
         glBindVertexArray(VAO);
 
@@ -173,7 +159,7 @@ namespace GameEngine
 
 
         // Update EBO with the index data
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_DYNAMIC_DRAW);
 
         // Render all characters in one draw call using indices
@@ -192,6 +178,22 @@ namespace GameEngine
         {
             // Hata mesajýný yazdýrma
             std::cerr << "OpenGL Error: " << err << std::endl;
+        }
+    }
+    void TextRenderer::HandleOnComponentAdded(std::shared_ptr<UITextRendererComponent> textRenderer)
+    {
+        auto it = std::find(m_Components.begin(), m_Components.end(), textRenderer);
+        if (it == m_Components.end())
+        {
+            m_Components.push_back(textRenderer);
+        }
+    }
+    void TextRenderer::HandleOnComponentRemoved(std::shared_ptr<UITextRendererComponent> textRenderer)
+    {
+        auto it = std::find(m_Components.begin(), m_Components.end(), textRenderer);
+        if (it != m_Components.end())
+        {
+            m_Components.erase(it);
         }
     }
 }

@@ -12,6 +12,9 @@ namespace GameEngine
 			[this](std::shared_ptr<SceneCameraChangedEvent> eventData) {
 				this->onSceneCameraChangedEvent(eventData);
 			}, 10);
+
+		m_TextRenderer = new TextRenderer();
+		//TODO Renderer comp events functions before initialization.
 	}
 	Renderer::~Renderer()
 	{
@@ -21,6 +24,8 @@ namespace GameEngine
 		EventManager::GetInstance().Unsubscribe<SceneCameraChangedEvent>([this](std::shared_ptr<SceneCameraChangedEvent> event) {
 			this->onSceneCameraChangedEvent(event);
 			});
+
+		delete m_TextRenderer;
 	}
 	void Renderer::Initialize(Scene* scene, GLfloat bufferRatio, float viewPortWidth, float viewPortHeight)
 	{
@@ -39,6 +44,7 @@ namespace GameEngine
 		m_BufferRatio = bufferRatio;
 		m_ViewPortWidth = viewPortWidth;
 		m_ViewPortHeight = viewPortHeight;
+		m_TextRenderer->Initialize();
 		m_IsInitialized = true;
 	}
 
@@ -178,6 +184,7 @@ namespace GameEngine
 			shader->Validate();
 			uiRenderer->Render(uiRenderer->getRenderDataShader()->GetModelLocation());
 		}
+		m_TextRenderer->Render(m_Scene->getCamera()->CalculateViewMatrix(), m_Scene->getCamera()->CalcGetProjectionMatrix(1080.0f/1920.0f));
 	}
 
 	void Renderer::DirectionalShadowMapPass(std::shared_ptr<DirectionalLight> dLight)
@@ -314,7 +321,7 @@ namespace GameEngine
 		auto componentType = componentEvent->comp->getType();
 
 
-		//TODO fix if else structure
+		//TODO fix if else structure ************************************************
 		if (componentType == ComponentType::Renderer)
 		{
 			if (compAction == ComponentAction::Added || compAction == ComponentAction::OwnerEnabled)
@@ -351,6 +358,19 @@ namespace GameEngine
 				{
 					m_UIRendererComponents.erase(it);
 				}
+			}
+		}
+		else if (componentType == ComponentType::UITextRenderer)
+		{
+			if (compAction == ComponentAction::Added || compAction == ComponentAction::OwnerEnabled)
+			{
+				auto rendererComponent = std::static_pointer_cast<UITextRendererComponent>(componentEvent->comp);
+				m_TextRenderer->HandleOnComponentAdded(rendererComponent);
+			}
+			else if (compAction == ComponentAction::OwnerPreDestroyed || compAction == ComponentAction::OwnerDisabled)
+			{
+				auto rendererComponent = std::static_pointer_cast<UITextRendererComponent>(componentEvent->comp);
+				m_TextRenderer->HandleOnComponentRemoved(rendererComponent);
 			}
 		}
 		

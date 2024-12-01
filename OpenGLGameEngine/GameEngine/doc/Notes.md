@@ -80,3 +80,6 @@ daily 29.10.24
 - Tags for entities []
 - TEXT RENDERER []
 - Update method frame time calculations []
+
+1.12.24
+- AspectRatio []

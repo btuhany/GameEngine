@@ -1,8 +1,8 @@
 #pragma once
-#include "UIEntity.h"
+#include "RenderableEntity.h"
 namespace GameEngine
 {
-	class ENGINE_API UITextEntity : public UIEntity
+	class ENGINE_API UITextEntity : public RenderableEntity
 	{
 
 	};

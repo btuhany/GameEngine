@@ -12,7 +12,12 @@ namespace GameEngine
 		std::shared_ptr<Shader> getRenderDataShader() override;
 		void ChangeRenderShader(std::shared_ptr<Shader> newRenderShader) override;
 		bool IsShadowRenderable() override;
+		std::shared_ptr<Shader> shader;
+		std::string text;
+		GLuint vao, vbo, ibo;
+		ComponentType getType() override;
 	private:
 		void drawText();
+		void createQuad();
 	};
 }

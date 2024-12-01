@@ -80,16 +80,30 @@ namespace BreakoutGame
 
 		static const char* vUIShaderLocation = "src/BreakoutGame/Shaders/ui_shader.vert";
 		static const char* fUIShaderLocation = "src/BreakoutGame/Shaders/ui_shader.frag";
-		std::shared_ptr<Texture> uiButtonPanelTex = std::make_shared<Texture>("src/BreakoutGame/Textures/button_ui_panel.PNG");
-		uiButtonPanelTex->LoadTextureWithAlpha();
 		std::shared_ptr<Shader> uiShader = std::make_shared<Shader>();
 		uiShader->CreateFromFiles(vUIShaderLocation, fUIShaderLocation);
-		auto uiRenderData = std::make_shared<UIRenderData>(uiShader, uiButtonPanelTex);
-		auto uiEntity = std::make_shared<UIEntity>(uiRenderData);
-		uiEntity->transform->Translate(glm::vec3(1000.0f, 100.0f, 0.0f));
-		uiEntity->transform->Scale(glm::vec3(600.0f, 500.0f, 0.0f));
-		uiEntity->transform->Rotate(45.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-		instantiateGameEntity(uiEntity);
+		//std::shared_ptr<Texture> uiButtonPanelTex = std::make_shared<Texture>("src/BreakoutGame/Textures/button_ui_panel.PNG");
+		//uiButtonPanelTex->LoadTextureWithAlpha();
+		//auto uiRenderData = std::make_shared<UIRenderData>(uiShader, uiButtonPanelTex);
+		//auto uiEntity = std::make_shared<UIEntity>(uiRenderData);
+		//uiEntity->transform->Translate(glm::vec3(1000.0f, 100.0f, 0.0f));
+		//uiEntity->transform->Scale(glm::vec3(600.0f, 500.0f, 0.0f));
+		//uiEntity->transform->Rotate(45.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+		//instantiateGameEntity(uiEntity);
+
+
+		/*static const char* vUIShaderLocation = "src/BreakoutGame/Shaders/text_shader.vert";
+		static const char* fUIShaderLocation = "src/BreakoutGame/Shaders/text_shader.frag";*/
+		std::shared_ptr<Shader> textShader = std::make_shared<Shader>();
+		textShader->CreateFromFiles(vUIShaderLocation, fUIShaderLocation);
+		auto textEntity = std::make_shared<UITextEntity>();
+		auto textComp = std::make_shared<UITextRendererComponent>();
+		textComp->shader = textShader;
+		textComp->text = "HAHAHAHA";
+		textEntity->AddComponent(textComp);
+		instantiateGameEntity(textEntity);
+
+
 
 		m_Ball = std::make_shared<Ball>();
 		m_Ball->Initialize(mainShader);

@@ -20,6 +20,7 @@
 #include "../Components/ColliderComponent.h"
 #include "../Entities/GameEntity.h"
 #include "../Components/UIRendererComponent.h"
+#include "TextRenderer.h"
 namespace GameEngine
 {
 	class ENGINE_API Renderer
@@ -49,6 +50,8 @@ namespace GameEngine
 		std::shared_ptr<DirectionalLight> m_DirLight;
 		
 		Scene* m_Scene;
+		TextRenderer* m_TextRenderer;
+
 		bool m_IsInitialized = false;
 		void onComponentEvent(std::shared_ptr<ComponentEvent> componentEvent);
 		void onSceneCameraChangedEvent(std::shared_ptr<SceneCameraChangedEvent> sceneCameraChangedEventData);
