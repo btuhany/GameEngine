@@ -17,7 +17,6 @@ namespace GameEngine
 		GLuint vao, vbo, ibo;
 		ComponentType getType() override;
 	private:
-		void drawText();
 		void createQuad();
 	};
 }

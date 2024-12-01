@@ -80,6 +80,9 @@ namespace GameEngine
 	}
     void TextRenderer::Render(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
     {
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glViewport(0, 0,1920, 1080);  //TODO viewport
+
         for (size_t i = 0; i < m_Components.size(); i++)
         {
             auto textComp = m_Components[i];
@@ -88,39 +91,20 @@ namespace GameEngine
             if (ownerEntity.expired())
             {
                 LOG_CORE_WARN("TextRenderer:: owner entity is exprired!");
-                continue; //continue
+                continue;
             }
 
             auto transform = ownerEntity.lock()->transform;
-
-            auto VAO = textComp->vao;
-            auto VBO = textComp->vbo;
-            auto IBO = textComp->ibo;
-
-            std::string text = textComp->text;
-            glBindFramebuffer(GL_FRAMEBUFFER, 0);
-            glViewport(0, 0,
-                1920, 1080);
-            //Clear window
-            //glClearColor(0.0f, 0.5f, 0.0f, 1.0f);
-            //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+           
             auto shader = textComp->shader;
             shader->UseShader();
             shader->SetTextureUnit(2);
-            glUniformMatrix4fv(shader->GetViewLocation(), 1, GL_FALSE, glm::value_ptr(viewMatrix));
-            glUniformMatrix4fv(shader->GetModelLocation(), 1,
-                GL_FALSE, glm::value_ptr(
-                    glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f)) *
-                    glm::mat4(1.0f) *
-                    glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f))
-                ));
 
             glUniformMatrix4fv(shader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-            /*auto uniformTextColorLocation = glGetUniformLocation(shader->shaderID, "textColor");
-            glUniform3f(uniformTextColorLocation, 0.5f, 1.0f, 0.5f);*/
             glActiveTexture(GL_TEXTURE2);
 
-            glBindVertexArray(VAO);
+            /*auto uniformTextColorLocation = glGetUniformLocation(shader->shaderID, "textColor");
+            glUniform3f(uniformTextColorLocation, 0.5f, 1.0f, 0.5f);*/
 
             std::vector<float> vertices;
             std::vector<unsigned int> indices;
@@ -132,7 +116,15 @@ namespace GameEngine
 
             float charWidth = 50.0f;
             float charHeight = 50.0f;
+
+
+            auto VAO = textComp->vao;
+            auto VBO = textComp->vbo;
+            auto IBO = textComp->ibo;
+
+            glBindVertexArray(VAO);
             // Iterate through all characters and generate vertex and index data
+            std::string text = textComp->text;
             std::string::const_iterator c;
             for (c = text.begin(); c != text.end(); c++)
             {

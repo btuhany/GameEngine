@@ -4,6 +4,7 @@ namespace GameEngine
 {
 	UITextRendererComponent::UITextRendererComponent()
 	{
+		text = "EMPTY TEXT";
 		createQuad();
 	}
 	void UITextRendererComponent::Render(GLuint modelLocation)
@@ -20,10 +21,6 @@ namespace GameEngine
 	bool UITextRendererComponent::IsShadowRenderable()
 	{
 		return false;
-	}
-	void UITextRendererComponent::drawText()
-	{
-
 	}
 	void UITextRendererComponent::createQuad()
 	{
