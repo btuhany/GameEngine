@@ -16,6 +16,7 @@
 #include "../Render/SpriteRenderData.h"
 #include "../Scene/Scene.h"
 #include "../Components/UITextRendererComponent.h"
+#include "../Entities/GameEntity.h"
 namespace GameEngine
 {
 	struct TextCharacter {

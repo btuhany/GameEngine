@@ -80,104 +80,121 @@ namespace GameEngine
 	}
     void TextRenderer::Render(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
     {
-        auto textComp = m_Components[0];
-        auto VAO = textComp->vao;
-        auto VBO = textComp->vbo;
-        auto IBO = textComp->ibo;
-        std::string text = textComp->text;
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        glViewport(0, 0, 
-            1920, 1080);
-        //Clear window
-        //glClearColor(0.0f, 0.5f, 0.0f, 1.0f);
-        //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        auto shader = textComp->shader;
-        shader->UseShader();
-        shader->SetTextureUnit(2);
-        glUniformMatrix4fv(shader->GetViewLocation(), 1, GL_FALSE, glm::value_ptr(viewMatrix));
-        glUniformMatrix4fv(shader->GetModelLocation(), 1,
-            GL_FALSE, glm::value_ptr(
-                glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f)) * 
-                glm::mat4(1.0f) *
-                glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f))
-            ));
-
-        glUniformMatrix4fv(shader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-        /*auto uniformTextColorLocation = glGetUniformLocation(shader->shaderID, "textColor");
-        glUniform3f(uniformTextColorLocation, 0.5f, 1.0f, 0.5f);*/
-        glActiveTexture(GL_TEXTURE2);
-
-        glBindVertexArray(VAO);
-
-        std::vector<float> vertices;
-        std::vector<unsigned int> indices;
-
-        unsigned int indexOffset = 0;
-        float x = 500.0f;
-        float y = 500.0f;
-        // Iterate through all characters and generate vertex and index data
-        std::string::const_iterator c;
-        for (c = text.begin(); c != text.end(); c++)
+        for (size_t i = 0; i < m_Components.size(); i++)
         {
-            TextCharacter ch = charactersMap[*c];
-            float w = 50.0f;
-            float h = 50.0f;
-            float xpos = x;
-            float ypos = y;
-            // Define the vertices for the current character
-            float charVertices[4][4] = {
-                { xpos,     ypos + h,   0.0f, 0.0f },
-                { xpos,     ypos,       0.0f, 1.0f },
-                { xpos + w, ypos,       1.0f, 1.0f },
-                { xpos + w, ypos + h,   1.0f, 0.0f }
-            };
+            auto textComp = m_Components[i];
+            auto ownerEntity = textComp->getEntity();
 
-            // Append vertices for this character to the main vertex vector
-            for (int i = 0; i < 4; ++i)
+            if (ownerEntity.expired())
             {
-                vertices.insert(vertices.end(), { charVertices[i][0], charVertices[i][1], charVertices[i][2], charVertices[i][3] });
+                LOG_CORE_WARN("TextRenderer:: owner entity is exprired!");
+                continue; //continue
             }
 
-            // Define the indices for the current character quad (two triangles)
-            indices.insert(indices.end(), {
-                indexOffset, indexOffset + 1, indexOffset + 2,
-                indexOffset, indexOffset + 2, indexOffset + 3
-                });
+            auto transform = ownerEntity.lock()->transform;
 
-            // Update index offset for the next character
-            indexOffset += 4;
+            auto VAO = textComp->vao;
+            auto VBO = textComp->vbo;
+            auto IBO = textComp->ibo;
 
-            // Advance the cursor for the next glyph (advance is in 1/64 pixels)
-            x += 50.0f;
-        
+            std::string text = textComp->text;
+            glBindFramebuffer(GL_FRAMEBUFFER, 0);
+            glViewport(0, 0,
+                1920, 1080);
+            //Clear window
+            //glClearColor(0.0f, 0.5f, 0.0f, 1.0f);
+            //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            auto shader = textComp->shader;
+            shader->UseShader();
+            shader->SetTextureUnit(2);
+            glUniformMatrix4fv(shader->GetViewLocation(), 1, GL_FALSE, glm::value_ptr(viewMatrix));
+            glUniformMatrix4fv(shader->GetModelLocation(), 1,
+                GL_FALSE, glm::value_ptr(
+                    glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f)) *
+                    glm::mat4(1.0f) *
+                    glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 1.0f, 1.0f))
+                ));
 
-        // Update VBO with the complete vertex data for the string
-        glBindTexture(GL_TEXTURE_2D, ch.textureID);
+            glUniformMatrix4fv(shader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+            /*auto uniformTextColorLocation = glGetUniformLocation(shader->shaderID, "textColor");
+            glUniform3f(uniformTextColorLocation, 0.5f, 1.0f, 0.5f);*/
+            glActiveTexture(GL_TEXTURE2);
 
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_DYNAMIC_DRAW);
+            glBindVertexArray(VAO);
 
+            std::vector<float> vertices;
+            std::vector<unsigned int> indices;
 
-        // Update EBO with the index data
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_DYNAMIC_DRAW);
-
-        // Render all characters in one draw call using indices
-        glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, 0);
-
-        // Clean up
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-        }
-        glBindVertexArray(0);
-        glBindTexture(GL_TEXTURE_2D, 0);
+            unsigned int indexOffset = 0;
+            float textStartPosX = 500.0f;
+            float textStartPosY = 500.0f;
 
 
-        GLenum err = glGetError();
-        if (err != GL_NO_ERROR)
-        {
-            // Hata mesajýný yazdýrma
-            std::cerr << "OpenGL Error: " << err << std::endl;
+            float charWidth = 50.0f;
+            float charHeight = 50.0f;
+            // Iterate through all characters and generate vertex and index data
+            std::string::const_iterator c;
+            for (c = text.begin(); c != text.end(); c++)
+            {
+                TextCharacter ch = charactersMap[*c];
+
+                float xpos = textStartPosX;
+                float ypos = textStartPosY;
+                // Define the vertices for the current character
+                float charVertices[4][4] = {
+                    { xpos,     ypos + charHeight,   0.0f, 0.0f },
+                    { xpos,     ypos,       0.0f, 1.0f },
+                    { xpos + charWidth, ypos,       1.0f, 1.0f },
+                    { xpos + charWidth, ypos + charHeight,   1.0f, 0.0f }
+                };
+
+                // Append vertices for this character to the main vertex vector
+                for (int i = 0; i < 4; ++i)
+                {
+                    vertices.insert(vertices.end(), { charVertices[i][0], charVertices[i][1], charVertices[i][2], charVertices[i][3] });
+                }
+
+                // Define the indices for the current character quad (two triangles)
+                indices.insert(indices.end(), {
+                    indexOffset, indexOffset + 1, indexOffset + 2,
+                    indexOffset, indexOffset + 2, indexOffset + 3
+                    });
+
+                // Update index offset for the next character
+                indexOffset += 4;
+
+                // Advance the cursor for the next glyph (advance is in 1/64 pixels)
+                textStartPosX += 50.0f;
+
+
+                // Update VBO with the complete vertex data for the string
+                glBindTexture(GL_TEXTURE_2D, ch.textureID);
+
+                glBindBuffer(GL_ARRAY_BUFFER, VBO);
+                glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_DYNAMIC_DRAW);
+
+
+                // Update EBO with the index data
+                glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+                glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_DYNAMIC_DRAW);
+
+                // Render all characters in one draw call using indices
+                glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, 0);
+
+                // Clean up
+                glBindBuffer(GL_ARRAY_BUFFER, 0);
+                glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+            }
+            glBindVertexArray(0);
+            glBindTexture(GL_TEXTURE_2D, 0);
+
+
+            GLenum err = glGetError();
+            if (err != GL_NO_ERROR)
+            {
+                // Hata mesajýný yazdýrma
+                std::cerr << "OpenGL Error: " << err << std::endl;
+            }
         }
     }
     void TextRenderer::HandleOnComponentAdded(std::shared_ptr<UITextRendererComponent> textRenderer)
