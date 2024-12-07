@@ -96,6 +96,7 @@ namespace BreakoutGame
 		uiEntity->transform->Rotate(45.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 		instantiateGameEntity(uiEntity);
 
+
 		static const char* vTextShaderLocation = "src/BreakoutGame/Shaders/text_shader.vert";
 		static const char* fTextShaderLocation = "src/BreakoutGame/Shaders/text_shader.frag";
 		std::shared_ptr<Shader> textShader = std::make_shared<Shader>();
@@ -108,7 +109,6 @@ namespace BreakoutGame
 		textEntity->AddComponent(textComp);
 		textEntity->transform->Translate(glm::vec3(100.0f, 150.0f, -0.2f));
 		instantiateGameEntity(textEntity);
-
 		m_Ball = std::make_shared<Ball>();
 		m_Ball->Initialize(mainShader);
 		auto ballEntity = m_Ball->getEntity();

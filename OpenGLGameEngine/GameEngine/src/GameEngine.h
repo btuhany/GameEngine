@@ -17,5 +17,6 @@
 #include "GameEngine/Render/Renderer.h"
 #include  "GameEngine/Components/BoxCollider2DComponent.h"
 #include "GameEngine/Math/Vector2.h"
+#include "GameEngine/Components/UITextRendererComponent.h"
 
 using namespace GameEngine;
