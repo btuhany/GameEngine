@@ -106,15 +106,12 @@ namespace GameEngine
             auto uniformTextColorLocation = glGetUniformLocation(shader->shaderID, "textColor");
             glUniform3f(uniformTextColorLocation, textComp->color.x, textComp->color.y, textComp->color.z);
 
-
-
-            unsigned int indexOffset = 0;
             float textStartPosX = transform->getPosition().x;
             float textStartPosY = transform->getPosition().y;
             float textStartPosZ = transform->getPosition().z;
 
-            float charWidth = 48.0f;
-            float charHeight = 48.0f;
+            float charWidth = textComp->charWidth * transform->getScale().x;
+            float charHeight = textComp->charHeight * transform->getScale().y;
 
 
             auto VAO = textComp->vao;
@@ -122,7 +119,6 @@ namespace GameEngine
             auto IBO = textComp->ibo;
 
             glBindVertexArray(VAO);
-            // Iterate through all characters and generate vertex and index data
             std::string text = textComp->text;
             std::string::const_iterator c;
             for (c = text.begin(); c != text.end(); c++)
@@ -133,8 +129,6 @@ namespace GameEngine
 
                 float xpos = textStartPosX;
                 float ypos = textStartPosY;
-
-                // Define the vertices for the current character
                 float charVerticesTemp[4][5] = {
                     { xpos,     ypos + charHeight, textStartPosZ,  0.0f, 0.0f },
                     { xpos,     ypos,   textStartPosZ,    0.0f, 1.0f },
@@ -142,39 +136,31 @@ namespace GameEngine
                     { xpos + charWidth, ypos + charHeight,  textStartPosZ, 1.0f, 0.0f }
                 };
 
-                // Append vertices for this character to the main vertex vector
                 for (int i = 0; i < 4; ++i)
                 {
                     charVertices.insert(charVertices.end(), { charVerticesTemp[i][0], charVerticesTemp[i][1], charVerticesTemp[i][2], charVerticesTemp[i][3], charVerticesTemp[i][4] });
                 }
 
-                // Define the indices for the current character quad (two triangles)
                 charIndices.insert(charIndices.end(), {
-                    indexOffset, indexOffset + 1, indexOffset + 2,
-                    indexOffset, indexOffset + 2, indexOffset + 3
+                    0, 1, 2,
+                    0, 2, 3
                     });
 
 
-                // Advance the cursor for the next glyph (advance is in 1/64 pixels)
                 textStartPosX += charWidth;
 
 
-                // Update VBO with the complete vertex data for the string
                 glBindTexture(GL_TEXTURE_2D, ch.textureID);
 
                 glBindBuffer(GL_ARRAY_BUFFER, VBO);
                 glBufferData(GL_ARRAY_BUFFER, charVertices.size() * sizeof(float), charVertices.data(), GL_DYNAMIC_DRAW);
 
-
-                // Update EBO with the index data
                 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
                 glBufferData(GL_ELEMENT_ARRAY_BUFFER, charIndices.size() * sizeof(unsigned int), charIndices.data(), GL_DYNAMIC_DRAW);
 
-                // Render all characters in one draw call using indices
                 glBindVertexArray(VAO);
                 glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(charIndices.size()), GL_UNSIGNED_INT, 0);
 
-                // Clean up
                 //glBindBuffer(GL_ARRAY_BUFFER, 0);
                 //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
             }

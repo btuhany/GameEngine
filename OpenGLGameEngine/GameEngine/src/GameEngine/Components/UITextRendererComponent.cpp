@@ -5,6 +5,9 @@ namespace GameEngine
 	UITextRendererComponent::UITextRendererComponent()
 	{
 		text = "EMPTY TEXT";
+		color = glm::vec3(0.0f, 0.0f, 0.0f);
+		charWidth = 48.0f;
+		charHeight = 48.0f;
 		createQuad();
 	}
 	void UITextRendererComponent::Render(GLuint modelLocation)

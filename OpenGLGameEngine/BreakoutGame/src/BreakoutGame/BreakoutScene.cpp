@@ -106,7 +106,7 @@ namespace BreakoutGame
 		textComp->text = "ABBA";
 		textComp->color = glm::vec3(0.6f, 0.1f, 0.5f);
 		textEntity->AddComponent(textComp);
-		textEntity->transform->Translate(glm::vec3(0.0f, 0.0f, -0.2f));
+		textEntity->transform->Translate(glm::vec3(100.0f, 150.0f, -0.2f));
 		instantiateGameEntity(textEntity);
 
 		m_Ball = std::make_shared<Ball>();

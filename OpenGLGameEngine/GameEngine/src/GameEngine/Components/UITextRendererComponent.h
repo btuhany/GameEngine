@@ -15,6 +15,8 @@ namespace GameEngine
 		std::shared_ptr<Shader> shader;
 		std::string text;
 		glm::vec3 color;
+		float charWidth;
+		float charHeight;
 		GLuint vao, vbo, ibo;
 		ComponentType getType() override;
 	private:
