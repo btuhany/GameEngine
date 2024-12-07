@@ -171,4 +171,12 @@ namespace GameEngine {
 	{
 		return (GLfloat)m_BufferWidth / m_BufferHeight;
 	}
+	int Window::getWidth()
+	{
+		return m_Width;
+	}
+	int Window::getHeight()
+	{
+		return m_Height;
+	}
 }

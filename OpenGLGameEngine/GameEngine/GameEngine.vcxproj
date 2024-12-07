@@ -45,6 +45,7 @@
     <ClCompile Include="src\GameEngine\Components\SpriteRendererComponent.cpp" />
     <ClCompile Include="src\GameEngine\Render\RenderData.cpp" />
     <ClCompile Include="src\GameEngine\Render\Renderer.cpp" />
+    <ClCompile Include="src\GameEngine\Render\TextRenderer.cpp" />
     <ClCompile Include="src\GameEngine\Resource\ModelData.cpp" />
     <ClCompile Include="src\GameEngine\Render\ModelRenderData.cpp" />
     <ClCompile Include="src\GameEngine\Components\ModelRendererComponent.cpp" />
@@ -79,6 +80,10 @@
     <ClCompile Include="src\GameEngine\Components\Transform.cpp" />
     <ClCompile Include="src\GameEngine\Math\Vector2.cpp" />
     <ClCompile Include="src\GameEngine\Math\Vector3.cpp" />
+    <ClCompile Include="src\GameEngine\Components\UITextRendererComponent.cpp" />
+    <ClCompile Include="src\GameEngine\Resource\TextData.cpp" />
+    <ClCompile Include="src\GameEngine\Components\UIRendererComponent.cpp" />
+    <ClCompile Include="src\GameEngine\Render\UIRenderData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameEngine\Collision\CollisionData.h" />
@@ -97,6 +102,7 @@
     <ClInclude Include="src\GameEngine\Render\Renderer.h" />
     <ClInclude Include="src\GameEngine\Event\EventManager.h" />
     <ClInclude Include="src\GameEngine\Event\Event.h" />
+    <ClInclude Include="src\GameEngine\Render\TextRenderer.h" />
     <ClInclude Include="src\GameEngine\Resource\ModelData.h" />
     <ClInclude Include="src\GameEngine\Render\ModelRenderData.h" />
     <ClInclude Include="src\GameEngine\Components\ModelRendererComponent.h" />
@@ -137,6 +143,10 @@
     <ClInclude Include="src\GameEngine\Components\Transform.h" />
     <ClInclude Include="src\GameEngine\Math\Vector2.h" />
     <ClInclude Include="src\GameEngine\Math\Vector3.h" />
+    <ClInclude Include="src\GameEngine\Components\UITextRendererComponent.h" />
+    <ClInclude Include="src\GameEngine\Resource\TextData.h" />
+    <ClInclude Include="src\GameEngine\Components\UIRendererComponent.h" />
+    <ClInclude Include="src\GameEngine\Render\UIRenderData.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assimp-vc143-mt.dll" />
@@ -152,6 +162,8 @@
     <None Include="src\Resources\Shaders\shader.vert" />
     <None Include="src\Resources\Shaders\skybox.frag" />
     <None Include="src\Resources\Shaders\skybox.vert" />
+    <None Include="src\Resources\Shaders\text_shader.frag" />
+    <None Include="src\Resources\Shaders\text_shader.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -283,7 +295,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;GAME_ENGINE_WINDOWS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../ExternalLibs/GLEW/include;$(SolutionDir)/../ExternalLibs/GLM;$(SolutionDir)/../ExternalLibs/GLFW/include;$(SolutionDir)/../ExternalLibs/ASSIMP/include;$(SolutionDir)/../ExternalLibs/STB_IMAGE;$(SolutionDir)/../ExternalLibs/SPDLOG/spdlog-1.x/include;$(SolutionDir)/GameEngine/src/GameEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../ExternalLibs/GLEW/include;$(SolutionDir)/../ExternalLibs/GLM;$(SolutionDir)/../ExternalLibs/GLFW/include;$(SolutionDir)/../ExternalLibs/ASSIMP/include;$(SolutionDir)/../ExternalLibs/STB_IMAGE;$(SolutionDir)/../ExternalLibs/SPDLOG/spdlog-1.x/include;$(SolutionDir)/GameEngine/src/GameEngine;$(SolutionDir)/../ExternalLibs/FreeType/freetype;$(SolutionDir)/../ExternalLibs/FreeType;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -293,11 +305,13 @@
       <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)/OpenGLGameEngine;$(SolutionDir)/../ExternalLibs/GLEW/lib/Release/Win32;$(SolutionDir)/../ExternalLibs/GLFW/lib-vc2022;$(SolutionDir)/../ExternalLibs/ASSIMP/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>
-      </AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)/OpenGLGameEngine;$(SolutionDir)/../ExternalLibs/GLEW/lib/Release/Win32;$(SolutionDir)/../ExternalLibs/GLFW/lib-vc2022;$(SolutionDir)/../ExternalLibs/ASSIMP/lib;$(SolutionDir)/../ExternalLibs/FreeType/Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>msvcrt.lib</IgnoreSpecificDefaultLibraries>
     </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDynamicLibrary|Win32'">
     <ClCompile>

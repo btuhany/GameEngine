@@ -26,6 +26,7 @@ namespace GameEngine {
 		CompileShader(vertexCode, fragmentCode);
 	}
 
+	//TODO unnecessary
 	void Shader::CreateFromFiles2D(const char* vertexLocation, const char* fragmentLocation)
 	{
 		std::string vertexString = ReadFile(vertexLocation);

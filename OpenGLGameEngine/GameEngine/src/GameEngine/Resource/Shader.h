@@ -53,11 +53,12 @@ namespace GameEngine {
 
 		~Shader();
 
+		GLuint shaderID;
 	private:
 		int pointLightCount;
 		int spotLightCount;
 
-		GLuint shaderID, uniformProjection, uniformModel, uniformView, uniformCameraPosition;
+		GLuint uniformProjection, uniformModel, uniformView, uniformCameraPosition;
 		GLuint uniformMatSpecularIntensity, uniformMatShininess;
 		GLuint uniformTexture, uniformDirectionalLightTransform, uniformDirectionalShadowMap;
 		GLuint uniformOmniLightPos, uniformFarPlane;

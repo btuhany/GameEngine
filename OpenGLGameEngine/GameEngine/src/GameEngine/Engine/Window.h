@@ -29,6 +29,9 @@ namespace GameEngine {
 
 		GLfloat getBufferRatio();
 
+		int getWidth();
+		int getHeight();
+
 		~Window();
 	private:
 		GLFWwindow* m_glWindow;

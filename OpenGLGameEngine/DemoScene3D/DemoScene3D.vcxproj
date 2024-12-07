@@ -160,15 +160,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;GAME_ENGINE_WINDOWS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)GameEngine\src;$(SolutionDir)/../ExternalLibs/GLEW/include;$(SolutionDir)/../ExternalLibs/GLM;$(SolutionDir)/../ExternalLibs/GLFW/include;$(SolutionDir)/../ExternalLibs/ASSIMP/include;$(SolutionDir)/../ExternalLibs/STB_IMAGE;$(SolutionDir)/../ExternalLibs/SPDLOG/spdlog-1.x/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)GameEngine\src;$(SolutionDir)/../ExternalLibs/GLEW/include;$(SolutionDir)/../ExternalLibs/GLM;$(SolutionDir)/../ExternalLibs/GLFW/include;$(SolutionDir)/../ExternalLibs/ASSIMP/include;$(SolutionDir)/../ExternalLibs/STB_IMAGE;$(SolutionDir)/../ExternalLibs/SPDLOG/spdlog-1.x/include;$(SolutionDir)/../ExternalLibs/FreeType;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)/OpenGLGameEngine;$(SolutionDir)/../ExternalLibs/GLEW/lib/Release/Win32;$(SolutionDir)/../ExternalLibs/GLFW/lib-vc2022;$(SolutionDir)/../ExternalLibs/ASSIMP/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)/OpenGLGameEngine;$(SolutionDir)/../ExternalLibs/GLEW/lib/Release/Win32;$(SolutionDir)/../ExternalLibs/GLFW/lib-vc2022;$(SolutionDir)/../ExternalLibs/ASSIMP/lib;$(SolutionDir)/../ExternalLibs/FreeType/Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;assimp-vc143-mt.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>

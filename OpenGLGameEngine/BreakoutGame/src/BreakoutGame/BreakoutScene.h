@@ -5,7 +5,6 @@
 #include "BreakoutSceneInputHandler.h"
 #include "Ball.h"
 #include "Paddle.h"
-
 namespace BreakoutGame
 {
 	class BreakoutScene : public Scene

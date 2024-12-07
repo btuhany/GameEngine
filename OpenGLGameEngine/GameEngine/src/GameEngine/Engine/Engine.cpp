@@ -39,7 +39,7 @@ namespace GameEngine {
 
 		m_MainWindow->Initialize();
 		m_Scene->Initialize();
-		m_Renderer->Initialize(m_Scene, m_MainWindow->getBufferRatio());
+		m_Renderer->Initialize(m_Scene, m_MainWindow->getBufferRatio(), m_MainWindow->getWidth(), m_MainWindow->getHeight());
 		m_GameModeType = gameModeType;
 		//TODO move to renderer
 		if (gameModeType == GameModeType::TwoDimensional)
@@ -75,8 +75,9 @@ namespace GameEngine {
 
 		GLfloat deltaTime = 0.0f;
 		GLfloat lastTime = 0.0f;
-		const GLfloat targetFPS = 70.0f;
-		const GLfloat targetFrameTime = 1000.0f / targetFPS;
+		const float targetFPS = 144.0f;
+		const float targetFrameDurationSec = 1.0f / targetFPS;
+
 
 		bool renderDirLightShadow = checkValidateDirLightShadowRendering(m_GameModeType);
 		bool renderOmniLightShadow = checkValidateOmniLightShadowRendering(m_GameModeType);
@@ -91,7 +92,7 @@ namespace GameEngine {
 			GLfloat timeNow = glfwGetTime(); //SDL_GetPerformanceCounter();
 			deltaTime = timeNow - lastTime; // (timeNow - lastTime)*1000 / SDL_GetPerformanceFrequency();
 			lastTime = timeNow;
-
+			
 			m_Scene->Update(deltaTime);
 
 			glfwPollEvents();
@@ -120,17 +121,19 @@ namespace GameEngine {
 				m_CollisionManager->Update(deltaTime);
 			}
 
-			m_Renderer->Draw(m_ShadowPassActive, renderDirLightShadow, renderOmniLightShadow);
+			//TODO one function
+			m_Renderer->DrawScene(m_ShadowPassActive, renderDirLightShadow, renderOmniLightShadow);
+			m_Renderer->DrawUI();
 
 			m_MainWindow->SwapBuffers();
 			m_MainWindow->ClearKeyCache();
 
+
+
 			GLfloat frameTime = glfwGetTime() - timeNow;
-			GLfloat sleepTime = targetFrameTime - frameTime * 1000.0f;
-			if (sleepTime > 0)
+			if (frameTime < targetFrameDurationSec)
 			{
-				//TODO causes input lag
-				std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(sleepTime)));
+				std::this_thread::sleep_for(std::chrono::duration<float>(targetFrameDurationSec - frameTime));
 			}
 		}
 	}
