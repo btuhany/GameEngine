@@ -120,7 +120,7 @@ namespace BreakoutGame
 
 	void BreakoutScene::Start()
 	{
-		m_ControlledObject = m_Paddle;
+		m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Paddle);
 		m_Ball->Start();
 		m_Paddle->Start();
 	}
@@ -191,22 +191,22 @@ namespace BreakoutGame
 
 	void BreakoutScene::handleOnLeftKey()
 	{
-		m_ControlledObject->MoveLeft();
+		m_ControlledMovableObject->MoveLeft();
 	}
 
 	void BreakoutScene::handleOnRightKey()
 	{
-		m_ControlledObject->MoveRight();
+		m_ControlledMovableObject->MoveRight();
 	}
 
 	void BreakoutScene::handleOnDownKey()
 	{
-		m_ControlledObject->MoveDown();
+		m_ControlledMovableObject->MoveDown();
 	}
 
 	void BreakoutScene::handleOnUpKey()
 	{
-		m_ControlledObject->MoveUp();
+		m_ControlledMovableObject->MoveUp();
 	}
 
 	bool isControllingBall = false;
@@ -214,12 +214,12 @@ namespace BreakoutGame
 	{
 		if (isControllingBall)
 		{
-			m_ControlledObject = m_Paddle;
+			m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Paddle);
 			isControllingBall = false;
 		}
 		else
 		{
-			m_ControlledObject = m_Ball;
+			m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Ball);
 			isControllingBall = true;
 		}
 	}
