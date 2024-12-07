@@ -6,9 +6,10 @@ namespace BreakoutGame
 	{
 	public:
 		void Initialize();
-
+		std::vector<std::shared_ptr<GameEntity>> getEntityList();
 	private:
-		UITextRendererComponent m_ScoreCounterTextComponent;
+		std::shared_ptr<UITextRendererComponent> m_ScoreCounterTextComponent;
+		std::vector<std::shared_ptr<GameEntity>> m_GameEntityList;
 	};
 }
 

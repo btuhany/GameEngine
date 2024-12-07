@@ -77,42 +77,19 @@ namespace BreakoutGame
 		auto paddleEntity = m_Paddle->getEntity();
 		instantiateGameEntity(paddleEntity);
 
-
-		static const char* vUIShaderLocation = "src/BreakoutGame/Shaders/ui_shader.vert";
-		static const char* fUIShaderLocation = "src/BreakoutGame/Shaders/ui_shader.frag";
-		std::shared_ptr<Shader> uiShader = std::make_shared<Shader>();
-		uiShader->CreateFromFiles(vUIShaderLocation, fUIShaderLocation);
-		std::shared_ptr<Texture> uiButtonPanelTex = std::make_shared<Texture>("src/BreakoutGame/Textures/button_ui_panel.PNG");
-		uiButtonPanelTex->LoadTextureWithAlpha();
-
-		auto uiEntity = std::make_shared<GameEntity>();
-
-		auto uiRenderData = std::make_shared<UIRenderData>(uiShader, uiButtonPanelTex);
-		auto uiRendererComp = std::make_shared<UIRendererComponent>();
-		uiRendererComp->setUIRenderData(uiRenderData);
-		uiEntity->AddComponent(uiRendererComp);
-		uiEntity->transform->Translate(glm::vec3(630.0f, 100.0f, -0.1f));
-		uiEntity->transform->Scale(glm::vec3(500.0f, 500.0f, 0.0f));
-		uiEntity->transform->Rotate(45.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-		instantiateGameEntity(uiEntity);
-
-
-		static const char* vTextShaderLocation = "src/BreakoutGame/Shaders/text_shader.vert";
-		static const char* fTextShaderLocation = "src/BreakoutGame/Shaders/text_shader.frag";
-		std::shared_ptr<Shader> textShader = std::make_shared<Shader>();
-		textShader->CreateFromFiles(vTextShaderLocation, fTextShaderLocation);
-		auto textEntity = std::make_shared<GameEntity>();
-		auto textComp = std::make_shared<UITextRendererComponent>();
-		textComp->shader = textShader;
-		textComp->text = "ABBA";
-		textComp->color = glm::vec3(0.6f, 0.1f, 0.5f);
-		textEntity->AddComponent(textComp);
-		textEntity->transform->Translate(glm::vec3(100.0f, 150.0f, -0.2f));
-		instantiateGameEntity(textEntity);
 		m_Ball = std::make_shared<Ball>();
 		m_Ball->Initialize(mainShader);
 		auto ballEntity = m_Ball->getEntity();
 		instantiateGameEntity(ballEntity);
+
+
+		m_UIManager = std::make_shared<UIManager>();
+		m_UIManager->Initialize();
+		auto uiEntityList = m_UIManager->getEntityList();
+		for (size_t i = 0; i < uiEntityList.size(); i++)
+		{
+			instantiateGameEntity(uiEntityList[i]);
+		}
 
 		LOG_INFO("Breakout scene initialized!");
 		Scene::Initialize();
