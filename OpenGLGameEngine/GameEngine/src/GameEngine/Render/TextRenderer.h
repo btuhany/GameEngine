@@ -33,6 +33,7 @@ namespace GameEngine
 		void Render(glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
 		void HandleOnComponentAdded(std::shared_ptr<UITextRendererComponent> textRenderer);
 		void HandleOnComponentRemoved(std::shared_ptr<UITextRendererComponent> textRenderer);
+		bool isAbleToRender(std::shared_ptr<UITextRendererComponent> rendererComponent);
 		std::vector<std::shared_ptr<UITextRendererComponent>> m_Components;
 		std::map<char, TextCharacter> charactersMap;
 	};

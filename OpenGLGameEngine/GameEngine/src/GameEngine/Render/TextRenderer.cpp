@@ -88,6 +88,11 @@ namespace GameEngine
             auto textComp = m_Components[i];
             auto ownerEntity = textComp->getEntity();
 
+            if (!isAbleToRender(textComp))
+            {
+                LOG_CORE_WARN("TextRenderer:: owner entity is exprired!");
+                continue;
+            }
             if (ownerEntity.expired())
             {
                 LOG_CORE_WARN("TextRenderer:: owner entity is exprired!");
@@ -191,5 +196,15 @@ namespace GameEngine
         {
             m_Components.erase(it);
         }
+    }
+    bool TextRenderer::isAbleToRender(std::shared_ptr<UITextRendererComponent> rendererComponent)
+    {
+        if (rendererComponent->getEntity().expired())
+        {
+            return false;
+        }
+        auto ownerEntity = rendererComponent->getEntity().lock();
+        //std::cout << "renderer object name: " << ownerEntity->getName() << ", object active: " << ownerEntity->getActive() << " , compnentEnabled: " << rendererComponent->getEnabled() << std::endl;
+        return rendererComponent->getEnabled() && ownerEntity->getActive();  //Scene control in the future
     }
 }
