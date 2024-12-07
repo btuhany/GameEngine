@@ -87,4 +87,4 @@ daily 29.10.24
 - Text transparent color fix [X]
 - TEXT RENDERER [X]
 daily
-- [ ] FPS Fix
+- [X] FPS Fix
