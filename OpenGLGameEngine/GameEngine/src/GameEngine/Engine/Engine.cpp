@@ -39,7 +39,7 @@ namespace GameEngine {
 
 		m_MainWindow->Initialize();
 		m_Scene->Initialize();
-		m_Renderer->Initialize(m_Scene, m_MainWindow->getBufferRatio());
+		m_Renderer->Initialize(m_Scene, m_MainWindow->getBufferRatio(), m_MainWindow->getWidth(), m_MainWindow->getHeight());
 		m_GameModeType = gameModeType;
 		//TODO move to renderer
 		if (gameModeType == GameModeType::TwoDimensional)
@@ -120,18 +120,20 @@ namespace GameEngine {
 				m_CollisionManager->Update(deltaTime);
 			}
 
-			m_Renderer->Draw(m_ShadowPassActive, renderDirLightShadow, renderOmniLightShadow);
+			//TODO one function
+			m_Renderer->DrawScene(m_ShadowPassActive, renderDirLightShadow, renderOmniLightShadow);
+			m_Renderer->DrawUI();
 
 			m_MainWindow->SwapBuffers();
 			m_MainWindow->ClearKeyCache();
 
-			GLfloat frameTime = glfwGetTime() - timeNow;
-			GLfloat sleepTime = targetFrameTime - frameTime * 1000.0f;
-			if (sleepTime > 0)
-			{
-				//TODO causes input lag
-				std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(sleepTime)));
-			}
+			//GLfloat frameTime = glfwGetTime() - timeNow;
+			//GLfloat sleepTime = targetFrameTime - frameTime * 1000.0f;
+			//if (sleepTime > 0)
+			//{
+			//	//TODO causes input lag
+			//	std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(sleepTime)));
+			//}
 		}
 	}
 

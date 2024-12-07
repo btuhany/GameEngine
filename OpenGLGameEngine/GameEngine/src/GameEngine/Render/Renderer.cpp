@@ -12,6 +12,9 @@ namespace GameEngine
 			[this](std::shared_ptr<SceneCameraChangedEvent> eventData) {
 				this->onSceneCameraChangedEvent(eventData);
 			}, 10);
+
+		m_TextRenderer = new TextRenderer();
+		//TODO Renderer comp events functions before initialization.
 	}
 	Renderer::~Renderer()
 	{
@@ -21,8 +24,10 @@ namespace GameEngine
 		EventManager::GetInstance().Unsubscribe<SceneCameraChangedEvent>([this](std::shared_ptr<SceneCameraChangedEvent> event) {
 			this->onSceneCameraChangedEvent(event);
 			});
+
+		delete m_TextRenderer;
 	}
-	void Renderer::Initialize(Scene* scene, GLfloat bufferRatio)
+	void Renderer::Initialize(Scene* scene, GLfloat bufferRatio, float viewPortWidth, float viewPortHeight)
 	{
 		if (!(scene->IsInitialized()))
 		{
@@ -37,10 +42,13 @@ namespace GameEngine
 		m_OmniShadowShader = scene->getOmniShadowShader();
 		m_Scene = scene;
 		m_BufferRatio = bufferRatio;
+		m_ViewPortWidth = viewPortWidth;
+		m_ViewPortHeight = viewPortHeight;
+		m_TextRenderer->Initialize();
 		m_IsInitialized = true;
 	}
 
-	void Renderer::Draw(bool shadowPassActive, bool renderDirLightShadow, bool renderOmniLightShadow)
+	void Renderer::DrawScene(bool shadowPassActive, bool renderDirLightShadow, bool renderOmniLightShadow)
 	{
 		glm::mat4 projection = m_Scene->getCamera()->
 			CalcGetProjectionMatrix(m_BufferRatio);
@@ -97,7 +105,7 @@ namespace GameEngine
 	void Renderer::RenderPass(glm::mat4 projectionMatrix, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount)
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		glViewport(0, 0, 1920, 1080);
+		glViewport(0, 0, m_ViewPortWidth, m_ViewPortHeight);
 		//Clear window
 		glClearColor(m_BackgroundColor.x, m_BackgroundColor.y, m_BackgroundColor.z, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -152,6 +160,31 @@ namespace GameEngine
 			renderShader->Validate();
 			renderComponent->Render(renderComponent->getRenderDataShader()->GetModelLocation());
 		}
+	}
+
+	void Renderer::DrawUI()
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glViewport(0, 0, m_ViewPortWidth, m_ViewPortHeight);
+		glm::mat4 projectionMatrix = glm::ortho(0.0f, m_ViewPortWidth, 0.0f, m_ViewPortHeight, 0.0f, 1.0f);
+		//TODO ui shader can be common.
+		for (size_t i = 0; i < m_UIRendererComponents.size(); i++)
+		{
+			auto uiRenderer = m_UIRendererComponents[i];
+			if (!isAbleToRender(uiRenderer))
+			{
+				continue;
+			}
+			auto shader = uiRenderer->getRenderDataShader();
+			shader->UseShader();
+			shader->SetTextureUnit(2);
+
+			glUniformMatrix4fv(shader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+			//Set texture
+			shader->Validate();
+			uiRenderer->Render(uiRenderer->getRenderDataShader()->GetModelLocation());
+		}
+		m_TextRenderer->Render(m_Scene->getCamera()->CalculateViewMatrix(), projectionMatrix);
 	}
 
 	void Renderer::DirectionalShadowMapPass(std::shared_ptr<DirectionalLight> dLight)
@@ -287,6 +320,8 @@ namespace GameEngine
 		auto compAction = componentEvent->compAction;
 		auto componentType = componentEvent->comp->getType();
 
+
+		//TODO fix if else structure ************************************************
 		if (componentType == ComponentType::Renderer)
 		{
 			if (compAction == ComponentAction::Added || compAction == ComponentAction::OwnerEnabled)
@@ -304,6 +339,38 @@ namespace GameEngine
 				{
 					m_RendererComponents.erase(it);
 				}
+			}
+		}
+		else if (componentType == ComponentType::UIRenderer)
+		{
+			if (compAction == ComponentAction::Added || compAction == ComponentAction::OwnerEnabled)
+			{
+				auto rendererComponent = std::static_pointer_cast<UIRendererComponent>(componentEvent->comp);
+				auto it = std::find(m_UIRendererComponents.begin(), m_UIRendererComponents.end(), rendererComponent);
+				if (it == m_UIRendererComponents.end())
+					m_UIRendererComponents.push_back(rendererComponent);
+			}
+			else if (compAction == ComponentAction::OwnerPreDestroyed || compAction == ComponentAction::OwnerDisabled)
+			{
+				auto rendererComponent = std::static_pointer_cast<UIRendererComponent>(componentEvent->comp);
+				auto it = std::find(m_UIRendererComponents.begin(), m_UIRendererComponents.end(), rendererComponent);
+				if (it != m_UIRendererComponents.end())
+				{
+					m_UIRendererComponents.erase(it);
+				}
+			}
+		}
+		else if (componentType == ComponentType::UITextRenderer)
+		{
+			if (compAction == ComponentAction::Added || compAction == ComponentAction::OwnerEnabled)
+			{
+				auto rendererComponent = std::static_pointer_cast<UITextRendererComponent>(componentEvent->comp);
+				m_TextRenderer->HandleOnComponentAdded(rendererComponent);
+			}
+			else if (compAction == ComponentAction::OwnerPreDestroyed || compAction == ComponentAction::OwnerDisabled)
+			{
+				auto rendererComponent = std::static_pointer_cast<UITextRendererComponent>(componentEvent->comp);
+				m_TextRenderer->HandleOnComponentRemoved(rendererComponent);
 			}
 		}
 		
