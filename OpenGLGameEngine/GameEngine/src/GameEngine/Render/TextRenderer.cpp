@@ -112,7 +112,7 @@ namespace GameEngine
             unsigned int indexOffset = 0;
             float textStartPosX = 500.0f;
             float textStartPosY = 500.0f;
-
+            float textStartPosZ = 0.0f;
 
             float charWidth = 50.0f;
             float charHeight = 50.0f;
@@ -132,18 +132,19 @@ namespace GameEngine
 
                 float xpos = textStartPosX;
                 float ypos = textStartPosY;
+
                 // Define the vertices for the current character
-                float charVertices[4][4] = {
-                    { xpos,     ypos + charHeight,   0.0f, 0.0f },
-                    { xpos,     ypos,       0.0f, 1.0f },
-                    { xpos + charWidth, ypos,       1.0f, 1.0f },
-                    { xpos + charWidth, ypos + charHeight,   1.0f, 0.0f }
+                float charVertices[4][5] = {
+                    { xpos,     ypos + charHeight, textStartPosZ,  0.0f, 0.0f },
+                    { xpos,     ypos,   textStartPosZ,    0.0f, 1.0f },
+                    { xpos + charWidth, ypos,   textStartPosZ,    1.0f, 1.0f },
+                    { xpos + charWidth, ypos + charHeight,  textStartPosZ, 1.0f, 0.0f }
                 };
 
                 // Append vertices for this character to the main vertex vector
                 for (int i = 0; i < 4; ++i)
                 {
-                    vertices.insert(vertices.end(), { charVertices[i][0], charVertices[i][1], charVertices[i][2], charVertices[i][3] });
+                    vertices.insert(vertices.end(), { charVertices[i][0], charVertices[i][1], charVertices[i][2], charVertices[i][3], charVertices[i][4] });
                 }
 
                 // Define the indices for the current character quad (two triangles)

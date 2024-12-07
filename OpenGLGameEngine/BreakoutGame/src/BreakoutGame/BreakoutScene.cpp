@@ -91,9 +91,8 @@ namespace BreakoutGame
 		auto uiRendererComp = std::make_shared<UIRendererComponent>();
 		uiRendererComp->setUIRenderData(uiRenderData);
 		uiEntity->AddComponent(uiRendererComp);
-
-		uiEntity->transform->Translate(glm::vec3(50.0f, 100.0f, 0.0f));
-		uiEntity->transform->Scale(glm::vec3(1000.0f, 500.0f, 0.0f));
+		uiEntity->transform->Translate(glm::vec3(630.0f, 100.0f, -0.1f));
+		uiEntity->transform->Scale(glm::vec3(500.0f, 500.0f, 0.0f));
 		uiEntity->transform->Rotate(45.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 		instantiateGameEntity(uiEntity);
 
@@ -107,6 +106,7 @@ namespace BreakoutGame
 		textComp->text = "ABBA";
 		textComp->color = glm::vec3(0.6f, 0.1f, 0.5f);
 		textEntity->AddComponent(textComp);
+		textEntity->transform->Translate(glm::vec3(0.0f, 0.0f, -0.2f));
 		instantiateGameEntity(textEntity);
 
 		m_Ball = std::make_shared<Ball>();

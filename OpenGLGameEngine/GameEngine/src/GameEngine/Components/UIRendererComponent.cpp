@@ -35,6 +35,7 @@ namespace GameEngine
 		auto transform = m_OwnerEntity.lock()->transform;
 		float xpos = transform->getPosition().x;
 		float ypos = transform->getPosition().y;
+		float zpos = transform->getPosition().z;
 		float w = transform->getScale().x;
 		float h = transform->getScale().y;
 
@@ -55,10 +56,10 @@ namespace GameEngine
 
 
 		float vertices[] = {
-			xpos,     ypos + h, 0.0f, 0.0f, // Top-left
-			xpos,     ypos,     0.0f, 1.0f, // Bottom-left
-			xpos + w, ypos,     1.0f, 1.0f, // Bottom-right
-			xpos + w, ypos + h, 1.0f, 0.0f  // Top-right
+			xpos,     ypos + h, zpos, 0.0f, 0.0f, // Top-left
+			xpos,     ypos,     zpos, 0.0f, 1.0f, // Bottom-left
+			xpos + w, ypos,     zpos, 1.0f, 1.0f, // Bottom-right
+			xpos + w, ypos + h, zpos, 1.0f, 0.0f  // Top-right
 		};
 
 		//float vertices[] = {

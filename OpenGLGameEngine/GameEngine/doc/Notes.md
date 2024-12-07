@@ -83,6 +83,6 @@ daily 29.10.24
 - Update method frame time calculations [O]
 
 1.12.24
-- Reversed aspect ratio fix []
-- Text transparent color fix []
-- TEXT RENDERER []
+- Reversed aspect ratio fix [?]
+- Text transparent color fix [X]
+- TEXT RENDERER [X]
