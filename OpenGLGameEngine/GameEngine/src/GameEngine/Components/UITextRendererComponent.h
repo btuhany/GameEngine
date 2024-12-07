@@ -14,6 +14,7 @@ namespace GameEngine
 		bool IsShadowRenderable() override;
 		std::shared_ptr<Shader> shader;
 		std::string text;
+		glm::vec3 color;
 		GLuint vao, vbo, ibo;
 		ComponentType getType() override;
 	private:

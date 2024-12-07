@@ -103,8 +103,8 @@ namespace GameEngine
             glUniformMatrix4fv(shader->GetProjectionLocation(), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
             glActiveTexture(GL_TEXTURE2);
 
-            /*auto uniformTextColorLocation = glGetUniformLocation(shader->shaderID, "textColor");
-            glUniform3f(uniformTextColorLocation, 0.5f, 1.0f, 0.5f);*/
+            auto uniformTextColorLocation = glGetUniformLocation(shader->shaderID, "textColor");
+            glUniform3f(uniformTextColorLocation, textComp->color.x, textComp->color.y, textComp->color.z);
 
             std::vector<float> vertices;
             std::vector<unsigned int> indices;

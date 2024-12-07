@@ -92,14 +92,15 @@ namespace BreakoutGame
 		instantiateGameEntity(uiEntity);
 
 
-		/*static const char* vUIShaderLocation = "src/BreakoutGame/Shaders/text_shader.vert";
-		static const char* fUIShaderLocation = "src/BreakoutGame/Shaders/text_shader.frag";*/
+		static const char* vTextShaderLocation = "src/BreakoutGame/Shaders/text_shader.vert";
+		static const char* fTextShaderLocation = "src/BreakoutGame/Shaders/text_shader.frag";
 		std::shared_ptr<Shader> textShader = std::make_shared<Shader>();
-		textShader->CreateFromFiles(vUIShaderLocation, fUIShaderLocation);
-		auto textEntity = std::make_shared<UITextEntity>();
+		textShader->CreateFromFiles(vTextShaderLocation, fTextShaderLocation);
+		auto textEntity = std::make_shared<GameEntity>();
 		auto textComp = std::make_shared<UITextRendererComponent>();
 		textComp->shader = textShader;
 		textComp->text = "ABBA";
+		textComp->color = glm::vec3(0.6f, 0.1f, 0.5f);
 		textEntity->AddComponent(textComp);
 		instantiateGameEntity(textEntity);
 

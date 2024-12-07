@@ -191,6 +191,8 @@
     <None Include="src\BreakoutGame\Shaders\colliderDebugShader.vert" />
     <None Include="src\BreakoutGame\Shaders\shader.frag" />
     <None Include="src\BreakoutGame\Shaders\shader.vert" />
+    <None Include="src\BreakoutGame\Shaders\text_shader.frag" />
+    <None Include="src\BreakoutGame\Shaders\text_shader.vert" />
     <None Include="src\BreakoutGame\Shaders\ui_shader.frag" />
     <None Include="src\BreakoutGame\Shaders\ui_shader.vert" />
   </ItemGroup>
