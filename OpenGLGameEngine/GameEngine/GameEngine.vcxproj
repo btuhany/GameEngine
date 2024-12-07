@@ -82,8 +82,6 @@
     <ClCompile Include="src\GameEngine\Math\Vector3.cpp" />
     <ClCompile Include="src\GameEngine\Components\UITextRendererComponent.cpp" />
     <ClCompile Include="src\GameEngine\Resource\TextData.cpp" />
-    <ClCompile Include="src\GameEngine\Entities\UITextEntity.cpp" />
-    <ClCompile Include="src\GameEngine\Entities\UIEntity.cpp" />
     <ClCompile Include="src\GameEngine\Components\UIRendererComponent.cpp" />
     <ClCompile Include="src\GameEngine\Render\UIRenderData.cpp" />
   </ItemGroup>
@@ -147,8 +145,6 @@
     <ClInclude Include="src\GameEngine\Math\Vector3.h" />
     <ClInclude Include="src\GameEngine\Components\UITextRendererComponent.h" />
     <ClInclude Include="src\GameEngine\Resource\TextData.h" />
-    <ClInclude Include="src\GameEngine\Entities\UITextEntity.h" />
-    <ClInclude Include="src\GameEngine\Entities\UIEntity.h" />
     <ClInclude Include="src\GameEngine\Components\UIRendererComponent.h" />
     <ClInclude Include="src\GameEngine\Render\UIRenderData.h" />
   </ItemGroup>

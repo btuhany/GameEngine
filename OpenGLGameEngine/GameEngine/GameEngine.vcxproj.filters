@@ -159,12 +159,6 @@
     <ClCompile Include="src\GameEngine\Render\TextRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Entities\UITextEntity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameEngine\Entities\UIEntity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameEngine\Components\UIRendererComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -348,12 +342,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Render\TextRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameEngine\Entities\UITextEntity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameEngine\Entities\UIEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Components\UIRendererComponent.h">
