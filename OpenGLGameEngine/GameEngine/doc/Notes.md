@@ -86,3 +86,5 @@ daily 29.10.24
 - Reversed aspect ratio fix [?]
 - Text transparent color fix [X]
 - TEXT RENDERER [X]
+daily
+- [ ] FPS Fix
