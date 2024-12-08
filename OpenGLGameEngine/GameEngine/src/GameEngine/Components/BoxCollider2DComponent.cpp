@@ -6,11 +6,15 @@ namespace GameEngine
 	{
 		m_Width = width;
 		m_Height = height;
+		m_UseStaticSingleNormalVector = false;
+		m_StaticSingleNormalVector = Vector2::zero;
 	}
 	BoxCollider2DComponent::BoxCollider2DComponent(float width, float height, CollisionType collisionType, std::shared_ptr<CollisionDetector> collisionDetector) : ColliderComponent(collisionType, collisionDetector)
 	{
 		m_Width = width;
 		m_Height = height;
+		m_UseStaticSingleNormalVector = false;
+		m_StaticSingleNormalVector = Vector2::zero;
 	}
 	float BoxCollider2DComponent::getWidth()
 	{
@@ -59,6 +63,12 @@ namespace GameEngine
 		{
 			return Vector2::zero;
 		}
+
+		if (m_UseStaticSingleNormalVector)
+		{
+			return m_StaticSingleNormalVector;
+		}
+
 		auto colliderEntityPos = Vector2(entity.lock()->transform->getPosition());
 		auto collisionVec = (collisionPos - colliderEntityPos);
 
@@ -76,19 +86,23 @@ namespace GameEngine
 
 		if (Vector2::IsAligned(collisionVec, topRightVec, CORNER_ALIGN_CHECK_THRESHOLD))
 		{
-			return topRightVec;
+			std::cout << "topRightVec" << std::endl;
+			return topRightVec.normalize();
 		}
 		else if (Vector2::IsAligned(collisionVec, topLeftVec, CORNER_ALIGN_CHECK_THRESHOLD))
 		{
-			return topLeftVec;
+			std::cout << "topLeftVec" << std::endl;
+			return topLeftVec.normalize();
 		}
 		else if (Vector2::IsAligned(collisionVec, bottomLeftVec, CORNER_ALIGN_CHECK_THRESHOLD))
 		{
-			return bottomLeftVec;
+			std::cout << "bottomLeftVec" << std::endl;
+			return bottomLeftVec.normalize();
 		}
 		else if (Vector2::IsAligned(collisionVec, bottomRightVec, CORNER_ALIGN_CHECK_THRESHOLD))
 		{
-			return bottomRightVec;
+			std::cout << "bottomRightVec" << std::endl;
+			return bottomRightVec.normalize();
 		}
 
 		Vector2 normalVector = Vector2::zero;
@@ -148,6 +162,12 @@ namespace GameEngine
 		}
 
 		return normalVector.normalize();
+	}
+
+	void BoxCollider2DComponent::SetEnableStaticSingleNormalVector(bool enabled, Vector2 normalVector)
+	{
+		m_UseStaticSingleNormalVector = enabled;
+		m_StaticSingleNormalVector = normalVector;
 	}
 
 	void BoxCollider2DComponent::HandleOnAfterOwnerInstantiated()
