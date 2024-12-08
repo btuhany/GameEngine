@@ -106,8 +106,12 @@ namespace BreakoutGame
 
 			m_MovementVector = newMovementVector;
 
-			if (colliderEntity->getName() != "Paddle")
+
+			//TODO
+			if (colliderEntity->getName().find("Tile") != std::string::npos) {
 				colliderEntity->setActive(false);
+			}
+				
 		}
 	}
 }

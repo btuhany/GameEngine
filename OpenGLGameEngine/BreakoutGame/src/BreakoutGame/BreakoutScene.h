@@ -23,6 +23,7 @@ namespace BreakoutGame
 
 		BreakoutSceneInputHandler* m_InputHandler;
 		void initializeInputCallbacks();
+		void initializeBoundaryObjects();
 		void changeCameraType();
 
 		void handleOnLeftKey();
