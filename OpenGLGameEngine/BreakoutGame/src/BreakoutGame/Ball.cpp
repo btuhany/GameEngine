@@ -26,7 +26,7 @@ namespace BreakoutGame
 
 	void Ball::Start()
 	{
-		m_Speed = 0.0f;
+		m_Speed = 10.0f;
 		m_Entity->transform->SetPosition(glm::vec3(5.0f, 0.0f, 1.1f));
 	}
 
@@ -136,6 +136,6 @@ namespace BreakoutGame
 		if (!m_IsMoving)
 			return;
 
-		m_Entity->transform->Translate(m_MovementVector * m_DeltaTime);
+		m_Entity->transform->Translate(m_MovementVector * m_DeltaTime * m_Speed);
 	}
 }

@@ -18,6 +18,7 @@ namespace BreakoutGame
 
 	void BreakoutScene::Initialize()
 	{
+		m_IsGameStarted = false;
 		initializeInputCallbacks();
 		initializeBoundaryObjects();
 		setCamera(std::make_shared<Camera>(
@@ -106,10 +107,18 @@ namespace BreakoutGame
 	void BreakoutScene::Update(GLfloat deltaTime)
 	{
 		m_DeltaTime = deltaTime;
-		//m_Ball->Tick(deltaTime);
+		m_Ball->Tick(deltaTime);
 		m_Paddle->Tick(deltaTime);
 
-		m_Ball->SetPosition(m_Paddle->GetBallHolderPosition());
+
+		if (m_IsGameStarted)
+		{
+
+		}
+		else
+		{
+			m_Ball->SetPosition(m_Paddle->GetBallHolderPosition());
+		}
 	}
 
 	void BreakoutScene::initializeInputCallbacks()
@@ -148,10 +157,6 @@ namespace BreakoutGame
 			});
 	}
 
-	void instantiateBoundaryEntity()
-	{
-
-	}
 	void BreakoutScene::initializeBoundaryObjects()
 	{
 		auto rightBoundaryEntity = std::make_shared<GameEntity>();
@@ -249,6 +254,9 @@ namespace BreakoutGame
 
 	void BreakoutScene::handleOnBallReleasedKey()
 	{
+		LOG_INFO("Ball Released!");
+		m_IsGameStarted = true;
+		m_Ball->StartMovement(Vector3::up);
 	}
 
 }

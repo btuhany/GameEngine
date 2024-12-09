@@ -33,6 +33,7 @@ namespace BreakoutGame
 		void handleOnBallDebugKey();
 		void handleOnBallReleasedKey();
 
+		bool m_IsGameStarted = false;
 		std::shared_ptr<Ball> m_Ball;
 		std::shared_ptr<Paddle> m_Paddle;
 		std::shared_ptr<UIManager> m_UIManager;
