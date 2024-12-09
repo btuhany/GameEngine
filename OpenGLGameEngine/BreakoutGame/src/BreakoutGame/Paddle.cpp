@@ -14,7 +14,7 @@ namespace BreakoutGame
 		std::string name = "Paddle";
 		m_Entity->setName(name);
 
-		auto boxCollider = std::make_shared<BoxCollider2DComponent>(1.8f, 1.8f, CollisionType::Static);
+		auto boxCollider = std::make_shared<BoxCollider2DComponent>(7.5f, 2.0f, CollisionType::Static);
 		m_Entity->AddComponent(boxCollider);
 	}
 	void Paddle::Start()
