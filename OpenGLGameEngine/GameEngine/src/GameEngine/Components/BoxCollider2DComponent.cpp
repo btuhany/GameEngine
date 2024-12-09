@@ -6,11 +6,15 @@ namespace GameEngine
 	{
 		m_Width = width;
 		m_Height = height;
+		m_UseStaticSingleNormalVector = false;
+		m_StaticSingleNormalVector = Vector2::zero;
 	}
 	BoxCollider2DComponent::BoxCollider2DComponent(float width, float height, CollisionType collisionType, std::shared_ptr<CollisionDetector> collisionDetector) : ColliderComponent(collisionType, collisionDetector)
 	{
 		m_Width = width;
 		m_Height = height;
+		m_UseStaticSingleNormalVector = false;
+		m_StaticSingleNormalVector = Vector2::zero;
 	}
 	float BoxCollider2DComponent::getWidth()
 	{
@@ -59,52 +63,62 @@ namespace GameEngine
 		{
 			return Vector2::zero;
 		}
+
+		if (m_UseStaticSingleNormalVector)
+		{
+			return m_StaticSingleNormalVector;
+		}
+
 		auto colliderEntityPos = Vector2(entity.lock()->transform->getPosition());
-		auto collisionVec = (collisionPos - colliderEntityPos).normalize();
+		auto collisionVec = (collisionPos - colliderEntityPos);
 
 		auto collidedNodes = getBoundNodes();
-		auto topRightVec = (collidedNodes[(int)BoxColliderPosType::TopRight] - colliderEntityPos).normalize();
-		auto bottomRightVec = (collidedNodes[(int)BoxColliderPosType::BottomRight] - colliderEntityPos).normalize();
-		auto topLeftVec = (collidedNodes[(int)BoxColliderPosType::TopLeft] - colliderEntityPos).normalize();
-		auto bottomLeftVec = (collidedNodes[(int)BoxColliderPosType::BottomLeft] - colliderEntityPos).normalize();
+		auto topRightVec = (collidedNodes[(int)BoxColliderPosType::TopRight] - colliderEntityPos);
+		auto bottomRightVec = (collidedNodes[(int)BoxColliderPosType::BottomRight] - colliderEntityPos);
+		auto topLeftVec = (collidedNodes[(int)BoxColliderPosType::TopLeft] - colliderEntityPos);
+		auto bottomLeftVec = (collidedNodes[(int)BoxColliderPosType::BottomLeft] - colliderEntityPos);
 
-		auto yPosInTopRightVec = collisionVec.x * (topRightVec.y / topRightVec.x);
-		auto yPosInBottomRightVec = collisionVec.x * (bottomRightVec.y / bottomRightVec.x);
+		auto collidedPointYPosInLBtoRUVector = collisionVec.x * (topRightVec.y / topRightVec.x);
+		auto collidedPointYPosInLUtoRBVector = collisionVec.x * (bottomRightVec.y / bottomRightVec.x);
 
-		//std::cout << "Ball yPosInBottomRightVec, x: " << yPosInBottomRightVec << std::endl;
-		//std::cout << "Ball yPosInTopRightVec, x: " << yPosInTopRightVec << std::endl;
+		//std::cout << "Ball collidedPointYPosInLUtoRBVector, x: " << collidedPointYPosInLUtoRBVector << std::endl;
+		//std::cout << "Ball collidedPointYPosInLBtoRUVector, x: " << collidedPointYPosInLBtoRUVector << std::endl;
 
 		if (Vector2::IsAligned(collisionVec, topRightVec, CORNER_ALIGN_CHECK_THRESHOLD))
 		{
-			return topRightVec;
+			std::cout << "topRightVec" << std::endl;
+			return topRightVec.normalize();
 		}
 		else if (Vector2::IsAligned(collisionVec, topLeftVec, CORNER_ALIGN_CHECK_THRESHOLD))
 		{
-			return topLeftVec;
+			std::cout << "topLeftVec" << std::endl;
+			return topLeftVec.normalize();
 		}
 		else if (Vector2::IsAligned(collisionVec, bottomLeftVec, CORNER_ALIGN_CHECK_THRESHOLD))
 		{
-			return bottomLeftVec;
+			std::cout << "bottomLeftVec" << std::endl;
+			return bottomLeftVec.normalize();
 		}
 		else if (Vector2::IsAligned(collisionVec, bottomRightVec, CORNER_ALIGN_CHECK_THRESHOLD))
 		{
-			return bottomRightVec;
+			std::cout << "bottomRightVec" << std::endl;
+			return bottomRightVec.normalize();
 		}
 
 		Vector2 normalVector = Vector2::zero;
 		if (collisionVec.x > 0)
 		{
-			if (collisionVec.y > yPosInTopRightVec)
+			if (collisionVec.y > collidedPointYPosInLBtoRUVector)
 			{
 				//UP
 				normalVector = Vector2::up;
 			}
-			else if (collisionVec.y <= yPosInTopRightVec && collisionVec.y >= yPosInBottomRightVec)
+			else if (collisionVec.y <= collidedPointYPosInLBtoRUVector && collisionVec.y >= collidedPointYPosInLUtoRBVector)
 			{
 				//RIGHT
 				normalVector = Vector2::right;
 			}
-			else if (collisionVec.y < yPosInBottomRightVec)
+			else if (collisionVec.y < collidedPointYPosInLUtoRBVector)
 			{
 				//DOWN
 				normalVector = Vector2::down;
@@ -112,17 +126,17 @@ namespace GameEngine
 		}
 		else if (collisionVec.x < 0)
 		{
-			if (collisionVec.y > yPosInBottomRightVec)
+			if (collisionVec.y > collidedPointYPosInLUtoRBVector)
 			{
 				//UP
 				normalVector = Vector2::up;
 			}
-			else if (collisionVec.y >= yPosInTopRightVec && collisionVec.y <= yPosInBottomRightVec)
+			else if (collisionVec.y >= collidedPointYPosInLBtoRUVector && collisionVec.y <= collidedPointYPosInLUtoRBVector)
 			{
 				//LEFT
 				normalVector = Vector2::left;
 			}
-			else if (collisionVec.y < yPosInTopRightVec)
+			else if (collisionVec.y < collidedPointYPosInLBtoRUVector)
 			{
 				//DOWN
 				normalVector = Vector2::down;
@@ -148,6 +162,12 @@ namespace GameEngine
 		}
 
 		return normalVector.normalize();
+	}
+
+	void BoxCollider2DComponent::SetEnableStaticSingleNormalVector(bool enabled, Vector2 normalVector)
+	{
+		m_UseStaticSingleNormalVector = enabled;
+		m_StaticSingleNormalVector = normalVector;
 	}
 
 	void BoxCollider2DComponent::HandleOnAfterOwnerInstantiated()

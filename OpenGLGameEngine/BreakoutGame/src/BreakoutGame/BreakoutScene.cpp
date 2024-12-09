@@ -9,7 +9,7 @@ namespace BreakoutGame
 	BreakoutScene::BreakoutScene(BreakoutSceneInputHandler* inputHandler) : Scene()
 	{
 		m_InputHandler = inputHandler;
-		m_ObjectMoveSpeed = 5.0f;
+		m_ObjectMoveSpeed = 15.0f;
 	}
 
 	BreakoutScene::~BreakoutScene()
@@ -18,7 +18,9 @@ namespace BreakoutGame
 
 	void BreakoutScene::Initialize()
 	{
+		m_IsGameStarted = false;
 		initializeInputCallbacks();
+		initializeBoundaryObjects();
 		setCamera(std::make_shared<Camera>(
 			glm::vec3(0.0f, 0.0f, 30.0f),
 			glm::vec3(0.0f, 1.0f, 0.0f),
@@ -77,42 +79,19 @@ namespace BreakoutGame
 		auto paddleEntity = m_Paddle->getEntity();
 		instantiateGameEntity(paddleEntity);
 
-
-		static const char* vUIShaderLocation = "src/BreakoutGame/Shaders/ui_shader.vert";
-		static const char* fUIShaderLocation = "src/BreakoutGame/Shaders/ui_shader.frag";
-		std::shared_ptr<Shader> uiShader = std::make_shared<Shader>();
-		uiShader->CreateFromFiles(vUIShaderLocation, fUIShaderLocation);
-		std::shared_ptr<Texture> uiButtonPanelTex = std::make_shared<Texture>("src/BreakoutGame/Textures/button_ui_panel.PNG");
-		uiButtonPanelTex->LoadTextureWithAlpha();
-
-		auto uiEntity = std::make_shared<GameEntity>();
-
-		auto uiRenderData = std::make_shared<UIRenderData>(uiShader, uiButtonPanelTex);
-		auto uiRendererComp = std::make_shared<UIRendererComponent>();
-		uiRendererComp->setUIRenderData(uiRenderData);
-		uiEntity->AddComponent(uiRendererComp);
-		uiEntity->transform->Translate(glm::vec3(630.0f, 100.0f, -0.1f));
-		uiEntity->transform->Scale(glm::vec3(500.0f, 500.0f, 0.0f));
-		uiEntity->transform->Rotate(45.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-		instantiateGameEntity(uiEntity);
-
-		static const char* vTextShaderLocation = "src/BreakoutGame/Shaders/text_shader.vert";
-		static const char* fTextShaderLocation = "src/BreakoutGame/Shaders/text_shader.frag";
-		std::shared_ptr<Shader> textShader = std::make_shared<Shader>();
-		textShader->CreateFromFiles(vTextShaderLocation, fTextShaderLocation);
-		auto textEntity = std::make_shared<GameEntity>();
-		auto textComp = std::make_shared<UITextRendererComponent>();
-		textComp->shader = textShader;
-		textComp->text = "ABBA";
-		textComp->color = glm::vec3(0.6f, 0.1f, 0.5f);
-		textEntity->AddComponent(textComp);
-		textEntity->transform->Translate(glm::vec3(100.0f, 150.0f, -0.2f));
-		instantiateGameEntity(textEntity);
-
 		m_Ball = std::make_shared<Ball>();
 		m_Ball->Initialize(mainShader);
 		auto ballEntity = m_Ball->getEntity();
 		instantiateGameEntity(ballEntity);
+
+		
+		m_UIManager = std::make_shared<UIManager>();
+		m_UIManager->Initialize();
+		auto uiEntityList = m_UIManager->getEntityList();
+		for (size_t i = 0; i < uiEntityList.size(); i++)
+		{
+			instantiateGameEntity(uiEntityList[i]);
+		}
 
 		LOG_INFO("Breakout scene initialized!");
 		Scene::Initialize();
@@ -120,7 +99,7 @@ namespace BreakoutGame
 
 	void BreakoutScene::Start()
 	{
-		m_ControlledObject = m_Paddle;
+		m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Paddle);
 		m_Ball->Start();
 		m_Paddle->Start();
 	}
@@ -130,6 +109,16 @@ namespace BreakoutGame
 		m_DeltaTime = deltaTime;
 		m_Ball->Tick(deltaTime);
 		m_Paddle->Tick(deltaTime);
+
+
+		if (m_IsGameStarted)
+		{
+
+		}
+		else
+		{
+			m_Ball->SetPosition(m_Paddle->GetBallHolderPosition());
+		}
 	}
 
 	void BreakoutScene::initializeInputCallbacks()
@@ -140,7 +129,7 @@ namespace BreakoutGame
 				//for (size_t i = 0; i < m_GameEntities.size(); i++)
 				//{
 				//	m_GameEntities[i]->setActive(true);
-				//}
+				//} 
 			});
 		m_InputHandler->OnLeftArrowKeyEvent.AddHandler(
 			[this]() {
@@ -162,8 +151,47 @@ namespace BreakoutGame
 			[this]() {
 				handleOnBallDebugKey();
 			});
+		m_InputHandler->OnBallReleaseKeyEvent.AddHandler(
+			[this]() {
+				handleOnBallReleasedKey();
+			});
 	}
 
+	void BreakoutScene::initializeBoundaryObjects()
+	{
+		auto rightBoundaryEntity = std::make_shared<GameEntity>();
+		rightBoundaryEntity->setName("right_boundary_collider_object");
+		auto rightBoundaryColliderComp = std::make_shared<BoxCollider2DComponent>(5.0f, 50.0f, CollisionType::Static);
+		rightBoundaryColliderComp->SetEnableStaticSingleNormalVector(true, Vector2::left);
+		rightBoundaryEntity->AddComponent(rightBoundaryColliderComp);
+		rightBoundaryEntity->transform->SetPosition(glm::vec3(33.0f, 0.0f, 0.0f));
+		instantiateGameEntity(rightBoundaryEntity, true);
+
+		auto leftBoundaryEntity = std::make_shared<GameEntity>();
+		leftBoundaryEntity->setName("left_boundary_collider_object");
+		auto leftBoundaryColliderComp = std::make_shared<BoxCollider2DComponent>(5.0f, 50.0f, CollisionType::Static);
+		leftBoundaryColliderComp->SetEnableStaticSingleNormalVector(true, Vector2::right);
+		leftBoundaryEntity->AddComponent(leftBoundaryColliderComp);
+		leftBoundaryEntity->transform->SetPosition(glm::vec3(-33.0f, 0.0f, 0.0f));
+		instantiateGameEntity(leftBoundaryEntity, true);
+
+		auto upBoundaryEntity = std::make_shared<GameEntity>();
+		upBoundaryEntity->setName("down_boundary_collider_object");
+		auto upBoundaryColliderComp = std::make_shared<BoxCollider2DComponent>(75.0f, 5.0f, CollisionType::Static);
+		upBoundaryColliderComp->SetEnableStaticSingleNormalVector(true, Vector2::down);
+		upBoundaryEntity->AddComponent(upBoundaryColliderComp);
+		upBoundaryEntity->transform->SetPosition(glm::vec3(0.0f, 27.5f, 0.0f));
+		instantiateGameEntity(upBoundaryEntity, true);
+
+		auto downBoundaryEntity = std::make_shared<GameEntity>();
+		downBoundaryEntity->setName("left_boundary_collider_object");
+		auto downBoundaryColliderComp = std::make_shared<BoxCollider2DComponent>(75.0f, 5.0f, CollisionType::Static);
+		downBoundaryColliderComp->SetEnableStaticSingleNormalVector(true, Vector2::up);
+		downBoundaryEntity->AddComponent(downBoundaryColliderComp);
+		downBoundaryEntity->transform->SetPosition(glm::vec3(0.0f, -27.5f, 0.0f));
+		instantiateGameEntity(downBoundaryEntity, true);
+
+	}
 
 	void BreakoutScene::changeCameraType()
 	{
@@ -191,22 +219,22 @@ namespace BreakoutGame
 
 	void BreakoutScene::handleOnLeftKey()
 	{
-		m_ControlledObject->MoveLeft();
+		m_ControlledMovableObject->MoveLeft();
 	}
 
 	void BreakoutScene::handleOnRightKey()
 	{
-		m_ControlledObject->MoveRight();
+		m_ControlledMovableObject->MoveRight();
 	}
 
 	void BreakoutScene::handleOnDownKey()
 	{
-		m_ControlledObject->MoveDown();
+		m_ControlledMovableObject->MoveDown();
 	}
 
 	void BreakoutScene::handleOnUpKey()
 	{
-		m_ControlledObject->MoveUp();
+		m_ControlledMovableObject->MoveUp();
 	}
 
 	bool isControllingBall = false;
@@ -214,14 +242,21 @@ namespace BreakoutGame
 	{
 		if (isControllingBall)
 		{
-			m_ControlledObject = m_Paddle;
+			m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Paddle);
 			isControllingBall = false;
 		}
 		else
 		{
-			m_ControlledObject = m_Ball;
+			m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Ball);
 			isControllingBall = true;
 		}
+	}
+
+	void BreakoutScene::handleOnBallReleasedKey()
+	{
+		LOG_INFO("Ball Released!");
+		m_IsGameStarted = true;
+		m_Ball->StartMovement(Vector3::up);
 	}
 
 }

@@ -26,9 +26,8 @@ namespace BreakoutGame
 
 	void Ball::Start()
 	{
-		m_Speed = 6.5f;
-		m_Entity->transform->SetPosition(glm::vec3(5.0f, 0.0f, 0.0f));
-		m_MovementVector = m_Speed * glm::normalize(glm::vec3(1.0f, 1.0f, 0.0f));
+		m_Speed = 10.0f;
+		m_Entity->transform->SetPosition(glm::vec3(5.0f, 0.0f, 1.1f));
 	}
 
 	void Ball::Tick(float deltaTime)
@@ -37,12 +36,26 @@ namespace BreakoutGame
 			return;
 
 		m_DeltaTime = deltaTime;
-		m_Entity->transform->Translate(m_MovementVector * deltaTime);
+		handleMovement();
 	}
 
 	std::shared_ptr<SpriteEntity> Ball::getEntity()
 	{
 		return m_Entity;
+	}
+	void Ball::StopMovement()
+	{
+		m_MovementVector = glm::vec3(0.0f);
+		m_IsMoving = false;
+	}
+	void Ball::StartMovement(Vector3 movementVector)
+	{
+		m_MovementVector = glm::normalize(glm::vec3(movementVector.x, movementVector.y, movementVector.z));
+		m_IsMoving = true;
+	}
+	void Ball::SetPosition(glm::vec3 position)
+	{
+		m_Entity->transform->SetPosition(position);
 	}
 	void Ball::MoveLeft()
 	{
@@ -95,6 +108,10 @@ namespace BreakoutGame
 			{
 				LOG_ERROR("Normal Vector calculated as zero!");
 			}
+			else if (Vector2::IsAligned(normalVec, m_MovementVector, 0.99f))
+			{
+				LOG_ERROR("Normal vector and movement vector is aligned");
+			}
 
 
 
@@ -106,8 +123,19 @@ namespace BreakoutGame
 
 			m_MovementVector = newMovementVector;
 
-			if (colliderEntity->getName() != "Paddle")
+
+			//TODO
+			if (colliderEntity->getName().find("Tile") != std::string::npos) {
 				colliderEntity->setActive(false);
+			}
+				
 		}
+	}
+	void Ball::handleMovement()
+	{
+		if (!m_IsMoving)
+			return;
+
+		m_Entity->transform->Translate(m_MovementVector * m_DeltaTime * m_Speed);
 	}
 }

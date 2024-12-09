@@ -6,6 +6,18 @@ void BreakoutSceneInputHandler::HandleKeys(int* keys, GLfloat deltaTime)
 	{
 		OnPressedCameraTypeChangeKeyEvent.Trigger();
 	}
+	if (keys[GLFW_KEY_SPACE] == KEY_STATE_PRESS)
+	{
+		if (!m_IsSpaceButtonPressLocked)
+		{
+			m_IsSpaceButtonPressLocked = true;
+			OnBallReleaseKeyEvent.Trigger();
+		}
+	}
+	if (keys[GLFW_KEY_SPACE] == KEY_STATE_RELEASE)
+	{
+		m_IsSpaceButtonPressLocked = false;
+	}
 	if (keys[GLFW_KEY_LEFT] == KEY_STATE_PRESS || keys[GLFW_KEY_LEFT] == KEY_STATE_HELD)
 	{
 		OnLeftArrowKeyEvent.Trigger();

@@ -5,6 +5,7 @@
 #include "BreakoutSceneInputHandler.h"
 #include "Ball.h"
 #include "Paddle.h"
+#include "UIManager.h"
 namespace BreakoutGame
 {
 	class BreakoutScene : public Scene
@@ -22,6 +23,7 @@ namespace BreakoutGame
 
 		BreakoutSceneInputHandler* m_InputHandler;
 		void initializeInputCallbacks();
+		void initializeBoundaryObjects();
 		void changeCameraType();
 
 		void handleOnLeftKey();
@@ -29,10 +31,16 @@ namespace BreakoutGame
 		void handleOnDownKey();
 		void handleOnUpKey();
 		void handleOnBallDebugKey();
+		void handleOnBallReleasedKey();
 
+		bool m_IsGameStarted = false;
 		std::shared_ptr<Ball> m_Ball;
 		std::shared_ptr<Paddle> m_Paddle;
-		std::shared_ptr<BreakoutObject> m_ControlledObject;
+		std::shared_ptr<UIManager> m_UIManager;
+
+
+		//For debug purposes
+		std::shared_ptr<IMovable> m_ControlledMovableObject;
 	};
 
 

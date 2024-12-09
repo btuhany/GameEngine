@@ -1,9 +1,9 @@
 #pragma once
 #include "BreakoutObject.h"
-
+#include "IMovable.h"
 namespace BreakoutGame
 {
-	class Paddle : public BreakoutObject
+	class Paddle : public BreakoutObject, public IMovable
 	{
 	public:
 		void Initialize(std::shared_ptr<Shader> shader) override;
@@ -14,10 +14,13 @@ namespace BreakoutGame
 		void MoveRight() override;
 		void MoveUp() override;
 		void MoveDown() override;
+
+		glm::vec3 GetBallHolderPosition();
 	private:
-		std::shared_ptr<SpriteEntity> m_Entity;
 		float m_Speed;
 		float m_DeltaTime;
+
+		glm::vec3 m_BallHolderOffset;
 	};
 }
 

@@ -88,3 +88,10 @@ daily 29.10.24
 - TEXT RENDERER [X]
 daily
 - [X] FPS Fix
+
+BREAKOUT GAME 10.12.24
+- Game Manager []
+- Paddle Collider Normals fine tuning fix []
+- Tiles calculating normals based on ball movement vector []
+- Initializing data with config classes (without magic numbers) []
+- Starting ball movement vector based on paddle speed []
