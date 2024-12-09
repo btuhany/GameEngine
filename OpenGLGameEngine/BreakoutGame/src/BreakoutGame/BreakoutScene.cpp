@@ -9,7 +9,7 @@ namespace BreakoutGame
 	BreakoutScene::BreakoutScene(BreakoutSceneInputHandler* inputHandler) : Scene()
 	{
 		m_InputHandler = inputHandler;
-		m_ObjectMoveSpeed = 5.0f;
+		m_ObjectMoveSpeed = 15.0f;
 	}
 
 	BreakoutScene::~BreakoutScene()
@@ -106,8 +106,10 @@ namespace BreakoutGame
 	void BreakoutScene::Update(GLfloat deltaTime)
 	{
 		m_DeltaTime = deltaTime;
-		m_Ball->Tick(deltaTime);
+		//m_Ball->Tick(deltaTime);
 		m_Paddle->Tick(deltaTime);
+
+		m_Ball->SetPosition(m_Paddle->GetBallHolderPosition());
 	}
 
 	void BreakoutScene::initializeInputCallbacks()
@@ -118,7 +120,7 @@ namespace BreakoutGame
 				//for (size_t i = 0; i < m_GameEntities.size(); i++)
 				//{
 				//	m_GameEntities[i]->setActive(true);
-				//}
+				//} 
 			});
 		m_InputHandler->OnLeftArrowKeyEvent.AddHandler(
 			[this]() {
@@ -139,6 +141,10 @@ namespace BreakoutGame
 		m_InputHandler->OnBallDebugKeyEvent.AddHandler(
 			[this]() {
 				handleOnBallDebugKey();
+			});
+		m_InputHandler->OnBallReleaseKeyEvent.AddHandler(
+			[this]() {
+				handleOnBallReleasedKey();
 			});
 	}
 
@@ -239,6 +245,10 @@ namespace BreakoutGame
 			m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Ball);
 			isControllingBall = true;
 		}
+	}
+
+	void BreakoutScene::handleOnBallReleasedKey()
+	{
 	}
 
 }

@@ -20,7 +20,8 @@ namespace BreakoutGame
 	void Paddle::Start()
 	{
 		m_Speed = 15.0f;
-		m_Entity->transform->SetPosition(glm::vec3(-0.1f, 5.0f, -0.3f));
+		m_BallHolderOffset = glm::vec3(0.0f, 2.0f, 0.1f);
+		m_Entity->transform->SetPosition(glm::vec3(-0.1f, 5.0f, 0.0f));
 	}
 	void Paddle::Tick(float deltaTime)
 	{
@@ -45,6 +46,10 @@ namespace BreakoutGame
 	{
 		auto downVector = glm::vec3(0.0f, -1.0f, 0.0f);
 		m_Entity->transform->Translate(downVector * m_Speed * m_DeltaTime);
+	}
+	glm::vec3 Paddle::GetBallHolderPosition()
+	{
+		return m_Entity->transform->getPosition() + m_BallHolderOffset;
 	}
 	std::shared_ptr<SpriteEntity> Paddle::getEntity()
 	{
