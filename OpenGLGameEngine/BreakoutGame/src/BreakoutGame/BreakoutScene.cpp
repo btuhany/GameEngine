@@ -256,7 +256,7 @@ namespace BreakoutGame
 	{
 		LOG_INFO("Ball Released!");
 		m_IsGameStarted = true;
-		m_Ball->StartMovement(Vector3::up);
+		m_Ball->StartMovement(Vector3(0.4f, 1.0f, 0.0f));
 	}
 
 }
