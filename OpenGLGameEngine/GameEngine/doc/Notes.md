@@ -90,11 +90,9 @@ daily 29.10.24
 daily
 - [X] FPS Fix
 
-BREAKOUT GAME 10.12.24
-- Game Manager []
-- Paddle Collider Normals fine tuning fix []
+BREAKOUT GAME
+- Game Manager [X]
+- Paddle Collider Normals fine tuning fix [X]
 - Tiles calculating normals based on ball movement vector []
 - Initializing data with config classes (without magic numbers) []
 - Starting ball movement vector based on paddle speed []
-Daily 12.12.24
-- Main Shader []
