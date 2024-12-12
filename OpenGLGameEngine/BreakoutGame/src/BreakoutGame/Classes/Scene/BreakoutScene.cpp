@@ -221,6 +221,7 @@ namespace BreakoutGame
 		else
 		{
 			m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Ball);
+			m_Ball->SetSpeed(0.0f);
 			isControllingBall = true;
 		}
 	}
