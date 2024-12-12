@@ -22,7 +22,7 @@ namespace BreakoutGame
 		initializeInputCallbacks();
 		initializeBoundaryObjects();
 		setCamera(std::make_shared<Camera>(
-			glm::vec3(0.0f, 0.0f, 30.0f),
+			glm::vec3(0.0f, 0.0f, 40.0f),
 			glm::vec3(0.0f, 1.0f, 0.0f),
 			-90.0f, 0.0f, 5.0f, 0.1f, 60, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
 
@@ -129,7 +129,7 @@ namespace BreakoutGame
 		auto rightBoundaryColliderComp = std::make_shared<BoxCollider2DComponent>(5.0f, 50.0f, CollisionType::Static);
 		rightBoundaryColliderComp->SetEnableStaticSingleNormalVector(true, Vector2::left);
 		rightBoundaryEntity->AddComponent(rightBoundaryColliderComp);
-		rightBoundaryEntity->transform->SetPosition(glm::vec3(33.0f, 0.0f, 0.0f));
+		rightBoundaryEntity->transform->SetPosition(glm::vec3(44.0f, 0.0f, 0.0f));
 		instantiateGameEntity(rightBoundaryEntity, true);
 
 		auto leftBoundaryEntity = std::make_shared<GameEntity>();
@@ -137,23 +137,23 @@ namespace BreakoutGame
 		auto leftBoundaryColliderComp = std::make_shared<BoxCollider2DComponent>(5.0f, 50.0f, CollisionType::Static);
 		leftBoundaryColliderComp->SetEnableStaticSingleNormalVector(true, Vector2::right);
 		leftBoundaryEntity->AddComponent(leftBoundaryColliderComp);
-		leftBoundaryEntity->transform->SetPosition(glm::vec3(-33.0f, 0.0f, 0.0f));
+		leftBoundaryEntity->transform->SetPosition(glm::vec3(-44.0f, 0.0f, 0.0f));
 		instantiateGameEntity(leftBoundaryEntity, true);
 
 		auto upBoundaryEntity = std::make_shared<GameEntity>();
 		upBoundaryEntity->setName("down_boundary_collider_object");
-		auto upBoundaryColliderComp = std::make_shared<BoxCollider2DComponent>(75.0f, 5.0f, CollisionType::Static);
+		auto upBoundaryColliderComp = std::make_shared<BoxCollider2DComponent>(87.0f, 5.0f, CollisionType::Static);
 		upBoundaryColliderComp->SetEnableStaticSingleNormalVector(true, Vector2::down);
 		upBoundaryEntity->AddComponent(upBoundaryColliderComp);
-		upBoundaryEntity->transform->SetPosition(glm::vec3(0.0f, 27.5f, 0.0f));
+		upBoundaryEntity->transform->SetPosition(glm::vec3(0.0f, 25.7f, 0.0f));
 		instantiateGameEntity(upBoundaryEntity, true);
 
 		auto downBoundaryEntity = std::make_shared<GameEntity>();
 		downBoundaryEntity->setName("left_boundary_collider_object");
-		auto downBoundaryColliderComp = std::make_shared<BoxCollider2DComponent>(75.0f, 5.0f, CollisionType::Static);
+		auto downBoundaryColliderComp = std::make_shared<BoxCollider2DComponent>(87.0f, 5.0f, CollisionType::Static);
 		downBoundaryColliderComp->SetEnableStaticSingleNormalVector(true, Vector2::up);
 		downBoundaryEntity->AddComponent(downBoundaryColliderComp);
-		downBoundaryEntity->transform->SetPosition(glm::vec3(0.0f, -27.5f, 0.0f));
+		downBoundaryEntity->transform->SetPosition(glm::vec3(0.0f, -25.7f, 0.0f));
 		instantiateGameEntity(downBoundaryEntity, true);
 
 	}
