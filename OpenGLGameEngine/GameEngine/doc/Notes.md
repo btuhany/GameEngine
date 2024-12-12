@@ -23,6 +23,7 @@ get and set functions -> getOrSetFunction()
 - [] MeshData and TextData base class (Abstract mesh data class)
 - [] FPS
 - [] UI Renderer abstraction, polymorphism fix
+- [] Sprite render data material dependency, using the same mesh data instance
 ************************************************************
 
 08.24
