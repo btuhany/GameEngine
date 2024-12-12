@@ -18,46 +18,37 @@ namespace BreakoutGame
 
 	void BreakoutScene::Initialize()
 	{
-		m_IsGameStarted = false;
+		initializeMainShader();
 		initializeInputCallbacks();
 		initializeBoundaryObjects();
-		setCamera(std::make_shared<Camera>(
-			glm::vec3(0.0f, 0.0f, 40.0f),
-			glm::vec3(0.0f, 1.0f, 0.0f),
-			-90.0f, 0.0f, 5.0f, 0.1f, 60, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
+		initializeMainCamera();
 
-		static const char* vShaderLocation = "src/BreakoutGame/Shaders/shader.vert";
-		static const char* fShaderLocation = "src/BreakoutGame/Shaders/shader.frag";
-		std::shared_ptr<Shader> mainShader = std::make_shared<Shader>();
-		mainShader->CreateFromFiles(vShaderLocation, fShaderLocation);
-
+		m_GameManager = std::make_shared<GameManager>();
+		m_GameManager->Initialize();
+		m_Paddle = std::make_shared<Paddle>();
+		m_Paddle->Initialize(m_MainShader);
+		m_Ball = std::make_shared<Ball>();
+		m_Ball->Initialize(m_MainShader);
 		m_BrickManager = std::make_shared<BrickManager>();
-		m_BrickManager->Initialize(mainShader);
+		m_BrickManager->Initialize(m_MainShader);
+		m_UIManager = std::make_shared<UIManager>();
+		m_UIManager->Initialize();
+
+
+		instantiateGameEntity(m_Paddle->getEntity());
+		instantiateGameEntity(m_Ball->getEntity());
 		auto brickEntityList = m_BrickManager->getEntityList();
 		for (size_t i = 0; i < brickEntityList.size(); i++)
 		{
 			instantiateGameEntity(brickEntityList[i]);
 		}
-
-		m_Paddle = std::make_shared<Paddle>();
-		m_Paddle->Initialize(mainShader);
-		auto paddleEntity = m_Paddle->getEntity();
-		instantiateGameEntity(paddleEntity);
-
-		m_Ball = std::make_shared<Ball>();
-		m_Ball->Initialize(mainShader);
-		auto ballEntity = m_Ball->getEntity();
-		instantiateGameEntity(ballEntity);
-
-		
-		m_UIManager = std::make_shared<UIManager>();
-		m_UIManager->Initialize();
 		auto uiEntityList = m_UIManager->getEntityList();
 		for (size_t i = 0; i < uiEntityList.size(); i++)
 		{
 			instantiateGameEntity(uiEntityList[i]);
 		}
 
+		m_GameManager->isGameStarted = false;
 		LOG_INFO("Breakout scene initialized!");
 		Scene::Initialize();
 	}
@@ -67,6 +58,7 @@ namespace BreakoutGame
 		m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Paddle);
 		m_Ball->Start();
 		m_Paddle->Start();
+		m_GameManager->Start();
 	}
 
 	void BreakoutScene::Update(GLfloat deltaTime)
@@ -76,7 +68,7 @@ namespace BreakoutGame
 		m_Paddle->Tick(deltaTime);
 
 
-		if (m_IsGameStarted)
+		if (m_GameManager->isGameStarted)
 		{
 
 		}
@@ -158,6 +150,22 @@ namespace BreakoutGame
 
 	}
 
+	void BreakoutScene::initializeMainShader()
+	{
+		static const char* vShaderLocation = "src/BreakoutGame/Shaders/shader.vert";
+		static const char* fShaderLocation = "src/BreakoutGame/Shaders/shader.frag";
+		m_MainShader = std::make_shared<Shader>();
+		m_MainShader->CreateFromFiles(vShaderLocation, fShaderLocation);
+	}
+
+	void BreakoutScene::initializeMainCamera()
+	{
+		setCamera(std::make_shared<Camera>(
+			glm::vec3(0.0f, 0.0f, 40.0f),
+			glm::vec3(0.0f, 1.0f, 0.0f),
+			-90.0f, 0.0f, 5.0f, 0.1f, 60, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
+	}
+
 	void BreakoutScene::changeCameraType()
 	{
 		if (getCamera()->getCameraType() == CAMERA_TYPE_PERSPECTIVE)
@@ -220,7 +228,7 @@ namespace BreakoutGame
 	void BreakoutScene::handleOnBallReleasedKey()
 	{
 		LOG_INFO("Ball Released!");
-		m_IsGameStarted = true;
+		m_GameManager->isGameStarted = true;
 		m_Ball->StartMovement(Vector3(0.4f, 1.0f, 0.0f));
 	}
 

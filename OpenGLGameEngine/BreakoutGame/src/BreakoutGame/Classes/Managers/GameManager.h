@@ -5,8 +5,9 @@ namespace BreakoutGame
 	{
 	public:
 		void Initialize();
-		void StartGame();
+		void Start();
 		void StopGame();
+		bool isGameStarted;
 	};
 }
 

@@ -95,3 +95,5 @@ BREAKOUT GAME 10.12.24
 - Tiles calculating normals based on ball movement vector []
 - Initializing data with config classes (without magic numbers) []
 - Starting ball movement vector based on paddle speed []
+Daily 12.12.24
+- Main Shader []
