@@ -1,8 +1,9 @@
 #pragma once
 #include <GameEngine.h>
+#include "IEntityProvider.h"
 namespace BreakoutGame
 {
-	class BrickManager
+	class BrickManager : public IEntityProvider
 	{
 	public:
 		void Initialize(std::shared_ptr<Shader> mainShader);

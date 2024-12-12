@@ -164,7 +164,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="IBreakoutManager.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\Managers\IEntityProvider.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Managers\BrickManager.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Managers\GameManager.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Objects\IMovable.h" />
@@ -177,7 +177,7 @@
     <ClInclude Include="src\BreakoutGame\Classes\App\BreakoutApp.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="IBreakoutManager.cpp" />
+    <ClCompile Include="src\BreakoutGame\Classes\Managers\IEntityProvider.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Managers\BrickManager.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Managers\GameManager.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Objects\IMovable.cpp" />

@@ -45,7 +45,7 @@
     <ClInclude Include="src\BreakoutGame\Classes\Managers\BrickManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IBreakoutManager.h">
+    <ClInclude Include="src\BreakoutGame\Classes\Managers\IEntityProvider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -80,7 +80,7 @@
     <ClCompile Include="src\BreakoutGame\Classes\Managers\BrickManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IBreakoutManager.cpp">
+    <ClCompile Include="src\BreakoutGame\Classes\Managers\IEntityProvider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
