@@ -1,8 +1,8 @@
 #pragma once
 #include <GameEngine.h>
 #include "EntryPoint.h"
-#include "BreakoutScene.h"
-#include "BreakoutSceneInputHandler.h"
+#include "../Scene/BreakoutScene.h"
+#include "../Input/BreakoutSceneInputHandler.h"
 class BreakoutApp : public Application
 {
 public:
