@@ -19,7 +19,7 @@ namespace BreakoutGame
 	}
 	void Paddle::Start()
 	{
-		m_Speed = 15.0f;
+		m_Speed = 35.0f;
 		m_BallHolderOffset = glm::vec3(0.0f, 2.0f, 0.1f);
 		m_Entity->transform->SetPosition(glm::vec3(-0.1f, 5.0f, 0.0f));
 	}
