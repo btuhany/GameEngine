@@ -13,6 +13,10 @@ namespace GameEngine
 			m_Handlers.push_back(handler);
 		}
 
+		void RemoveHandler(const std::function<void(Args...)>& handler) {
+			m_Handlers.erase(std::remove(m_Handlers.begin(), m_Handlers.end(), handler), m_Handlers.end());
+		}
+
 		void Trigger(Args... args)
 		{
 			for (size_t i = 0; i < m_Handlers.size(); i++)
