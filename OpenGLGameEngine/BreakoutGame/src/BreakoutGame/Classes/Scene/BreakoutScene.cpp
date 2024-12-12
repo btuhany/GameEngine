@@ -18,81 +18,37 @@ namespace BreakoutGame
 
 	void BreakoutScene::Initialize()
 	{
-		m_IsGameStarted = false;
+		initializeMainShader();
 		initializeInputCallbacks();
 		initializeBoundaryObjects();
-		setCamera(std::make_shared<Camera>(
-			glm::vec3(0.0f, 0.0f, 30.0f),
-			glm::vec3(0.0f, 1.0f, 0.0f),
-			-90.0f, 0.0f, 5.0f, 0.1f, 60, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
+		initializeMainCamera();
 
-		static const char* vShaderLocation = "src/BreakoutGame/Shaders/shader.vert";
-		static const char* fShaderLocation = "src/BreakoutGame/Shaders/shader.frag";
-		std::shared_ptr<Shader> mainShader = std::make_shared<Shader>();
-		mainShader->CreateFromFiles(vShaderLocation, fShaderLocation);
-
-		std::shared_ptr<Texture> blueTex = std::make_shared<Texture>("src/BreakoutGame/Textures/01-Breakout-Tiles.PNG");
-		blueTex->LoadTextureWithAlpha();
-		std::shared_ptr<Texture> purpleTex = std::make_shared<Texture>("src/BreakoutGame/Textures/05-Breakout-Tiles.PNG");
-		purpleTex->LoadTextureWithAlpha();
-
-		std::shared_ptr<SpriteRenderData> breakoutSpriteRenderData = std::make_shared<SpriteRenderData>(blueTex, nullptr, mainShader);
-		std::shared_ptr<SpriteRenderData> breakoutSpriteRenderData2 = std::make_shared<SpriteRenderData>(purpleTex, nullptr, mainShader);
-
-		float radius = 12.0f;
-		float angleIncrement = 2 * glm::pi<float>() / 10;
-
-		for (size_t i = 0; i < 10; i++)
-		{
-			std::shared_ptr<SpriteEntity> spriteEntity = std::make_shared<SpriteEntity>(breakoutSpriteRenderData);
-			std::string name = std::to_string(i) + ".Tile";
-			spriteEntity->setName(name);
-
-			float angle = i * angleIncrement;
-			float x = radius * glm::cos(angle);
-			float y = radius * glm::sin(angle);
-
-			spriteEntity->transform->SetPosition(glm::vec3(x, y, 0.0f));
-			auto boxCollider2DComp = std::make_shared<BoxCollider2DComponent>(6.0f, 2.0f, CollisionType::Static);
-			spriteEntity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp);
-			instantiateGameEntity(spriteEntity);
-		}
-
-		for (size_t i = 0; i < 8; i++)
-		{
-			std::shared_ptr<SpriteEntity> spriteEntity = std::make_shared<SpriteEntity>(breakoutSpriteRenderData);
-			std::string name = std::to_string(i) + ".Tile";
-			spriteEntity->setName(name);
-
-			float angle = i * angleIncrement;
-			float x = 2.0f * radius * glm::cos(angle);
-			float y = 2.0f * radius * glm::sin(angle);
-
-			spriteEntity->transform->SetPosition(glm::vec3(x, y, 0.0f));
-			auto boxCollider2DComp = std::make_shared<BoxCollider2DComponent>(6.0f, 2.0f, CollisionType::Static);
-			spriteEntity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp);
-			instantiateGameEntity(spriteEntity);
-		}
-
+		m_GameManager = std::make_shared<GameManager>();
+		m_GameManager->Initialize();
 		m_Paddle = std::make_shared<Paddle>();
-		m_Paddle->Initialize(mainShader);
-		auto paddleEntity = m_Paddle->getEntity();
-		instantiateGameEntity(paddleEntity);
-
+		m_Paddle->Initialize(m_MainShader);
 		m_Ball = std::make_shared<Ball>();
-		m_Ball->Initialize(mainShader);
-		auto ballEntity = m_Ball->getEntity();
-		instantiateGameEntity(ballEntity);
-
-		
+		m_Ball->Initialize(m_MainShader);
+		m_BrickManager = std::make_shared<BrickManager>();
+		m_BrickManager->Initialize(m_MainShader);
 		m_UIManager = std::make_shared<UIManager>();
 		m_UIManager->Initialize();
+
+
+		instantiateGameEntity(m_Paddle->getEntity());
+		instantiateGameEntity(m_Ball->getEntity());
+		auto brickEntityList = m_BrickManager->getEntityList();
+		for (size_t i = 0; i < brickEntityList.size(); i++)
+		{
+			instantiateGameEntity(brickEntityList[i]);
+		}
 		auto uiEntityList = m_UIManager->getEntityList();
 		for (size_t i = 0; i < uiEntityList.size(); i++)
 		{
 			instantiateGameEntity(uiEntityList[i]);
 		}
 
+		m_GameManager->isGameStarted = false;
 		LOG_INFO("Breakout scene initialized!");
 		Scene::Initialize();
 	}
@@ -102,6 +58,7 @@ namespace BreakoutGame
 		m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Paddle);
 		m_Ball->Start();
 		m_Paddle->Start();
+		m_GameManager->Start();
 	}
 
 	void BreakoutScene::Update(GLfloat deltaTime)
@@ -111,7 +68,7 @@ namespace BreakoutGame
 		m_Paddle->Tick(deltaTime);
 
 
-		if (m_IsGameStarted)
+		if (m_GameManager->isGameStarted)
 		{
 
 		}
@@ -164,7 +121,7 @@ namespace BreakoutGame
 		auto rightBoundaryColliderComp = std::make_shared<BoxCollider2DComponent>(5.0f, 50.0f, CollisionType::Static);
 		rightBoundaryColliderComp->SetEnableStaticSingleNormalVector(true, Vector2::left);
 		rightBoundaryEntity->AddComponent(rightBoundaryColliderComp);
-		rightBoundaryEntity->transform->SetPosition(glm::vec3(33.0f, 0.0f, 0.0f));
+		rightBoundaryEntity->transform->SetPosition(glm::vec3(44.0f, 0.0f, 0.0f));
 		instantiateGameEntity(rightBoundaryEntity, true);
 
 		auto leftBoundaryEntity = std::make_shared<GameEntity>();
@@ -172,25 +129,41 @@ namespace BreakoutGame
 		auto leftBoundaryColliderComp = std::make_shared<BoxCollider2DComponent>(5.0f, 50.0f, CollisionType::Static);
 		leftBoundaryColliderComp->SetEnableStaticSingleNormalVector(true, Vector2::right);
 		leftBoundaryEntity->AddComponent(leftBoundaryColliderComp);
-		leftBoundaryEntity->transform->SetPosition(glm::vec3(-33.0f, 0.0f, 0.0f));
+		leftBoundaryEntity->transform->SetPosition(glm::vec3(-44.0f, 0.0f, 0.0f));
 		instantiateGameEntity(leftBoundaryEntity, true);
 
 		auto upBoundaryEntity = std::make_shared<GameEntity>();
 		upBoundaryEntity->setName("down_boundary_collider_object");
-		auto upBoundaryColliderComp = std::make_shared<BoxCollider2DComponent>(75.0f, 5.0f, CollisionType::Static);
+		auto upBoundaryColliderComp = std::make_shared<BoxCollider2DComponent>(87.0f, 5.0f, CollisionType::Static);
 		upBoundaryColliderComp->SetEnableStaticSingleNormalVector(true, Vector2::down);
 		upBoundaryEntity->AddComponent(upBoundaryColliderComp);
-		upBoundaryEntity->transform->SetPosition(glm::vec3(0.0f, 27.5f, 0.0f));
+		upBoundaryEntity->transform->SetPosition(glm::vec3(0.0f, 25.7f, 0.0f));
 		instantiateGameEntity(upBoundaryEntity, true);
 
 		auto downBoundaryEntity = std::make_shared<GameEntity>();
 		downBoundaryEntity->setName("left_boundary_collider_object");
-		auto downBoundaryColliderComp = std::make_shared<BoxCollider2DComponent>(75.0f, 5.0f, CollisionType::Static);
+		auto downBoundaryColliderComp = std::make_shared<BoxCollider2DComponent>(87.0f, 5.0f, CollisionType::Static);
 		downBoundaryColliderComp->SetEnableStaticSingleNormalVector(true, Vector2::up);
 		downBoundaryEntity->AddComponent(downBoundaryColliderComp);
-		downBoundaryEntity->transform->SetPosition(glm::vec3(0.0f, -27.5f, 0.0f));
+		downBoundaryEntity->transform->SetPosition(glm::vec3(0.0f, -25.7f, 0.0f));
 		instantiateGameEntity(downBoundaryEntity, true);
 
+	}
+
+	void BreakoutScene::initializeMainShader()
+	{
+		static const char* vShaderLocation = "src/BreakoutGame/Shaders/shader.vert";
+		static const char* fShaderLocation = "src/BreakoutGame/Shaders/shader.frag";
+		m_MainShader = std::make_shared<Shader>();
+		m_MainShader->CreateFromFiles(vShaderLocation, fShaderLocation);
+	}
+
+	void BreakoutScene::initializeMainCamera()
+	{
+		setCamera(std::make_shared<Camera>(
+			glm::vec3(0.0f, 0.0f, 40.0f),
+			glm::vec3(0.0f, 1.0f, 0.0f),
+			-90.0f, 0.0f, 5.0f, 0.1f, 60, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
 	}
 
 	void BreakoutScene::changeCameraType()
@@ -248,6 +221,7 @@ namespace BreakoutGame
 		else
 		{
 			m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Ball);
+			m_Ball->SetSpeed(0.0f);
 			isControllingBall = true;
 		}
 	}
@@ -255,8 +229,8 @@ namespace BreakoutGame
 	void BreakoutScene::handleOnBallReleasedKey()
 	{
 		LOG_INFO("Ball Released!");
-		m_IsGameStarted = true;
-		m_Ball->StartMovement(Vector3::up);
+		m_GameManager->isGameStarted = true;
+		m_Ball->StartMovement(Vector3(0.4f, 1.0f, 0.0f));
 	}
 
 }

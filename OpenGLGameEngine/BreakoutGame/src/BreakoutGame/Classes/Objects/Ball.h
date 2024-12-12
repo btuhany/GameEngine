@@ -20,6 +20,8 @@ namespace BreakoutGame
 		void StartMovement(Vector3 movementVector);
 		void SetPosition(glm::vec3 position);
 
+		//debug purposes
+		void SetSpeed(float value);
 	private:
 		void onCollisionEnter(std::shared_ptr<CollisionData> collisionData);
 		void handleMovement();

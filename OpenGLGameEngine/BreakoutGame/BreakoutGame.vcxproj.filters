@@ -15,54 +15,84 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\BreakoutGame\BreakoutApp.h">
+    <ClInclude Include="src\BreakoutGame\Classes\App\BreakoutApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BreakoutGame\BreakoutScene.h">
+    <ClInclude Include="src\BreakoutGame\Classes\Scene\BreakoutScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BreakoutGame\BreakoutSceneInputHandler.h">
+    <ClInclude Include="src\BreakoutGame\Classes\Input\BreakoutSceneInputHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BreakoutGame\Ball.h">
+    <ClInclude Include="src\BreakoutGame\Classes\Objects\Ball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BreakoutGame\Paddle.h">
+    <ClInclude Include="src\BreakoutGame\Classes\Objects\Paddle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BreakoutGame\BreakoutObject.h">
+    <ClInclude Include="src\BreakoutGame\Classes\Objects\BreakoutObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BreakoutGame\UIManager.h">
+    <ClInclude Include="src\BreakoutGame\Classes\Managers\UIManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BreakoutGame\IMovable.h">
+    <ClInclude Include="src\BreakoutGame\Classes\Objects\IMovable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Managers\GameManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Managers\BrickManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Managers\IEntityProvider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Objects\Brick.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Data\BrickData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\BreakoutGame\BreakoutApp.cpp">
+    <ClCompile Include="src\BreakoutGame\Classes\App\BreakoutApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BreakoutGame\BreakoutScene.cpp">
+    <ClCompile Include="src\BreakoutGame\Classes\Scene\BreakoutScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BreakoutGame\BreakoutSceneInputHandler.cpp">
+    <ClCompile Include="src\BreakoutGame\Classes\Input\BreakoutSceneInputHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BreakoutGame\Ball.cpp">
+    <ClCompile Include="src\BreakoutGame\Classes\Objects\Ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BreakoutGame\Paddle.cpp">
+    <ClCompile Include="src\BreakoutGame\Classes\Objects\Paddle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BreakoutGame\BreakoutObject.cpp">
+    <ClCompile Include="src\BreakoutGame\Classes\Objects\BreakoutObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BreakoutGame\UIManager.cpp">
+    <ClCompile Include="src\BreakoutGame\Classes\Managers\UIManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BreakoutGame\IMovable.cpp">
+    <ClCompile Include="src\BreakoutGame\Classes\Objects\IMovable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BreakoutGame\Classes\Managers\GameManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BreakoutGame\Classes\Managers\BrickManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BreakoutGame\Classes\Managers\IEntityProvider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BreakoutGame\Classes\Objects\Brick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BreakoutGame\Classes\Data\BrickData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

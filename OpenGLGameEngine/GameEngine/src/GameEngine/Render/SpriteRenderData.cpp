@@ -5,6 +5,10 @@ namespace GameEngine
 	{
 		quadMesh = createQuadMesh();
 	}
+	SpriteRenderData::SpriteRenderData(std::shared_ptr<Texture> textureData, std::shared_ptr<Material> materialData, std::shared_ptr<Shader> shaderData, std::shared_ptr<MeshData> quadMeshData) : RenderData(textureData, materialData, shaderData)
+	{
+		quadMesh = quadMeshData;
+	}
 	std::shared_ptr<MeshData> SpriteRenderData::createQuadMesh()
 	{
 		GLfloat vertices[] =

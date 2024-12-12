@@ -1,8 +1,9 @@
 #pragma once
 #include <GameEngine.h>
+#include "IEntityProvider.h"
 namespace BreakoutGame
 {
-	class UIManager
+	class UIManager : public IEntityProvider
 	{
 	public:
 		void Initialize();

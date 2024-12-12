@@ -35,6 +35,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameEngine\Resource\MeshDataCreator.cpp" />
     <ClCompile Include="src\GameEngine\Render\DebugRenderData.cpp" />
     <ClCompile Include="src\GameEngine\Collision\CollisionDetector.cpp" />
     <ClCompile Include="src\GameEngine\Components\BoxCollider2DComponent.cpp" />
@@ -86,6 +87,7 @@
     <ClCompile Include="src\GameEngine\Render\UIRenderData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameEngine\Resource\MeshDataCreator.h" />
     <ClInclude Include="src\GameEngine\Collision\CollisionData.h" />
     <ClInclude Include="src\GameEngine\Render\DebugRenderData.h" />
     <ClInclude Include="src\GameEngine\Collision\CollisionDetector.h" />

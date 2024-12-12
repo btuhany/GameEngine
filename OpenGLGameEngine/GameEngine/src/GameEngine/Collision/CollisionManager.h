@@ -21,7 +21,7 @@ namespace GameEngine
 		std::vector<std::shared_ptr<ColliderComponent>> m_ColliderComponents;
 		std::shared_ptr<CollisionData> AreBoxCollidersCollide(std::shared_ptr<BoxCollider2DComponent> controlledCollider, std::shared_ptr<BoxCollider2DComponent> otherCollider);
 		float m_TimeCounter = 0.0f;
-		const float m_UpdateCollisionDuration = 0.05f;
+		const float m_UpdateCollisionDuration = 0.0f;
 	};
 }
 
