@@ -113,9 +113,10 @@ namespace BreakoutGame
 			{
 				LOG_ERROR("Normal Vector calculated as zero!");
 			}
-			else if (Vector2::IsAligned(normalVec, m_MovementVector, 0.9999f))
+			else if (Vector2::IsAligned(normalVec, m_MovementVector, 0.2f))
 			{
 				LOG_ERROR("Normal vector and movement vector is aligned");
+				return;
 			}
 
 
