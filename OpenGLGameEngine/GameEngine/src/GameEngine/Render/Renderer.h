@@ -21,6 +21,7 @@
 #include "../Entities/GameEntity.h"
 #include "../Components/UIRendererComponent.h"
 #include "TextRenderer.h"
+#include "../Engine/EngineConfig.h"
 namespace GameEngine
 {
 	class ENGINE_API Renderer
@@ -28,8 +29,8 @@ namespace GameEngine
 	public:
 		Renderer();
 		~Renderer();
+		void PreInitialize(GameModeType modeType);
 		void Initialize(Scene* scene, GLfloat bufferRatio, float viewPortWidth, float viewPortHeight);
-
 		void DrawScene(bool shadowPassActive, bool renderDirLightShadow, bool renderOmniLightShadow);
 		void DebugPass(glm::mat4 projectionMatrix);
 		void RenderPass(glm::mat4 projectionMatrix, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount);

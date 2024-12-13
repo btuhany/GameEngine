@@ -31,3 +31,17 @@ namespace GameEngine {
 #define LOG_WARN(...)		::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define LOG_ERROR(...)		::Log::GetClientLogger()->error(__VA_ARGS__)
 //#define LOG_FATAL(...)		::Log::GetClientLogger()->fatal(__VA_ARGS__)
+
+
+#define LOG_INFO_STREAM(content)                          \
+    {                                                     \
+        std::ostringstream oss;                           \
+        oss << content;                                   \
+        LOG_INFO(oss.str());                              \
+    }
+#define LOG_CORE_INFO_STREAM(content)                          \
+    {                                                     \
+        std::ostringstream oss;                           \
+        oss << content;                                   \
+        LOG_CORE_INFO(oss.str());                              \
+    }

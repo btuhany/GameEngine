@@ -4,6 +4,8 @@ namespace BreakoutGame
 {
 	void Ball::Initialize(std::shared_ptr<Shader> shader)
 	{
+		m_IsInCollider = false;
+
 		std::shared_ptr<Texture> texture = std::make_shared<Texture>("src/BreakoutGame/Textures/58-Breakout-Tiles.PNG");
 		texture->LoadTextureWithAlpha();
 
@@ -19,6 +21,10 @@ namespace BreakoutGame
 		detector->AddCollisionCallback(CollisionState::Enter,
 			[this](std::shared_ptr<CollisionData> collider) {
 				onCollisionEnter(collider);
+			});
+		detector->AddCollisionCallback(CollisionState::Exit,
+			[this](std::shared_ptr<CollisionData> collider) {
+				onCollisionExit(collider);
 			});
 
 		m_Entity->AddComponent(boxCollider);
@@ -86,6 +92,10 @@ namespace BreakoutGame
 		if (!m_Entity->getActive())
 			return;
 
+		if (m_IsInCollider)
+			return;
+
+		m_IsInCollider = true;
 		/*std::cout << "Ball HandleOnCollision Enter pos, x: " << collisionData->collidedNodePos.x << " y: " << collisionData->collidedNodePos.y << std::endl;*/
 
 		auto otherCollider = collisionData->otherCollider;
@@ -98,6 +108,7 @@ namespace BreakoutGame
 
 		if (otherCollider->getColliderType() == ColliderType::BoxCollider2D)
 		{
+			LOG_INFO("------BALL COLLISION------");
 			auto boxCollider = std::static_pointer_cast<BoxCollider2DComponent>(otherCollider);
 			auto avarageCollidedNodePos = Vector2::zero;
 			for (size_t i = 0; i < collisionData->collidedNodePosList.size(); i++)
@@ -106,24 +117,24 @@ namespace BreakoutGame
 				avarageCollidedNodePos = avarageCollidedNodePos + (pos / collisionData->collidedNodePosList.size());
 			}
 
-			std::cout << "avarageCollidedNodePos: " << avarageCollidedNodePos.toString() << std::endl;
+			//std::cout << "avarageCollidedNodePos: " << avarageCollidedNodePos.toString() << std::endl;
 			auto normalVec = boxCollider->ProcessGetNormalVector(avarageCollidedNodePos);
 			if (normalVec == Vector2::zero)
 			{
 				LOG_ERROR("Normal Vector calculated as zero!");
 			}
-			else if (Vector2::IsAligned(normalVec, m_MovementVector, 0.99f))
+			else if (Vector2::IsAligned(normalVec, m_MovementVector, 0.2f))
 			{
 				LOG_ERROR("Normal vector and movement vector is aligned");
+				return;
 			}
 
 
 
-			std::cout << "Ball Movement vector, x: " << m_MovementVector.x << " y: " << m_MovementVector.y << std::endl;
-			std::cout << "Ball Normal vector, x: " << normalVec.x << " y: " << normalVec.y << std::endl;
-
+			LOG_INFO_STREAM("Ball Movement vector, x: " << m_MovementVector.x << " y: " << m_MovementVector.y);
+			LOG_INFO_STREAM("Ball Normal vector, x: " << normalVec.x << " y: " << normalVec.y);
 			auto newMovementVector = glm::reflect(m_MovementVector, glm::vec3(normalVec.x, normalVec.y, 0.0f));
-			std::cout << "Ball New Movement vector, x: " << newMovementVector.x << " y: " << newMovementVector.y << std::endl;
+			LOG_INFO_STREAM("Ball After Reflect New Movement vector, x: " << newMovementVector.x << " y: " << newMovementVector.y);
 
 			m_MovementVector = newMovementVector;
 
@@ -134,6 +145,10 @@ namespace BreakoutGame
 			}
 				
 		}
+	}
+	void Ball::onCollisionExit(std::shared_ptr<CollisionData> collisionData)
+	{
+		m_IsInCollider = false;
 	}
 	void Ball::handleMovement()
 	{

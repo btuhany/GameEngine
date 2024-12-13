@@ -356,6 +356,9 @@
     <ClInclude Include="src\GameEngine\Resource\MeshDataCreator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\Engine\EngineConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Resources\Shaders\shader.vert">

@@ -33,20 +33,16 @@ namespace GameEngine {
 			m_CollisionManager = new CollisionManager();
 		}
 
+		m_GameModeType = gameModeType;
 		m_IsCollisionsEnabled = activateCollisionSystem;
 		m_Renderer = new Renderer();
 		m_Scene = scene;
 
+
 		m_MainWindow->Initialize();
 		m_Scene->Initialize();
+		m_Renderer->PreInitialize(gameModeType);
 		m_Renderer->Initialize(m_Scene, m_MainWindow->getBufferRatio(), m_MainWindow->getWidth(), m_MainWindow->getHeight());
-		m_GameModeType = gameModeType;
-		//TODO move to renderer
-		if (gameModeType == GameModeType::TwoDimensional)
-		{
-			glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		}
 
 		m_IsInitialized = true;
 	}

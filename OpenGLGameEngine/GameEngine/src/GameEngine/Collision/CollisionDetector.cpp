@@ -97,7 +97,7 @@ namespace GameEngine
 		if (SETTINGS_COLLIDER_DEBUG_MODE)
 		{
 			auto gameEntityName = otherCollider->getEntity().lock()->getName();
-			std::cout << "HandleOnCollision Enter with: " << gameEntityName << std::endl;
+			LOG_CORE_INFO("HandleOnCollision Enter with: " + gameEntityName);
 		}
 		auto it = m_CollisionCallbacks.find(CollisionState::Enter);
 		if (it != m_CollisionCallbacks.end() && it->second)
@@ -127,7 +127,7 @@ namespace GameEngine
 		if (SETTINGS_COLLIDER_DEBUG_MODE)
 		{
 			auto gameEntityName = otherCollider->getEntity().lock()->getName();
-			std::cout << "HandleOnCollision Exit with: " << gameEntityName << std::endl;
+			LOG_CORE_INFO("HandleOnCollision Exit with: " + gameEntityName);
 		}
 		auto it = m_CollisionCallbacks.find(CollisionState::Exit);
 		if (it != m_CollisionCallbacks.end() && it->second)

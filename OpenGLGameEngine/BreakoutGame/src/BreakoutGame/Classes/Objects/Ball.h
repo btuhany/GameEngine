@@ -24,10 +24,12 @@ namespace BreakoutGame
 		void SetSpeed(float value);
 	private:
 		void onCollisionEnter(std::shared_ptr<CollisionData> collisionData);
+		void onCollisionExit(std::shared_ptr<CollisionData> collisionData);
 		void handleMovement();
 		bool m_IsMoving = false;
 		glm::vec3 m_MovementVector = glm::vec3(0.0f);
 		float m_DeltaTime;
+		bool m_IsInCollider;
 	};
 }
 

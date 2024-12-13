@@ -27,6 +27,29 @@ namespace GameEngine
 
 		delete m_TextRenderer;
 	}
+	void Renderer::PreInitialize(GameModeType modeType)
+	{
+		if (modeType == GameModeType::TwoDimensional)
+		{
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+
+			//Sort list respect to z pos of objects
+			std::sort(m_RendererComponents.begin(), m_RendererComponents.end(),
+				[](const std::shared_ptr<RendererComponent>& a, const std::shared_ptr<RendererComponent>& b) {
+					auto entityA = a->getEntity().lock();
+					auto entityB = b->getEntity().lock();
+
+					if (entityA && entityB) {
+						return entityA->transform->getPosition().z < entityB->transform->getPosition().z;
+					}
+					LOG_CORE_ERROR("RENDERER | PreInitialize | Could not access to entity");
+					return false;
+				});
+		}
+
+	}
 	void Renderer::Initialize(Scene* scene, GLfloat bufferRatio, float viewPortWidth, float viewPortHeight)
 	{
 		if (!(scene->IsInitialized()))

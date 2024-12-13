@@ -9,6 +9,10 @@ namespace GameEngine {
 		m_FileLocation = "";
 	}
 
+	/// <summary>
+	/// Load texture process required TODO
+	/// </summary>
+	/// <param name="fileLoc"></param>
 	Texture::Texture(const char* fileLoc)
 	{
 		m_TextureID = 0;

@@ -7,6 +7,7 @@
 #include "../Components/ColliderComponent.h"
 #include "../StartModeSettings.h"
 #include "CollisionData.h"
+#include "../Debugging/Log.h"
 
 namespace GameEngine
 {
