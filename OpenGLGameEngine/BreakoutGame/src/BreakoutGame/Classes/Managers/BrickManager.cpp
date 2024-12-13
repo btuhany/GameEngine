@@ -21,7 +21,7 @@ namespace BreakoutGame
 
 				std::string name = "Brick_" + std::to_string(y) + "_" + std::to_string(x);
 				spriteEntity->setName(name);
-
+				spriteEntity->setTag(3);
 
 				spriteEntity->transform->SetPosition(glm::vec3(START_POS.x + x * SPACING.x, START_POS.y + y * SPACING.y, -0.5f));
 				auto boxCollider2DComp = std::make_shared<BoxCollider2DComponent>(6.0f, 2.0f, CollisionType::Static);
