@@ -19,7 +19,7 @@ namespace BreakoutGame
 		bool isAbleToDropPerk = false;
 		bool isAbleToDropExtraScorePoint = false;
 		bool isAbleToDropHealthPoint = false;
-		std::vector<std::shared_ptr<Texture>> textureListOrderedByHitCountAscending;
+		std::vector<std::shared_ptr<SpriteRenderData>> spriteRenderDataListOrderedHitCountAscending;
 	};
 }
 
