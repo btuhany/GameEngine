@@ -1,11 +1,19 @@
 #include "Brick.h"
 namespace BreakoutGame
 {
-    void Brick::Initialize(std::shared_ptr<SpriteEntity> brickEntity, std::shared_ptr<BrickData> data)
+    void Brick::Initialize(std::shared_ptr<SpriteEntity> brickEntity, std::shared_ptr<SpriteRenderData> initialRenderData, BrickType type)
     {
         m_Entity = brickEntity;
-        m_Data = data;
+        m_Type = type;
         hitCount = 0;
+    }
+    void Brick::UpdateSprite(std::shared_ptr<SpriteRenderData> spriteRenderData)
+    {
+        m_Entity->renderer->setSpriteRenderData(spriteRenderData);
+    }
+    void Brick::UpdateType(BrickType brickType)
+    {
+        m_Type = brickType;
     }
     void Brick::HandleOnBallHit()
     {
@@ -14,11 +22,11 @@ namespace BreakoutGame
     {
         return m_Entity;
     }
-    std::shared_ptr<BrickData> Brick::getData()
+    BrickType Brick::getType()
     {
-        return m_Data;
+        return m_Type;
     }
-    void Brick::Reset()
+    void Brick::ResetHitCount()
     {
         hitCount = 0;
     }

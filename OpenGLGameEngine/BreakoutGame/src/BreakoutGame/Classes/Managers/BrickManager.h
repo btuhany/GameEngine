@@ -10,6 +10,10 @@ namespace BreakoutGame
 		void Initialize(std::shared_ptr<Shader> mainShader);
 		std::vector<std::shared_ptr<GameEntity>> getEntityList();
 	private:
+		void initializeEasyBrickData();
+		void initializeMediumBrickData();
+		void initializeHardBrickData();
+
 		std::vector<std::shared_ptr<GameEntity>> m_CurrentBricks;
 
 		std::shared_ptr<BrickData> m_EasyBrickData;
