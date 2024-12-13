@@ -13,9 +13,9 @@ namespace BreakoutGame
 		std::shared_ptr<SpriteRenderData> initalSpriteRenderData = std::make_shared<SpriteRenderData>(initialBrickTexture, nullptr, mainShader);
 
 
-		for (size_t y = ROW_SIZE; y > 0; y--)
+		for (int y = ROW_SIZE - 1; y >= 0; y--)
 		{
-			for (size_t x = 0; x < COLUMN_SIZE; x++)
+			for (int x = 0; x < COLUMN_SIZE; x++)
 			{
 				std::shared_ptr<SpriteEntity> spriteEntity = std::make_shared<SpriteEntity>(initalSpriteRenderData);
 
