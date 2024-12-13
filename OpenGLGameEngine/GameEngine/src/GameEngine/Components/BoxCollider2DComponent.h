@@ -39,7 +39,7 @@ namespace GameEngine
 		void initializeDebugRender();
 		std::shared_ptr<MeshData> createDebugMesh();
 		Vector2 getNodePosition(BoxColliderPosType position);
-		const float CORNER_ALIGN_CHECK_THRESHOLD = 0.99999f;
+		const float CORNER_ALIGN_CHECK_THRESHOLD = 0.9999f;
 
 		bool m_UseStaticSingleNormalVector = false;
 		Vector2 m_StaticSingleNormalVector = Vector2::zero;
