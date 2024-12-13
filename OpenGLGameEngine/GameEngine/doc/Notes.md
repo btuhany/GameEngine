@@ -96,3 +96,4 @@ BREAKOUT GAME
 - Tiles calculating normals based on ball movement vector []
 - Initializing data with config classes (without magic numbers) []
 - Starting ball movement vector based on paddle speed []
+- BreakoutObject refactor (consider Brick)
