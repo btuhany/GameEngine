@@ -98,3 +98,4 @@ BREAKOUT GAME
 - Initializing data with config classes (without magic numbers) []
 - Starting ball movement vector based on paddle speed []
 - BreakoutObject refactor (consider Brick)
+- Fix temp isInCollider bool for ball []
