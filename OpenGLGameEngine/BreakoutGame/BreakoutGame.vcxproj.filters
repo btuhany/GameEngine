@@ -54,6 +54,9 @@
     <ClInclude Include="src\BreakoutGame\Classes\Data\BrickData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Data\TagEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BreakoutGame\Classes\App\BreakoutApp.cpp">

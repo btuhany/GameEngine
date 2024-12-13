@@ -22,9 +22,11 @@ namespace GameEngine
         void HandleOnAfterInstantiated();
         void HandleOnPreDestroyed();
         void setName(std::string name);
+        void setTag(int tag);
+        int getTag();
         std::string getName();
         std::shared_ptr<Transform> transform;
-        
+
         template<typename T>
         void AddComponent(std::shared_ptr<T> component);
 
@@ -38,6 +40,7 @@ namespace GameEngine
         std::unordered_map<std::type_index, std::shared_ptr<Component>> m_ComponentMap;
 
 	private:
+        int m_Tag = 0;
 		bool m_IsActive = false;
         bool m_IsInstantiated = false; //is assigned to scene
         std::string m_Name;

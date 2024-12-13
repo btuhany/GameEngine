@@ -8,6 +8,7 @@ namespace GameEngine
 		transform = std::make_shared<Transform>();
 		AddComponent<Transform>(transform);
         setName("NoNameGameEntity");
+        m_Tag = 0;
     }
     bool GameEntity::IsActive()
     {
@@ -61,6 +62,14 @@ namespace GameEngine
     void GameEntity::setName(std::string name)
     {
         m_Name = name;
+    }
+    void GameEntity::setTag(int tag)
+    {
+        m_Tag = tag;
+    }
+    int GameEntity::getTag()
+    {
+        return m_Tag;
     }
     std::string GameEntity::getName()
     {

@@ -165,6 +165,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\BreakoutGame\Classes\Data\BrickData.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\Data\TagEnum.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Objects\Brick.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Managers\IEntityProvider.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Managers\BrickManager.h" />
