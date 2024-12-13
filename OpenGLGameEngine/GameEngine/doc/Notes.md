@@ -24,6 +24,7 @@ get and set functions -> getOrSetFunction()
 - [] FPS
 - [] UI Renderer abstraction, polymorphism fix
 - [] Sprite render data material dependency, using the same mesh data instance
+- [] Not instantiated components still contained in manager vector lists (for example: RendererComponent and Renderer)
 ************************************************************
 
 08.24
