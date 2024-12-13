@@ -27,6 +27,14 @@ namespace GameEngine
 
 		delete m_TextRenderer;
 	}
+	void Renderer::PreInitialize(GameModeType modeType)
+	{
+		if (modeType == GameModeType::TwoDimensional)
+		{
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		}
+	}
 	void Renderer::Initialize(Scene* scene, GLfloat bufferRatio, float viewPortWidth, float viewPortHeight)
 	{
 		if (!(scene->IsInitialized()))

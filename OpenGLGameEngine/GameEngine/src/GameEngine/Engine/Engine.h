@@ -11,14 +11,8 @@
 #include "../Scene/CameraTypeEnum.h"
 #include "../Render/Renderer.h"
 #include "../Collision/CollisionManager.h"
-
+#include "EngineConfig.h"
 namespace GameEngine {
-	enum class GameModeType
-	{
-		TwoDimensional = 0,
-		ThreeDimensional
-	};
-
 	class ENGINE_API Engine
 	{
 	public:
