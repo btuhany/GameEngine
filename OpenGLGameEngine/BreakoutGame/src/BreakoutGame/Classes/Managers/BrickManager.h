@@ -16,9 +16,10 @@ namespace BreakoutGame
 
 		std::vector<std::shared_ptr<GameEntity>> m_CurrentBricks;
 
-		static const int ROW_SIZE = 3;
-		static const int COLUMN_SIZE = 8;
-		Vector2 SPACING = Vector2(7.0f, 3.0f);
+		static const int ROW_SIZE = 5;
+		static const int COLUMN_SIZE = 11;
+		const Vector2 SPACING = Vector2(7.0f, 3.0f);
+		const Vector2 START_POS = Vector2(-35.0f, 8.0f);
 		std::shared_ptr<BrickData> m_EasyBrickData;
 		std::shared_ptr<BrickData> m_MediumBrickData;
 		std::shared_ptr<BrickData> m_HardBrickData;

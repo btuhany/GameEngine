@@ -23,7 +23,7 @@ namespace BreakoutGame
 				spriteEntity->setName(name);
 
 
-				spriteEntity->transform->SetPosition(glm::vec3(x * SPACING.x, y * SPACING.y, -0.5f));
+				spriteEntity->transform->SetPosition(glm::vec3(START_POS.x + x * SPACING.x, START_POS.y + y * SPACING.y, -0.5f));
 				auto boxCollider2DComp = std::make_shared<BoxCollider2DComponent>(6.0f, 2.0f, CollisionType::Static);
 				spriteEntity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp);
 				m_CurrentBricks.push_back(spriteEntity);
