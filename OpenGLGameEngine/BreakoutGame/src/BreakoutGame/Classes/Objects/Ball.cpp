@@ -98,6 +98,7 @@ namespace BreakoutGame
 
 		if (otherCollider->getColliderType() == ColliderType::BoxCollider2D)
 		{
+			LOG_INFO("------BALL COLLISION------");
 			auto boxCollider = std::static_pointer_cast<BoxCollider2DComponent>(otherCollider);
 			auto avarageCollidedNodePos = Vector2::zero;
 			for (size_t i = 0; i < collisionData->collidedNodePosList.size(); i++)
@@ -106,7 +107,7 @@ namespace BreakoutGame
 				avarageCollidedNodePos = avarageCollidedNodePos + (pos / collisionData->collidedNodePosList.size());
 			}
 
-			std::cout << "avarageCollidedNodePos: " << avarageCollidedNodePos.toString() << std::endl;
+			//std::cout << "avarageCollidedNodePos: " << avarageCollidedNodePos.toString() << std::endl;
 			auto normalVec = boxCollider->ProcessGetNormalVector(avarageCollidedNodePos);
 			if (normalVec == Vector2::zero)
 			{
@@ -119,11 +120,10 @@ namespace BreakoutGame
 
 
 
-			std::cout << "Ball Movement vector, x: " << m_MovementVector.x << " y: " << m_MovementVector.y << std::endl;
-			std::cout << "Ball Normal vector, x: " << normalVec.x << " y: " << normalVec.y << std::endl;
-
+			LOG_INFO_STREAM("Ball Movement vector, x: " << m_MovementVector.x << " y: " << m_MovementVector.y);
+			LOG_INFO_STREAM("Ball Normal vector, x: " << normalVec.x << " y: " << normalVec.y);
 			auto newMovementVector = glm::reflect(m_MovementVector, glm::vec3(normalVec.x, normalVec.y, 0.0f));
-			std::cout << "Ball New Movement vector, x: " << newMovementVector.x << " y: " << newMovementVector.y << std::endl;
+			LOG_INFO_STREAM("Ball After Reflect New Movement vector, x: " << newMovementVector.x << " y: " << newMovementVector.y);
 
 			m_MovementVector = newMovementVector;
 
