@@ -99,3 +99,4 @@ BREAKOUT GAME
 - Starting ball movement vector based on paddle speed []
 - BreakoutObject refactor (consider Brick)
 - Fix temp isInCollider bool for ball []
+- Process all colliders at once []
