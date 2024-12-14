@@ -10,11 +10,12 @@ namespace BreakoutGame
 	public:
 		void Initialize(std::shared_ptr<Shader> mainShader);
 		std::vector<std::shared_ptr<GameEntity>> getEntityList();
+		void HandleOnGotHitByBall(std::shared_ptr<GameEntity> brickEntity);
 	private:
 		void initializeEasyBrickData(std::shared_ptr<Shader> shader);
 		void initializeMediumBrickData(std::shared_ptr<Shader> shader);
 		void initializeHardBrickData(std::shared_ptr<Shader> shader);
-
+		std::shared_ptr<Brick> findBrick(std::shared_ptr<GameEntity> brickEntity);
 		std::vector<std::shared_ptr<Brick>> m_BrickList;
 
 		static const int ROW_SIZE = 5;

@@ -37,6 +37,32 @@ namespace BreakoutGame
 		}
 		return entities;
 	}
+	void BrickManager::HandleOnGotHitByBall(std::shared_ptr<GameEntity> brickEntity)
+	{
+		auto brick = findBrick(brickEntity);
+		if (brick == nullptr)
+		{
+			LOG_ERROR("BRICK MANAGER | HandleOnGotHitByBall | Brick is null!");
+			return;
+		}
+
+		LOG_INFO("BRICK GOT HIT, NAME: " + brick->getEntity()->getName());
+		brick->getEntity()->setActive(false);
+	}
+	std::shared_ptr<Brick> BrickManager::findBrick(std::shared_ptr<GameEntity> brickEntity)
+	{
+		std::shared_ptr<Brick> brick = nullptr;
+		//FIND BRICK
+		for (size_t i = 0; i < m_BrickList.size(); i++)
+		{
+			if (m_BrickList[i]->getEntity() == brickEntity)
+			{
+				brick = m_BrickList[i];
+				break;
+			}
+		}
+		return brick;
+	}
 	void BrickManager::initializeEasyBrickData(std::shared_ptr<Shader> shader)
 	{
 		m_EasyBrickData = std::make_shared<BrickData>();
@@ -97,4 +123,5 @@ namespace BreakoutGame
 		std::shared_ptr<SpriteRenderData> broken2SpriteRenderData = std::make_shared<SpriteRenderData>(broken2BrickTexture, nullptr, shader);
 		m_HardBrickData->spriteRenderDataListOrderedHitCountAscending.push_back(broken2SpriteRenderData);
 	}
+
 }

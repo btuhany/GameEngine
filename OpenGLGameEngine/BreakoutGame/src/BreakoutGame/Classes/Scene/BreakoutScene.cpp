@@ -198,7 +198,10 @@ namespace BreakoutGame
 
 	void BreakoutScene::onBallColliderEnter(std::shared_ptr<GameEntity> gameEntity)
 	{
-		
+		if (gameEntity->getTag() == (int)Tag::Brick)
+		{
+			m_BrickManager->HandleOnGotHitByBall(gameEntity);
+		}
 	}
 
 	void BreakoutScene::handleOnLeftKey()
