@@ -96,12 +96,12 @@ namespace GameEngine
 					{
 						if (controlledCollider->detector != nullptr)
 						{
-							//controlledCollider->detector->RemoveColliderFromCurrentCollisions(colliderComp);
 							auto collisionData = std::make_shared<CollisionData>();
 							collisionData->isInBounds = false;
 							collisionData->collidedNodePosList = std::vector<Vector3>();
 							collisionData->otherCollider = colliderComp;
 							controlledCollider->detector->ProcessCollisionResult(collisionData);
+							controlledCollider->detector->RemoveColliderFromCurrentCollisions(colliderComp); 	//not sure if this function should be called
 						}
 					}
 				}
