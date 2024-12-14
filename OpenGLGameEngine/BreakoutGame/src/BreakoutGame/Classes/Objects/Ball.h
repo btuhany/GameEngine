@@ -29,7 +29,6 @@ namespace BreakoutGame
 		bool m_IsMoving = false;
 		glm::vec3 m_MovementVector = glm::vec3(0.0f);
 		float m_DeltaTime;
-		bool m_IsInBrickCollider;
 	};
 }
 

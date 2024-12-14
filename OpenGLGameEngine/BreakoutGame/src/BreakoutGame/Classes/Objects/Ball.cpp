@@ -4,8 +4,6 @@ namespace BreakoutGame
 {
 	void Ball::Initialize(std::shared_ptr<Shader> shader)
 	{
-		m_IsInBrickCollider = false;
-
 		std::shared_ptr<Texture> texture = std::make_shared<Texture>("src/BreakoutGame/Textures/58-Breakout-Tiles.PNG");
 		texture->LoadTextureWithAlpha();
 
@@ -92,10 +90,6 @@ namespace BreakoutGame
 		if (!m_Entity->getActive())
 			return;
 
-		if (m_IsInBrickCollider)
-			return;
-
-		m_IsInBrickCollider = true;
 		/*std::cout << "Ball HandleOnCollision Enter pos, x: " << collisionData->collidedNodePos.x << " y: " << collisionData->collidedNodePos.y << std::endl;*/
 
 		auto otherCollider = collisionData->otherCollider;
@@ -140,15 +134,15 @@ namespace BreakoutGame
 
 
 			//TODO
-			if (colliderEntity->getTag() == (int)Tag::Brick) {
-				colliderEntity->setActive(false);
-			}
+			//if (colliderEntity->getTag() == (int)Tag::Brick) {
+			//	colliderEntity->setActive(false);
+			//}
 				
 		}
 	}
 	void Ball::onCollisionExit(std::shared_ptr<CollisionData> collisionData)
 	{
-		m_IsInBrickCollider = false;
+
 	}
 	void Ball::handleMovement()
 	{
