@@ -17,24 +17,25 @@ namespace BreakoutGame
 		{
 			for (int x = 0; x < COLUMN_SIZE; x++)
 			{
-				std::shared_ptr<SpriteEntity> spriteEntity = std::make_shared<SpriteEntity>(initalSpriteRenderData);
-
 				std::string name = "Brick_" + std::to_string(y) + "_" + std::to_string(x);
-				spriteEntity->setName(name);
+				auto brick = std::make_shared<Brick>();
+				brick->Initialize(name, initalSpriteRenderData, BrickType::Easy);
 
-				//TODO
-				spriteEntity->setTag(3);
+				auto pos = Vector2(START_POS.x + x * SPACING.x, START_POS.y + y * SPACING.y);
+				brick->SetPosition(pos);
 
-				spriteEntity->transform->SetPosition(glm::vec3(START_POS.x + x * SPACING.x, START_POS.y + y * SPACING.y, -0.5f));
-				auto boxCollider2DComp = std::make_shared<BoxCollider2DComponent>(6.0f, 2.0f, CollisionType::Static);
-				spriteEntity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp);
-				m_CurrentBricks.push_back(spriteEntity);
+				m_BrickList.push_back(brick);
 			}
 		}
 	}
 	std::vector<std::shared_ptr<GameEntity>> BrickManager::getEntityList()
 	{
-		return m_CurrentBricks;
+		auto entities = std::vector<std::shared_ptr<GameEntity>>();
+		for (size_t i = 0; i < m_BrickList.size(); i++)
+		{
+			entities.push_back(m_BrickList[i]->getEntity());
+		}
+		return entities;
 	}
 	void BrickManager::initializeEasyBrickData(std::shared_ptr<Shader> shader)
 	{

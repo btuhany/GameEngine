@@ -2,6 +2,7 @@
 #include <GameEngine.h>
 #include "IEntityProvider.h"
 #include "../Data/BrickData.h"
+#include "../Objects/Brick.h"
 namespace BreakoutGame
 {
 	class BrickManager : public IEntityProvider
@@ -14,7 +15,7 @@ namespace BreakoutGame
 		void initializeMediumBrickData(std::shared_ptr<Shader> shader);
 		void initializeHardBrickData(std::shared_ptr<Shader> shader);
 
-		std::vector<std::shared_ptr<GameEntity>> m_CurrentBricks;
+		std::vector<std::shared_ptr<Brick>> m_BrickList;
 
 		static const int ROW_SIZE = 5;
 		static const int COLUMN_SIZE = 11;
