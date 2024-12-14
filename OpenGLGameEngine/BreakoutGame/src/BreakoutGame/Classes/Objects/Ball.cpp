@@ -4,6 +4,8 @@ namespace BreakoutGame
 {
 	void Ball::Initialize(std::shared_ptr<Shader> shader)
 	{
+		m_OnBallColliderEnterHandler = nullptr;
+
 		std::shared_ptr<Texture> texture = std::make_shared<Texture>("src/BreakoutGame/Textures/58-Breakout-Tiles.PNG");
 		texture->LoadTextureWithAlpha();
 
@@ -61,6 +63,10 @@ namespace BreakoutGame
 	{
 		m_Entity->transform->SetPosition(position);
 	}
+	void Ball::SetOnBallColliderEnterHandler(std::function<void(std::shared_ptr<GameEntity>)> handler)
+	{
+		m_OnBallColliderEnterHandler = handler;
+	}
 	void Ball::MoveLeft()
 	{
 		auto leftVector = glm::vec3(-10.0f, 0.0f, 0.0f);
@@ -100,6 +106,7 @@ namespace BreakoutGame
 		}
 		auto colliderEntity = colliderEntityPtr.lock();
 
+
 		if (otherCollider->getColliderType() == ColliderType::BoxCollider2D)
 		{
 			LOG_INFO("------BALL COLLISION------");
@@ -132,11 +139,8 @@ namespace BreakoutGame
 
 			m_MovementVector = newMovementVector;
 
-
-			//TODO
-			//if (colliderEntity->getTag() == (int)Tag::Brick) {
-			//	colliderEntity->setActive(false);
-			//}
+			if (m_OnBallColliderEnterHandler != nullptr)
+				m_OnBallColliderEnterHandler(colliderEntity);
 				
 		}
 	}

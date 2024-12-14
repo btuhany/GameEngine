@@ -27,8 +27,14 @@ namespace BreakoutGame
 		m_GameManager->Initialize();
 		m_Paddle = std::make_shared<Paddle>();
 		m_Paddle->Initialize(m_MainShader);
+
 		m_Ball = std::make_shared<Ball>();
 		m_Ball->Initialize(m_MainShader);
+		m_Ball->SetOnBallColliderEnterHandler(
+			[this](std::shared_ptr<GameEntity> entity) {
+				onBallColliderEnter(entity);
+			});
+
 		m_BrickManager = std::make_shared<BrickManager>();
 		m_BrickManager->Initialize(m_MainShader);
 		m_UIManager = std::make_shared<UIManager>();
@@ -188,6 +194,11 @@ namespace BreakoutGame
 				glm::vec3(0.0f, 1.0f, 0.0f),
 				yaw, pitch, 5.0f, 0.1f, 60.0f, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
 		}
+	}
+
+	void BreakoutScene::onBallColliderEnter(std::shared_ptr<GameEntity> gameEntity)
+	{
+		
 	}
 
 	void BreakoutScene::handleOnLeftKey()

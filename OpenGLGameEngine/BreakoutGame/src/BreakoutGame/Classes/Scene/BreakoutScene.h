@@ -30,6 +30,8 @@ namespace BreakoutGame
 		void initializeMainCamera();
 		void changeCameraType();
 
+		void onBallColliderEnter(std::shared_ptr<GameEntity> gameEntity);
+
 		void handleOnLeftKey();
 		void handleOnRightKey();
 		void handleOnDownKey();
