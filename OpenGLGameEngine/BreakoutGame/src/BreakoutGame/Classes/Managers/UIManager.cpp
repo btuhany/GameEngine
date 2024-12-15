@@ -7,19 +7,13 @@ namespace BreakoutGame
 		m_ViewPortWidth = viewPortWidth;
 		m_ViewPortHeight = viewPortHeight;
 
-		auto scoreTextEntity = std::make_shared<GameEntity>();
+		m_TextShader = std::make_shared<Shader>();
 		static const char* vTextShaderLocation = "src/BreakoutGame/Shaders/text_shader.vert";
 		static const char* fTextShaderLocation = "src/BreakoutGame/Shaders/text_shader.frag";
-		std::shared_ptr<Shader> textShader = std::make_shared<Shader>();
-		textShader->CreateFromFiles(vTextShaderLocation, fTextShaderLocation);
-		auto textComp = std::make_shared<UITextRendererComponent>();
-		textComp->shader = textShader;
-		textComp->text = "Score: ";
-		textComp->color = glm::vec3(0.2f, 1.0f, 0.1f);
-		m_ScoreCounterTextComponent = textComp;
-		scoreTextEntity->AddComponent(textComp);
+		m_TextShader->CreateFromFiles(vTextShaderLocation, fTextShaderLocation);
 
-		m_GameEntityList.push_back(scoreTextEntity);
+		initScoreText();
+
 
 
 		//static const char* vUIShaderLocation = "src/BreakoutGame/Shaders/ui_screen_space_shader.vert";
@@ -49,9 +43,24 @@ namespace BreakoutGame
 	}
 	void UIManager::Start()
 	{
+		startScoreText();
+	}
+	void UIManager::initScoreText()
+	{
+		auto scoreTextEntity = std::make_shared<GameEntity>();
+		auto textComp = std::make_shared<UITextRendererComponent>();
+		textComp->shader = m_TextShader;
+		textComp->text = "Score: ";
+		textComp->color = glm::vec3(0.2f, 1.0f, 0.1f);
+		m_ScoreCounterTextComponent = textComp;
+		scoreTextEntity->AddComponent(textComp);
+		m_GameEntityList.push_back(scoreTextEntity);
+	}
+	void UIManager::startScoreText()
+	{
 		auto scoreTextEntity = m_ScoreCounterTextComponent->getEntity().lock();
-		auto scoreTextWidth =  m_ScoreCounterTextComponent->textWidth;
-		scoreTextEntity->transform->Translate(glm::vec3(((m_ViewPortWidth - scoreTextWidth) / 2.0f) - scoreTextWidth, m_ViewPortHeight - 80, -0.2f));
-		LOG_INFO("width: " + std::to_string(m_ScoreCounterTextComponent->textWidth));
+		auto scoreTextWidth = m_ScoreCounterTextComponent->textWidth;
+		float scoreTextExtraXOffset = scoreTextWidth / 3.0f;
+		scoreTextEntity->transform->Translate(glm::vec3(((m_ViewPortWidth - scoreTextWidth) / 2.0f) - scoreTextExtraXOffset, m_ViewPortHeight - 50, 0.0f));
 	}
 }
