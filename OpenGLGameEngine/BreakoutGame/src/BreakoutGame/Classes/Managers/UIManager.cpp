@@ -13,7 +13,7 @@ namespace BreakoutGame
 		m_TextShader->CreateFromFiles(vTextShaderLocation, fTextShaderLocation);
 
 		initScoreText();
-
+		initLevelText();
 
 
 		//static const char* vUIShaderLocation = "src/BreakoutGame/Shaders/ui_screen_space_shader.vert";
@@ -44,23 +44,42 @@ namespace BreakoutGame
 	void UIManager::Start()
 	{
 		startScoreText();
+		startLevelText();
 	}
 	void UIManager::initScoreText()
 	{
-		auto scoreTextEntity = std::make_shared<GameEntity>();
+		auto textEntity = std::make_shared<GameEntity>();
 		auto textComp = std::make_shared<UITextRendererComponent>();
 		textComp->shader = m_TextShader;
 		textComp->text = "Score: ";
-		textComp->color = glm::vec3(0.2f, 1.0f, 0.1f);
+		textComp->color = glm::vec3(1.0f, 1.0f, 0.1f);
 		m_ScoreCounterTextComponent = textComp;
-		scoreTextEntity->AddComponent(textComp);
-		m_GameEntityList.push_back(scoreTextEntity);
+		textEntity->AddComponent(textComp);
+		m_GameEntityList.push_back(textEntity);
 	}
 	void UIManager::startScoreText()
 	{
-		auto scoreTextEntity = m_ScoreCounterTextComponent->getEntity().lock();
-		auto scoreTextWidth = m_ScoreCounterTextComponent->textWidth;
-		float scoreTextExtraXOffset = scoreTextWidth / 3.0f;
-		scoreTextEntity->transform->Translate(glm::vec3(((m_ViewPortWidth - scoreTextWidth) / 2.0f) - scoreTextExtraXOffset, m_ViewPortHeight - 50, 0.0f));
+		auto textEntity = m_ScoreCounterTextComponent->getEntity().lock();
+		auto textWidth = m_ScoreCounterTextComponent->textWidth;
+		float textExtraXOffset = - (textWidth / 3.0f);
+		textEntity->transform->Translate(glm::vec3(((m_ViewPortWidth - textWidth) / 2.0f) + textExtraXOffset, m_ViewPortHeight - TEXT_MARGIN_TOP, 0.0f));
+	}
+	void UIManager::initLevelText()
+	{
+		auto textEntity = std::make_shared<GameEntity>();
+		auto textComp = std::make_shared<UITextRendererComponent>();
+		textComp->shader = m_TextShader;
+		textComp->text = "Level: ";
+		textComp->color = glm::vec3(0.2f, 1.0f, 0.1f);
+		m_LevelTextComponent = textComp;
+		textEntity->AddComponent(textComp);
+		m_GameEntityList.push_back(textEntity);
+	}
+	void UIManager::startLevelText()
+	{
+		auto textEntity = m_LevelTextComponent->getEntity().lock();
+		auto textWidth = m_LevelTextComponent->textWidth;
+		float textXOffset = 50.0f;
+		textEntity->transform->Translate(glm::vec3(textXOffset, m_ViewPortHeight - TEXT_MARGIN_TOP, 0.0f));
 	}
 }
