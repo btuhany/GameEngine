@@ -16,7 +16,7 @@ namespace BreakoutGame
 	{
 	}
 
-	void BreakoutScene::Initialize()
+	void BreakoutScene::Initialize(float viewPortWidth, float viewPortHeight)
 	{
 		initializeMainShader();
 		initializeInputCallbacks();
@@ -38,7 +38,7 @@ namespace BreakoutGame
 		m_BrickManager = std::make_shared<BrickManager>();
 		m_BrickManager->Initialize(m_MainShader);
 		m_UIManager = std::make_shared<UIManager>();
-		m_UIManager->Initialize();
+		m_UIManager->Initialize(viewPortWidth, viewPortHeight);
 
 
 		instantiateGameEntity(m_Paddle->getEntity());
@@ -56,7 +56,7 @@ namespace BreakoutGame
 
 		m_GameManager->isGameStarted = false;
 		LOG_INFO("Breakout scene initialized!");
-		Scene::Initialize();
+		Scene::Initialize(viewPortWidth, viewPortHeight);
 	}
 
 	void BreakoutScene::Start()

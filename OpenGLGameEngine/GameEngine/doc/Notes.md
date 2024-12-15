@@ -25,6 +25,7 @@ get and set functions -> getOrSetFunction()
 - [] UI Renderer abstraction, polymorphism fix
 - [] Sprite render data material dependency, using the same mesh data instance
 - [] Not instantiated components still contained in manager vector lists (for example: RendererComponent and Renderer)
+- [] Camera space ui canvas
 ************************************************************
 
 08.24

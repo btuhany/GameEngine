@@ -2,7 +2,7 @@
 
 namespace BreakoutGame
 {
-	void UIManager::Initialize()
+	void UIManager::Initialize(float viewPortWidth, float viewPortHeight)
 	{
 		auto scoreTextEntity = std::make_shared<GameEntity>();
 		static const char* vTextShaderLocation = "src/BreakoutGame/Shaders/text_shader.vert";
@@ -15,13 +15,12 @@ namespace BreakoutGame
 		textComp->color = glm::vec3(0.6f, 0.1f, 0.5f);
 		m_ScoreCounterTextComponent = textComp;
 		scoreTextEntity->AddComponent(textComp);
-		scoreTextEntity->transform->Translate(glm::vec3(100.0f, 150.0f, -0.2f));
+		scoreTextEntity->transform->Translate(glm::vec3(viewPortWidth/2.0f, viewPortHeight - 100.0f, -0.2f));
 		m_GameEntityList.push_back(scoreTextEntity);
 
 
-
-		//static const char* vUIShaderLocation = "src/BreakoutGame/Shaders/ui_shader.vert";
-		//static const char* fUIShaderLocation = "src/BreakoutGame/Shaders/ui_shader.frag";
+		//static const char* vUIShaderLocation = "src/BreakoutGame/Shaders/ui_screen_space_shader.vert";
+		//static const char* fUIShaderLocation = "src/BreakoutGame/Shaders/ui_screen_space_shader.frag";
 		//std::shared_ptr<Shader> uiShader = std::make_shared<Shader>();
 		//uiShader->CreateFromFiles(vUIShaderLocation, fUIShaderLocation);
 		//std::shared_ptr<Texture> uiButtonPanelTex = std::make_shared<Texture>("src/BreakoutGame/Textures/button_ui_panel.PNG");
@@ -35,6 +34,11 @@ namespace BreakoutGame
 		//uiEntity->transform->Scale(glm::vec3(500.0f, 500.0f, 0.0f));
 		//uiEntity->transform->Rotate(45.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 		//m_GameEntityList.push_back(uiEntity);
+
+	}
+	void UIManager::SetScorePoint(int scorePoint)
+	{
+		m_ScoreCounterTextComponent->text = "Score: " + std::to_string(scorePoint);
 	}
 	std::vector<std::shared_ptr<GameEntity>> UIManager::getEntityList()
 	{

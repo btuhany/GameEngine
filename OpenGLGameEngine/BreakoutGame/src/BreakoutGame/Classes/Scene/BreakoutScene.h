@@ -16,7 +16,7 @@ namespace BreakoutGame
 		BreakoutScene();
 		BreakoutScene(BreakoutSceneInputHandler* inputHandler);
 		~BreakoutScene();
-		void Initialize() override;
+		void Initialize(float viewPortWidth, float viewPortHeight) override;
 		void Start() override;
 		void Update(GLfloat deltaTime) override;
 	private:

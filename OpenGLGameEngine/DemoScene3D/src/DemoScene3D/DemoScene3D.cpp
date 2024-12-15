@@ -17,9 +17,9 @@ DemoScene3D::~DemoScene3D()
 {
 }
 
-void DemoScene3D::Initialize()
+void DemoScene3D::Initialize(float viewPortWidth, float viewPortHeight)
 {
-	Scene::Initialize();
+	Scene::Initialize(viewPortWidth, viewPortHeight);
 
 	setCamera(std::make_shared<Camera>(glm::vec3(0.0f, 5.0f, 45.0f), 
 		glm::vec3(0.0f, 1.0f, 0.0f), 
