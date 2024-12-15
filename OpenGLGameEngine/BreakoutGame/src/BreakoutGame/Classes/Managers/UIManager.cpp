@@ -2,7 +2,7 @@
 
 namespace BreakoutGame
 {
-	void UIManager::Initialize(float viewPortWidth, float viewPortHeight)
+	void UIManager::Initialize(float viewPortWidth, float viewPortHeight, int initalScore, int initialLevel, int maxPlayerLive)
 	{
 		m_ViewPortWidth = viewPortWidth;
 		m_ViewPortHeight = viewPortHeight;
@@ -12,26 +12,24 @@ namespace BreakoutGame
 		static const char* fTextShaderLocation = "src/BreakoutGame/Shaders/text_shader.frag";
 		m_TextShader->CreateFromFiles(vTextShaderLocation, fTextShaderLocation);
 
-		initScoreText();
-		initLevelText();
+		m_UIScreenSpaceShader = std::make_shared<Shader>();
+		static const char* vUIShaderLocation = "src/BreakoutGame/Shaders/ui_screen_space_shader.vert";
+		static const char* fUIShaderLocation = "src/BreakoutGame/Shaders/ui_screen_space_shader.frag";
+		m_UIScreenSpaceShader->CreateFromFiles(vUIShaderLocation, fUIShaderLocation);
+
+		initScoreText(std::to_string(initalScore));
+		initLevelText(std::to_string(initialLevel));
+		initHeartSpriteEntities(maxPlayerLive);
 
 
-		//static const char* vUIShaderLocation = "src/BreakoutGame/Shaders/ui_screen_space_shader.vert";
-		//static const char* fUIShaderLocation = "src/BreakoutGame/Shaders/ui_screen_space_shader.frag";
-		//std::shared_ptr<Shader> uiShader = std::make_shared<Shader>();
-		//uiShader->CreateFromFiles(vUIShaderLocation, fUIShaderLocation);
-		//std::shared_ptr<Texture> uiButtonPanelTex = std::make_shared<Texture>("src/BreakoutGame/Textures/button_ui_panel.PNG");
-		//uiButtonPanelTex->LoadTextureWithAlpha();
-		//auto uiEntity = std::make_shared<GameEntity>();
-		//auto uiRenderData = std::make_shared<UIRenderData>(uiShader, uiButtonPanelTex);
-		//auto uiRendererComp = std::make_shared<UIRendererComponent>();
-		//uiRendererComp->setUIRenderData(uiRenderData);
-		//uiEntity->AddComponent(uiRendererComp);
-		//uiEntity->transform->Translate(glm::vec3(630.0f, 100.0f, -0.1f));
-		//uiEntity->transform->Scale(glm::vec3(500.0f, 500.0f, 0.0f));
-		//uiEntity->transform->Rotate(45.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-		//m_GameEntityList.push_back(uiEntity);
 
+
+	}
+	void UIManager::Start()
+	{
+		startScoreText();
+		startLevelText();
+		startHeartSpriteEntities();
 	}
 	void UIManager::SetScorePoint(int scorePoint)
 	{
@@ -41,17 +39,12 @@ namespace BreakoutGame
 	{
 		return m_GameEntityList;
 	}
-	void UIManager::Start()
-	{
-		startScoreText();
-		startLevelText();
-	}
-	void UIManager::initScoreText()
+	void UIManager::initScoreText(std::string initialScoreStr)
 	{
 		auto textEntity = std::make_shared<GameEntity>();
 		auto textComp = std::make_shared<UITextRendererComponent>();
 		textComp->shader = m_TextShader;
-		textComp->text = "Score: ";
+		textComp->text = "Score: " + initialScoreStr;
 		textComp->color = glm::vec3(1.0f, 1.0f, 0.1f);
 		m_ScoreCounterTextComponent = textComp;
 		textEntity->AddComponent(textComp);
@@ -62,14 +55,14 @@ namespace BreakoutGame
 		auto textEntity = m_ScoreCounterTextComponent->getEntity().lock();
 		auto textWidth = m_ScoreCounterTextComponent->textWidth;
 		float textExtraXOffset = - (textWidth / 3.0f);
-		textEntity->transform->Translate(glm::vec3(((m_ViewPortWidth - textWidth) / 2.0f) + textExtraXOffset, m_ViewPortHeight - TEXT_MARGIN_TOP, 0.0f));
+		textEntity->transform->Translate(glm::vec3(((m_ViewPortWidth - textWidth) / 2.0f) + textExtraXOffset, m_ViewPortHeight - MARGIN_TOP, 0.0f));
 	}
-	void UIManager::initLevelText()
+	void UIManager::initLevelText(std::string initialLevelStr)
 	{
 		auto textEntity = std::make_shared<GameEntity>();
 		auto textComp = std::make_shared<UITextRendererComponent>();
 		textComp->shader = m_TextShader;
-		textComp->text = "Level: ";
+		textComp->text = "Level: " + initialLevelStr;
 		textComp->color = glm::vec3(0.2f, 1.0f, 0.1f);
 		m_LevelTextComponent = textComp;
 		textEntity->AddComponent(textComp);
@@ -80,6 +73,35 @@ namespace BreakoutGame
 		auto textEntity = m_LevelTextComponent->getEntity().lock();
 		auto textWidth = m_LevelTextComponent->textWidth;
 		float textXOffset = 50.0f;
-		textEntity->transform->Translate(glm::vec3(textXOffset, m_ViewPortHeight - TEXT_MARGIN_TOP, 0.0f));
+		textEntity->transform->Translate(glm::vec3(textXOffset, m_ViewPortHeight - MARGIN_TOP, 0.0f));
+	}
+	void UIManager::initHeartSpriteEntities(int liveCount)
+	{
+		std::shared_ptr<Texture> heartTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/60-Breakout-Tiles.PNG");
+		heartTexture->LoadTextureWithAlpha();
+
+		
+		float spacingX = 55.0f;
+		float spacingY = 0.0f;
+
+		float totalWidth = spacingX * liveCount;
+		float startPointX = m_ViewPortWidth - totalWidth - 50.0f;
+		float startPointY = m_ViewPortHeight - MARGIN_TOP - 10.0f;
+
+		for (size_t i = 0; i < liveCount; i++)
+		{
+
+			auto uiEntity = std::make_shared<GameEntity>();
+			auto uiRenderData = std::make_shared<UIRenderData>(m_UIScreenSpaceShader, heartTexture);
+			auto uiRendererComp = std::make_shared<UIRendererComponent>();
+			uiRendererComp->setUIRenderData(uiRenderData);
+			uiEntity->AddComponent(uiRendererComp);
+			uiEntity->transform->Translate(glm::vec3(startPointX + i * spacingX, startPointY, 0.0f));
+			uiEntity->transform->Scale(glm::vec3(50.0f, 50.0f, 1.0f));
+			m_GameEntityList.push_back(uiEntity);
+		}
+	}
+	void UIManager::startHeartSpriteEntities()
+	{
 	}
 }
