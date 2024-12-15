@@ -77,7 +77,50 @@ namespace GameEngine
         FT_Done_Face(face);
         FT_Done_FreeType(ft);
        
+        PostInitialize();
 	}
+    void TextRenderer::PostInitialize()
+    {
+        for (size_t i = 0; i < m_Components.size(); i++)
+        {
+            auto textComp = m_Components[i];
+            auto ownerEntity = textComp->getEntity();
+
+            if (ownerEntity.expired())
+            {
+                LOG_CORE_WARN("TextRenderer:: owner entity is exprired!");
+                continue;
+            }
+
+            auto transform = ownerEntity.lock()->transform;
+            float textStartPosX = transform->getPosition().x;
+            float textStartPosY = transform->getPosition().y;
+
+            float startPos = textStartPosX; //for calculating the total text width;
+
+            auto scale = transform->getScale();
+
+            std::string text = textComp->text;
+            std::string::const_iterator c;
+            for (c = text.begin(); c != text.end(); c++)
+            {
+                TextCharacter ch = charactersMap[*c];
+                float xpos = textStartPosX + ch.bearing.x * scale.x;
+                float ypos = textStartPosY - (ch.size.y - ch.bearing.y) * scale.y;
+
+                float w = ch.size.x * scale.x;
+                float h = ch.size.y * scale.y;
+
+                textStartPosX += (ch.advance >> 6) * scale.x; // bitshift by 6 to get value in pixels (2^6 = 64)
+
+                if (h > textComp->textHeight)
+                {
+                    textComp->textHeight = h;
+                }
+            }
+            textComp->textWidth = textStartPosX - startPos;
+        }
+    }
     void TextRenderer::Render(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
     {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -114,7 +157,6 @@ namespace GameEngine
             float textStartPosX = transform->getPosition().x;
             float textStartPosY = transform->getPosition().y;
             float textStartPosZ = transform->getPosition().z;
-
 
             auto scale = transform->getScale();
             auto VAO = textComp->vao;

@@ -4,6 +4,9 @@ namespace BreakoutGame
 {
 	void UIManager::Initialize(float viewPortWidth, float viewPortHeight)
 	{
+		m_ViewPortWidth = viewPortWidth;
+		m_ViewPortHeight = viewPortHeight;
+
 		auto scoreTextEntity = std::make_shared<GameEntity>();
 		static const char* vTextShaderLocation = "src/BreakoutGame/Shaders/text_shader.vert";
 		static const char* fTextShaderLocation = "src/BreakoutGame/Shaders/text_shader.frag";
@@ -11,11 +14,11 @@ namespace BreakoutGame
 		textShader->CreateFromFiles(vTextShaderLocation, fTextShaderLocation);
 		auto textComp = std::make_shared<UITextRendererComponent>();
 		textComp->shader = textShader;
-		textComp->text = "ABBA";
-		textComp->color = glm::vec3(0.6f, 0.1f, 0.5f);
+		textComp->text = "Score: ";
+		textComp->color = glm::vec3(0.2f, 1.0f, 0.1f);
 		m_ScoreCounterTextComponent = textComp;
 		scoreTextEntity->AddComponent(textComp);
-		scoreTextEntity->transform->Translate(glm::vec3(viewPortWidth/2.0f, viewPortHeight - 100.0f, -0.2f));
+
 		m_GameEntityList.push_back(scoreTextEntity);
 
 
@@ -43,5 +46,12 @@ namespace BreakoutGame
 	std::vector<std::shared_ptr<GameEntity>> UIManager::getEntityList()
 	{
 		return m_GameEntityList;
+	}
+	void UIManager::Start()
+	{
+		auto scoreTextEntity = m_ScoreCounterTextComponent->getEntity().lock();
+		auto scoreTextWidth =  m_ScoreCounterTextComponent->textWidth;
+		scoreTextEntity->transform->Translate(glm::vec3(((m_ViewPortWidth - scoreTextWidth) / 2.0f) - scoreTextWidth, m_ViewPortHeight - 80, -0.2f));
+		LOG_INFO("width: " + std::to_string(m_ScoreCounterTextComponent->textWidth));
 	}
 }

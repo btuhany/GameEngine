@@ -65,6 +65,7 @@ namespace BreakoutGame
 		m_Ball->Start();
 		m_Paddle->Start();
 		m_GameManager->Start();
+		m_UIManager->Start();
 	}
 
 	void BreakoutScene::Update(GLfloat deltaTime)
