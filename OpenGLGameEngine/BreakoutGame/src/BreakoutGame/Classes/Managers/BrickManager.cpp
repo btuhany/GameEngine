@@ -23,6 +23,7 @@ namespace BreakoutGame
 				auto easyBrickData = GetBrickData(BrickType::Easy);
 				auto mediumBrickData = GetBrickData(BrickType::Medium);
 
+				//TODO
 				if (x > COLUMN_SIZE / 2)
 				{
 					brick->Initialize(name, easyBrickData);
@@ -58,10 +59,10 @@ namespace BreakoutGame
 			return hitData;
 		}
 		
-		hitData = ProcessBrick(brick);
+		hitData = processBrick(brick);
 		return hitData;
 	}
-	BallHitBrickData BrickManager::ProcessBrick(std::shared_ptr<Brick> brick)
+	BallHitBrickData BrickManager::processBrick(std::shared_ptr<Brick> brick)
 	{
 		BallHitBrickData hitData;
 
