@@ -60,6 +60,12 @@
     <ClInclude Include="src\BreakoutGame\Classes\Data\BallHitBrickData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Data\LevelData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Data\BrickTypeEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BreakoutGame\Classes\App\BreakoutApp.cpp">
@@ -96,6 +102,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\BreakoutGame\Classes\Objects\Brick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BreakoutGame\Classes\Data\LevelData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

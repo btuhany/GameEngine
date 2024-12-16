@@ -1,15 +1,9 @@
 #pragma once
 #include <GameEngine.h>
 #include <memory>
+#include "BrickTypeEnum.h"
 namespace BreakoutGame
 {
-	enum class BrickType
-	{
-		Easy,
-		Medium,
-		Hard
-	};
-
 	class BrickData
 	{
 	public:
@@ -20,6 +14,7 @@ namespace BreakoutGame
 		bool isAbleToDropExtraScorePoint = false;
 		bool isAbleToDropHealthPoint = false;
 		std::vector<std::shared_ptr<SpriteRenderData>> spriteRenderDataListOrderedHitCountAscending;
+		BrickType brickType;
 	};
 }
 

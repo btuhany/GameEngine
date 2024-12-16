@@ -4,6 +4,7 @@
 #include "../Data/BrickData.h"
 #include "../Objects/Brick.h"
 #include "../Data/BallHitBrickData.h"
+#include "../Data/LevelData.h"
 namespace BreakoutGame
 {
 	class BrickManager : public IEntityProvider

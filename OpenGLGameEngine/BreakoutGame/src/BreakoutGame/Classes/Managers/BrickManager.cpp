@@ -7,7 +7,6 @@ namespace BreakoutGame
 		initializeMediumBrickData(mainShader);
 		initializeHardBrickData(mainShader);
 
-
 		std::shared_ptr<Texture> initialBrickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/17-Breakout-Tiles.PNG");
 		initialBrickTexture->LoadTextureWithAlpha();
 		std::shared_ptr<SpriteRenderData> initalSpriteRenderData = std::make_shared<SpriteRenderData>(initialBrickTexture, nullptr, mainShader);
@@ -109,7 +108,7 @@ namespace BreakoutGame
 		easyBrickData->isAbleToDropHealthPoint = false;
 		easyBrickData->isAbleToDropPerk = false;
 		easyBrickData->isAbleToDropExtraScorePoint = false;
-
+		easyBrickData->brickType = BrickType::Easy;
 
 		std::shared_ptr<Texture> brickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/03-Breakout-Tiles.PNG");
 		brickTexture->LoadTextureWithAlpha();
@@ -127,6 +126,7 @@ namespace BreakoutGame
 		mediumBrickData->isAbleToDropHealthPoint = false;
 		mediumBrickData->isAbleToDropPerk = false;
 		mediumBrickData->isAbleToDropExtraScorePoint = false;
+		mediumBrickData->brickType = BrickType::Medium;
 
 		std::shared_ptr<Texture> brickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/05-Breakout-Tiles.PNG");
 		brickTexture->LoadTextureWithAlpha();
@@ -149,6 +149,7 @@ namespace BreakoutGame
 		hardBrickData->isAbleToDropHealthPoint = false;
 		hardBrickData->isAbleToDropPerk = false;
 		hardBrickData->isAbleToDropExtraScorePoint = false;
+		hardBrickData->brickType = BrickType::Hard;
 
 		std::shared_ptr<Texture> brickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/07-Breakout-Tiles.PNG");
 		brickTexture->LoadTextureWithAlpha();
