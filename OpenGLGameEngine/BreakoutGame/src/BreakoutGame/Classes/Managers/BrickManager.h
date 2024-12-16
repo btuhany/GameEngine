@@ -21,10 +21,10 @@ namespace BreakoutGame
 		std::shared_ptr<Brick> findBrick(std::shared_ptr<GameEntity> brickEntity);
 		std::vector<std::shared_ptr<Brick>> m_BrickList;
 
-		static const int ROW_SIZE = 5;
+		static const int ROW_SIZE = 3;
 		static const int COLUMN_SIZE = 11;
 		const Vector2 SPACING = Vector2(7.0f, 3.0f);
-		const Vector2 START_POS = Vector2(-35.0f, 6.0f);
+		const Vector2 START_POS = Vector2(-35.0f, 18.0f);
 
 		std::unordered_map<BrickType, std::shared_ptr<BrickData>> m_BrickDataMap;
 	};

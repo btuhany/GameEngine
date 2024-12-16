@@ -12,7 +12,6 @@ namespace BreakoutGame
 		initialBrickTexture->LoadTextureWithAlpha();
 		std::shared_ptr<SpriteRenderData> initalSpriteRenderData = std::make_shared<SpriteRenderData>(initialBrickTexture, nullptr, mainShader);
 
-
 		for (int y = ROW_SIZE - 1; y >= 0; y--)
 		{
 			for (int x = 0; x < COLUMN_SIZE; x++)
@@ -33,7 +32,7 @@ namespace BreakoutGame
 					brick->Initialize(name, mediumBrickData);
 				}
 
-				auto pos = Vector2(START_POS.x + x * SPACING.x, START_POS.y + y * SPACING.y);
+				auto pos = Vector2(START_POS.x + x * SPACING.x, START_POS.y - y * SPACING.y);
 				brick->SetPosition(pos);
 
 				m_BrickList.push_back(brick);
