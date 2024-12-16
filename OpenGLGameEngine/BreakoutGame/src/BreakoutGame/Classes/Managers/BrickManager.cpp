@@ -10,7 +10,9 @@ namespace BreakoutGame
 		std::shared_ptr<Texture> initialBrickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/17-Breakout-Tiles.PNG");
 		initialBrickTexture->LoadTextureWithAlpha();
 		std::shared_ptr<SpriteRenderData> initalSpriteRenderData = std::make_shared<SpriteRenderData>(initialBrickTexture, nullptr, mainShader);
-
+	}
+	void BrickManager::InstantiateBricks()
+	{
 		for (int y = ROW_SIZE - 1; y >= 0; y--)
 		{
 			for (int x = 0; x < COLUMN_SIZE; x++)
@@ -60,6 +62,10 @@ namespace BreakoutGame
 	}
 	BallHitBrickData BrickManager::processBrick(std::shared_ptr<Brick> brick)
 	{
+		if (!brick->getEntity()->getActive())
+		{
+			LOG_ERROR("processBrick | brick object not active!");
+		}
 		BallHitBrickData hitData;
 
 		auto brickData = GetBrickData(brick->getType());

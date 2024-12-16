@@ -4,13 +4,13 @@
 #include "../Data/BrickData.h"
 #include "../Objects/Brick.h"
 #include "../Data/BallHitBrickData.h"
-#include "../Data/LevelData.h"
 namespace BreakoutGame
 {
 	class BrickManager : public IEntityProvider
 	{
 	public:
 		void Initialize(std::shared_ptr<Shader> mainShader);
+		void InstantiateBricks();
 		std::vector<std::shared_ptr<GameEntity>> getEntityList();
 		BallHitBrickData HandleOnGotHitByBall(std::shared_ptr<GameEntity> brickEntity);
 		std::shared_ptr<BrickData> GetBrickData(BrickType brickType);

@@ -37,6 +37,7 @@ namespace BreakoutGame
 
 		m_BrickManager = std::make_shared<BrickManager>();
 		m_BrickManager->Initialize(m_MainShader);
+		m_BrickManager->InstantiateBricks();
 		m_UIManager = std::make_shared<UIManager>();
 		m_UIManager->Initialize(viewPortWidth, viewPortHeight, 0, 1, 3);
 
