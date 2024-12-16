@@ -11,19 +11,20 @@ namespace BreakoutGame
 		initialBrickTexture->LoadTextureWithAlpha();
 		std::shared_ptr<SpriteRenderData> initalSpriteRenderData = std::make_shared<SpriteRenderData>(initialBrickTexture, nullptr, mainShader);
 	}
-	void BrickManager::InstantiateBricks()
+	void BrickManager::PoolBricks()
 	{
-		for (int y = ROW_SIZE - 1; y >= 0; y--)
+		for (int y = 0; y < 6; y++)
 		{
-			for (int x = 0; x < COLUMN_SIZE; x++)
+			std::vector <std::shared_ptr<Brick>> rowBrickList;
+			for (int x = 0; x < 11; x++)
 			{
 				std::string name = "Brick_" + std::to_string(y) + "_" + std::to_string(x);
 				auto brick = std::make_shared<Brick>();
 
-				auto easyBrickData = GetBrickData(BrickType::Easy);
-				auto mediumBrickData = GetBrickData(BrickType::Medium);
 
 				//TODO
+				auto easyBrickData = GetBrickData(BrickType::Easy);
+				auto mediumBrickData = GetBrickData(BrickType::Medium);
 				if (x > COLUMN_SIZE / 2)
 				{
 					brick->Initialize(name, easyBrickData);
@@ -33,19 +34,33 @@ namespace BreakoutGame
 					brick->Initialize(name, mediumBrickData);
 				}
 
+
 				auto pos = Vector2(START_POS.x + x * SPACING.x, START_POS.y - y * SPACING.y);
 				brick->SetPosition(pos);
 
-				m_BrickList.push_back(brick);
+				rowBrickList.push_back(brick);
 			}
+			m_BrickGrid.push_back(rowBrickList);
 		}
+	}
+
+	void BrickManager::HandleOnAfterBricksInstantiated()
+	{
+		(m_BrickGrid[3][3])->getEntity()->setActive(false);
+	}
+	void BrickManager::SpawnBricks()
+	{
 	}
 	std::vector<std::shared_ptr<GameEntity>> BrickManager::getEntityList()
 	{
 		auto entities = std::vector<std::shared_ptr<GameEntity>>();
-		for (size_t i = 0; i < m_BrickList.size(); i++)
+		for (size_t i = 0; i < m_BrickGrid.size(); i++)
 		{
-			entities.push_back(m_BrickList[i]->getEntity());
+			auto rowList = m_BrickGrid[i];
+			for (size_t j = 0; j < rowList.size(); j++)
+			{
+				entities.push_back(rowList[j]->getEntity());
+			}
 		}
 		return entities;
 	}
@@ -95,12 +110,16 @@ namespace BreakoutGame
 	{
 		std::shared_ptr<Brick> brick = nullptr;
 		//FIND BRICK
-		for (size_t i = 0; i < m_BrickList.size(); i++)
+		for (size_t i = 0; i < m_BrickGrid.size(); i++)
 		{
-			if (m_BrickList[i]->getEntity() == brickEntity)
+			auto rowList = m_BrickGrid[i];
+			for (size_t j = 0; j < rowList.size(); j++)
 			{
-				brick = m_BrickList[i];
-				break;
+				if (rowList[j]->getEntity() == brickEntity)
+				{
+					brick = rowList[j];
+					break;
+				}
 			}
 		}
 		return brick;

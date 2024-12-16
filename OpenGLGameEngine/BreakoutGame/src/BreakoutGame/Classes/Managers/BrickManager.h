@@ -10,7 +10,9 @@ namespace BreakoutGame
 	{
 	public:
 		void Initialize(std::shared_ptr<Shader> mainShader);
-		void InstantiateBricks();
+		void PoolBricks();
+		void HandleOnAfterBricksInstantiated();
+		void SpawnBricks();
 		std::vector<std::shared_ptr<GameEntity>> getEntityList();
 		BallHitBrickData HandleOnGotHitByBall(std::shared_ptr<GameEntity> brickEntity);
 		std::shared_ptr<BrickData> GetBrickData(BrickType brickType);
@@ -19,9 +21,9 @@ namespace BreakoutGame
 		void initializeEasyBrickData(std::shared_ptr<Shader> shader);
 		void initializeMediumBrickData(std::shared_ptr<Shader> shader);
 		void initializeHardBrickData(std::shared_ptr<Shader> shader);
-		std::shared_ptr<Brick> findBrick(std::shared_ptr<GameEntity> brickEntity);
-		std::vector<std::shared_ptr<Brick>> m_BrickList;
 
+		std::shared_ptr<Brick> findBrick(std::shared_ptr<GameEntity> brickEntity);
+		std::vector<std::vector<std::shared_ptr<Brick>>> m_BrickGrid;
 		static const int ROW_SIZE = 3;
 		static const int COLUMN_SIZE = 11;
 		const Vector2 SPACING = Vector2(7.0f, 3.0f);

@@ -37,7 +37,7 @@ namespace BreakoutGame
 
 		m_BrickManager = std::make_shared<BrickManager>();
 		m_BrickManager->Initialize(m_MainShader);
-		m_BrickManager->InstantiateBricks();
+		m_BrickManager->PoolBricks();
 		m_UIManager = std::make_shared<UIManager>();
 		m_UIManager->Initialize(viewPortWidth, viewPortHeight, 0, 1, 3);
 
@@ -57,6 +57,8 @@ namespace BreakoutGame
 
 		m_GameManager->isGameStarted = false;
 		LOG_INFO("Breakout scene initialized!");
+
+		m_BrickManager->HandleOnAfterBricksInstantiated();
 		Scene::Initialize(viewPortWidth, viewPortHeight);
 	}
 
