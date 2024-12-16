@@ -1,4 +1,5 @@
 #pragma once
+#include "../Data/BallHitBrickData.h"
 namespace BreakoutGame
 {
 	class GameManager
@@ -6,11 +7,13 @@ namespace BreakoutGame
 	public:
 		void Initialize();
 		void Start();
-		void IncreaseScorePoint(int value);
 		int GetScorePoint();
+		void ProcessBallHitBrickData(BallHitBrickData hitData);
 		bool isGameStarted;
 	private:
+		//PLAYER DATA
 		int m_ScorePoint;
+		int m_BrokenBrickCount;
 	};
 }
 
