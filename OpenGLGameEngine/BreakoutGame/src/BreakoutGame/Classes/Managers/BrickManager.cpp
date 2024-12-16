@@ -51,16 +51,14 @@ namespace BreakoutGame
 	}
 	BallHitBrickData BrickManager::HandleOnGotHitByBall(std::shared_ptr<GameEntity> brickEntity)
 	{
-		BallHitBrickData hitData;
 		auto brick = findBrick(brickEntity);
 		if (brick == nullptr)
 		{
 			LOG_ERROR("BRICK MANAGER | HandleOnGotHitByBall | Brick is null!");
-			return hitData;
+			return BallHitBrickData();
 		}
 		
-		hitData = processBrick(brick);
-		return hitData;
+		return processBrick(brick);
 	}
 	BallHitBrickData BrickManager::processBrick(std::shared_ptr<Brick> brick)
 	{
@@ -74,10 +72,12 @@ namespace BreakoutGame
 		if (brick->hitCount == brickData->hitCountToBreak)
 		{
 			hitData.gainedScorePoint += brickData->scorePointOnBreak;
+			hitData.isBroken = true;
 			brick->getEntity()->setActive(false);
 		}
 		else
 		{
+			hitData.isBroken = false;
 			brick->UpdateSprite(brickData->spriteRenderDataListOrderedHitCountAscending[brick->hitCount]);
 		}
 
