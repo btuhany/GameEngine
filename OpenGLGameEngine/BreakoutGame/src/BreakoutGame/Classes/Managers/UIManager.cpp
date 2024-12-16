@@ -72,7 +72,7 @@ namespace BreakoutGame
 	{
 		auto textEntity = m_LevelTextComponent->getEntity().lock();
 		auto textWidth = m_LevelTextComponent->textWidth;
-		float textXOffset = 50.0f;
+		float textXOffset = MARGIN_LEFT;
 		textEntity->transform->Translate(glm::vec3(textXOffset, m_ViewPortHeight - MARGIN_TOP, 0.0f));
 	}
 	void UIManager::initHeartSpriteEntities(int liveCount)
@@ -80,24 +80,23 @@ namespace BreakoutGame
 		std::shared_ptr<Texture> heartTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/60-Breakout-Tiles.PNG");
 		heartTexture->LoadTextureWithAlpha();
 
-		
-		float spacingX = 55.0f;
+		float width = 50.0f;
+		float spacingX = 5.0f;
 		float spacingY = 0.0f;
-
-		float totalWidth = spacingX * liveCount;
-		float startPointX = m_ViewPortWidth - totalWidth - 50.0f;
-		float startPointY = m_ViewPortHeight - MARGIN_TOP - 10.0f;
+		float localOffsetY = 10.0f;
+		float totalWidth = (width + spacingX) * liveCount;
+		float startPointX = m_ViewPortWidth - totalWidth - MARGIN_RIGHT;
+		float startPointY = m_ViewPortHeight - MARGIN_TOP - localOffsetY;
 
 		for (size_t i = 0; i < liveCount; i++)
 		{
-
 			auto uiEntity = std::make_shared<GameEntity>();
 			auto uiRenderData = std::make_shared<UIRenderData>(m_UIScreenSpaceShader, heartTexture);
 			auto uiRendererComp = std::make_shared<UIRendererComponent>();
 			uiRendererComp->setUIRenderData(uiRenderData);
 			uiEntity->AddComponent(uiRendererComp);
-			uiEntity->transform->Translate(glm::vec3(startPointX + i * spacingX, startPointY, 0.0f));
-			uiEntity->transform->Scale(glm::vec3(50.0f, 50.0f, 1.0f));
+			uiEntity->transform->Translate(glm::vec3(startPointX + i * (width + spacingX), startPointY, 0.0f));
+			uiEntity->transform->Scale(glm::vec3(width, width, 1.0f));
 			m_GameEntityList.push_back(uiEntity);
 		}
 	}

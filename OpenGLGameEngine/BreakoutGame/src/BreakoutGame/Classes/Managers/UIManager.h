@@ -26,6 +26,8 @@ namespace BreakoutGame
 		std::shared_ptr<UITextRendererComponent> m_LevelTextComponent;
 
 		const float MARGIN_TOP = 50.0f;
+		const float MARGIN_LEFT = 50.0f;
+		const float MARGIN_RIGHT = 50.0f;
 	};
 }
 
