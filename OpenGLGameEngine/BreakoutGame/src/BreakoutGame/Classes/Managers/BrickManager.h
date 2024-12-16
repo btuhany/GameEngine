@@ -26,7 +26,7 @@ namespace BreakoutGame
 		const Vector2 SPACING = Vector2(7.0f, 3.0f);
 		const Vector2 START_POS = Vector2(-35.0f, 6.0f);
 
-		std::vector< std::shared_ptr<BrickData>> m_BrickDataList;
+		std::unordered_map<BrickType, std::shared_ptr<BrickData>> m_BrickDataMap;
 	};
 }
 

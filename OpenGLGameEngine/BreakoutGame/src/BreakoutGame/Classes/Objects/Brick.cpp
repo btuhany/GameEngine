@@ -10,7 +10,6 @@ namespace BreakoutGame
         auto boxCollider2DComp = std::make_shared<BoxCollider2DComponent>(6.0f, 2.0f, CollisionType::Static);
         m_Entity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp);
         m_Entity->transform->SetPosition(glm::vec3(0.0f, 0.0f, -0.5f));
-        m_Type = brickData->type;
     }
     void Brick::UpdateSprite(std::shared_ptr<SpriteRenderData> spriteRenderData)
     {
