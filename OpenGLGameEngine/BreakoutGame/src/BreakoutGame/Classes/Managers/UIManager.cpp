@@ -20,10 +20,6 @@ namespace BreakoutGame
 		initScoreText(std::to_string(initalScore));
 		initLevelText(std::to_string(initialLevel));
 		initHeartSpriteEntities(maxPlayerLive);
-
-
-
-
 	}
 	void UIManager::Start()
 	{

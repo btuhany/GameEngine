@@ -3,6 +3,7 @@
 #include "IEntityProvider.h"
 #include "../Data/BrickData.h"
 #include "../Objects/Brick.h"
+#include "../Data/BallHitBrickData.h"
 namespace BreakoutGame
 {
 	class BrickManager : public IEntityProvider
@@ -10,7 +11,7 @@ namespace BreakoutGame
 	public:
 		void Initialize(std::shared_ptr<Shader> mainShader);
 		std::vector<std::shared_ptr<GameEntity>> getEntityList();
-		void HandleOnGotHitByBall(std::shared_ptr<GameEntity> brickEntity);
+		BallHitBrickData HandleOnGotHitByBall(std::shared_ptr<GameEntity> brickEntity);
 	private:
 		void initializeEasyBrickData(std::shared_ptr<Shader> shader);
 		void initializeMediumBrickData(std::shared_ptr<Shader> shader);

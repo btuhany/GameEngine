@@ -201,7 +201,9 @@ namespace BreakoutGame
 	{
 		if (gameEntity->getTag() == (int)Tag::Brick)
 		{
-			m_BrickManager->HandleOnGotHitByBall(gameEntity);
+			auto hitData = m_BrickManager->HandleOnGotHitByBall(gameEntity);
+			m_GameManager->IncreaseScorePoint(hitData.gainedScorePoint);
+			m_UIManager->SetScorePoint(m_GameManager->GetScorePoint());
 		}
 	}
 

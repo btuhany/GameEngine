@@ -6,8 +6,11 @@ namespace BreakoutGame
 	public:
 		void Initialize();
 		void Start();
-		void StopGame();
+		void IncreaseScorePoint(int value);
+		int GetScorePoint();
 		bool isGameStarted;
+	private:
+		int m_ScorePoint;
 	};
 }
 

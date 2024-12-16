@@ -37,17 +37,20 @@ namespace BreakoutGame
 		}
 		return entities;
 	}
-	void BrickManager::HandleOnGotHitByBall(std::shared_ptr<GameEntity> brickEntity)
+	BallHitBrickData BrickManager::HandleOnGotHitByBall(std::shared_ptr<GameEntity> brickEntity)
 	{
+		BallHitBrickData hitData;
 		auto brick = findBrick(brickEntity);
 		if (brick == nullptr)
 		{
 			LOG_ERROR("BRICK MANAGER | HandleOnGotHitByBall | Brick is null!");
-			return;
+			return hitData;
 		}
 
+		hitData.gainedScorePoint = 1;
 		LOG_INFO("BRICK GOT HIT, NAME: " + brick->getEntity()->getName());
 		brick->getEntity()->setActive(false);
+		return hitData;
 	}
 	std::shared_ptr<Brick> BrickManager::findBrick(std::shared_ptr<GameEntity> brickEntity)
 	{
