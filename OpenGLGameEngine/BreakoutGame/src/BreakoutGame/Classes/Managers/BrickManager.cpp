@@ -46,10 +46,26 @@ namespace BreakoutGame
 
 	void BrickManager::HandleOnAfterBricksInstantiated()
 	{
-		(m_BrickGrid[3][3])->getEntity()->setActive(false);
+		auto entityList = getEntityList();
+		for (size_t i = 0; i < entityList.size(); i++)
+		{
+			entityList[i]->setActive(false);
+		}
 	}
 	void BrickManager::SpawnBricks()
 	{
+		m_BrickGrid[0][0]->getEntity()->setActive(true);
+		m_BrickGrid[1][1]->getEntity()->setActive(true);
+		m_BrickGrid[2][2]->getEntity()->setActive(true);
+		m_BrickGrid[3][3]->getEntity()->setActive(true);
+		m_BrickGrid[4][4]->getEntity()->setActive(true);
+		m_BrickGrid[5][5]->getEntity()->setActive(true);
+		m_BrickGrid[0][10]->getEntity()->setActive(true);
+		m_BrickGrid[1][9]->getEntity()->setActive(true);
+		m_BrickGrid[2][8]->getEntity()->setActive(true);
+		m_BrickGrid[3][7]->getEntity()->setActive(true);
+		m_BrickGrid[4][6]->getEntity()->setActive(true);
+		m_BrickGrid[5][5]->getEntity()->setActive(true);
 	}
 	std::vector<std::shared_ptr<GameEntity>> BrickManager::getEntityList()
 	{
