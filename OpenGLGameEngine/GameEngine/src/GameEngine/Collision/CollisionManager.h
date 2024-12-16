@@ -17,6 +17,7 @@ namespace GameEngine
 		void Update(float deltaTime);
 	private:
 		void onComponentEvent(std::shared_ptr<ComponentEvent> componentEvent);
+		bool isAbleToCollide(std::shared_ptr<ColliderComponent> collider);
 		std::vector<std::shared_ptr<ComponentEvent>> m_ComponentEventProcessBufferList;
 		std::vector<std::shared_ptr<ColliderComponent>> m_ColliderComponents;
 		std::shared_ptr<CollisionData> AreBoxCollidersCollide(std::shared_ptr<BoxCollider2DComponent> controlledCollider, std::shared_ptr<BoxCollider2DComponent> otherCollider);

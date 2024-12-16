@@ -19,7 +19,7 @@ namespace GameEngine {
 	public:
 		Scene();
 		virtual ~Scene();
-		virtual void Initialize();
+		virtual void Initialize(float viewPortWidth, float viewPortHeight);
 		virtual void Start();
 		virtual void Update(GLfloat deltaTime);
 

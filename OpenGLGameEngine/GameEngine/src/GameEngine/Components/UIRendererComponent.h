@@ -7,6 +7,7 @@
 #include "../Entities/GameEntity.h"
 namespace GameEngine
 {
+	//TODO UISpriteRendererComponent name refactor
 	class ENGINE_API UIRendererComponent : public RendererComponent
 	{
 	public:

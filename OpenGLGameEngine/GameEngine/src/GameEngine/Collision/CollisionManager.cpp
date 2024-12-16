@@ -28,12 +28,18 @@ namespace GameEngine
 
 		for (size_t i = 0; i < m_ColliderComponents.size(); i++)
 		{
+			if (!isAbleToCollide(m_ColliderComponents[i]))
+				continue;
+
 			auto controlledCollider = m_ColliderComponents[i];
 			if (controlledCollider->getCollisionType() != CollisionType::Dynamic)
 				continue;
 
 			for (size_t j = 0; j < m_ColliderComponents.size(); j++)
 			{
+				if (!isAbleToCollide(m_ColliderComponents[j]))
+					continue;
+
 				if (i == j)
 					continue;
 
@@ -96,12 +102,25 @@ namespace GameEngine
 					{
 						if (controlledCollider->detector != nullptr)
 						{
-							controlledCollider->detector->RemoveColliderFromCurrentCollisions(colliderComp);
+							auto collisionData = std::make_shared<CollisionData>();
+							collisionData->isInBounds = false;
+							collisionData->collidedNodePosList = std::vector<Vector3>();
+							collisionData->otherCollider = colliderComp;
+							controlledCollider->detector->ProcessCollisionResult(collisionData);
+							controlledCollider->detector->RemoveColliderFromCurrentCollisions(colliderComp); 	//not sure if this function should be called
 						}
 					}
 				}
 			}
 		}
+	}
+	bool CollisionManager::isAbleToCollide(std::shared_ptr<ColliderComponent> collider)
+	{
+		if (collider->getEntity().expired())
+			return false;
+
+		auto ownerEntity = collider->getEntity().lock();
+		return ownerEntity->IsActive() && collider->getEnabled();
 	}
 	std::shared_ptr<CollisionData> CollisionManager::AreBoxCollidersCollide(std::shared_ptr<BoxCollider2DComponent> controlledCollider, std::shared_ptr<BoxCollider2DComponent> otherCollider)
 	{

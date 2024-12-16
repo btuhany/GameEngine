@@ -13,7 +13,7 @@ namespace BreakoutGame
 
 		std::string name = "Paddle";
 		m_Entity->setName(name);
-
+		m_Entity->setTag((int)Tag::Paddle);
 		auto boxCollider = std::make_shared<BoxCollider2DComponent>(7.5f, 2.0f, CollisionType::Static);
 		m_Entity->AddComponent(boxCollider);
 	}

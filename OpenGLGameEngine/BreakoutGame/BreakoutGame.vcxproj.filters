@@ -54,6 +54,18 @@
     <ClInclude Include="src\BreakoutGame\Classes\Data\BrickData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Data\TagEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Data\BallHitBrickData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Data\LevelData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Data\BrickTypeEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BreakoutGame\Classes\App\BreakoutApp.cpp">
@@ -92,7 +104,7 @@
     <ClCompile Include="src\BreakoutGame\Classes\Objects\Brick.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BreakoutGame\Classes\Data\BrickData.cpp">
+    <ClCompile Include="src\BreakoutGame\Classes\Data\LevelData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -103,8 +115,8 @@
     <None Include="src\BreakoutGame\Shaders\shader.vert" />
     <None Include="src\BreakoutGame\Shaders\colliderDebugShader.frag" />
     <None Include="src\BreakoutGame\Shaders\colliderDebugShader.vert" />
-    <None Include="src\BreakoutGame\Shaders\ui_shader.frag" />
-    <None Include="src\BreakoutGame\Shaders\ui_shader.vert" />
+    <None Include="src\BreakoutGame\Shaders\ui_screen_space_shader.frag" />
+    <None Include="src\BreakoutGame\Shaders\ui_screen_space_shader.vert" />
     <None Include="src\BreakoutGame\Shaders\text_shader.frag" />
     <None Include="src\BreakoutGame\Shaders\text_shader.vert" />
   </ItemGroup>

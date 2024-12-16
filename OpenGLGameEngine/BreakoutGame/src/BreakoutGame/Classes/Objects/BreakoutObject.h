@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngine.h>
+#include "../Data/TagEnum.h"
 namespace BreakoutGame
 {
 	class BreakoutObject

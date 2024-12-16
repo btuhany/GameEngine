@@ -77,7 +77,50 @@ namespace GameEngine
         FT_Done_Face(face);
         FT_Done_FreeType(ft);
        
+        PostInitialize();
 	}
+    void TextRenderer::PostInitialize()
+    {
+        for (size_t i = 0; i < m_Components.size(); i++)
+        {
+            auto textComp = m_Components[i];
+            auto ownerEntity = textComp->getEntity();
+
+            if (ownerEntity.expired())
+            {
+                LOG_CORE_WARN("TextRenderer:: owner entity is exprired!");
+                continue;
+            }
+
+            auto transform = ownerEntity.lock()->transform;
+            float textStartPosX = transform->getPosition().x;
+            float textStartPosY = transform->getPosition().y;
+
+            float startPos = textStartPosX; //for calculating the total text width;
+
+            auto scale = transform->getScale();
+
+            std::string text = textComp->text;
+            std::string::const_iterator c;
+            for (c = text.begin(); c != text.end(); c++)
+            {
+                TextCharacter ch = charactersMap[*c];
+                float xpos = textStartPosX + ch.bearing.x * scale.x;
+                float ypos = textStartPosY - (ch.size.y - ch.bearing.y) * scale.y;
+
+                float w = ch.size.x * scale.x;
+                float h = ch.size.y * scale.y;
+
+                textStartPosX += (ch.advance >> 6) * scale.x; // bitshift by 6 to get value in pixels (2^6 = 64)
+
+                if (h > textComp->textHeight)
+                {
+                    textComp->textHeight = h;
+                }
+            }
+            textComp->textWidth = textStartPosX - startPos;
+        }
+    }
     void TextRenderer::Render(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
     {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -115,10 +158,7 @@ namespace GameEngine
             float textStartPosY = transform->getPosition().y;
             float textStartPosZ = transform->getPosition().z;
 
-            float charWidth = textComp->charWidth * transform->getScale().x;
-            float charHeight = textComp->charHeight * transform->getScale().y;
-
-
+            auto scale = transform->getScale();
             auto VAO = textComp->vao;
             auto VBO = textComp->vbo;
             auto IBO = textComp->ibo;
@@ -132,13 +172,18 @@ namespace GameEngine
                 std::vector<unsigned int> charIndices;
                 TextCharacter ch = charactersMap[*c];
 
-                float xpos = textStartPosX;
-                float ypos = textStartPosY;
+                
+                float xpos = textStartPosX + ch.bearing.x * scale.x;
+                float ypos = textStartPosY - (ch.size.y - ch.bearing.y) * scale.y;
+
+                float w = ch.size.x * scale.x;
+                float h = ch.size.y * scale.y;
+
                 float charVerticesTemp[4][5] = {
-                    { xpos,     ypos + charHeight, textStartPosZ,  0.0f, 0.0f },
+                    { xpos,     ypos + h, textStartPosZ,  0.0f, 0.0f },
                     { xpos,     ypos,   textStartPosZ,    0.0f, 1.0f },
-                    { xpos + charWidth, ypos,   textStartPosZ,    1.0f, 1.0f },
-                    { xpos + charWidth, ypos + charHeight,  textStartPosZ, 1.0f, 0.0f }
+                    { xpos + w, ypos,   textStartPosZ,    1.0f, 1.0f },
+                    { xpos + w, ypos + h,  textStartPosZ, 1.0f, 0.0f }
                 };
 
                 for (int i = 0; i < 4; ++i)
@@ -150,9 +195,6 @@ namespace GameEngine
                     0, 1, 2,
                     0, 2, 3
                     });
-
-
-                textStartPosX += charWidth;
 
 
                 glBindTexture(GL_TEXTURE_2D, ch.textureID);
@@ -168,6 +210,9 @@ namespace GameEngine
 
                 glBindBuffer(GL_ARRAY_BUFFER, 0);
                 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+
+                textStartPosX += (ch.advance >> 6) * scale.x; // bitshift by 6 to get value in pixels (2^6 = 64)
             }
             glBindVertexArray(0);
             glBindTexture(GL_TEXTURE_2D, 0);

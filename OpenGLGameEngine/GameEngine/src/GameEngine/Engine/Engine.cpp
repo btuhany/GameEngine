@@ -40,7 +40,7 @@ namespace GameEngine {
 
 
 		m_MainWindow->Initialize();
-		m_Scene->Initialize();
+		m_Scene->Initialize(m_MainWindow->getWidth(), m_MainWindow->getHeight());
 		m_Renderer->PreInitialize(gameModeType);
 		m_Renderer->Initialize(m_Scene, m_MainWindow->getBufferRatio(), m_MainWindow->getWidth(), m_MainWindow->getHeight());
 

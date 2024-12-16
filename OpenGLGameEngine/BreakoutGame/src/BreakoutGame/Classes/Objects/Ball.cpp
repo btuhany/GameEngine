@@ -4,7 +4,7 @@ namespace BreakoutGame
 {
 	void Ball::Initialize(std::shared_ptr<Shader> shader)
 	{
-		m_IsInCollider = false;
+		m_OnBallColliderEnterHandler = nullptr;
 
 		std::shared_ptr<Texture> texture = std::make_shared<Texture>("src/BreakoutGame/Textures/58-Breakout-Tiles.PNG");
 		texture->LoadTextureWithAlpha();
@@ -15,7 +15,7 @@ namespace BreakoutGame
 
 		std::string name = "Ball";
 		m_Entity->setName(name);
-
+		m_Entity->setTag((int)Tag::Ball);
 		auto detector = std::make_shared<CollisionDetector>();
 		auto boxCollider = std::make_shared<BoxCollider2DComponent>(1.8f, 1.8f, CollisionType::Dynamic, detector);
 		detector->AddCollisionCallback(CollisionState::Enter,
@@ -63,6 +63,10 @@ namespace BreakoutGame
 	{
 		m_Entity->transform->SetPosition(position);
 	}
+	void Ball::SetOnBallColliderEnterHandler(std::function<void(std::shared_ptr<GameEntity>)> handler)
+	{
+		m_OnBallColliderEnterHandler = handler;
+	}
 	void Ball::MoveLeft()
 	{
 		auto leftVector = glm::vec3(-10.0f, 0.0f, 0.0f);
@@ -92,10 +96,6 @@ namespace BreakoutGame
 		if (!m_Entity->getActive())
 			return;
 
-		if (m_IsInCollider)
-			return;
-
-		m_IsInCollider = true;
 		/*std::cout << "Ball HandleOnCollision Enter pos, x: " << collisionData->collidedNodePos.x << " y: " << collisionData->collidedNodePos.y << std::endl;*/
 
 		auto otherCollider = collisionData->otherCollider;
@@ -105,6 +105,7 @@ namespace BreakoutGame
 			return;
 		}
 		auto colliderEntity = colliderEntityPtr.lock();
+
 
 		if (otherCollider->getColliderType() == ColliderType::BoxCollider2D)
 		{
@@ -138,17 +139,14 @@ namespace BreakoutGame
 
 			m_MovementVector = newMovementVector;
 
-
-			//TODO
-			if (colliderEntity->getName().find("Tile") != std::string::npos) {
-				colliderEntity->setActive(false);
-			}
+			if (m_OnBallColliderEnterHandler != nullptr)
+				m_OnBallColliderEnterHandler(colliderEntity);
 				
 		}
 	}
 	void Ball::onCollisionExit(std::shared_ptr<CollisionData> collisionData)
 	{
-		m_IsInCollider = false;
+
 	}
 	void Ball::handleMovement()
 	{

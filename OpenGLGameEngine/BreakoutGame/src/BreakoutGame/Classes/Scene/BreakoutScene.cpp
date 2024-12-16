@@ -16,7 +16,7 @@ namespace BreakoutGame
 	{
 	}
 
-	void BreakoutScene::Initialize()
+	void BreakoutScene::Initialize(float viewPortWidth, float viewPortHeight)
 	{
 		initializeMainShader();
 		initializeInputCallbacks();
@@ -27,12 +27,19 @@ namespace BreakoutGame
 		m_GameManager->Initialize();
 		m_Paddle = std::make_shared<Paddle>();
 		m_Paddle->Initialize(m_MainShader);
+
 		m_Ball = std::make_shared<Ball>();
 		m_Ball->Initialize(m_MainShader);
+		m_Ball->SetOnBallColliderEnterHandler(
+			[this](std::shared_ptr<GameEntity> entity) {
+				onBallColliderEnter(entity);
+			});
+
 		m_BrickManager = std::make_shared<BrickManager>();
 		m_BrickManager->Initialize(m_MainShader);
+		m_BrickManager->PoolBricks();
 		m_UIManager = std::make_shared<UIManager>();
-		m_UIManager->Initialize();
+		m_UIManager->Initialize(viewPortWidth, viewPortHeight, 0, 1, 3);
 
 
 		instantiateGameEntity(m_Paddle->getEntity());
@@ -50,15 +57,19 @@ namespace BreakoutGame
 
 		m_GameManager->isGameStarted = false;
 		LOG_INFO("Breakout scene initialized!");
-		Scene::Initialize();
+
+		m_BrickManager->HandleOnAfterBricksInstantiated();
+		Scene::Initialize(viewPortWidth, viewPortHeight);
 	}
 
 	void BreakoutScene::Start()
 	{
+		m_BrickManager->SpawnBricks();
 		m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Paddle);
 		m_Ball->Start();
 		m_Paddle->Start();
 		m_GameManager->Start();
+		m_UIManager->Start();
 	}
 
 	void BreakoutScene::Update(GLfloat deltaTime)
@@ -187,6 +198,16 @@ namespace BreakoutGame
 				pos,
 				glm::vec3(0.0f, 1.0f, 0.0f),
 				yaw, pitch, 5.0f, 0.1f, 60.0f, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
+		}
+	}
+
+	void BreakoutScene::onBallColliderEnter(std::shared_ptr<GameEntity> gameEntity)
+	{
+		if (gameEntity->getTag() == (int)Tag::Brick)
+		{
+			auto hitData = m_BrickManager->HandleOnGotHitByBall(gameEntity);
+			m_GameManager->ProcessBallHitBrickData(hitData);
+			m_UIManager->SetScorePoint(m_GameManager->GetScorePoint());
 		}
 	}
 

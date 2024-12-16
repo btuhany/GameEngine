@@ -13,7 +13,7 @@ namespace GameEngine {
 	{
 	}
 
-	void Scene::Initialize()
+	void Scene::Initialize(float viewPortWidth, float viewPortHeight)
 	{
 		m_IsInitialized = true;
 	}

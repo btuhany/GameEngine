@@ -30,6 +30,7 @@ namespace GameEngine
 	{
 	public:
 		void Initialize();
+		void PostInitialize(); //gets called one time before rendering, calculates the text width and height
 		void Render(glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
 		void HandleOnComponentAdded(std::shared_ptr<UITextRendererComponent> textRenderer);
 		void HandleOnComponentRemoved(std::shared_ptr<UITextRendererComponent> textRenderer);

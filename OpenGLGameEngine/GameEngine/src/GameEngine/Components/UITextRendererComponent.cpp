@@ -9,6 +9,8 @@ namespace GameEngine
 		charWidth = 48.0f;
 		charHeight = 48.0f;
 		createQuad();
+		textWidth = -1.0f;
+		textHeight = -1.0f;
 	}
 	void UITextRendererComponent::Render(GLuint modelLocation)
 	{
