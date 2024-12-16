@@ -1,16 +1,16 @@
 #include "Brick.h"
 namespace BreakoutGame
 {
-    void Brick::Initialize(std::string entityName, std::shared_ptr<SpriteRenderData> initialRenderData, BrickType type)
+    void Brick::Initialize(std::string entityName, std::shared_ptr<BrickData> brickData)
     {
-        m_Entity = std::make_shared<SpriteEntity>(initialRenderData);
+        hitCount = 0;
+        m_Entity = std::make_shared<SpriteEntity>(brickData->spriteRenderDataListOrderedHitCountAscending[hitCount]);
         m_Entity->setName(entityName);
         m_Entity->setTag((int)Tag::Brick);
         auto boxCollider2DComp = std::make_shared<BoxCollider2DComponent>(6.0f, 2.0f, CollisionType::Static);
         m_Entity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp);
         m_Entity->transform->SetPosition(glm::vec3(0.0f, 0.0f, -0.5f));
-        m_Type = type;
-        hitCount = 0;
+        m_Type = brickData->type;
     }
     void Brick::UpdateSprite(std::shared_ptr<SpriteRenderData> spriteRenderData)
     {

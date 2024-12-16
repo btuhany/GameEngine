@@ -12,6 +12,8 @@ namespace BreakoutGame
 		void Initialize(std::shared_ptr<Shader> mainShader);
 		std::vector<std::shared_ptr<GameEntity>> getEntityList();
 		BallHitBrickData HandleOnGotHitByBall(std::shared_ptr<GameEntity> brickEntity);
+		BallHitBrickData ProcessBrick(std::shared_ptr<Brick> brick);
+		std::shared_ptr<BrickData> GetBrickData(BrickType brickType);
 	private:
 		void initializeEasyBrickData(std::shared_ptr<Shader> shader);
 		void initializeMediumBrickData(std::shared_ptr<Shader> shader);
@@ -23,10 +25,8 @@ namespace BreakoutGame
 		static const int COLUMN_SIZE = 11;
 		const Vector2 SPACING = Vector2(7.0f, 3.0f);
 		const Vector2 START_POS = Vector2(-35.0f, 6.0f);
-		std::shared_ptr<BrickData> m_EasyBrickData;
-		std::shared_ptr<BrickData> m_MediumBrickData;
-		std::shared_ptr<BrickData> m_HardBrickData;
 
+		std::vector< std::shared_ptr<BrickData>> m_BrickDataList;
 	};
 }
 

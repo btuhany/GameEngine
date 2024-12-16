@@ -13,6 +13,7 @@ namespace BreakoutGame
 	class BrickData
 	{
 	public:
+		BrickType type;
 		int hitCountToBreak = 0;
 		int scorePointOnHit = 0;
 		int scorePointOnBreak = 0;
