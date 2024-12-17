@@ -356,14 +356,14 @@ namespace GameEngine
 		//TODO fix if else structure ************************************************
 		if (componentType == ComponentType::Renderer)
 		{
-			if (compAction == ComponentAction::Added || compAction == ComponentAction::OwnerEnabled)
+			if (compAction == ComponentAction::Added)
 			{
 				auto rendererComponent = std::static_pointer_cast<RendererComponent>(componentEvent->comp);
 				auto it = std::find(m_RendererComponents.begin(), m_RendererComponents.end(), rendererComponent);
 				if (it == m_RendererComponents.end())
 					m_RendererComponents.push_back(rendererComponent);
 			}
-			else if (compAction == ComponentAction::OwnerPreDestroyed || compAction == ComponentAction::OwnerDisabled)
+			else if (compAction == ComponentAction::OwnerPreDestroyed)
 			{
 				auto rendererComponent = std::static_pointer_cast<RendererComponent>(componentEvent->comp);
 				auto it = std::find(m_RendererComponents.begin(), m_RendererComponents.end(), rendererComponent);
@@ -394,12 +394,12 @@ namespace GameEngine
 		}
 		else if (componentType == ComponentType::UITextRenderer)
 		{
-			if (compAction == ComponentAction::Added || compAction == ComponentAction::OwnerEnabled)
+			if (compAction == ComponentAction::Added)
 			{
 				auto rendererComponent = std::static_pointer_cast<UITextRendererComponent>(componentEvent->comp);
 				m_TextRenderer->HandleOnComponentAdded(rendererComponent);
 			}
-			else if (compAction == ComponentAction::OwnerPreDestroyed || compAction == ComponentAction::OwnerDisabled)
+			else if (compAction == ComponentAction::OwnerPreDestroyed)
 			{
 				auto rendererComponent = std::static_pointer_cast<UITextRendererComponent>(componentEvent->comp);
 				m_TextRenderer->HandleOnComponentRemoved(rendererComponent);
