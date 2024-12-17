@@ -22,44 +22,11 @@ namespace BreakoutGame
 		initializeInputCallbacks();
 		initializeBoundaryObjects();
 		initializeMainCamera();
+		initializeBreakoutObjects(viewPortWidth, viewPortHeight);
 		LevelBrickGridData::Initialize();
-
-		m_GameManager = std::make_shared<GameManager>();
-		m_Ball = std::make_shared<Ball>();
-		m_Paddle = std::make_shared<Paddle>();
-		m_UIManager = std::make_shared<UIManager>();
-
-		m_GameManager->Initialize();
-		m_Paddle->Initialize(m_MainShader);
-
-		std::function<void(std::shared_ptr<GameEntity> entity)> ballHandler = std::bind(&BreakoutScene::onBallColliderEnter, this, std::placeholders::_1);
-		m_Ball->Initialize(m_MainShader, ballHandler);
-
-		m_BrickManager = std::make_shared<BrickManager>();
-		std::function<void()> brickManagerHandler = std::bind(&BreakoutScene::onThereIsNoBrickLeft, this);
-		m_BrickManager->Initialize(m_MainShader, brickManagerHandler);
-		m_BrickManager->PoolBricks();
-		m_UIManager->Initialize(viewPortWidth, viewPortHeight, 0, 1, 3);
-
-
-
-		instantiateGameEntity(m_Paddle->getEntity());
-		instantiateGameEntity(m_Ball->getEntity());
-		auto brickEntityList = m_BrickManager->getEntityList();
-		for (size_t i = 0; i < brickEntityList.size(); i++)
-		{
-			instantiateGameEntity(brickEntityList[i]);
-		}
-		auto uiEntityList = m_UIManager->getEntityList();
-		for (size_t i = 0; i < uiEntityList.size(); i++)
-		{
-			instantiateGameEntity(uiEntityList[i]);
-		}
-
+		getAndInstantiateEntities();
 		m_GameManager->isGameStarted = false;
 		LOG_INFO("Breakout scene initialized!");
-
-		
 		Scene::Initialize(viewPortWidth, viewPortHeight);
 	}
 
@@ -181,6 +148,23 @@ namespace BreakoutGame
 			-90.0f, 0.0f, 5.0f, 0.1f, 60, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
 	}
 
+	void BreakoutScene::initializeBreakoutObjects(float viewPortWidth, float viewPortHeight)
+	{
+		m_GameManager = std::make_shared<GameManager>();
+		m_Ball = std::make_shared<Ball>();
+		m_Paddle = std::make_shared<Paddle>();
+		m_UIManager = std::make_shared<UIManager>();
+		m_BrickManager = std::make_shared<BrickManager>();
+
+		std::function<void(std::shared_ptr<GameEntity> entity)> ballHandler = std::bind(&BreakoutScene::onBallColliderEnter, this, std::placeholders::_1);
+		std::function<void()> brickManagerHandler = std::bind(&BreakoutScene::onThereIsNoBrickLeft, this);
+		m_GameManager->Initialize();
+		m_Paddle->Initialize(m_MainShader);
+		m_Ball->Initialize(m_MainShader, ballHandler);
+		m_BrickManager->Initialize(m_MainShader, brickManagerHandler);
+		m_UIManager->Initialize(viewPortWidth, viewPortHeight, 0, 1, 3);
+	}
+
 	void BreakoutScene::changeCameraType()
 	{
 		if (getCamera()->getCameraType() == CAMERA_TYPE_PERSPECTIVE)
@@ -261,6 +245,21 @@ namespace BreakoutGame
 		LOG_INFO("Ball Released!");
 		m_GameManager->isGameStarted = true;
 		m_Ball->StartMovement(Vector3(0.4f, 1.0f, 0.0f));
+	}
+
+	void BreakoutScene::getAndInstantiateEntities()
+	{
+		auto entityList = std::vector<std::shared_ptr<GameEntity>>();
+		entityList.push_back(m_Paddle->getEntity());
+		entityList.push_back(m_Ball->getEntity());
+		auto brickManagerEntityList = m_BrickManager->getEntityList();
+		entityList.insert(entityList.end(), brickManagerEntityList.begin(), brickManagerEntityList.end());
+		auto uiEntityList = m_UIManager->getEntityList();
+		entityList.insert(entityList.end(), uiEntityList.begin(), uiEntityList.end());
+		for (size_t i = 0; i < entityList.size(); i++)
+		{
+			instantiateGameEntity(entityList[i]);
+		}
 	}
 
 }

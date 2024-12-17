@@ -29,7 +29,8 @@ namespace BreakoutGame
 		void initializeBoundaryObjects();
 		void initializeMainShader();
 		void initializeMainCamera();
-		
+		void initializeBreakoutObjects(float viewPortWidth, float viewPortHeight);
+
 		void changeCameraType();
 
 		void onBallColliderEnter(std::shared_ptr<GameEntity> gameEntity);
@@ -42,6 +43,8 @@ namespace BreakoutGame
 		void handleOnBallDebugKey();
 		void handleOnBallReleasedKey();
 
+		void getAndInstantiateEntities();
+		
 		std::shared_ptr<Ball> m_Ball;
 		std::shared_ptr<Paddle> m_Paddle;
 		std::shared_ptr<UIManager> m_UIManager;

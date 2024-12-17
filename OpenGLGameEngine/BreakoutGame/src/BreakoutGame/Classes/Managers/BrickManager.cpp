@@ -13,6 +13,8 @@ namespace BreakoutGame
 		std::shared_ptr<Texture> initialBrickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/17-Breakout-Tiles.PNG");
 		initialBrickTexture->LoadTextureWithAlpha();
 		std::shared_ptr<SpriteRenderData> initalSpriteRenderData = std::make_shared<SpriteRenderData>(initialBrickTexture, nullptr, mainShader);
+
+		PoolBricks();
 	}
 	void BrickManager::PoolBricks()
 	{
