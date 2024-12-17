@@ -16,13 +16,14 @@ namespace BreakoutGame
 		void MoveUp() override;
 		void MoveDown() override;
 
+		void Reset();
 		void StopMovement();
 		void StartMovement(Vector3 movementVector);
 		void SetPosition(glm::vec3 position);
 		void SetOnBallColliderEnterHandler(std::function<void(std::shared_ptr<GameEntity>)> handler);
 		//debug purposes
 		void SetSpeed(float value);
-
+		bool IsOnPaddle = false;
 	private:
 		std::function<void(std::shared_ptr<GameEntity>)> m_OnBallColliderEnterHandler;
 		void onCollisionEnter(std::shared_ptr<CollisionData> collisionData);

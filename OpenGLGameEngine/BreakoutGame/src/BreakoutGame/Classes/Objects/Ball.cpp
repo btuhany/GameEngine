@@ -4,7 +4,7 @@ namespace BreakoutGame
 {
 	void Ball::Initialize(std::shared_ptr<Shader> shader, std::function<void(std::shared_ptr<GameEntity>)> handler)
 	{
-		m_OnBallColliderEnterHandler = nullptr;
+		IsOnPaddle = true;
 		m_OnBallColliderEnterHandler = handler;
 		std::shared_ptr<Texture> texture = std::make_shared<Texture>("src/BreakoutGame/Textures/58-Breakout-Tiles.PNG");
 		texture->LoadTextureWithAlpha();
@@ -48,6 +48,10 @@ namespace BreakoutGame
 	std::shared_ptr<SpriteEntity> Ball::getEntity()
 	{
 		return m_Entity;
+	}
+	void Ball::Reset()
+	{
+		IsOnPaddle = true;
 	}
 	void Ball::StopMovement()
 	{

@@ -18,10 +18,10 @@ namespace BreakoutGame
 	}
 	void BrickManager::PoolBricks()
 	{
-		for (int y = 0; y < 6; y++)
+		for (int y = 0; y < ROW_SIZE; y++)
 		{
 			std::vector <std::shared_ptr<Brick>> rowBrickList;
-			for (int x = 0; x < 11; x++)
+			for (int x = 0; x < COLUMN_SIZE; x++)
 			{
 				std::string name = "Brick_" + std::to_string(y) + "_" + std::to_string(x);
 				auto brick = std::make_shared<Brick>();
@@ -46,6 +46,10 @@ namespace BreakoutGame
 		{
 			entityList[i]->setActive(false);
 		}
+	}
+	void BrickManager::Reset()
+	{
+		m_ActiveBrickCount = 0;
 	}
 	void BrickManager::UpdateBrickGrid(BrickGridData brickTypeGridData)
 	{

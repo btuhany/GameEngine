@@ -47,6 +47,10 @@ namespace BreakoutGame
 		auto downVector = glm::vec3(0.0f, -1.0f, 0.0f);
 		m_Entity->transform->Translate(downVector * m_Speed * m_DeltaTime);
 	}
+	void Paddle::Reset()
+	{
+		m_Entity->transform->Translate(glm::vec3(0.0f));
+	}
 	glm::vec3 Paddle::GetBallHolderPosition()
 	{
 		return m_Entity->transform->getPosition() + m_BallHolderOffset;

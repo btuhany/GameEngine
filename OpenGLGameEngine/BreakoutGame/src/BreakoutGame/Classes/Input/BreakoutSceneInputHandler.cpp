@@ -2,6 +2,14 @@
 
 void BreakoutSceneInputHandler::HandleKeys(int* keys, GLfloat deltaTime)
 {
+	if (keys[GLFW_KEY_D] == KEY_STATE_RELEASE)
+	{
+		OnBallDebugKeyEvent.Trigger();
+	}
+
+	if (!IsPlayerControlsActive)
+		return;
+
 	if (keys[GLFW_KEY_1] == KEY_STATE_RELEASE)
 	{
 		OnPressedCameraTypeChangeKeyEvent.Trigger();
@@ -33,10 +41,6 @@ void BreakoutSceneInputHandler::HandleKeys(int* keys, GLfloat deltaTime)
 	if (keys[GLFW_KEY_DOWN] == KEY_STATE_PRESS || keys[GLFW_KEY_DOWN] == KEY_STATE_HELD)
 	{
 		OnDownArrowKeyEvent.Trigger();
-	}
-	if (keys[GLFW_KEY_D] == KEY_STATE_RELEASE)
-	{
-		OnBallDebugKeyEvent.Trigger();
 	}
 }
 

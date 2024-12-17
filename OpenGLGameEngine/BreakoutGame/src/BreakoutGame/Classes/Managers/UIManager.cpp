@@ -27,6 +27,24 @@ namespace BreakoutGame
 		startLevelText();
 		startHeartSpriteEntities();
 	}
+	void UIManager::ShowPlayerHUD(int playerLiveCount)
+	{
+		m_ScoreCounterTextComponent->getEntity().lock()->setActive(true);
+		m_LevelTextComponent->getEntity().lock()->setActive(true);
+		for (size_t i = 0; i < playerLiveCount; i++)
+		{
+			m_HeartSpriteEntities[i]->setActive(true);
+		}
+	}
+	void UIManager::HidePlayerHUD()
+	{
+		m_ScoreCounterTextComponent->getEntity().lock()->setActive(false);
+		m_LevelTextComponent->getEntity().lock()->setActive(false);
+		for (size_t i = 0; i < m_HeartSpriteEntities.size(); i++)
+		{
+			m_HeartSpriteEntities[i]->setActive(false);
+		}
+	}
 	void UIManager::SetScorePoint(int scorePoint)
 	{
 		m_ScoreCounterTextComponent->text = "Score: " + std::to_string(scorePoint);
@@ -93,6 +111,7 @@ namespace BreakoutGame
 			uiEntity->AddComponent(uiRendererComp);
 			uiEntity->transform->Translate(glm::vec3(startPointX + i * (width + spacingX), startPointY, 0.0f));
 			uiEntity->transform->Scale(glm::vec3(width, width, 1.0f));
+			m_HeartSpriteEntities.push_back(uiEntity);
 			m_GameEntityList.push_back(uiEntity);
 		}
 	}

@@ -5,6 +5,7 @@
 #include "../Objects/Brick.h"
 #include "../Data/BallHitBrickData.h"
 #include "../Data/BrickGridData.h"
+#include "../Data/LevelDataCommon.h"
 namespace BreakoutGame
 {
 	class BrickManager : public IEntityProvider
@@ -13,6 +14,7 @@ namespace BreakoutGame
 		void Initialize(std::shared_ptr<Shader> mainShader, std::function<void()> onThereIsNoActiveBricksLeftHandler);
 		void PoolBricks();
 		void HandleOnAfterBricksInstantiated();
+		void Reset();
 		void UpdateBrickGrid(BrickGridData brickTypeGridData);
 		std::vector<std::shared_ptr<GameEntity>> getEntityList();
 		BallHitBrickData HandleOnGotHitByBall(std::shared_ptr<GameEntity> brickEntity);

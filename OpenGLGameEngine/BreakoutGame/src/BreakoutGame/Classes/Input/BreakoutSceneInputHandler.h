@@ -15,7 +15,10 @@ public:
 	SimpleEvent<> OnBallReleaseKeyEvent;
 	void HandleKeys(int* keys, GLfloat deltaTime) override;
 	void HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY) override;
+
+	bool IsPlayerControlsActive = false;
 private:
 	bool m_IsSpaceButtonPressLocked = false;
+
 };
 

@@ -44,6 +44,8 @@ namespace BreakoutGame
 		void handleOnBallReleasedKey();
 
 		void getAndInstantiateEntities();
+		void onLevelStarted();
+		void onLevelEnded();
 		
 		std::shared_ptr<Ball> m_Ball;
 		std::shared_ptr<Paddle> m_Paddle;
@@ -54,6 +56,9 @@ namespace BreakoutGame
 		std::shared_ptr<Shader> m_MainShader;
 		//For debug purposes
 		std::shared_ptr<IMovable> m_ControlledMovableObject;
+
+
+		void resetObjects();
 	};
 
 

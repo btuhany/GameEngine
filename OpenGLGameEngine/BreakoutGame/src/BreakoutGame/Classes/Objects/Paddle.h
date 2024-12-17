@@ -14,7 +14,7 @@ namespace BreakoutGame
 		void MoveRight() override;
 		void MoveUp() override;
 		void MoveDown() override;
-
+		void Reset();
 		glm::vec3 GetBallHolderPosition();
 	private:
 		float m_Speed;

@@ -32,15 +32,11 @@ namespace BreakoutGame
 
 	void BreakoutScene::Start()
 	{
-		m_BrickManager->HandleOnAfterBricksInstantiated();
-		m_BrickManager->UpdateBrickGrid(LevelBrickGridData::GetBrickGridData(1));
 		m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Paddle);
 		m_Ball->Start();
 		m_Paddle->Start();
 		m_GameManager->Start();
 		m_UIManager->Start();
-
-		
 	}
 
 	void BreakoutScene::Update(GLfloat deltaTime)
@@ -227,17 +223,18 @@ namespace BreakoutGame
 	bool isControllingBall = false;
 	void BreakoutScene::handleOnBallDebugKey()
 	{
-		if (isControllingBall)
-		{
-			m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Paddle);
-			isControllingBall = false;
-		}
-		else
-		{
-			m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Ball);
-			m_Ball->SetSpeed(0.0f);
-			isControllingBall = true;
-		}
+		//if (isControllingBall)
+		//{
+		//	m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Paddle);
+		//	isControllingBall = false;
+		//}
+		//else
+		//{
+		//	m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Ball);
+		//	m_Ball->SetSpeed(0.0f);
+		//	isControllingBall = true;
+		//}
+		onLevelStarted();
 	}
 
 	void BreakoutScene::handleOnBallReleasedKey()
@@ -249,6 +246,7 @@ namespace BreakoutGame
 
 	void BreakoutScene::getAndInstantiateEntities()
 	{
+		//TODO send/get instantiate data or instantiate outside scene class
 		auto entityList = std::vector<std::shared_ptr<GameEntity>>();
 		entityList.push_back(m_Paddle->getEntity());
 		entityList.push_back(m_Ball->getEntity());
@@ -258,8 +256,30 @@ namespace BreakoutGame
 		entityList.insert(entityList.end(), uiEntityList.begin(), uiEntityList.end());
 		for (size_t i = 0; i < entityList.size(); i++)
 		{
-			instantiateGameEntity(entityList[i]);
+			instantiateGameEntity(entityList[i], false);
 		}
+	}
+
+	void BreakoutScene::onLevelStarted()
+	{
+		m_InputHandler->IsPlayerControlsActive = true;
+		resetObjects();
+		m_BrickManager->UpdateBrickGrid(LevelBrickGridData::GetBrickGridData(1));
+		m_UIManager->ShowPlayerHUD(m_GameManager->GetPlayerLive());
+	}
+
+	void BreakoutScene::onLevelEnded()
+	{
+		m_InputHandler->IsPlayerControlsActive = false;
+	}
+
+	void BreakoutScene::resetObjects()
+	{
+		m_Paddle->getEntity()->setActive(true);
+		m_Paddle->Reset();
+		m_Ball->getEntity()->setActive(true);
+		m_Ball->Reset();
+		m_BrickManager->Reset();
 	}
 
 }
