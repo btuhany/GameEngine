@@ -28,8 +28,8 @@ namespace BreakoutGame
 		startScoreText();
 		startLevelText();
 		startHeartSpriteEntities();
-
 		m_StartButton->Start();
+		ShowMainMenuPanel();
 	}
 	void UIManager::ShowPlayerHUD(int playerLiveCount)
 	{
@@ -64,6 +64,7 @@ namespace BreakoutGame
 	}
 	void UIManager::ShowMainMenuPanel()
 	{
+		m_StartButton->SetSelected(false);
 	}
 	void UIManager::HideMainMenuPanel()
 	{

@@ -43,15 +43,18 @@ namespace BreakoutGame
 		m_SelectedStateEntity->transform->SetPosition(glm::vec3(posX, posY, -0.4f));
 		m_SelectedStateEntity->transform->Scale(scaleX, scaleY, 1.0f);
 		textEntity->transform->SetPosition(glm::vec3(posX + (scaleX - textWidth) / 2.0f, posY + (scaleY - textHeight) / 2.0f, 0.0f));
-
-		m_BackgroundSpriteEntity->setActive(true);
-		m_SelectedStateEntity->setActive(false);
-		m_TextComp->getEntity().lock()->setActive(true);
 	}
 	void UIButton::SetSelected(bool isSelected)
 	{
 		m_BackgroundSpriteEntity->setActive(!isSelected);
 		m_SelectedStateEntity->setActive(isSelected);
+		m_TextComp->getEntity().lock()->setActive(true);
+	}
+	void UIButton::Hide()
+	{
+		m_BackgroundSpriteEntity->setActive(false);
+		m_SelectedStateEntity->setActive(false);
+		m_TextComp->getEntity().lock()->setActive(false);
 	}
 	std::vector<std::shared_ptr<GameEntity>> UIButton::getEntities()
 	{
