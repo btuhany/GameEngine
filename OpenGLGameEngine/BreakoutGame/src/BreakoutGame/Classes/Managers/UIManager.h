@@ -37,6 +37,7 @@ namespace BreakoutGame
 
 		std::shared_ptr<UITextRendererComponent> m_BreakoutText;
 		std::shared_ptr<UIButton> m_StartButton;
+		std::shared_ptr<UIButton> m_QuitButton;
 		const float MARGIN_TOP = 50.0f;
 		const float MARGIN_LEFT = 50.0f;
 		const float MARGIN_RIGHT = 50.0f;

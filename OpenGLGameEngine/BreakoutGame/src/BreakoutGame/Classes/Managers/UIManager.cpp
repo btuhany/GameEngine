@@ -59,8 +59,14 @@ namespace BreakoutGame
 
 		m_StartButton = std::make_shared<UIButton>();
 		m_StartButton->Initialize(m_UIScreenSpaceShader, m_TextShader, backgroundTexture, selectedSpriteTexture, "Start", Vector3(1.0f, 0.0f, 0.0f), Vector2(m_ViewPortWidth, m_ViewPortHeight) / 2.0f, Vector2(300.0f, 100.0f), m_ViewPortWidth, m_ViewPortHeight);
-		auto newEntityList = m_StartButton->getEntities();
-		m_GameEntityList.insert(m_GameEntityList.end(), newEntityList.begin(), newEntityList.end());
+		auto startButtonEntities = m_StartButton->getEntities();
+		m_GameEntityList.insert(m_GameEntityList.end(), startButtonEntities.begin(), startButtonEntities.end());
+
+		float quitButtonOffset = 150.0f;
+		m_QuitButton = std::make_shared<UIButton>();
+		m_QuitButton->Initialize(m_UIScreenSpaceShader, m_TextShader, backgroundTexture, selectedSpriteTexture, "Quit", Vector3(1.0f, 0.0f, 0.0f), Vector2(m_ViewPortWidth / 2.0f, m_ViewPortHeight / 2.0f - quitButtonOffset), Vector2(300.0f, 100.0f), m_ViewPortWidth, m_ViewPortHeight);
+		auto quitButtonEntities = m_QuitButton->getEntities();
+		m_GameEntityList.insert(m_GameEntityList.end(), quitButtonEntities.begin(), quitButtonEntities.end());
 
 		m_BreakoutText = std::make_shared<UITextRendererComponent>();
 		m_BreakoutText->text = "Breakout!";
@@ -74,6 +80,7 @@ namespace BreakoutGame
 	void UIManager::startMainMenuPanelObjects()
 	{
 		m_StartButton->Start();
+		m_QuitButton->Start();
 
 		float breakoutTextHeaderOffsetY = 150.0f;
 		m_BreakoutText->getEntity().lock()->transform->
@@ -87,6 +94,7 @@ namespace BreakoutGame
 	{
 		m_BreakoutText->getEntity().lock()->setActive(true);
 		m_StartButton->SetSelected(false);
+		m_QuitButton->SetSelected(false);
 	}
 	void UIManager::HideMainMenuPanel()
 	{
