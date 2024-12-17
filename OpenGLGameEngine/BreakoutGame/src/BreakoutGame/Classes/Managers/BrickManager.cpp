@@ -1,8 +1,11 @@
 #include "BrickManager.h"
 namespace BreakoutGame
 {
-	void BrickManager::Initialize(std::shared_ptr<Shader> mainShader)
+	void BrickManager::Initialize(std::shared_ptr<Shader> mainShader, std::function<void()> onThereIsNoActiveBricksLeftHandler)
 	{
+		m_ActiveBrickCount = 0;
+		m_OnThereIsNoActiveBricksLeft = onThereIsNoActiveBricksLeftHandler;
+
 		initializeEasyBrickData(mainShader);
 		initializeMediumBrickData(mainShader);
 		initializeHardBrickData(mainShader);
@@ -44,6 +47,7 @@ namespace BreakoutGame
 	}
 	void BrickManager::UpdateBrickGrid(BrickGridData brickTypeGridData)
 	{
+		m_ActiveBrickCount = 0;
 		for (size_t row = 0; row < ROW_SIZE; row++)
 		{
 			for (size_t col = 0; col < COLUMN_SIZE; col++)
@@ -57,6 +61,7 @@ namespace BreakoutGame
 				}
 				else
 				{
+					m_ActiveBrickCount++;
 					brick->getEntity()->setActive(true);
 					brick->ResetUpdateData(GetBrickData(type));
 				}
@@ -105,6 +110,11 @@ namespace BreakoutGame
 			hitData.gainedScorePoint += brickData->scorePointOnBreak;
 			hitData.isBroken = true;
 			brick->getEntity()->setActive(false);
+			m_ActiveBrickCount--;
+			if (m_ActiveBrickCount == 0)
+			{
+				m_OnThereIsNoActiveBricksLeft();
+			}
 		}
 		else
 		{

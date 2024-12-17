@@ -10,7 +10,7 @@ namespace BreakoutGame
 	class BrickManager : public IEntityProvider
 	{
 	public:
-		void Initialize(std::shared_ptr<Shader> mainShader);
+		void Initialize(std::shared_ptr<Shader> mainShader, std::function<void()> onThereIsNoActiveBricksLeftHandler);
 		void PoolBricks();
 		void HandleOnAfterBricksInstantiated();
 		void UpdateBrickGrid(BrickGridData brickTypeGridData);
@@ -29,6 +29,10 @@ namespace BreakoutGame
 		const Vector2 START_POS = Vector2(-35.0f, 18.0f);
 
 		std::unordered_map<BrickType, std::shared_ptr<BrickData>> m_BrickDataMap;
+
+
+		int m_ActiveBrickCount;
+		std::function<void()> m_OnThereIsNoActiveBricksLeft;
 	};
 }
 

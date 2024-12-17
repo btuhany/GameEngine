@@ -30,6 +30,9 @@ namespace GameEngine
 		void updateCollisionState(std::shared_ptr<CollisionData> collisionData, CollisionState state);
 		void processOnDetectionSuccess(std::shared_ptr<CollisionData> collisionData);
 		void processOnDetectionFailed(std::shared_ptr<CollisionData> collisionData);
+
+		//FOR DEBUG
+		const bool IS_LOGS_ACTIVE = false;
 	};
 }
 

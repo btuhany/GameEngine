@@ -43,7 +43,8 @@ namespace GameEngine
 			switch (currentState)
 			{
 			case GameEngine::CollisionState::None:
-				LOG_CORE_ERROR("Collision listener logic error! | None");
+				if (IS_LOGS_ACTIVE)
+					LOG_CORE_ERROR("Collision listener logic error! | None");
 				updateCollisionState(collisionData, CollisionState::None);
 				break;
 			case GameEngine::CollisionState::Enter:
@@ -97,7 +98,8 @@ namespace GameEngine
 		if (SETTINGS_COLLIDER_DEBUG_MODE)
 		{
 			auto gameEntityName = otherCollider->getEntity().lock()->getName();
-			LOG_CORE_INFO("HandleOnCollision Enter with: " + gameEntityName);
+			if (IS_LOGS_ACTIVE)
+				LOG_CORE_INFO("HandleOnCollision Enter with: " + gameEntityName);
 		}
 		auto it = m_CollisionCallbacks.find(CollisionState::Enter);
 		if (it != m_CollisionCallbacks.end() && it->second)
@@ -127,7 +129,8 @@ namespace GameEngine
 		if (SETTINGS_COLLIDER_DEBUG_MODE)
 		{
 			auto gameEntityName = otherCollider->getEntity().lock()->getName();
-			LOG_CORE_INFO("HandleOnCollision Exit with: " + gameEntityName);
+			if (IS_LOGS_ACTIVE)
+				LOG_CORE_INFO("HandleOnCollision Exit with: " + gameEntityName);
 		}
 		auto it = m_CollisionCallbacks.find(CollisionState::Exit);
 		if (it != m_CollisionCallbacks.end() && it->second)

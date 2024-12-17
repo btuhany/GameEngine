@@ -109,7 +109,9 @@ namespace BreakoutGame
 
 		if (otherCollider->getColliderType() == ColliderType::BoxCollider2D)
 		{
-			LOG_INFO("------BALL COLLISION------");
+			if (IS_LOGS_ACTIVE)
+				LOG_INFO("------BALL COLLISION------");
+
 			auto boxCollider = std::static_pointer_cast<BoxCollider2DComponent>(otherCollider);
 			auto avarageCollidedNodePos = Vector2::zero;
 			for (size_t i = 0; i < collisionData->collidedNodePosList.size(); i++)
@@ -122,20 +124,27 @@ namespace BreakoutGame
 			auto normalVec = boxCollider->ProcessGetNormalVector(avarageCollidedNodePos);
 			if (normalVec == Vector2::zero)
 			{
-				LOG_ERROR("Normal Vector calculated as zero!");
+				if (IS_LOGS_ACTIVE)
+					LOG_ERROR("Normal Vector calculated as zero!");
 			}
 			else if (Vector2::IsAligned(normalVec, m_MovementVector, 0.2f))
 			{
-				LOG_ERROR("Normal vector and movement vector is aligned");
+				if (IS_LOGS_ACTIVE)
+					LOG_ERROR("Normal vector and movement vector is aligned");
 				return;
 			}
 
 
+			if (IS_LOGS_ACTIVE)
+			{
+				LOG_INFO_STREAM("Ball Movement vector, x: " << m_MovementVector.x << " y: " << m_MovementVector.y);
+				LOG_INFO_STREAM("Ball Normal vector, x: " << normalVec.x << " y: " << normalVec.y);
+			}
 
-			LOG_INFO_STREAM("Ball Movement vector, x: " << m_MovementVector.x << " y: " << m_MovementVector.y);
-			LOG_INFO_STREAM("Ball Normal vector, x: " << normalVec.x << " y: " << normalVec.y);
 			auto newMovementVector = glm::reflect(m_MovementVector, glm::vec3(normalVec.x, normalVec.y, 0.0f));
-			LOG_INFO_STREAM("Ball After Reflect New Movement vector, x: " << newMovementVector.x << " y: " << newMovementVector.y);
+
+			if (IS_LOGS_ACTIVE)
+				LOG_INFO_STREAM("Ball After Reflect New Movement vector, x: " << newMovementVector.x << " y: " << newMovementVector.y);
 
 			m_MovementVector = newMovementVector;
 

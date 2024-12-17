@@ -37,7 +37,8 @@ namespace BreakoutGame
 			});
 
 		m_BrickManager = std::make_shared<BrickManager>();
-		m_BrickManager->Initialize(m_MainShader);
+		std::function<void()> handler = std::bind(&BreakoutScene::onThereIsNoBrickLeft, this);
+		m_BrickManager->Initialize(m_MainShader, handler);
 		m_BrickManager->PoolBricks();
 		m_UIManager = std::make_shared<UIManager>();
 		m_UIManager->Initialize(viewPortWidth, viewPortHeight, 0, 1, 3);
@@ -211,6 +212,11 @@ namespace BreakoutGame
 			m_GameManager->ProcessBallHitBrickData(hitData);
 			m_UIManager->SetScorePoint(m_GameManager->GetScorePoint());
 		}
+	}
+
+	void BreakoutScene::onThereIsNoBrickLeft()
+	{
+		LOG_INFO("THERE IS NO BRICK LEFT!");
 	}
 
 	void BreakoutScene::handleOnLeftKey()

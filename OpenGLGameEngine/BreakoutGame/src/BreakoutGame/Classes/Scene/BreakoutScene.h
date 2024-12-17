@@ -29,9 +29,11 @@ namespace BreakoutGame
 		void initializeBoundaryObjects();
 		void initializeMainShader();
 		void initializeMainCamera();
+		
 		void changeCameraType();
 
 		void onBallColliderEnter(std::shared_ptr<GameEntity> gameEntity);
+		void onThereIsNoBrickLeft();
 
 		void handleOnLeftKey();
 		void handleOnRightKey();
