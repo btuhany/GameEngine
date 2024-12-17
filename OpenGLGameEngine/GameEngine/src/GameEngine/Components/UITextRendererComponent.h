@@ -19,8 +19,8 @@ namespace GameEngine
 		float charHeight;
 		GLuint vao, vbo, ibo;
 		ComponentType getType() override;
-		float textWidth = -1.0f;
-		float textHeight = -1.0f;
+		float calculatedTextWidth = -1.0f;
+		float calculatedTextHeight = -1.0f;
 	private:
 		void createQuad();
 	};

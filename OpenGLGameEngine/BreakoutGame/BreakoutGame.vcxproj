@@ -183,6 +183,7 @@
     <ClInclude Include="src\BreakoutGame\Classes\Input\BreakoutSceneInputHandler.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Scene\BreakoutScene.h" />
     <ClInclude Include="src\BreakoutGame\Classes\App\BreakoutApp.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\Objects\UIButton.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BreakoutGame\Classes\Data\LevelBrickGridData.cpp" />
@@ -198,6 +199,7 @@
     <ClCompile Include="src\BreakoutGame\Classes\Input\BreakoutSceneInputHandler.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Scene\BreakoutScene.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\App\BreakoutApp.cpp" />
+    <ClCompile Include="src\BreakoutGame\Classes\Objects\UIButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameEngine\GameEngine.vcxproj">

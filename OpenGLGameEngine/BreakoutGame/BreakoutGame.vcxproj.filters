@@ -72,6 +72,9 @@
     <ClInclude Include="src\BreakoutGame\Classes\Data\LevelDataCommon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Objects\UIButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BreakoutGame\Classes\App\BreakoutApp.cpp">
@@ -111,6 +114,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\BreakoutGame\Classes\Data\LevelBrickGridData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BreakoutGame\Classes\Objects\UIButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

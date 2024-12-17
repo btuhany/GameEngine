@@ -88,7 +88,7 @@ namespace GameEngine
 
             if (ownerEntity.expired())
             {
-                LOG_CORE_WARN("TextRenderer:: owner entity is exprired!");
+                LOG_CORE_WARN("TextRenderer:: Post init owner entity is exprired!");
                 continue;
             }
 
@@ -113,12 +113,12 @@ namespace GameEngine
 
                 textStartPosX += (ch.advance >> 6) * scale.x; // bitshift by 6 to get value in pixels (2^6 = 64)
 
-                if (h > textComp->textHeight)
+                if (h > textComp->calculatedTextHeight)
                 {
-                    textComp->textHeight = h;
+                    textComp->calculatedTextHeight = h;
                 }
             }
-            textComp->textWidth = textStartPosX - startPos;
+            textComp->calculatedTextWidth = textStartPosX - startPos;
         }
     }
     void TextRenderer::Render(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
@@ -137,7 +137,7 @@ namespace GameEngine
             }
             if (ownerEntity.expired())
             {
-                LOG_CORE_WARN("TextRenderer:: owner entity is exprired!");
+                LOG_CORE_WARN("TextRenderer:: Render owner entity is exprired!");
                 continue;
             }
              

@@ -20,12 +20,16 @@ namespace BreakoutGame
 		initScoreText(std::to_string(initalScore));
 		initLevelText(std::to_string(initialLevel));
 		initHeartSpriteEntities(maxPlayerLive);
+
+		initMainMenuPanelObjects();
 	}
 	void UIManager::Start()
 	{
 		startScoreText();
 		startLevelText();
 		startHeartSpriteEntities();
+
+		m_StartButton->Start();
 	}
 	void UIManager::ShowPlayerHUD(int playerLiveCount)
 	{
@@ -44,6 +48,25 @@ namespace BreakoutGame
 		{
 			m_HeartSpriteEntities[i]->setActive(false);
 		}
+	}
+	void UIManager::initMainMenuPanelObjects()
+	{
+		auto backgroundTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/button_square_gradient.PNG");
+		backgroundTexture->LoadTextureWithAlpha();
+
+		auto selectedSpriteTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/button_square_line.PNG");
+		selectedSpriteTexture->LoadTextureWithAlpha();
+
+		m_StartButton = std::make_shared<UIButton>();
+		m_StartButton->Initialize(m_UIScreenSpaceShader, m_TextShader, backgroundTexture, selectedSpriteTexture, "Start", Vector3(1.0f, 0.0f, 0.0f), Vector2(m_ViewPortWidth, m_ViewPortHeight) / 2.0f, Vector2(300.0f, 100.0f), m_ViewPortWidth, m_ViewPortHeight);
+		auto newEntityList = m_StartButton->getEntities();
+		m_GameEntityList.insert(m_GameEntityList.end(), newEntityList.begin(), newEntityList.end());
+	}
+	void UIManager::ShowMainMenuPanel()
+	{
+	}
+	void UIManager::HideMainMenuPanel()
+	{
 	}
 	void UIManager::SetScorePoint(int scorePoint)
 	{
@@ -67,7 +90,7 @@ namespace BreakoutGame
 	void UIManager::startScoreText()
 	{
 		auto textEntity = m_ScoreCounterTextComponent->getEntity().lock();
-		auto textWidth = m_ScoreCounterTextComponent->textWidth;
+		auto textWidth = m_ScoreCounterTextComponent->calculatedTextWidth;
 		float textExtraXOffset = - (textWidth / 3.0f);
 		textEntity->transform->Translate(glm::vec3(((m_ViewPortWidth - textWidth) / 2.0f) + textExtraXOffset, m_ViewPortHeight - MARGIN_TOP, 0.0f));
 	}
@@ -85,7 +108,7 @@ namespace BreakoutGame
 	void UIManager::startLevelText()
 	{
 		auto textEntity = m_LevelTextComponent->getEntity().lock();
-		auto textWidth = m_LevelTextComponent->textWidth;
+		auto textWidth = m_LevelTextComponent->calculatedTextWidth;
 		float textXOffset = MARGIN_LEFT;
 		textEntity->transform->Translate(glm::vec3(textXOffset, m_ViewPortHeight - MARGIN_TOP, 0.0f));
 	}
@@ -118,4 +141,5 @@ namespace BreakoutGame
 	void UIManager::startHeartSpriteEntities()
 	{
 	}
+
 }
