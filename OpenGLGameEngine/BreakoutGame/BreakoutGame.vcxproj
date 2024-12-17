@@ -166,8 +166,10 @@
   <ItemGroup>
     <ClInclude Include="src\BreakoutGame\Classes\Data\BrickData.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\BallHitBrickData.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\Data\BrickGridData.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\BrickTypeEnum.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\LevelBrickGridData.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\Data\LevelDataCommon.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\TagEnum.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Objects\Brick.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Managers\IEntityProvider.h" />

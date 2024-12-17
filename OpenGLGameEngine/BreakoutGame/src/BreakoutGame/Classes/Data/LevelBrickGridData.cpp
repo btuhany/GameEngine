@@ -4,7 +4,7 @@ namespace BreakoutGame
 {
     bool LevelBrickGridData::m_IsInitialized = false;
     std::unordered_map<std::string, BrickType> LevelBrickGridData::m_StringToBrickTypeMap;
-    LevelBrickGridData::BrickGridDataHolder LevelBrickGridData::brickGridDataArr[LEVEL_COUNT];
+    BrickGridData LevelBrickGridData::brickGridDataArr[LEVEL_COUNT];
 
     const std::array<std::string[ROW_SIZE][COLUMN_SIZE], LEVEL_COUNT> LevelBrickGridData::m_LevelBrickDataList =
     {{
