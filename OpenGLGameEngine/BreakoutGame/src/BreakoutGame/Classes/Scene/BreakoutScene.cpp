@@ -25,22 +25,20 @@ namespace BreakoutGame
 		LevelBrickGridData::Initialize();
 
 		m_GameManager = std::make_shared<GameManager>();
-		m_GameManager->Initialize();
+		m_Ball = std::make_shared<Ball>();
 		m_Paddle = std::make_shared<Paddle>();
+		m_UIManager = std::make_shared<UIManager>();
+
+		m_GameManager->Initialize();
 		m_Paddle->Initialize(m_MainShader);
 
-		m_Ball = std::make_shared<Ball>();
-		m_Ball->Initialize(m_MainShader);
-		m_Ball->SetOnBallColliderEnterHandler(
-			[this](std::shared_ptr<GameEntity> entity) {
-				onBallColliderEnter(entity);
-			});
+		std::function<void(std::shared_ptr<GameEntity> entity)> ballHandler = std::bind(&BreakoutScene::onBallColliderEnter, this, std::placeholders::_1);
+		m_Ball->Initialize(m_MainShader, ballHandler);
 
 		m_BrickManager = std::make_shared<BrickManager>();
-		std::function<void()> handler = std::bind(&BreakoutScene::onThereIsNoBrickLeft, this);
-		m_BrickManager->Initialize(m_MainShader, handler);
+		std::function<void()> brickManagerHandler = std::bind(&BreakoutScene::onThereIsNoBrickLeft, this);
+		m_BrickManager->Initialize(m_MainShader, brickManagerHandler);
 		m_BrickManager->PoolBricks();
-		m_UIManager = std::make_shared<UIManager>();
 		m_UIManager->Initialize(viewPortWidth, viewPortHeight, 0, 1, 3);
 
 

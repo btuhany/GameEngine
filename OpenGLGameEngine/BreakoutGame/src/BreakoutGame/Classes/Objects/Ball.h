@@ -6,7 +6,7 @@ namespace BreakoutGame
 	class Ball : public BreakoutObject, public IMovable
 	{
 	public:
-		void Initialize(std::shared_ptr<Shader> shader) override;
+		void Initialize(std::shared_ptr<Shader> shader, std::function<void(std::shared_ptr<GameEntity>)> handler);
 		void Start() override;
 		void Tick(float deltaTime) override;
 		std::shared_ptr<SpriteEntity> getEntity() override;

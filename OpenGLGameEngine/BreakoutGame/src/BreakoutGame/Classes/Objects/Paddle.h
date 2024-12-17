@@ -6,7 +6,7 @@ namespace BreakoutGame
 	class Paddle : public BreakoutObject, public IMovable
 	{
 	public:
-		void Initialize(std::shared_ptr<Shader> shader) override;
+		void Initialize(std::shared_ptr<Shader> shader);
 		void Start() override;
 		void Tick(float deltaTime) override;
 		std::shared_ptr<SpriteEntity> getEntity() override;
