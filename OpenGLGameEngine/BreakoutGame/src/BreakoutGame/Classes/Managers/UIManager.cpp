@@ -30,8 +30,6 @@ namespace BreakoutGame
 		startHeartSpriteEntities();
 		startMainMenuPanelObjects();
 		ShowMainMenuPanel();
-		//m_BreakoutText->getEntity().lock()->transform->Scale(glm::vec3(4.0f, 4.0f, 0.0f));
-		m_BreakoutText->getEntity().lock()->setActive(true);
 	}
 	void UIManager::ShowPlayerHUD(int playerLiveCount)
 	{
@@ -71,15 +69,23 @@ namespace BreakoutGame
 		m_BreakoutText->color = glm::vec3(1.0f, 0.0f, 0.0f);
 		auto breakoutTextEntity = std::make_shared<GameEntity>();
 		breakoutTextEntity->AddComponent(m_BreakoutText);
-		breakoutTextEntity->transform->SetPosition(Vector3(m_ViewPortWidth / 2.0f, m_ViewPortHeight / 2.0f + 300.0f, 0.0f));
 		m_GameEntityList.push_back(breakoutTextEntity);
 	}
 	void UIManager::startMainMenuPanelObjects()
 	{
 		m_StartButton->Start();
+
+		float breakoutTextHeaderOffsetY = 150.0f;
+		m_BreakoutText->getEntity().lock()->transform->
+			SetPosition(
+				Vector3(
+					(m_ViewPortWidth - m_BreakoutText->calculatedTextWidth) / 2.0f, 
+					m_ViewPortHeight / 2.0f + breakoutTextHeaderOffsetY, 
+					0.0f));
 	}
 	void UIManager::ShowMainMenuPanel()
 	{
+		m_BreakoutText->getEntity().lock()->setActive(true);
 		m_StartButton->SetSelected(false);
 	}
 	void UIManager::HideMainMenuPanel()
