@@ -38,10 +38,14 @@ namespace BreakoutGame
 
 	void Ball::Tick(float deltaTime)
 	{
+		m_DeltaTime = deltaTime;
+
 		if (!m_Entity->getActive())
 			return;
 
-		m_DeltaTime = deltaTime;
+		if (IsOnPaddle)
+			return;
+
 		handleMovement();
 	}
 

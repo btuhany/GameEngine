@@ -10,7 +10,6 @@ namespace BreakoutGame
 		int GetScorePoint();
 		int GetPlayerLive();
 		void ProcessBallHitBrickData(BallHitBrickData hitData);
-		bool isGameStarted;
 	private:
 		//PLAYER DATA
 		int m_ScorePoint;

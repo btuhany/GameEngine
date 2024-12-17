@@ -140,7 +140,7 @@ namespace GameEngine
                 LOG_CORE_WARN("TextRenderer:: owner entity is exprired!");
                 continue;
             }
-
+             
             auto transform = ownerEntity.lock()->transform;
            
             auto shader = textComp->shader;

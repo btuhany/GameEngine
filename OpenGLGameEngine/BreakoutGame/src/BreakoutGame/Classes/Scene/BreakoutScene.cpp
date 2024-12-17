@@ -25,7 +25,6 @@ namespace BreakoutGame
 		initializeBreakoutObjects(viewPortWidth, viewPortHeight);
 		LevelBrickGridData::Initialize();
 		getAndInstantiateEntities();
-		m_GameManager->isGameStarted = false;
 		LOG_INFO("Breakout scene initialized!");
 		Scene::Initialize(viewPortWidth, viewPortHeight);
 	}
@@ -42,15 +41,10 @@ namespace BreakoutGame
 	void BreakoutScene::Update(GLfloat deltaTime)
 	{
 		m_DeltaTime = deltaTime;
-		m_Ball->Tick(deltaTime);
 		m_Paddle->Tick(deltaTime);
 
-
-		if (m_GameManager->isGameStarted)
-		{
-
-		}
-		else
+		m_Ball->Tick(deltaTime);
+		if (m_Ball->IsOnPaddle)
 		{
 			m_Ball->SetPosition(m_Paddle->GetBallHolderPosition());
 		}
@@ -240,7 +234,7 @@ namespace BreakoutGame
 	void BreakoutScene::handleOnBallReleasedKey()
 	{
 		LOG_INFO("Ball Released!");
-		m_GameManager->isGameStarted = true;
+		m_Ball->IsOnPaddle = false;
 		m_Ball->StartMovement(Vector3(0.4f, 1.0f, 0.0f));
 	}
 
