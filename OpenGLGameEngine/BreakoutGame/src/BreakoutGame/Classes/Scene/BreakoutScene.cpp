@@ -22,6 +22,7 @@ namespace BreakoutGame
 		initializeInputCallbacks();
 		initializeBoundaryObjects();
 		initializeMainCamera();
+		LevelBrickGridData::Initialize();
 
 		m_GameManager = std::make_shared<GameManager>();
 		m_GameManager->Initialize();
@@ -41,7 +42,7 @@ namespace BreakoutGame
 		m_UIManager = std::make_shared<UIManager>();
 		m_UIManager->Initialize(viewPortWidth, viewPortHeight, 0, 1, 3);
 
-		LevelBrickGridData::Initialize();
+
 
 		instantiateGameEntity(m_Paddle->getEntity());
 		instantiateGameEntity(m_Ball->getEntity());
@@ -65,7 +66,7 @@ namespace BreakoutGame
 
 	void BreakoutScene::Start()
 	{
-		m_BrickManager->SpawnBricks(LevelBrickGridData::GetBrickGridData(0));
+		m_BrickManager->UpdateBrickGrid(LevelBrickGridData::GetBrickGridData(0));
 		m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Paddle);
 		m_Ball->Start();
 		m_Paddle->Start();

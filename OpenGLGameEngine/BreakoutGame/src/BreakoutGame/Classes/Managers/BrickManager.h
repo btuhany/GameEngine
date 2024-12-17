@@ -13,7 +13,7 @@ namespace BreakoutGame
 		void Initialize(std::shared_ptr<Shader> mainShader);
 		void PoolBricks();
 		void HandleOnAfterBricksInstantiated();
-		void SpawnBricks(BrickGridData brickTypeGridData);
+		void UpdateBrickGrid(BrickGridData brickTypeGridData);
 		std::vector<std::shared_ptr<GameEntity>> getEntityList();
 		BallHitBrickData HandleOnGotHitByBall(std::shared_ptr<GameEntity> brickEntity);
 		std::shared_ptr<BrickData> GetBrickData(BrickType brickType);

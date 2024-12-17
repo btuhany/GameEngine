@@ -42,7 +42,7 @@ namespace BreakoutGame
 			entityList[i]->setActive(false);
 		}
 	}
-	void BrickManager::SpawnBricks(BrickGridData brickTypeGridData)
+	void BrickManager::UpdateBrickGrid(BrickGridData brickTypeGridData)
 	{
 		for (size_t row = 0; row < ROW_SIZE; row++)
 		{
