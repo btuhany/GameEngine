@@ -8,9 +8,6 @@ void BreakoutSceneInputHandler::HandleKeys(int* keys, GLfloat deltaTime)
 		OnBallDebugKeyEvent.Trigger();
 	}
 
-	if (!IsPlayerControlsActive)
-		return;
-
 	if (keys[GLFW_KEY_1] == KEY_STATE_RELEASE)
 	{
 		ProcessInputCallback(BreakoutGame::InputType::DebugKey_ChangeCamera);
@@ -49,6 +46,21 @@ void BreakoutSceneInputHandler::HandleKeys(int* keys, GLfloat deltaTime)
 		ProcessInputCallback(BreakoutGame::InputType::DownArrow);
 		OnDownArrowKeyEvent.Trigger();
 	}
+	if (keys[GLFW_KEY_UP] == KEY_STATE_RELEASE)
+	{
+		ProcessInputCallback(BreakoutGame::InputType::UpArrow_Release);
+	}
+	if (keys[GLFW_KEY_DOWN] == KEY_STATE_RELEASE)
+	{
+		ProcessInputCallback(BreakoutGame::InputType::DownArrow_Release);
+	}
+	if (keys[GLFW_KEY_ENTER] == KEY_STATE_RELEASE)
+	{
+		ProcessInputCallback(BreakoutGame::InputType::EnterKey_Release);
+	}
+
+	if (!IsPlayerControlsActive)
+		return;
 }
 
 void BreakoutSceneInputHandler::HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY)

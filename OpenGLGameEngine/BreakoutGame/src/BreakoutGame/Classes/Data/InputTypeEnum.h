@@ -8,8 +8,10 @@ namespace BreakoutGame
 		RightArrow,
 		UpArrow,
 		DownArrow,
+		UpArrow_Release,
+		DownArrow_Release,
 		SpaceKey,
-		EnterKey,
+		EnterKey_Release,
 		PauseKey,
 		DebugKey_ChangeCamera,
 		DebugKey_ChangeControlledObject

@@ -164,6 +164,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\BreakoutGame\Classes\Controllers\InputController.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\InputTypeEnum.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Controllers\MainMenuController.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\BrickData.h" />
@@ -173,6 +174,7 @@
     <ClInclude Include="src\BreakoutGame\Classes\Data\GameStateEnum.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\LevelBrickGridData.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\LevelDataCommon.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\Data\MainMenuButtonType.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\TagEnum.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Objects\Brick.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Managers\IEntityProvider.h" />

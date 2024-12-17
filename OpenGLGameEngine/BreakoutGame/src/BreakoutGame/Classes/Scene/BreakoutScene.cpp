@@ -34,8 +34,8 @@ namespace BreakoutGame
 		m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Paddle);
 		m_Ball->Start();
 		m_Paddle->Start();
-		m_GameManager->Start();
 		m_UIManager->Start();
+		m_GameManager->Start();
 	}
 
 	float lerpTime;
@@ -309,5 +309,7 @@ namespace BreakoutGame
 		{
 			handleOnRightKey();
 		}
+
+		m_GameManager->GetCurrentInputController()->HandleInputs(inputType);
 	}
 }
