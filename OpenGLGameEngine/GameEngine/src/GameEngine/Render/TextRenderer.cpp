@@ -133,7 +133,6 @@ namespace GameEngine
 
             if (!isAbleToRender(textComp))
             {
-                LOG_CORE_WARN("TextRenderer:: owner entity is exprired!");
                 continue;
             }
             if (ownerEntity.expired())
