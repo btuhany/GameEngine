@@ -56,9 +56,6 @@ namespace BreakoutGame
 		std::shared_ptr<Shader> m_MainShader;
 		//For debug purposes
 		std::shared_ptr<IMovable> m_ControlledMovableObject;
-
-
-		void resetObjects();
 	};
 
 

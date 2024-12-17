@@ -228,7 +228,16 @@ namespace BreakoutGame
 		//	m_Ball->SetSpeed(0.0f);
 		//	isControllingBall = true;
 		//}
-		onLevelStarted();
+		if (isControllingBall)
+		{
+			isControllingBall = false;
+			onLevelEnded();
+		}
+		else
+		{
+			onLevelStarted();
+			isControllingBall = true;
+		}
 	}
 
 	void BreakoutScene::handleOnBallReleasedKey()
@@ -257,7 +266,11 @@ namespace BreakoutGame
 	void BreakoutScene::onLevelStarted()
 	{
 		m_InputHandler->IsPlayerControlsActive = true;
-		resetObjects();
+		m_Paddle->getEntity()->setActive(true);
+		m_Paddle->Reset();
+		m_Ball->getEntity()->setActive(true);
+		m_Ball->Reset();
+		m_BrickManager->Reset();
 		m_BrickManager->UpdateBrickGrid(LevelBrickGridData::GetBrickGridData(1));
 		m_UIManager->ShowPlayerHUD(m_GameManager->GetPlayerLive());
 	}
@@ -265,15 +278,8 @@ namespace BreakoutGame
 	void BreakoutScene::onLevelEnded()
 	{
 		m_InputHandler->IsPlayerControlsActive = false;
-	}
-
-	void BreakoutScene::resetObjects()
-	{
-		m_Paddle->getEntity()->setActive(true);
-		m_Paddle->Reset();
-		m_Ball->getEntity()->setActive(true);
 		m_Ball->Reset();
+		m_Paddle->Reset();
 		m_BrickManager->Reset();
 	}
-
 }
