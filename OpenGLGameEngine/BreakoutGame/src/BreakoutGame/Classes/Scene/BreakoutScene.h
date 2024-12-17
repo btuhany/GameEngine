@@ -8,6 +8,7 @@
 #include "../Managers/UIManager.h"
 #include "../Managers/BrickManager.h"
 #include "../Managers/GameManager.h"
+#include "../Data/LevelBrickGridData.h"
 namespace BreakoutGame
 {
 	class BreakoutScene : public Scene

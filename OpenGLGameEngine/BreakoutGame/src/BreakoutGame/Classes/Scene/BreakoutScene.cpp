@@ -41,6 +41,7 @@ namespace BreakoutGame
 		m_UIManager = std::make_shared<UIManager>();
 		m_UIManager->Initialize(viewPortWidth, viewPortHeight, 0, 1, 3);
 
+		LevelBrickGridData::Initialize();
 
 		instantiateGameEntity(m_Paddle->getEntity());
 		instantiateGameEntity(m_Ball->getEntity());
