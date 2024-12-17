@@ -19,6 +19,7 @@ public:
 	bool IsPlayerControlsActive = false;
 	std::function<void(BreakoutGame::InputType)> onInputCallback;
 private:
+	void ProcessInputCallback(BreakoutGame::InputType inputType);
 	bool m_IsSpaceButtonPressLocked = false;
 
 };
