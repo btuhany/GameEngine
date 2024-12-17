@@ -30,7 +30,7 @@ namespace BreakoutGame
 		startHeartSpriteEntities();
 		startMainMenuPanelObjects();
 		ShowMainMenuPanel();
-		m_BreakoutText->getEntity().lock()->transform->Scale(glm::vec3(4.0f, 4.0f, 0.0f));
+		//m_BreakoutText->getEntity().lock()->transform->Scale(glm::vec3(4.0f, 4.0f, 0.0f));
 		m_BreakoutText->getEntity().lock()->setActive(true);
 	}
 	void UIManager::ShowPlayerHUD(int playerLiveCount)
@@ -67,6 +67,7 @@ namespace BreakoutGame
 		m_BreakoutText = std::make_shared<UITextRendererComponent>();
 		m_BreakoutText->text = "Breakout!";
 		m_BreakoutText->shader = m_TextShader;
+		m_BreakoutText->textSize = TextSize::Large;
 		m_BreakoutText->color = glm::vec3(1.0f, 0.0f, 0.0f);
 		auto breakoutTextEntity = std::make_shared<GameEntity>();
 		breakoutTextEntity->AddComponent(m_BreakoutText);

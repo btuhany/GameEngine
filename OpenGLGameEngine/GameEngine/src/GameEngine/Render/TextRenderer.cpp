@@ -9,29 +9,79 @@ namespace GameEngine
             LOG_CORE_INFO("INFO::TEXTRENDERER: Could not init there aren't any");
             return;
         }
+         
+        //TODO
+        LoadCharMap(TextSize::Medium, 48);
+        LoadCharMap(TextSize::Large, 128);
+        
+        PostInitialize();
+	}
+    void TextRenderer::PostInitialize()
+    {
+        for (size_t i = 0; i < m_Components.size(); i++)
+        {
+            auto textComp = m_Components[i];
+            auto ownerEntity = textComp->getEntity();
 
-		FT_Library ft;
-		if (FT_Init_FreeType(&ft))
-		{
-			LOG_CORE_ERROR("ERROR::FREETYPE: Could not init FreeType Library");
-			return;
-		}
+            if (ownerEntity.expired())
+            {
+                LOG_CORE_WARN("TextRenderer:: Post init owner entity is exprired!");
+                continue;
+            }
 
-		FT_Face face;
-		if (FT_New_Face(ft, "src/BreakoutGame/Fonts/arial.ttf", 0, &face)) //TODO
-		{
-			LOG_CORE_ERROR("ERROR::FREETYPE: Failed to load font");
-			return;
-		}
+            auto transform = ownerEntity.lock()->transform;
+            float textStartPosX = transform->getPosition().x;
+            float textStartPosY = transform->getPosition().y;
 
-		FT_Set_Pixel_Sizes(face, 0, 48);  //0 means dynamically calculate the width based on height
+            float startPos = textStartPosX; //for calculating the total text width;
+
+            auto scale = transform->getScale();
+
+            std::string text = textComp->text;
+            std::string::const_iterator c;
+            for (c = text.begin(); c != text.end(); c++)
+            {
+                TextCharacter ch = sizeCharactersMap[textComp->textSize][*c];
+                float xpos = textStartPosX + ch.bearing.x * scale.x;
+                float ypos = textStartPosY - (ch.size.y - ch.bearing.y) * scale.y;
+
+                float w = ch.size.x * scale.x;
+                float h = ch.size.y * scale.y;
+
+                textStartPosX += (ch.advance >> 6) * scale.x; // bitshift by 6 to get value in pixels (2^6 = 64)
+
+                if (h > textComp->calculatedTextHeight)
+                {
+                    textComp->calculatedTextHeight = h;
+                }
+            }
+            textComp->calculatedTextWidth = textStartPosX - startPos;
+        }
+    }
+    void TextRenderer::LoadCharMap(TextSize textSize, int size)
+    {
+        FT_Library ft;
+        if (FT_Init_FreeType(&ft))
+        {
+            LOG_CORE_ERROR("ERROR::FREETYPE: Could not init FreeType Library");
+            return;
+        }
+
+        FT_Face face;
+        if (FT_New_Face(ft, "src/BreakoutGame/Fonts/arial.ttf", 0, &face)) //TODO
+        {
+            LOG_CORE_ERROR("ERROR::FREETYPE: Failed to load font");
+            return;
+        }
+
+        FT_Set_Pixel_Sizes(face, 0, size);  //0 means dynamically calculate the width based on height
 
 
-		if (FT_Load_Char(face, 'X', FT_LOAD_RENDER))
-		{
-			LOG_CORE_ERROR("ERROR::FREETYTPE: Failed to load Glyph");
-			return;
-		}
+        if (FT_Load_Char(face, 'X', FT_LOAD_RENDER))
+        {
+            LOG_CORE_ERROR("ERROR::FREETYTPE: Failed to load Glyph");
+            return;
+        }
 
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // disable byte-alignment restriction
 
@@ -71,55 +121,11 @@ namespace GameEngine
                 glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
                 face->glyph->advance.x
             };
-            charactersMap.insert(std::pair<char, TextCharacter>(c, character));
+            sizeCharactersMap[textSize].insert(std::pair<char, TextCharacter>(c, character));
         }
         glBindTexture(GL_TEXTURE_2D, 0);
         FT_Done_Face(face);
         FT_Done_FreeType(ft);
-       
-        PostInitialize();
-	}
-    void TextRenderer::PostInitialize()
-    {
-        for (size_t i = 0; i < m_Components.size(); i++)
-        {
-            auto textComp = m_Components[i];
-            auto ownerEntity = textComp->getEntity();
-
-            if (ownerEntity.expired())
-            {
-                LOG_CORE_WARN("TextRenderer:: Post init owner entity is exprired!");
-                continue;
-            }
-
-            auto transform = ownerEntity.lock()->transform;
-            float textStartPosX = transform->getPosition().x;
-            float textStartPosY = transform->getPosition().y;
-
-            float startPos = textStartPosX; //for calculating the total text width;
-
-            auto scale = transform->getScale();
-
-            std::string text = textComp->text;
-            std::string::const_iterator c;
-            for (c = text.begin(); c != text.end(); c++)
-            {
-                TextCharacter ch = charactersMap[*c];
-                float xpos = textStartPosX + ch.bearing.x * scale.x;
-                float ypos = textStartPosY - (ch.size.y - ch.bearing.y) * scale.y;
-
-                float w = ch.size.x * scale.x;
-                float h = ch.size.y * scale.y;
-
-                textStartPosX += (ch.advance >> 6) * scale.x; // bitshift by 6 to get value in pixels (2^6 = 64)
-
-                if (h > textComp->calculatedTextHeight)
-                {
-                    textComp->calculatedTextHeight = h;
-                }
-            }
-            textComp->calculatedTextWidth = textStartPosX - startPos;
-        }
     }
     void TextRenderer::Render(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
     {
@@ -169,7 +175,7 @@ namespace GameEngine
             {
                 std::vector<float> charVertices;
                 std::vector<unsigned int> charIndices;
-                TextCharacter ch = charactersMap[*c];
+                TextCharacter ch = sizeCharactersMap[textComp->textSize][*c];
 
                 
                 float xpos = textStartPosX + ch.bearing.x * scale.x;

@@ -11,6 +11,7 @@ namespace GameEngine
 		createQuad();
 		calculatedTextWidth = -1.0f;
 		calculatedTextHeight = -1.0f;
+		textSize = TextSize::Medium;
 	}
 	void UITextRendererComponent::Render(GLuint modelLocation)
 	{
