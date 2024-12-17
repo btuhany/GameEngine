@@ -18,5 +18,6 @@
 #include  "GameEngine/Components/BoxCollider2DComponent.h"
 #include "GameEngine/Math/Vector2.h"
 #include "GameEngine/Components/UITextRendererComponent.h"
+#include "GameEngine/Math/TweenEase.hpp"
 
 using namespace GameEngine;

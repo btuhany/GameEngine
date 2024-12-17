@@ -1,6 +1,7 @@
 #pragma once
 #include <cmath>
 #include "../Core.h"
+#include <functional>
 namespace GameEngine
 {
 	struct ENGINE_API Vector3
@@ -25,8 +26,9 @@ namespace GameEngine
 
         Vector3 normalize() const;
 
+        static Vector3 UnclampedLerp(const Vector3& a, const Vector3& b, float t, std::function<float(float)> ease = nullptr);
 
-
+        static Vector3 UnclampedLerp(const Vector3& a, const Vector3& b, float t);
 
         static const Vector3 up;
         static const Vector3 down;

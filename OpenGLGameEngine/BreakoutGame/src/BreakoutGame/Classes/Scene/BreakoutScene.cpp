@@ -277,6 +277,7 @@ namespace BreakoutGame
 
 	void BreakoutScene::onLevelEnded()
 	{
+		m_UIManager->HidePlayerHUD();
 		m_InputHandler->IsPlayerControlsActive = false;
 		m_Ball->Reset();
 		m_Paddle->Reset();
