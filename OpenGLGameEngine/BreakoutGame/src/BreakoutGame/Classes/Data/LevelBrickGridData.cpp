@@ -9,7 +9,7 @@ namespace BreakoutGame
     const std::array<std::string[ROW_SIZE][COLUMN_SIZE], LEVEL_COUNT> LevelBrickGridData::m_LevelBrickDataList =
     {{
         {
-            { "e", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x" },
+            { "e", "x", "x", "x", "x", "x", "x", "x", "x", "x", "h" },
             { "x", "e", "x", "x", "x", "x", "x", "x", "x", "x", "x" },
             { "x", "x", "e", "x", "x", "x", "x", "x", "x", "x", "x" },
             { "x", "x", "x", "e", "x", "x", "x", "x", "x", "x", "x" },
@@ -76,7 +76,7 @@ namespace BreakoutGame
 
                     if (m_StringToBrickTypeMap.find(str) != m_StringToBrickTypeMap.end())
                     {
-                        brickGridDataArr[level].BrickGrid[row][col] = m_StringToBrickTypeMap[str];
+                        brickGridDataArr[level].grid[row][col] = getBrickType(str);
                     }
                     else
                     {
@@ -87,14 +87,22 @@ namespace BreakoutGame
         }
     }
 
-    BrickType LevelBrickGridData::GetBrickType(std::string str)
+    BrickGridData LevelBrickGridData::GetBrickGridData(int index)
     {
         if (!m_IsInitialized)
         {
-            LOG_ERROR("BRICK TYPE ERROR | NOT INITIALIZED");
-            return BrickType::None;
+            LOG_ERROR("LevelBrickGridData | GetBrickGridData | Class not initialized");
+        }
+        if (index >= LEVEL_COUNT)
+        {
+            LOG_ERROR("LevelBrickGridData | GetBrickGridData | Index is greater than level count");
         }
 
+        return brickGridDataArr[index];
+    }
+
+    BrickType LevelBrickGridData::getBrickType(std::string str)
+    {
         auto it = m_StringToBrickTypeMap.find(str);
         if (it != m_StringToBrickTypeMap.end())
         {

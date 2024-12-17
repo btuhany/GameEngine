@@ -6,6 +6,6 @@ namespace BreakoutGame
 	struct BrickGridData
 	{
 	public:
-		BrickType BrickGrid[ROW_SIZE][COLUMN_SIZE];
+		BrickType grid[ROW_SIZE][COLUMN_SIZE];
 	};
 }

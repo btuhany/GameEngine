@@ -65,7 +65,7 @@ namespace BreakoutGame
 
 	void BreakoutScene::Start()
 	{
-		m_BrickManager->SpawnBricks();
+		m_BrickManager->SpawnBricks(LevelBrickGridData::GetBrickGridData(2));
 		m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Paddle);
 		m_Ball->Start();
 		m_Paddle->Start();
