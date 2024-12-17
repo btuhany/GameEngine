@@ -75,6 +75,9 @@
     <ClInclude Include="src\BreakoutGame\Classes\Objects\UIButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Data\GameStateEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BreakoutGame\Classes\App\BreakoutApp.cpp">

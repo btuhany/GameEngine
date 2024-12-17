@@ -1,5 +1,6 @@
 #pragma once
 #include "../Data/BallHitBrickData.h"
+#include "../Data/GameStateEnum.h"
 namespace BreakoutGame
 {
 	class GameManager
@@ -10,7 +11,9 @@ namespace BreakoutGame
 		int GetScorePoint();
 		int GetPlayerLive();
 		void ProcessBallHitBrickData(BallHitBrickData hitData);
+		GameState GetGameState();
 	private:
+		GameState m_CurrentGameState;
 		//PLAYER DATA
 		int m_ScorePoint;
 		int m_PlayerLives;

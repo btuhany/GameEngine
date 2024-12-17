@@ -22,5 +22,9 @@ namespace BreakoutGame
     {
         m_ScorePoint += hitData.gainedScorePoint;
     }
+    GameState GameManager::GetGameState()
+    {
+        return m_CurrentGameState;
+    }
 
 }

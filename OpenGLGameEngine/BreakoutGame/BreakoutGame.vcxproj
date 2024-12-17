@@ -168,6 +168,7 @@
     <ClInclude Include="src\BreakoutGame\Classes\Data\BallHitBrickData.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\BrickGridData.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\BrickTypeEnum.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\Data\GameStateEnum.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\LevelBrickGridData.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\LevelDataCommon.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\TagEnum.h" />
