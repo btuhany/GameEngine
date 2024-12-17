@@ -164,6 +164,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\BreakoutGame\Classes\Data\InputTypeEnum.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\Controllers\MainMenuController.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\BrickData.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\BallHitBrickData.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\BrickGridData.h" />
@@ -187,6 +189,7 @@
     <ClInclude Include="src\BreakoutGame\Classes\Objects\UIButton.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\BreakoutGame\Classes\Controllers\MainMenuController.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Data\LevelBrickGridData.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Objects\Brick.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Managers\IEntityProvider.cpp" />

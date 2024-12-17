@@ -66,6 +66,8 @@ namespace BreakoutGame
 
 	void BreakoutScene::initializeInputCallbacks()
 	{
+		std::function<void(InputType)> inputTypeHandler = std::bind(&BreakoutScene::onInputCallback, this, std::placeholders::_1);
+		m_InputHandler->onInputCallback = inputTypeHandler;
 		m_InputHandler->OnPressedCameraTypeChangeKeyEvent.AddHandler(
 			[this]() {
 				changeCameraType();
@@ -76,11 +78,11 @@ namespace BreakoutGame
 			});
 		m_InputHandler->OnLeftArrowKeyEvent.AddHandler(
 			[this]() {
-				handleOnLeftKey();
+
 			});
 		m_InputHandler->OnRightArrowKeyEvent.AddHandler(
 			[this]() {
-				handleOnRightKey();
+
 			});
 		m_InputHandler->OnDownArrowKeyEvent.AddHandler(
 			[this]() {
@@ -296,5 +298,16 @@ namespace BreakoutGame
 		m_Ball->Reset();
 		m_Paddle->Reset();
 		m_BrickManager->Reset();
+	}
+	void BreakoutScene::onInputCallback(InputType inputType)
+	{
+		if (inputType == InputType::LeftArrow)
+		{
+			handleOnLeftKey();
+		}
+		else if (inputType == InputType::RightArrow)
+		{
+			handleOnRightKey();
+		}
 	}
 }

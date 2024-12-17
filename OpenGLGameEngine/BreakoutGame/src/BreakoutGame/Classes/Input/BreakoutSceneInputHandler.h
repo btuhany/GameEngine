@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngine.h>
+#include "../Data/InputTypeEnum.h"
 class BreakoutSceneInputHandler : public Input
 {
 /// <summary>
@@ -15,8 +16,8 @@ public:
 	SimpleEvent<> OnBallReleaseKeyEvent;
 	void HandleKeys(int* keys, GLfloat deltaTime) override;
 	void HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY) override;
-
 	bool IsPlayerControlsActive = false;
+	std::function<void(BreakoutGame::InputType)> onInputCallback;
 private:
 	bool m_IsSpaceButtonPressLocked = false;
 

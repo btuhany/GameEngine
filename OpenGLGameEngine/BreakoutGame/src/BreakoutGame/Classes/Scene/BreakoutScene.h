@@ -9,6 +9,7 @@
 #include "../Managers/BrickManager.h"
 #include "../Managers/GameManager.h"
 #include "../Data/LevelBrickGridData.h"
+#include "../Data/InputTypeEnum.h"
 namespace BreakoutGame
 {
 	class BreakoutScene : public Scene
@@ -47,6 +48,7 @@ namespace BreakoutGame
 		void onLevelStarted();
 		void onLevelEnded();
 		
+		void onInputCallback(InputType inputType);
 		std::shared_ptr<Ball> m_Ball;
 		std::shared_ptr<Paddle> m_Paddle;
 		std::shared_ptr<UIManager> m_UIManager;
