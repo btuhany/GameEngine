@@ -31,6 +31,8 @@ namespace GameEngine
 		~Renderer();
 		void PreInitialize(GameModeType modeType);
 		void Initialize(Scene* scene, GLfloat bufferRatio, float viewPortWidth, float viewPortHeight);
+		void Start();
+		void OrderRendererComponents();
 		void DrawScene(bool shadowPassActive, bool renderDirLightShadow, bool renderOmniLightShadow);
 		void DebugPass(glm::mat4 projectionMatrix);
 		void RenderPass(glm::mat4 projectionMatrix, PointLight* pLightList, unsigned int plightCount, SpotLight* sLightList, unsigned int slightCount);

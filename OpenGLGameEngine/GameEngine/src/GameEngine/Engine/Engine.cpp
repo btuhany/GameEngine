@@ -55,7 +55,7 @@ namespace GameEngine {
 			return;
 		}
 		m_Scene->Start();
-
+		m_Renderer->Start();
 		if (m_Scene->getCamera() == nullptr)
 		{
 			LOG_CORE_ERROR("Camera is not initialized!");

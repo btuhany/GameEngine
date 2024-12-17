@@ -61,18 +61,21 @@ namespace BreakoutGame
 		m_GameManager->isGameStarted = false;
 		LOG_INFO("Breakout scene initialized!");
 
-		m_BrickManager->HandleOnAfterBricksInstantiated();
+		
 		Scene::Initialize(viewPortWidth, viewPortHeight);
 	}
 
 	void BreakoutScene::Start()
 	{
-		m_BrickManager->UpdateBrickGrid(LevelBrickGridData::GetBrickGridData(0));
+		m_BrickManager->HandleOnAfterBricksInstantiated();
+		m_BrickManager->UpdateBrickGrid(LevelBrickGridData::GetBrickGridData(1));
 		m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Paddle);
 		m_Ball->Start();
 		m_Paddle->Start();
 		m_GameManager->Start();
 		m_UIManager->Start();
+
+		
 	}
 
 	void BreakoutScene::Update(GLfloat deltaTime)

@@ -34,19 +34,7 @@ namespace GameEngine
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-
-			//Sort list respect to z pos of objects
-			std::sort(m_RendererComponents.begin(), m_RendererComponents.end(),
-				[](const std::shared_ptr<RendererComponent>& a, const std::shared_ptr<RendererComponent>& b) {
-					auto entityA = a->getEntity().lock();
-					auto entityB = b->getEntity().lock();
-
-					if (entityA && entityB) {
-						return entityA->transform->getPosition().z < entityB->transform->getPosition().z;
-					}
-					LOG_CORE_ERROR("RENDERER | PreInitialize | Could not access to entity");
-					return false;
-				});
+			OrderRendererComponents();
 		}
 
 	}
@@ -69,6 +57,27 @@ namespace GameEngine
 		m_ViewPortHeight = viewPortHeight;
 		m_TextRenderer->Initialize();
 		m_IsInitialized = true;
+	}
+
+	void Renderer::Start()
+	{
+		OrderRendererComponents();
+	}
+
+	void Renderer::OrderRendererComponents()
+	{
+		//Sort list respect to z pos of objects
+		std::sort(m_RendererComponents.begin(), m_RendererComponents.end(),
+			[](const std::shared_ptr<RendererComponent>& a, const std::shared_ptr<RendererComponent>& b) {
+				auto entityA = a->getEntity().lock();
+				auto entityB = b->getEntity().lock();
+
+				if (entityA && entityB) {
+					return entityA->transform->getPosition().z < entityB->transform->getPosition().z;
+				}
+				LOG_CORE_ERROR("RENDERER | PreInitialize | Could not access to entity");
+				return false;
+			});
 	}
 
 	void Renderer::DrawScene(bool shadowPassActive, bool renderDirLightShadow, bool renderOmniLightShadow)
@@ -366,14 +375,14 @@ namespace GameEngine
 		}
 		else if (componentType == ComponentType::UIRenderer)
 		{
-			if (compAction == ComponentAction::Added || compAction == ComponentAction::OwnerEnabled)
+			if (compAction == ComponentAction::Added)
 			{
 				auto rendererComponent = std::static_pointer_cast<UIRendererComponent>(componentEvent->comp);
 				auto it = std::find(m_UIRendererComponents.begin(), m_UIRendererComponents.end(), rendererComponent);
 				if (it == m_UIRendererComponents.end())
 					m_UIRendererComponents.push_back(rendererComponent);
 			}
-			else if (compAction == ComponentAction::OwnerPreDestroyed || compAction == ComponentAction::OwnerDisabled)
+			else if (compAction == ComponentAction::OwnerPreDestroyed)
 			{
 				auto rendererComponent = std::static_pointer_cast<UIRendererComponent>(componentEvent->comp);
 				auto it = std::find(m_UIRendererComponents.begin(), m_UIRendererComponents.end(), rendererComponent);
