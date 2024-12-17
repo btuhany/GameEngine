@@ -28,8 +28,10 @@ namespace BreakoutGame
 		startScoreText();
 		startLevelText();
 		startHeartSpriteEntities();
-		m_StartButton->Start();
+		startMainMenuPanelObjects();
 		ShowMainMenuPanel();
+		m_BreakoutText->getEntity().lock()->transform->Scale(glm::vec3(4.0f, 4.0f, 0.0f));
+		m_BreakoutText->getEntity().lock()->setActive(true);
 	}
 	void UIManager::ShowPlayerHUD(int playerLiveCount)
 	{
@@ -61,6 +63,19 @@ namespace BreakoutGame
 		m_StartButton->Initialize(m_UIScreenSpaceShader, m_TextShader, backgroundTexture, selectedSpriteTexture, "Start", Vector3(1.0f, 0.0f, 0.0f), Vector2(m_ViewPortWidth, m_ViewPortHeight) / 2.0f, Vector2(300.0f, 100.0f), m_ViewPortWidth, m_ViewPortHeight);
 		auto newEntityList = m_StartButton->getEntities();
 		m_GameEntityList.insert(m_GameEntityList.end(), newEntityList.begin(), newEntityList.end());
+
+		m_BreakoutText = std::make_shared<UITextRendererComponent>();
+		m_BreakoutText->text = "Breakout!";
+		m_BreakoutText->shader = m_TextShader;
+		m_BreakoutText->color = glm::vec3(1.0f, 0.0f, 0.0f);
+		auto breakoutTextEntity = std::make_shared<GameEntity>();
+		breakoutTextEntity->AddComponent(m_BreakoutText);
+		breakoutTextEntity->transform->SetPosition(Vector3(m_ViewPortWidth / 2.0f, m_ViewPortHeight / 2.0f + 300.0f, 0.0f));
+		m_GameEntityList.push_back(breakoutTextEntity);
+	}
+	void UIManager::startMainMenuPanelObjects()
+	{
+		m_StartButton->Start();
 	}
 	void UIManager::ShowMainMenuPanel()
 	{
