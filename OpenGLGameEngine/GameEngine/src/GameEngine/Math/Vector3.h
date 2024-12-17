@@ -26,7 +26,7 @@ namespace GameEngine
 
         Vector3 normalize() const;
 
-        static Vector3 UnclampedLerp(const Vector3& a, const Vector3& b, float t, std::function<float(float)> ease = nullptr);
+        //static Vector3 UnclampedLerp(const Vector3& a, const Vector3& b, float t, std::function<float(float)> ease = nullptr);
 
         static Vector3 UnclampedLerp(const Vector3& a, const Vector3& b, float t);
 

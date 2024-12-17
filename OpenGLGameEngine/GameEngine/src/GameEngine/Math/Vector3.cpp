@@ -40,12 +40,12 @@ namespace GameEngine
         return Vector3(x / mag, y / mag, z / mag);
     }
 
-    Vector3 Vector3::UnclampedLerp(const Vector3& a, const Vector3& b, float t, std::function<float(float)> ease) {
-        if (ease) {
-            t = ease(t);
-        }
-        return a + (b - a) * t;
-    }
+    //Vector3 Vector3::UnclampedLerp(const Vector3& a, const Vector3& b, float t, std::function<float(float)> ease) {
+    //    if (ease) {
+    //        t = ease(t);
+    //    }
+    //    return a + (b - a) * t;
+    //}
 
     Vector3 Vector3::UnclampedLerp(const Vector3& a, const Vector3& b, float t)
     {

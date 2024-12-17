@@ -69,5 +69,41 @@ namespace GameEngine
             if (t < 0.5f) return 0.5f * std::pow(2, 10 * (2 * t - 1));
             return 0.5f * (2 - std::pow(2, -10 * (2 * t - 1)));
         }
+
+        // Back easing
+        static float EaseInBack(float t, float s = 1.70158f) {
+            return t * t * ((s + 1) * t - s);
+        }
+
+        static float EaseOutBack(float t, float s = 1.70158f) {
+            t -= 1;
+            return t * t * ((s + 1) * t + s) + 1;
+        }
+
+        static float EaseInOutBack(float t, float s = 1.70158f) {
+            s *= 1.525f;
+            if (t < 0.5f) return 0.5f * (t * t * ((s + 1) * t - s));
+            float p = t - 1;
+            return 0.5f * (p * p * ((s + 1) * p + s) + 2);
+        }
+
+        // Back easing
+        static float EaseInElastic(float t) {
+            const float c4 = (2 * M_PI) / 3;
+            return (t == 0) ? 0 : (t == 1) ? 1 : -std::pow(2, 10 * (t - 1)) * std::sin((t - 1 - 0.1f) * c4);
+        }
+
+        static float EaseOutElastic(float t) {
+            const float c4 = (2 * M_PI) / 3;
+            return (t == 0) ? 0 : (t == 1) ? 1 : std::pow(2, -10 * t) * std::sin((t - 0.1f) * c4) + 1;
+        }
+
+        static float EaseInOutElastic(float t) {
+            const float c5 = (2 * M_PI) / 4.5f;
+            if (t == 0) return 0;
+            if (t == 1) return 1;
+            if (t < 0.5f) return -0.5f * std::pow(2, 20 * t - 10) * std::sin((20 * t - 11.125f) * c5);
+            return std::pow(2, -20 * t + 10) * std::sin((20 * t - 11.125f) * c5) * 0.5f + 1;
+        }
     };
 }

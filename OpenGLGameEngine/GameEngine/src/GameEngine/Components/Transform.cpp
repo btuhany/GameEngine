@@ -35,6 +35,10 @@ namespace GameEngine
 		m_Position = newPosition;
 		updateModelMatrix();
 	}
+	void Transform::SetPosition(Vector3 newPos)
+	{
+		SetPosition(glm::vec3(newPos.x, newPos.y, newPos.z));
+	}
 	glm::mat4 Transform::GetModelMatrix()
 	{
 		return m_ModelMatrix;

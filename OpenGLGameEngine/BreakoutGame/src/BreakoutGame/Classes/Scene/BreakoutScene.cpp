@@ -38,15 +38,28 @@ namespace BreakoutGame
 		m_UIManager->Start();
 	}
 
+	float lerpTime;
 	void BreakoutScene::Update(GLfloat deltaTime)
 	{
 		m_DeltaTime = deltaTime;
-		m_Paddle->Tick(deltaTime);
+		//m_Paddle->Tick(deltaTime);
 
-		m_Ball->Tick(deltaTime);
-		if (m_Ball->IsOnPaddle)
+		//m_Ball->Tick(deltaTime);
+		//if (m_Ball->IsOnPaddle)
+		//{
+		//	m_Ball->SetPosition(m_Paddle->GetBallHolderPosition());
+		//}
+
+		if (m_Paddle->getEntity()->getActive())
 		{
-			m_Ball->SetPosition(m_Paddle->GetBallHolderPosition());
+			lerpTime += m_DeltaTime;
+			lerpTime = std::min(lerpTime, 1.0f);
+			auto curPos = m_Paddle->getEntity()->transform->getPosition();
+			Vector3 curPosVec3 = Vector3(curPos.x, curPos.y, curPos.z);
+			Vector3 newPosVec3 = Vector3(10.0f, 20.0f, 0.0f);
+			float easeValue = TweenEase::EaseInOutElastic(lerpTime);
+			auto newPos = Vector3::UnclampedLerp(Vector3(0.0f, -20.0f, 0.0f), newPosVec3, easeValue);
+			m_Paddle->getEntity()->transform->SetPosition(newPos);
 		}
 	}
 
