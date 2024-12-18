@@ -29,6 +29,8 @@ namespace BreakoutGame
 		startLevelText();
 		startHeartSpriteEntities();
 		startMainMenuPanelObjects();
+		
+		ShowMainMenuPanel();
 	}
 	void UIManager::ShowPlayerHUD(int playerLiveCount)
 	{
@@ -100,6 +102,28 @@ namespace BreakoutGame
 		m_BreakoutText->getEntity().lock()->setActive(false);
 		m_StartButton->Hide();
 		m_QuitButton->Hide();
+	}
+	void UIManager::SelectMainMenuButton(MainMenuButtonType buttonType)
+	{
+		switch (buttonType)
+		{
+		case MainMenuButtonType::None:
+			break;
+		case MainMenuButtonType::Start:
+			m_StartButton->SetSelected(true);
+			m_QuitButton->SetSelected(false);
+			break;
+		case MainMenuButtonType::Help:
+			m_StartButton->SetSelected(false);
+			m_QuitButton->SetSelected(false);
+			break;
+		case MainMenuButtonType::Quit:
+			m_StartButton->SetSelected(false);
+			m_QuitButton->SetSelected(true);
+			break;
+		default:
+			break;
+		}
 	}
 	void UIManager::SetScorePoint(int scorePoint)
 	{

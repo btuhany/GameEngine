@@ -308,15 +308,21 @@ namespace BreakoutGame
 	}
 	void BreakoutScene::onMainMenuStartButtonClick()
 	{
+		//onLevelStarted();
+		printf("main menu");
 	}
 	void BreakoutScene::onMainMenuQuitButtonClick()
 	{
+		printf("quit");
 	}
 	void BreakoutScene::onMainMenuHelpButtonClick()
 	{
+		printf("help");
 	}
 	void BreakoutScene::onMainMenuButtonSelected(MainMenuButtonType buttonType)
 	{
+		printf("select");
+		m_UIManager->SelectMainMenuButton(buttonType);
 	}
 	void BreakoutScene::onInputCallback(InputType inputType)
 	{

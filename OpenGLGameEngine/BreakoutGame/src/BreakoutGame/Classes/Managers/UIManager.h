@@ -2,6 +2,7 @@
 #include <GameEngine.h>
 #include "IEntityProvider.h"
 #include "../Objects/UIButton.h"
+#include "../Data/MainMenuButtonType.h"
 namespace BreakoutGame
 {
 	class UIManager : public IEntityProvider
@@ -16,6 +17,7 @@ namespace BreakoutGame
 
 		void ShowMainMenuPanel();
 		void HideMainMenuPanel();
+		void SelectMainMenuButton(MainMenuButtonType buttonType);
 	private:
 		void initScoreText(std::string initialScoreStr);
 		void startScoreText();

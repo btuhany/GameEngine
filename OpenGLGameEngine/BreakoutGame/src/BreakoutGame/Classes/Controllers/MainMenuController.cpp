@@ -25,6 +25,7 @@ namespace BreakoutGame
 			{
 				m_CanSelectButtons = true;
 				m_CurrentButtonIndex = 0;
+				m_OnMainMenuButtonSelected(m_ButtonOrder[m_CurrentButtonIndex]);
 			}
 			return;
 		}
@@ -36,6 +37,7 @@ namespace BreakoutGame
 			{
 				m_CurrentButtonIndex = 0;
 			}
+			m_OnMainMenuButtonSelected(m_ButtonOrder[m_CurrentButtonIndex]);
 		}
 		else if (inputType == InputType::UpArrow_Release)
 		{
@@ -44,6 +46,7 @@ namespace BreakoutGame
 			{
 				m_CurrentButtonIndex = BUTTON_COUNT - 1;
 			}
+			m_OnMainMenuButtonSelected(m_ButtonOrder[m_CurrentButtonIndex]);
 		}
 		else if (inputType == InputType::EnterKey_Release)
 		{
