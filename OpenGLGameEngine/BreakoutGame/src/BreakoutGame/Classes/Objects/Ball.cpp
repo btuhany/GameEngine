@@ -2,10 +2,10 @@
 
 namespace BreakoutGame
 {
-	void Ball::Initialize(std::shared_ptr<Shader> shader)
+	void Ball::Initialize(std::shared_ptr<Shader> shader, std::function<void(std::shared_ptr<GameEntity>)> handler)
 	{
-		m_OnBallColliderEnterHandler = nullptr;
-
+		IsOnPaddle = true;
+		m_OnBallColliderEnterHandler = handler;
 		std::shared_ptr<Texture> texture = std::make_shared<Texture>("src/BreakoutGame/Textures/58-Breakout-Tiles.PNG");
 		texture->LoadTextureWithAlpha();
 
@@ -38,16 +38,24 @@ namespace BreakoutGame
 
 	void Ball::Tick(float deltaTime)
 	{
+		m_DeltaTime = deltaTime;
+
 		if (!m_Entity->getActive())
 			return;
 
-		m_DeltaTime = deltaTime;
+		if (IsOnPaddle)
+			return;
+
 		handleMovement();
 	}
 
 	std::shared_ptr<SpriteEntity> Ball::getEntity()
 	{
 		return m_Entity;
+	}
+	void Ball::Reset()
+	{
+		IsOnPaddle = true;
 	}
 	void Ball::StopMovement()
 	{
@@ -63,10 +71,7 @@ namespace BreakoutGame
 	{
 		m_Entity->transform->SetPosition(position);
 	}
-	void Ball::SetOnBallColliderEnterHandler(std::function<void(std::shared_ptr<GameEntity>)> handler)
-	{
-		m_OnBallColliderEnterHandler = handler;
-	}
+
 	void Ball::MoveLeft()
 	{
 		auto leftVector = glm::vec3(-10.0f, 0.0f, 0.0f);
@@ -109,7 +114,9 @@ namespace BreakoutGame
 
 		if (otherCollider->getColliderType() == ColliderType::BoxCollider2D)
 		{
-			LOG_INFO("------BALL COLLISION------");
+			if (IS_LOGS_ACTIVE)
+				LOG_INFO("------BALL COLLISION------");
+
 			auto boxCollider = std::static_pointer_cast<BoxCollider2DComponent>(otherCollider);
 			auto avarageCollidedNodePos = Vector2::zero;
 			for (size_t i = 0; i < collisionData->collidedNodePosList.size(); i++)
@@ -122,20 +129,27 @@ namespace BreakoutGame
 			auto normalVec = boxCollider->ProcessGetNormalVector(avarageCollidedNodePos);
 			if (normalVec == Vector2::zero)
 			{
-				LOG_ERROR("Normal Vector calculated as zero!");
+				if (IS_LOGS_ACTIVE)
+					LOG_ERROR("Normal Vector calculated as zero!");
 			}
 			else if (Vector2::IsAligned(normalVec, m_MovementVector, 0.2f))
 			{
-				LOG_ERROR("Normal vector and movement vector is aligned");
+				if (IS_LOGS_ACTIVE)
+					LOG_ERROR("Normal vector and movement vector is aligned");
 				return;
 			}
 
 
+			if (IS_LOGS_ACTIVE)
+			{
+				LOG_INFO_STREAM("Ball Movement vector, x: " << m_MovementVector.x << " y: " << m_MovementVector.y);
+				LOG_INFO_STREAM("Ball Normal vector, x: " << normalVec.x << " y: " << normalVec.y);
+			}
 
-			LOG_INFO_STREAM("Ball Movement vector, x: " << m_MovementVector.x << " y: " << m_MovementVector.y);
-			LOG_INFO_STREAM("Ball Normal vector, x: " << normalVec.x << " y: " << normalVec.y);
 			auto newMovementVector = glm::reflect(m_MovementVector, glm::vec3(normalVec.x, normalVec.y, 0.0f));
-			LOG_INFO_STREAM("Ball After Reflect New Movement vector, x: " << newMovementVector.x << " y: " << newMovementVector.y);
+
+			if (IS_LOGS_ACTIVE)
+				LOG_INFO_STREAM("Ball After Reflect New Movement vector, x: " << newMovementVector.x << " y: " << newMovementVector.y);
 
 			m_MovementVector = newMovementVector;
 

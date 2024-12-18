@@ -13,6 +13,7 @@ namespace BreakoutGame
 	{
 	public:
 		void Initialize(std::string entityName, std::shared_ptr<BrickData> brickData);
+		void ResetUpdateData(std::shared_ptr<BrickData> brickData);
 		void UpdateSprite(std::shared_ptr<SpriteRenderData> spriteRenderData);
 		void SetPosition(Vector2 pos);
 		void HandleOnBallHit();

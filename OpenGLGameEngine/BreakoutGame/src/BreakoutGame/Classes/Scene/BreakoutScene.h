@@ -8,6 +8,8 @@
 #include "../Managers/UIManager.h"
 #include "../Managers/BrickManager.h"
 #include "../Managers/GameManager.h"
+#include "../Data/LevelBrickGridData.h"
+#include "../Data/InputTypeEnum.h"
 namespace BreakoutGame
 {
 	class BreakoutScene : public Scene
@@ -28,9 +30,12 @@ namespace BreakoutGame
 		void initializeBoundaryObjects();
 		void initializeMainShader();
 		void initializeMainCamera();
+		void initializeBreakoutObjects(float viewPortWidth, float viewPortHeight);
+
 		void changeCameraType();
 
 		void onBallColliderEnter(std::shared_ptr<GameEntity> gameEntity);
+		void onThereIsNoBrickLeft();
 
 		void handleOnLeftKey();
 		void handleOnRightKey();
@@ -39,6 +44,20 @@ namespace BreakoutGame
 		void handleOnBallDebugKey();
 		void handleOnBallReleasedKey();
 
+		void getAndInstantiateEntities();
+		void onLevelStarted();
+		void onLevelEnded();
+		
+		void onMainMenuStartButtonClick();
+		void onMainMenuQuitButtonClick();
+		void onMainMenuHelpButtonClick();
+		void onMainMenuButtonSelected(MainMenuButtonType buttonType);
+		std::unordered_map<GameState, std::shared_ptr<InputController>> m_StateControllerMap;
+
+		void startGame();
+
+
+		void onInputCallback(InputType inputType);
 		std::shared_ptr<Ball> m_Ball;
 		std::shared_ptr<Paddle> m_Paddle;
 		std::shared_ptr<UIManager> m_UIManager;
@@ -48,6 +67,9 @@ namespace BreakoutGame
 		std::shared_ptr<Shader> m_MainShader;
 		//For debug purposes
 		std::shared_ptr<IMovable> m_ControlledMovableObject;
+
+
+
 	};
 
 

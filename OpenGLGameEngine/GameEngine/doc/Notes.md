@@ -26,6 +26,7 @@ get and set functions -> getOrSetFunction()
 - [] Sprite render data material dependency, using the same mesh data instance
 - [] Not instantiated components still contained in manager vector lists (for example: RendererComponent and Renderer)
 - [] Camera space ui canvas
+- [] JSON Serialization/Deserialization
 ************************************************************
 
 08.24
@@ -95,9 +96,16 @@ daily
 BREAKOUT GAME
 - Game Manager [X]
 - Paddle Collider Normals fine tuning fix [X]
+- Fix temp isInCollider bool for ball [X]
+- Process all colliders at once [CHANGED]
+- Main menu -> Play and Quit []
+- Ball rotation animation []
+- Bricks transition animation []
+- Finalizing design []
+- Overall level transitions logic []
+- Player lost lives logic []
+- Pause logic -> Back to main menu []
 - Tiles calculating normals based on ball movement vector []
 - Initializing data with config classes (without magic numbers) []
 - Starting ball movement vector based on paddle speed []
 - BreakoutObject refactor (consider Brick)
-- Fix temp isInCollider bool for ball []
-- Process all colliders at once []

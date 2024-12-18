@@ -60,10 +60,34 @@
     <ClInclude Include="src\BreakoutGame\Classes\Data\BallHitBrickData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BreakoutGame\Classes\Data\LevelData.h">
+    <ClInclude Include="src\BreakoutGame\Classes\Data\LevelBrickGridData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\BreakoutGame\Classes\Data\BrickTypeEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Data\BrickGridData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Data\LevelDataCommon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Objects\UIButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Data\GameStateEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Controllers\MainMenuController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Data\InputTypeEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Controllers\InputController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Data\MainMenuButtonType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -104,7 +128,13 @@
     <ClCompile Include="src\BreakoutGame\Classes\Objects\Brick.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BreakoutGame\Classes\Data\LevelData.cpp">
+    <ClCompile Include="src\BreakoutGame\Classes\Data\LevelBrickGridData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BreakoutGame\Classes\Objects\UIButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BreakoutGame\Classes\Controllers\MainMenuController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

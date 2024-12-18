@@ -22,75 +22,61 @@ namespace BreakoutGame
 		initializeInputCallbacks();
 		initializeBoundaryObjects();
 		initializeMainCamera();
-
-		m_GameManager = std::make_shared<GameManager>();
-		m_GameManager->Initialize();
-		m_Paddle = std::make_shared<Paddle>();
-		m_Paddle->Initialize(m_MainShader);
-
-		m_Ball = std::make_shared<Ball>();
-		m_Ball->Initialize(m_MainShader);
-		m_Ball->SetOnBallColliderEnterHandler(
-			[this](std::shared_ptr<GameEntity> entity) {
-				onBallColliderEnter(entity);
-			});
-
-		m_BrickManager = std::make_shared<BrickManager>();
-		m_BrickManager->Initialize(m_MainShader);
-		m_BrickManager->PoolBricks();
-		m_UIManager = std::make_shared<UIManager>();
-		m_UIManager->Initialize(viewPortWidth, viewPortHeight, 0, 1, 3);
-
-
-		instantiateGameEntity(m_Paddle->getEntity());
-		instantiateGameEntity(m_Ball->getEntity());
-		auto brickEntityList = m_BrickManager->getEntityList();
-		for (size_t i = 0; i < brickEntityList.size(); i++)
-		{
-			instantiateGameEntity(brickEntityList[i]);
-		}
-		auto uiEntityList = m_UIManager->getEntityList();
-		for (size_t i = 0; i < uiEntityList.size(); i++)
-		{
-			instantiateGameEntity(uiEntityList[i]);
-		}
-
-		m_GameManager->isGameStarted = false;
+		initializeBreakoutObjects(viewPortWidth, viewPortHeight);
+		LevelBrickGridData::Initialize();
+		getAndInstantiateEntities();
 		LOG_INFO("Breakout scene initialized!");
 
-		m_BrickManager->HandleOnAfterBricksInstantiated();
+		std::function<void()> onStartButtonHandler = std::bind(&BreakoutScene::onMainMenuStartButtonClick, this);
+		std::function<void()> onQuitButtonHandler = std::bind(&BreakoutScene::onMainMenuQuitButtonClick, this);
+		std::function<void()> onHelpButtonHandler = std::bind(&BreakoutScene::onMainMenuHelpButtonClick, this);
+		std::function<void(MainMenuButtonType)> onMainMenuButtonSelected = std::bind(&BreakoutScene::onMainMenuButtonSelected, this, std::placeholders::_1);
+		m_StateControllerMap[GameState::MainMenu] = std::make_shared<MainMenuController>(onStartButtonHandler, onHelpButtonHandler, onQuitButtonHandler, onMainMenuButtonSelected);
+
 		Scene::Initialize(viewPortWidth, viewPortHeight);
 	}
 
 	void BreakoutScene::Start()
 	{
-		m_BrickManager->SpawnBricks();
 		m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Paddle);
 		m_Ball->Start();
 		m_Paddle->Start();
-		m_GameManager->Start();
 		m_UIManager->Start();
+		m_GameManager->Start();
+
+		startGame();
 	}
 
+	float lerpTime;
 	void BreakoutScene::Update(GLfloat deltaTime)
 	{
 		m_DeltaTime = deltaTime;
-		m_Ball->Tick(deltaTime);
 		m_Paddle->Tick(deltaTime);
 
-
-		if (m_GameManager->isGameStarted)
-		{
-
-		}
-		else
+		m_Ball->Tick(deltaTime);
+		if (m_Ball->IsOnPaddle)
 		{
 			m_Ball->SetPosition(m_Paddle->GetBallHolderPosition());
 		}
+
+		//PADDLE ANIMATION FOR JUST TESTING
+		//if (m_Paddle->getEntity()->getActive())
+		//{
+		//	lerpTime += m_DeltaTime;
+		//	lerpTime = std::min(lerpTime, 1.0f);
+		//	auto curPos = m_Paddle->getEntity()->transform->getPosition();
+		//	Vector3 curPosVec3 = Vector3(curPos.x, curPos.y, curPos.z);
+		//	Vector3 newPosVec3 = Vector3(10.0f, 20.0f, 0.0f);
+		//	float easeValue = TweenEase::EaseInOutElastic(lerpTime);
+		//	auto newPos = Vector3::UnclampedLerp(Vector3(0.0f, -20.0f, 0.0f), newPosVec3, easeValue);
+		//	m_Paddle->getEntity()->transform->SetPosition(newPos);
+		//}
 	}
 
 	void BreakoutScene::initializeInputCallbacks()
 	{
+		std::function<void(InputType)> inputTypeHandler = std::bind(&BreakoutScene::onInputCallback, this, std::placeholders::_1);
+		m_InputHandler->onInputCallback = inputTypeHandler;
 		m_InputHandler->OnPressedCameraTypeChangeKeyEvent.AddHandler(
 			[this]() {
 				changeCameraType();
@@ -101,11 +87,11 @@ namespace BreakoutGame
 			});
 		m_InputHandler->OnLeftArrowKeyEvent.AddHandler(
 			[this]() {
-				handleOnLeftKey();
+
 			});
 		m_InputHandler->OnRightArrowKeyEvent.AddHandler(
 			[this]() {
-				handleOnRightKey();
+
 			});
 		m_InputHandler->OnDownArrowKeyEvent.AddHandler(
 			[this]() {
@@ -177,6 +163,23 @@ namespace BreakoutGame
 			-90.0f, 0.0f, 5.0f, 0.1f, 60, 0.1f, 100.0f, CAMERA_TYPE_PERSPECTIVE));
 	}
 
+	void BreakoutScene::initializeBreakoutObjects(float viewPortWidth, float viewPortHeight)
+	{
+		m_GameManager = std::make_shared<GameManager>();
+		m_Ball = std::make_shared<Ball>();
+		m_Paddle = std::make_shared<Paddle>();
+		m_UIManager = std::make_shared<UIManager>();
+		m_BrickManager = std::make_shared<BrickManager>();
+
+		std::function<void(std::shared_ptr<GameEntity> entity)> ballHandler = std::bind(&BreakoutScene::onBallColliderEnter, this, std::placeholders::_1);
+		std::function<void()> brickManagerHandler = std::bind(&BreakoutScene::onThereIsNoBrickLeft, this);
+		m_GameManager->Initialize();
+		m_Paddle->Initialize(m_MainShader);
+		m_Ball->Initialize(m_MainShader, ballHandler);
+		m_BrickManager->Initialize(m_MainShader, brickManagerHandler);
+		m_UIManager->Initialize(viewPortWidth, viewPortHeight, 0, 1, 3);
+	}
+
 	void BreakoutScene::changeCameraType()
 	{
 		if (getCamera()->getCameraType() == CAMERA_TYPE_PERSPECTIVE)
@@ -211,6 +214,11 @@ namespace BreakoutGame
 		}
 	}
 
+	void BreakoutScene::onThereIsNoBrickLeft()
+	{
+		LOG_INFO("THERE IS NO BRICK LEFT!");
+	}
+
 	void BreakoutScene::handleOnLeftKey()
 	{
 		m_ControlledMovableObject->MoveLeft();
@@ -234,15 +242,25 @@ namespace BreakoutGame
 	bool isControllingBall = false;
 	void BreakoutScene::handleOnBallDebugKey()
 	{
+		//if (isControllingBall)
+		//{
+		//	m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Paddle);
+		//	isControllingBall = false;
+		//}
+		//else
+		//{
+		//	m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Ball);
+		//	m_Ball->SetSpeed(0.0f);
+		//	isControllingBall = true;
+		//}
 		if (isControllingBall)
 		{
-			m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Paddle);
 			isControllingBall = false;
+			onLevelEnded();
 		}
 		else
 		{
-			m_ControlledMovableObject = std::static_pointer_cast<IMovable>(m_Ball);
-			m_Ball->SetSpeed(0.0f);
+			onLevelStarted();
 			isControllingBall = true;
 		}
 	}
@@ -250,8 +268,83 @@ namespace BreakoutGame
 	void BreakoutScene::handleOnBallReleasedKey()
 	{
 		LOG_INFO("Ball Released!");
-		m_GameManager->isGameStarted = true;
+		m_Ball->IsOnPaddle = false;
 		m_Ball->StartMovement(Vector3(0.4f, 1.0f, 0.0f));
 	}
 
+	void BreakoutScene::getAndInstantiateEntities()
+	{
+		//TODO send/get instantiate data or instantiate outside scene class
+		auto entityList = std::vector<std::shared_ptr<GameEntity>>();
+		entityList.push_back(m_Paddle->getEntity());
+		entityList.push_back(m_Ball->getEntity());
+		auto brickManagerEntityList = m_BrickManager->getEntityList();
+		entityList.insert(entityList.end(), brickManagerEntityList.begin(), brickManagerEntityList.end());
+		auto uiEntityList = m_UIManager->getEntityList();
+		entityList.insert(entityList.end(), uiEntityList.begin(), uiEntityList.end());
+		for (size_t i = 0; i < entityList.size(); i++)
+		{
+			instantiateGameEntity(entityList[i], false);
+		}
+	}
+
+	void BreakoutScene::onLevelStarted()
+	{
+		m_InputHandler->IsPlayerControlsActive = true;
+		m_Paddle->getEntity()->setActive(true);
+		m_Paddle->Reset();
+		m_Ball->getEntity()->setActive(true);
+		m_Ball->Reset();
+		m_BrickManager->Reset();
+		m_BrickManager->UpdateBrickGrid(LevelBrickGridData::GetBrickGridData(1));
+		m_UIManager->ShowPlayerHUD(m_GameManager->GetPlayerLive());
+	}
+
+	void BreakoutScene::onLevelEnded()
+	{
+		m_UIManager->HidePlayerHUD();
+		m_InputHandler->IsPlayerControlsActive = false;
+		m_Ball->Reset();
+		m_Paddle->Reset();
+		m_BrickManager->Reset();
+	}
+	void BreakoutScene::onMainMenuStartButtonClick()
+	{
+		//onLevelStarted();
+		printf("start");
+		onLevelStarted();
+	}
+	void BreakoutScene::onMainMenuQuitButtonClick()
+	{
+		printf("quit");
+	}
+	void BreakoutScene::onMainMenuHelpButtonClick()
+	{
+		printf("help");
+	}
+	void BreakoutScene::onMainMenuButtonSelected(MainMenuButtonType buttonType)
+	{
+		printf("select");
+		m_UIManager->SelectMainMenuButton(buttonType);
+	}
+	void BreakoutScene::startGame()
+	{
+		if (m_GameManager->GetGameState() == GameState::MainMenu)
+		{
+			m_UIManager->ShowMainMenuPanel();
+		}
+	}
+	void BreakoutScene::onInputCallback(InputType inputType)
+	{
+		if (inputType == InputType::LeftArrow)
+		{
+			handleOnLeftKey();
+		}
+		else if (inputType == InputType::RightArrow)
+		{
+			handleOnRightKey();
+		}
+
+		m_StateControllerMap[m_GameManager->GetGameState()]->HandleInputs(inputType);
+	}
 }

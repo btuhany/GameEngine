@@ -1,8 +1,11 @@
 #include "BrickManager.h"
 namespace BreakoutGame
 {
-	void BrickManager::Initialize(std::shared_ptr<Shader> mainShader)
+	void BrickManager::Initialize(std::shared_ptr<Shader> mainShader, std::function<void()> onThereIsNoActiveBricksLeftHandler)
 	{
+		m_ActiveBrickCount = 0;
+		m_OnThereIsNoActiveBricksLeft = onThereIsNoActiveBricksLeftHandler;
+
 		initializeEasyBrickData(mainShader);
 		initializeMediumBrickData(mainShader);
 		initializeHardBrickData(mainShader);
@@ -10,30 +13,22 @@ namespace BreakoutGame
 		std::shared_ptr<Texture> initialBrickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/17-Breakout-Tiles.PNG");
 		initialBrickTexture->LoadTextureWithAlpha();
 		std::shared_ptr<SpriteRenderData> initalSpriteRenderData = std::make_shared<SpriteRenderData>(initialBrickTexture, nullptr, mainShader);
+
+		PoolBricks();
 	}
 	void BrickManager::PoolBricks()
 	{
-		for (int y = 0; y < 6; y++)
+		for (int y = 0; y < ROW_SIZE; y++)
 		{
 			std::vector <std::shared_ptr<Brick>> rowBrickList;
-			for (int x = 0; x < 11; x++)
+			for (int x = 0; x < COLUMN_SIZE; x++)
 			{
 				std::string name = "Brick_" + std::to_string(y) + "_" + std::to_string(x);
 				auto brick = std::make_shared<Brick>();
 
-
-				//TODO
+				//TODO Init data
 				auto easyBrickData = GetBrickData(BrickType::Easy);
-				auto mediumBrickData = GetBrickData(BrickType::Medium);
-				if (x > COLUMN_SIZE / 2)
-				{
-					brick->Initialize(name, easyBrickData);
-				}
-				else
-				{
-					brick->Initialize(name, mediumBrickData);
-				}
-
+				brick->Initialize(name, easyBrickData);
 
 				auto pos = Vector2(START_POS.x + x * SPACING.x, START_POS.y - y * SPACING.y);
 				brick->SetPosition(pos);
@@ -52,20 +47,32 @@ namespace BreakoutGame
 			entityList[i]->setActive(false);
 		}
 	}
-	void BrickManager::SpawnBricks()
+	void BrickManager::Reset()
 	{
-		m_BrickGrid[0][0]->getEntity()->setActive(true);
-		m_BrickGrid[1][1]->getEntity()->setActive(true);
-		m_BrickGrid[2][2]->getEntity()->setActive(true);
-		m_BrickGrid[3][3]->getEntity()->setActive(true);
-		m_BrickGrid[4][4]->getEntity()->setActive(true);
-		m_BrickGrid[5][5]->getEntity()->setActive(true);
-		m_BrickGrid[0][10]->getEntity()->setActive(true);
-		m_BrickGrid[1][9]->getEntity()->setActive(true);
-		m_BrickGrid[2][8]->getEntity()->setActive(true);
-		m_BrickGrid[3][7]->getEntity()->setActive(true);
-		m_BrickGrid[4][6]->getEntity()->setActive(true);
-		m_BrickGrid[5][5]->getEntity()->setActive(true);
+		m_ActiveBrickCount = 0;
+	}
+	void BrickManager::UpdateBrickGrid(BrickGridData brickTypeGridData)
+	{
+		m_ActiveBrickCount = 0;
+		for (size_t row = 0; row < ROW_SIZE; row++)
+		{
+			for (size_t col = 0; col < COLUMN_SIZE; col++)
+			{
+				auto type = brickTypeGridData.grid[row][col];
+				auto brick = m_BrickGrid[row][col];
+
+				if (type == BrickType::None)
+				{
+					brick->getEntity()->setActive(false);
+				}
+				else
+				{
+					m_ActiveBrickCount++;
+					brick->getEntity()->setActive(true);
+					brick->ResetUpdateData(GetBrickData(type));
+				}
+			}
+		}
 	}
 	std::vector<std::shared_ptr<GameEntity>> BrickManager::getEntityList()
 	{
@@ -109,6 +116,11 @@ namespace BreakoutGame
 			hitData.gainedScorePoint += brickData->scorePointOnBreak;
 			hitData.isBroken = true;
 			brick->getEntity()->setActive(false);
+			m_ActiveBrickCount--;
+			if (m_ActiveBrickCount == 0)
+			{
+				m_OnThereIsNoActiveBricksLeft();
+			}
 		}
 		else
 		{

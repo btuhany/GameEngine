@@ -4,7 +4,7 @@
 #include <glm/gtc\matrix_transform.hpp>
 #include "../Core.h"
 #include "../Components/Component.h"
-
+#include "../Math/Vector3.h"
 namespace GameEngine
 {
 	class ENGINE_API Transform : public Component
@@ -15,6 +15,7 @@ namespace GameEngine
 		void Scale(glm::vec3 scaleVector);
 		void Scale(float xVal, float yVal, float zVal);
 		void SetPosition(glm::vec3 newPosition);
+		void SetPosition(Vector3 newPos);
 		glm::mat4 GetModelMatrix();
 		glm::vec3 getPosition();
 		glm::mat4 getRotation();

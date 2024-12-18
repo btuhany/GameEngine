@@ -164,10 +164,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\BreakoutGame\Classes\Controllers\InputController.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\Data\InputTypeEnum.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\Controllers\MainMenuController.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\BrickData.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\BallHitBrickData.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\Data\BrickGridData.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\BrickTypeEnum.h" />
-    <ClInclude Include="src\BreakoutGame\Classes\Data\LevelData.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\Data\GameStateEnum.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\Data\LevelBrickGridData.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\Data\LevelDataCommon.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\Data\MainMenuButtonType.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\TagEnum.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Objects\Brick.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Managers\IEntityProvider.h" />
@@ -181,9 +188,11 @@
     <ClInclude Include="src\BreakoutGame\Classes\Input\BreakoutSceneInputHandler.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Scene\BreakoutScene.h" />
     <ClInclude Include="src\BreakoutGame\Classes\App\BreakoutApp.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\Objects\UIButton.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\BreakoutGame\Classes\Data\LevelData.cpp" />
+    <ClCompile Include="src\BreakoutGame\Classes\Controllers\MainMenuController.cpp" />
+    <ClCompile Include="src\BreakoutGame\Classes\Data\LevelBrickGridData.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Objects\Brick.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Managers\IEntityProvider.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Managers\BrickManager.cpp" />
@@ -196,6 +205,7 @@
     <ClCompile Include="src\BreakoutGame\Classes\Input\BreakoutSceneInputHandler.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Scene\BreakoutScene.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\App\BreakoutApp.cpp" />
+    <ClCompile Include="src\BreakoutGame\Classes\Objects\UIButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameEngine\GameEngine.vcxproj">

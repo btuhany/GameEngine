@@ -4,6 +4,11 @@
 
 namespace GameEngine
 {
+	enum class TextSize
+	{
+		Medium, //48
+		Large //128
+	};
 	class ENGINE_API UITextRendererComponent : public RendererComponent
 	{
 	public:
@@ -19,8 +24,9 @@ namespace GameEngine
 		float charHeight;
 		GLuint vao, vbo, ibo;
 		ComponentType getType() override;
-		float textWidth = -1.0f;
-		float textHeight = -1.0f;
+		float calculatedTextWidth = -1.0f;
+		float calculatedTextHeight = -1.0f;
+		TextSize textSize;
 	private:
 		void createQuad();
 	};

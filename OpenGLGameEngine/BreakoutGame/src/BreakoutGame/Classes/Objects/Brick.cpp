@@ -12,6 +12,12 @@ namespace BreakoutGame
         m_Entity->transform->SetPosition(glm::vec3(0.0f, 0.0f, -0.5f));
         m_Type = brickData->brickType;
     }
+    void Brick::ResetUpdateData(std::shared_ptr<BrickData> brickData)
+    {
+        hitCount = 0;
+        m_Type = brickData->brickType;
+        UpdateSprite(brickData->spriteRenderDataListOrderedHitCountAscending[hitCount]);
+    }
     void Brick::UpdateSprite(std::shared_ptr<SpriteRenderData> spriteRenderData)
     {
         m_Entity->renderer->setSpriteRenderData(spriteRenderData);

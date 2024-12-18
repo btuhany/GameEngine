@@ -31,11 +31,12 @@ namespace GameEngine
 	public:
 		void Initialize();
 		void PostInitialize(); //gets called one time before rendering, calculates the text width and height
+		void LoadCharMap(TextSize textSize, int size);
 		void Render(glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
 		void HandleOnComponentAdded(std::shared_ptr<UITextRendererComponent> textRenderer);
 		void HandleOnComponentRemoved(std::shared_ptr<UITextRendererComponent> textRenderer);
 		bool isAbleToRender(std::shared_ptr<UITextRendererComponent> rendererComponent);
 		std::vector<std::shared_ptr<UITextRendererComponent>> m_Components;
-		std::map<char, TextCharacter> charactersMap;
+		std::unordered_map<TextSize, std::map<char, TextCharacter>> sizeCharactersMap;
 	};
 }
