@@ -6,11 +6,11 @@ namespace BreakoutGame
     {
         m_ScorePoint = 0;
         m_PlayerLives = 3;
-        m_CurrentGameState = GameState::MainMenu;
+        m_CurrentGameState = GameState::None;
     }
     void GameManager::Start()
     {
-
+        m_CurrentGameState = GameState::MainMenu;
     }
     int GameManager::GetScorePoint()
     {

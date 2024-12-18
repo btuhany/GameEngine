@@ -54,7 +54,7 @@ namespace BreakoutGame
 		void onMainMenuButtonSelected(MainMenuButtonType buttonType);
 		std::unordered_map<GameState, std::shared_ptr<InputController>> m_StateControllerMap;
 
-
+		void startGame();
 
 
 		void onInputCallback(InputType inputType);

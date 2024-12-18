@@ -29,8 +29,6 @@ namespace BreakoutGame
 		startLevelText();
 		startHeartSpriteEntities();
 		startMainMenuPanelObjects();
-		
-		ShowMainMenuPanel();
 	}
 	void UIManager::ShowPlayerHUD(int playerLiveCount)
 	{

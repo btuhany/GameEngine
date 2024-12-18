@@ -43,6 +43,8 @@ namespace BreakoutGame
 		m_Paddle->Start();
 		m_UIManager->Start();
 		m_GameManager->Start();
+
+		startGame();
 	}
 
 	float lerpTime;
@@ -309,7 +311,8 @@ namespace BreakoutGame
 	void BreakoutScene::onMainMenuStartButtonClick()
 	{
 		//onLevelStarted();
-		printf("main menu");
+		printf("start");
+		onLevelStarted();
 	}
 	void BreakoutScene::onMainMenuQuitButtonClick()
 	{
@@ -323,6 +326,13 @@ namespace BreakoutGame
 	{
 		printf("select");
 		m_UIManager->SelectMainMenuButton(buttonType);
+	}
+	void BreakoutScene::startGame()
+	{
+		if (m_GameManager->GetGameState() == GameState::MainMenu)
+		{
+			m_UIManager->ShowMainMenuPanel();
+		}
 	}
 	void BreakoutScene::onInputCallback(InputType inputType)
 	{
