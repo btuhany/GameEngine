@@ -27,12 +27,6 @@ namespace BreakoutGame
 		getAndInstantiateEntities();
 		LOG_INFO("Breakout scene initialized!");
 
-		std::function<void()> onStartButtonHandler = std::bind(&BreakoutScene::onMainMenuStartButtonClick, this);
-		std::function<void()> onQuitButtonHandler = std::bind(&BreakoutScene::onMainMenuQuitButtonClick, this);
-		std::function<void()> onHelpButtonHandler = std::bind(&BreakoutScene::onMainMenuHelpButtonClick, this);
-		std::function<void(MainMenuButtonType)> onMainMenuButtonSelected = std::bind(&BreakoutScene::onMainMenuButtonSelected, this, std::placeholders::_1);
-		m_StateControllerMap[GameState::MainMenu] = std::make_shared<MainMenuController>(onStartButtonHandler, onHelpButtonHandler, onQuitButtonHandler, onMainMenuButtonSelected);
-
 		Scene::Initialize(viewPortWidth, viewPortHeight);
 	}
 
@@ -173,11 +167,11 @@ namespace BreakoutGame
 
 		std::function<void(std::shared_ptr<GameEntity> entity)> ballHandler = std::bind(&BreakoutScene::onBallColliderEnter, this, std::placeholders::_1);
 		std::function<void()> brickManagerHandler = std::bind(&BreakoutScene::onThereIsNoBrickLeft, this);
-		m_GameManager->Initialize();
 		m_Paddle->Initialize(m_MainShader);
 		m_Ball->Initialize(m_MainShader, ballHandler);
 		m_BrickManager->Initialize(m_MainShader, brickManagerHandler);
 		m_UIManager->Initialize(viewPortWidth, viewPortHeight, 0, 1, 3);
+		m_GameManager->Initialize(m_UIManager);
 	}
 
 	void BreakoutScene::changeCameraType()
@@ -308,31 +302,9 @@ namespace BreakoutGame
 		m_Paddle->Reset();
 		m_BrickManager->Reset();
 	}
-	void BreakoutScene::onMainMenuStartButtonClick()
-	{
-		//onLevelStarted();
-		printf("start");
-		onLevelStarted();
-	}
-	void BreakoutScene::onMainMenuQuitButtonClick()
-	{
-		printf("quit");
-	}
-	void BreakoutScene::onMainMenuHelpButtonClick()
-	{
-		printf("help");
-	}
-	void BreakoutScene::onMainMenuButtonSelected(MainMenuButtonType buttonType)
-	{
-		printf("select");
-		m_UIManager->SelectMainMenuButton(buttonType);
-	}
 	void BreakoutScene::startGame()
 	{
-		if (m_GameManager->GetGameState() == GameState::MainMenu)
-		{
-			m_UIManager->ShowMainMenuPanel();
-		}
+		m_GameManager->ActivateStateController();
 	}
 	void BreakoutScene::onInputCallback(InputType inputType)
 	{
@@ -345,6 +317,6 @@ namespace BreakoutGame
 			handleOnRightKey();
 		}
 
-		m_StateControllerMap[m_GameManager->GetGameState()]->HandleInputs(inputType);
+		m_GameManager->GetController()->HandleInputs(inputType);
 	}
 }

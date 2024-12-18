@@ -48,11 +48,7 @@ namespace BreakoutGame
 		void onLevelStarted();
 		void onLevelEnded();
 		
-		void onMainMenuStartButtonClick();
-		void onMainMenuQuitButtonClick();
-		void onMainMenuHelpButtonClick();
-		void onMainMenuButtonSelected(MainMenuButtonType buttonType);
-		std::unordered_map<GameState, std::shared_ptr<InputController>> m_StateControllerMap;
+
 
 		void startGame();
 

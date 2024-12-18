@@ -3,19 +3,19 @@
 namespace BreakoutGame
 {
 	const int BUTTON_COUNT = 3;
-	MainMenuController::MainMenuController(std::function<void()> startButtonClickHandler, std::function<void()> helpButtonClickHandler, std::function<void()> quitButtonClickHandler, std::function<void(MainMenuButtonType)> onMainMenuButtonSelectedHandler)
+	MainMenuController::MainMenuController(std::shared_ptr<UIManager> uiManager, std::function<void()> startButtonClickHandler,
+		std::function<void()> quitButtonClickHandler)
 	{
+		m_UIManager = uiManager;
 		m_OnStartButtonClick = startButtonClickHandler;
-		m_OnHelpButtonClick = helpButtonClickHandler;
 		m_OnQuitButtonClick = quitButtonClickHandler;
-		m_OnMainMenuButtonSelected = onMainMenuButtonSelectedHandler;
-		OnActivated();
 	}
-	void MainMenuController::OnActivated()
+	void MainMenuController::HandleOnActivated()
 	{
 		m_CurrentButtonIndex = -1;
 		m_CanSelectButtons = false;
 		m_IsAnyButtonClick = false;
+		m_UIManager->ShowMainMenuPanel();
 	}
 	void MainMenuController::HandleInputs(InputType inputType)
 	{
@@ -25,7 +25,7 @@ namespace BreakoutGame
 			{
 				m_CanSelectButtons = true;
 				m_CurrentButtonIndex = 0;
-				m_OnMainMenuButtonSelected(m_ButtonOrder[m_CurrentButtonIndex]);
+				m_UIManager->SelectMainMenuButton(m_ButtonOrder[m_CurrentButtonIndex]);
 			}
 			return;
 		}
@@ -37,7 +37,7 @@ namespace BreakoutGame
 			{
 				m_CurrentButtonIndex = 0;
 			}
-			m_OnMainMenuButtonSelected(m_ButtonOrder[m_CurrentButtonIndex]);
+			m_UIManager->SelectMainMenuButton(m_ButtonOrder[m_CurrentButtonIndex]);
 		}
 		else if (inputType == InputType::UpArrow_Release)
 		{
@@ -46,7 +46,7 @@ namespace BreakoutGame
 			{
 				m_CurrentButtonIndex = BUTTON_COUNT - 1;
 			}
-			m_OnMainMenuButtonSelected(m_ButtonOrder[m_CurrentButtonIndex]);
+			m_UIManager->SelectMainMenuButton(m_ButtonOrder[m_CurrentButtonIndex]);
 		}
 		else if (inputType == InputType::EnterKey_Release)
 		{
@@ -58,7 +58,6 @@ namespace BreakoutGame
 			else if (m_ButtonOrder[m_CurrentButtonIndex] == MainMenuButtonType::Help)
 			{
 				m_IsAnyButtonClick = true;
-				m_OnHelpButtonClick();
 			}
 			else if (m_ButtonOrder[m_CurrentButtonIndex] == MainMenuButtonType::Quit)
 			{
