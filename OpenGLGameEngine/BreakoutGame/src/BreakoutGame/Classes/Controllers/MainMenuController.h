@@ -10,13 +10,15 @@ namespace BreakoutGame
 		MainMenuController(
 			std::function<void()> startButtonClickHandler,
 			std::function<void()> helpButtonClickHandler,
-			std::function<void()> quitButtonClickHandler);
+			std::function<void()> quitButtonClickHandler,
+			std::function<void(MainMenuButtonType)> m_OnMainMenuButtonSelected);
 		void OnActivated();
 		void HandleInputs(InputType inputType) override;
 	private:
 		std::function<void()> m_OnStartButtonClick;
 		std::function<void()> m_OnHelpButtonClick;
 		std::function<void()> m_OnQuitButtonClick;
+		std::function<void(MainMenuButtonType)> m_OnMainMenuButtonSelected;
 		bool m_CanSelectButtons = false;
 		int m_CurrentButtonIndex;
 		static const int BUTTON_COUNT = 3;

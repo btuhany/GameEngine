@@ -26,6 +26,13 @@ namespace BreakoutGame
 		LevelBrickGridData::Initialize();
 		getAndInstantiateEntities();
 		LOG_INFO("Breakout scene initialized!");
+
+		std::function<void()> onStartButtonHandler = std::bind(&BreakoutScene::onMainMenuStartButtonClick, this);
+		std::function<void()> onQuitButtonHandler = std::bind(&BreakoutScene::onMainMenuQuitButtonClick, this);
+		std::function<void()> onHelpButtonHandler = std::bind(&BreakoutScene::onMainMenuHelpButtonClick, this);
+		std::function<void(MainMenuButtonType)> onMainMenuButtonSelected = std::bind(&BreakoutScene::onMainMenuButtonSelected, this, std::placeholders::_1);
+		m_StateControllerMap[GameState::MainMenu] = std::make_shared<MainMenuController>(onStartButtonHandler, onHelpButtonHandler, onQuitButtonHandler, onMainMenuButtonSelected);
+
 		Scene::Initialize(viewPortWidth, viewPortHeight);
 	}
 
@@ -299,6 +306,18 @@ namespace BreakoutGame
 		m_Paddle->Reset();
 		m_BrickManager->Reset();
 	}
+	void BreakoutScene::onMainMenuStartButtonClick()
+	{
+	}
+	void BreakoutScene::onMainMenuQuitButtonClick()
+	{
+	}
+	void BreakoutScene::onMainMenuHelpButtonClick()
+	{
+	}
+	void BreakoutScene::onMainMenuButtonSelected(MainMenuButtonType buttonType)
+	{
+	}
 	void BreakoutScene::onInputCallback(InputType inputType)
 	{
 		if (inputType == InputType::LeftArrow)
@@ -310,6 +329,6 @@ namespace BreakoutGame
 			handleOnRightKey();
 		}
 
-		m_GameManager->GetCurrentInputController()->HandleInputs(inputType);
+		m_StateControllerMap[m_GameManager->GetGameState()]->HandleInputs(inputType);
 	}
 }

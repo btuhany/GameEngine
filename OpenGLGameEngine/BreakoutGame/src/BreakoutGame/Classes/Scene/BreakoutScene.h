@@ -48,6 +48,15 @@ namespace BreakoutGame
 		void onLevelStarted();
 		void onLevelEnded();
 		
+		void onMainMenuStartButtonClick();
+		void onMainMenuQuitButtonClick();
+		void onMainMenuHelpButtonClick();
+		void onMainMenuButtonSelected(MainMenuButtonType buttonType);
+		std::unordered_map<GameState, std::shared_ptr<InputController>> m_StateControllerMap;
+
+
+
+
 		void onInputCallback(InputType inputType);
 		std::shared_ptr<Ball> m_Ball;
 		std::shared_ptr<Paddle> m_Paddle;
@@ -58,6 +67,9 @@ namespace BreakoutGame
 		std::shared_ptr<Shader> m_MainShader;
 		//For debug purposes
 		std::shared_ptr<IMovable> m_ControlledMovableObject;
+
+
+
 	};
 
 

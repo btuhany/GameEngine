@@ -16,13 +16,8 @@ namespace BreakoutGame
 		int GetPlayerLive();
 		void ProcessBallHitBrickData(BallHitBrickData hitData);
 		GameState GetGameState();
-		std::shared_ptr<InputController> GetCurrentInputController();
 	private:
-		void onStartButtonClick();
-		void onQuitButtonClick();
-		void onHelpButtonClick();
 		GameState m_CurrentGameState;
-		std::unordered_map<GameState, std::shared_ptr<InputController>> m_StateControllerMap;
 		//PLAYER DATA
 		int m_ScorePoint;
 		int m_PlayerLives;

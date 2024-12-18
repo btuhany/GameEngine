@@ -3,11 +3,12 @@
 namespace BreakoutGame
 {
 	const int BUTTON_COUNT = 3;
-	MainMenuController::MainMenuController(std::function<void()> startButtonClickHandler, std::function<void()> helpButtonClickHandler, std::function<void()> quitButtonClickHandler)
+	MainMenuController::MainMenuController(std::function<void()> startButtonClickHandler, std::function<void()> helpButtonClickHandler, std::function<void()> quitButtonClickHandler, std::function<void(MainMenuButtonType)> onMainMenuButtonSelectedHandler)
 	{
 		m_OnStartButtonClick = startButtonClickHandler;
 		m_OnHelpButtonClick = helpButtonClickHandler;
 		m_OnQuitButtonClick = quitButtonClickHandler;
+		m_OnMainMenuButtonSelected = onMainMenuButtonSelectedHandler;
 		OnActivated();
 	}
 	void MainMenuController::OnActivated()
@@ -27,7 +28,6 @@ namespace BreakoutGame
 			}
 			return;
 		}
-
 
 		if (inputType == InputType::DownArrow_Release)
 		{
