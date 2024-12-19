@@ -62,9 +62,6 @@ void BreakoutSceneInputHandler::HandleKeys(int* keys, GLfloat deltaTime)
 	{
 		ProcessInputCallback(BreakoutGame::InputType::PauseKey);
 	}
-
-	if (!IsPlayerControlsActive)
-		return;
 }
 
 void BreakoutSceneInputHandler::HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY)
