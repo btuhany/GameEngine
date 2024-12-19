@@ -130,12 +130,8 @@ namespace BreakoutGame
 	void InGameStateController::startGame()
 	{
 		m_Paddle->getEntity()->setActive(true);
-		m_Paddle->Reset();
 		m_Ball->getEntity()->setActive(true);
-		m_Ball->Reset();
-		m_BrickManager->Reset();
-		m_UIManager->ShowPlayerHUD(3);
-
+		m_UIManager->ShowPlayerHUD(m_PlayerDataManager->GetPlayerLive());
 		std::function<void()> levelInitHandler = std::bind(&InGameStateController::onLevelInitializationCompleted, this);
 		initLevel(m_PlayerDataManager->GetPlayerLevel(), levelInitHandler);
 	}
@@ -146,7 +142,12 @@ namespace BreakoutGame
 	}
 	void InGameStateController::initLevel(int level, std::function<void()> onLevelInitializedCallback)
 	{
-		m_BrickManager->UpdateBrickGrid(LevelBrickGridData::GetBrickGridData(1));
+		m_Paddle->Reset();
+		m_Paddle->DisableMovement();
+		m_Ball->Reset();
+		m_Ball->DisableMovement();
+		m_BrickManager->Reset();
+		m_BrickManager->UpdateBrickGrid(LevelBrickGridData::GetBrickGridData(level));
 		m_BrickManager->PlayBrickGridEnterAnimation(onLevelInitializedCallback);
 	}
 	void InGameStateController::onLevelEnded()
@@ -158,6 +159,6 @@ namespace BreakoutGame
 	}
 	void InGameStateController::onThereIsNoBrickLeft()
 	{
-		LOG_INFO("THERE IS NO BRICK LEFT!");
+		
 	}
 }

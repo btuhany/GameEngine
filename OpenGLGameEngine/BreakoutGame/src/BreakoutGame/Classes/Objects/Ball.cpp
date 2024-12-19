@@ -32,7 +32,6 @@ namespace BreakoutGame
 
 	void Ball::Start()
 	{
-		DisableMovement();
 		m_Speed = 50.0f;
 		m_Entity->transform->SetPosition(glm::vec3(5.0f, 0.0f, 1.1f));
 	}
