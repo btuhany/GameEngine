@@ -22,7 +22,8 @@ namespace BreakoutGame
 		BallHitBrickData HandleOnGotHitByBall(std::shared_ptr<GameEntity> brickEntity);
 		std::shared_ptr<BrickData> GetBrickData(BrickType brickType);
 	private:
-		void tickHandleEnterAnimation(float deltaTime);
+		void tickHandleEnterAnimation(float animationLerpValue);
+		void finalizeEnterAnimation();
 		BallHitBrickData processBrick(std::shared_ptr<Brick> brick);
 		void initializeEasyBrickData(std::shared_ptr<Shader> shader);
 		void initializeMediumBrickData(std::shared_ptr<Shader> shader);
@@ -36,7 +37,8 @@ namespace BreakoutGame
 
 		float m_AnimationLerpValue;
 		bool m_IsEnterAnimationPlaying;
-		
+		std::function<void()> m_OnEnterAnimationEnd;
+
 		int m_ActiveBrickCount;
 		std::function<void()> m_OnThereIsNoActiveBricksLeft;
 	};

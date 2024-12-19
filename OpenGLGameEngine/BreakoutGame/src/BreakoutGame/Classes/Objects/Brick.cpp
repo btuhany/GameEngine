@@ -54,5 +54,10 @@ namespace BreakoutGame
     {
         m_EnterAnimStopPosition = VectorUtility::GlmVec3ToVector3(m_Entity->transform->getPosition());
         m_EnterAnimStartPosition = startPos;
+        m_Entity->transform->SetPosition(m_EnterAnimStartPosition);
+    }
+    void Brick::StopAnimationResetPos()
+    {
+        m_Entity->transform->SetPosition(m_EnterAnimStopPosition);
     }
 }
