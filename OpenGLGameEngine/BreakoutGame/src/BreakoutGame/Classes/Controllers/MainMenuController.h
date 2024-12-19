@@ -13,8 +13,10 @@ namespace BreakoutGame
 			std::function<void()> startButtonClickHandler,
 			std::function<void()> quitButtonClickHandler);
 		void HandleOnActivated() override;
+		void HandleOnDeactivated() override;
 		void HandleInputs(InputType inputType) override;
 	private:
+		void resetState();
 		std::shared_ptr<UIManager> m_UIManager;
 		std::function<void()> m_OnStartButtonClick;
 		std::function<void()> m_OnQuitButtonClick;

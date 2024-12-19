@@ -48,11 +48,6 @@ namespace BreakoutGame
 		void onLevelStarted();
 		void onLevelEnded();
 		
-
-
-		void startGame();
-
-
 		void onInputCallback(InputType inputType);
 		std::shared_ptr<Ball> m_Ball;
 		std::shared_ptr<Paddle> m_Paddle;

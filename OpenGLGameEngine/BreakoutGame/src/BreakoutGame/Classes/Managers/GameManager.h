@@ -1,6 +1,5 @@
 #pragma once
-#include <unordered_map>
-#include <memory>
+#include <GameEngine.h>
 #include "../Data/BallHitBrickData.h"
 #include "../Data/GameStateEnum.h"
 #include "../Controllers/InputController.h"
@@ -17,11 +16,10 @@ namespace BreakoutGame
 		void ProcessBallHitBrickData(BallHitBrickData hitData);
 		GameState GetGameState();
 		std::shared_ptr<InputController> GetController();
-		void ActivateStateController();
 	private:
 		GameState m_CurrentGameState;
 
-
+		void changeGameState(GameState newState);
 		void onMainMenuStartButtonClick();
 		void onMainMenuQuitButtonClick();
 		std::unordered_map<GameState, std::shared_ptr<InputController>> m_StateControllerMap;

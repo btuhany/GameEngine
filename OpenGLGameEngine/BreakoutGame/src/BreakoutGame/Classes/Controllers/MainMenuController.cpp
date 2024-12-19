@@ -12,10 +12,13 @@ namespace BreakoutGame
 	}
 	void MainMenuController::HandleOnActivated()
 	{
-		m_CurrentButtonIndex = -1;
-		m_CanSelectButtons = false;
-		m_IsAnyButtonClick = false;
+		resetState();
 		m_UIManager->ShowMainMenuPanel();
+	}
+	void MainMenuController::HandleOnDeactivated()
+	{
+		resetState();
+		m_UIManager->HideMainMenuPanel();;
 	}
 	void MainMenuController::HandleInputs(InputType inputType)
 	{
@@ -66,5 +69,11 @@ namespace BreakoutGame
 			}
 			return;
 		}
+	}
+	void MainMenuController::resetState()
+	{
+		m_CurrentButtonIndex = -1;
+		m_CanSelectButtons = false;
+		m_IsAnyButtonClick = false;
 	}
 }

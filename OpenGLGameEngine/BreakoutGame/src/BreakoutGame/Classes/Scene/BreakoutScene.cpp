@@ -37,8 +37,6 @@ namespace BreakoutGame
 		m_Paddle->Start();
 		m_UIManager->Start();
 		m_GameManager->Start();
-
-		startGame();
 	}
 
 	float lerpTime;
@@ -302,10 +300,7 @@ namespace BreakoutGame
 		m_Paddle->Reset();
 		m_BrickManager->Reset();
 	}
-	void BreakoutScene::startGame()
-	{
-		m_GameManager->ActivateStateController();
-	}
+
 	void BreakoutScene::onInputCallback(InputType inputType)
 	{
 		if (inputType == InputType::LeftArrow)

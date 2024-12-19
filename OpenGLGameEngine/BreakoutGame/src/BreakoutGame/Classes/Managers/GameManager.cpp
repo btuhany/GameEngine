@@ -2,6 +2,23 @@
 
 namespace BreakoutGame
 {
+    std::string ToString(GameState state)
+    {
+        switch (state)
+        {
+        case GameState::None:
+            return "None";
+        case GameState::MainMenu:
+            return "MainMenu";
+        case GameState::InGame:
+            return "InGame";
+        case GameState::Pause:
+            return "Pause";
+        default:
+            return "Unknown";
+        }
+    }
+
     void GameManager::Initialize(std::shared_ptr<UIManager> uiManager)
     {
         m_ScorePoint = 0;
@@ -14,6 +31,7 @@ namespace BreakoutGame
     }
     void GameManager::Start()
     {
+        changeGameState(m_CurrentGameState);
     }
     int GameManager::GetScorePoint()
     {
@@ -35,12 +53,25 @@ namespace BreakoutGame
     {
         return m_StateControllerMap[m_CurrentGameState];
     }
-    void GameManager::ActivateStateController()
+    void GameManager::changeGameState(GameState newState)
     {
-        GetController()->HandleOnActivated();
+        if (m_CurrentGameState != GameState::None)
+            m_StateControllerMap[m_CurrentGameState]->HandleOnDeactivated();
+
+        m_CurrentGameState = newState;
+        if (m_StateControllerMap.find(m_CurrentGameState) != m_StateControllerMap.end())
+        {
+            m_StateControllerMap[m_CurrentGameState]->HandleOnActivated();
+        }
+        else
+        {
+            std::string logStr = "GameManager | changeGameState | state not exist in map: " + ToString(m_CurrentGameState);
+            LOG_INFO(logStr);
+        }
     }
     void GameManager::onMainMenuStartButtonClick()
     {
+        changeGameState(GameState::InGame);
     }
     void GameManager::onMainMenuQuitButtonClick()
     {
