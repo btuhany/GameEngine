@@ -25,8 +25,7 @@ namespace BreakoutGame
 		void onPause();
 		void startGame();
 		void onLevelInitializationCompleted();
-		void initLevel(int level, std::function<void()> onLevelInitializedCallback);
-		void onLevelEnded();
+		void initLevel(int level);
 		void onThereIsNoBrickLeft();
 		void onBallColliderEnter(std::shared_ptr<GameEntity> gameEntity);
 		std::shared_ptr<Ball> m_Ball;

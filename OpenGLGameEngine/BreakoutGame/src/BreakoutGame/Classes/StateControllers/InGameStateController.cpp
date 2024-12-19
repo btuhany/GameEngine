@@ -39,18 +39,6 @@ namespace BreakoutGame
 			m_Ball->SetPosition(m_Paddle->GetBallHolderPosition());
 		}
 		m_BrickManager->Tick(deltaTime);
-		//PADDLE ANIMATION FOR JUST TESTING
-		//if (m_Paddle->getEntity()->getActive())
-		//{
-		//	lerpTime += m_DeltaTime;
-		//	lerpTime = std::min(lerpTime, 1.0f);
-		//	auto curPos = m_Paddle->getEntity()->transform->getPosition();
-		//	Vector3 curPosVec3 = Vector3(curPos.x, curPos.y, curPos.z);
-		//	Vector3 newPosVec3 = Vector3(10.0f, 20.0f, 0.0f);
-		//	float easeValue = TweenEase::EaseInOutElastic(lerpTime);
-		//	auto newPos = Vector3::UnclampedLerp(Vector3(0.0f, -20.0f, 0.0f), newPosVec3, easeValue);
-		//	m_Paddle->getEntity()->transform->SetPosition(newPos);
-		//}
 	}
 	std::vector<std::shared_ptr<GameEntity>> InGameStateController::GetEntities()
 	{
@@ -132,15 +120,15 @@ namespace BreakoutGame
 		m_Paddle->getEntity()->setActive(true);
 		m_Ball->getEntity()->setActive(true);
 		m_UIManager->ShowPlayerHUD(m_PlayerDataManager->GetPlayerLive());
-		std::function<void()> levelInitHandler = std::bind(&InGameStateController::onLevelInitializationCompleted, this);
-		initLevel(m_PlayerDataManager->GetPlayerLevel(), levelInitHandler);
+
+		initLevel(m_PlayerDataManager->GetPlayerLevel());
 	}
 	void InGameStateController::onLevelInitializationCompleted()
 	{
 		m_Paddle->EnableMovement();
 		m_Ball->EnableMovement();
 	}
-	void InGameStateController::initLevel(int level, std::function<void()> onLevelInitializedCallback)
+	void InGameStateController::initLevel(int level)
 	{
 		m_Paddle->Reset();
 		m_Paddle->DisableMovement();
@@ -148,17 +136,10 @@ namespace BreakoutGame
 		m_Ball->DisableMovement();
 		m_BrickManager->Reset();
 		m_BrickManager->UpdateBrickGrid(LevelBrickGridData::GetBrickGridData(level));
-		m_BrickManager->PlayBrickGridEnterAnimation(onLevelInitializedCallback);
-	}
-	void InGameStateController::onLevelEnded()
-	{
-		m_UIManager->HidePlayerHUD();
-		m_Ball->Reset();
-		m_Paddle->Reset();
-		m_BrickManager->Reset();
+		std::function<void()> levelInitHandler = std::bind(&InGameStateController::onLevelInitializationCompleted, this);
+		m_BrickManager->PlayBrickGridEnterAnimation(levelInitHandler);
 	}
 	void InGameStateController::onThereIsNoBrickLeft()
 	{
-		
 	}
 }
