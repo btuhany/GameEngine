@@ -29,9 +29,19 @@ namespace BreakoutGame
 
 		auto inGameStateController = std::make_shared<InGameStateController>();
 		inGameStateController->Initialize(m_MainShader, m_UIManager);
-		instantiateEntities(inGameStateController->GetEntities());
 
-		m_StateManager->Initialize(m_UIManager, inGameStateController);
+		auto entityList = std::vector<std::shared_ptr<GameEntity>>();
+		auto uiEntityList = m_UIManager->getEntityList();
+		entityList.insert(entityList.end(), uiEntityList.begin(), uiEntityList.end());
+
+		auto inGameStateEntities = inGameStateController->GetEntities();
+		entityList.insert(entityList.end(), inGameStateEntities.begin(), inGameStateEntities.end());
+
+		instantiateEntities(entityList);
+
+		auto mainMenuStateController = std::make_shared<MainMenuStateController>(m_UIManager);
+		
+		m_StateManager->Initialize(mainMenuStateController, inGameStateController);
 		LOG_INFO("Breakout scene initialized!");
 
 		Scene::Initialize(viewPortWidth, viewPortHeight);
@@ -139,8 +149,6 @@ namespace BreakoutGame
 	void BreakoutScene::instantiateEntities(std::vector<std::shared_ptr<GameEntity>> entityList)
 	{
 		//TODO send/get instantiate data or instantiate outside scene class
-		auto uiEntityList = m_UIManager->getEntityList();
-		entityList.insert(entityList.end(), uiEntityList.begin(), uiEntityList.end());
 		for (size_t i = 0; i < entityList.size(); i++)
 		{
 			instantiateGameEntity(entityList[i], false);

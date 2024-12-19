@@ -9,7 +9,7 @@ namespace BreakoutGame
 	class StateManager
 	{
 	public:
-		void Initialize(std::shared_ptr<UIManager> uiManager, std::shared_ptr<InGameStateController> inGameStateController);
+		void Initialize(std::shared_ptr<MainMenuStateController> mainMenuStateController, std::shared_ptr<InGameStateController> inGameStateController);
 		void Start();
 		void Tick(float deltaTime);
 		int GetScorePoint();

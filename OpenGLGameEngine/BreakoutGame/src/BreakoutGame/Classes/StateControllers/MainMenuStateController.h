@@ -9,8 +9,8 @@ namespace BreakoutGame
 	{	
 	public:
 		MainMenuStateController(
-			std::shared_ptr<UIManager> uiManager,
-			std::function<void()> startButtonClickHandler,
+			std::shared_ptr<UIManager> uiManager);
+		void SetCallbacks(std::function<void()> startButtonClickHandler,
 			std::function<void()> quitButtonClickHandler);
 		void HandleOnActivated() override;
 		void HandleOnDeactivated() override;

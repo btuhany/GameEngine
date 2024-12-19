@@ -3,10 +3,12 @@
 namespace BreakoutGame
 {
 	const int BUTTON_COUNT = 3;
-	MainMenuStateController::MainMenuStateController(std::shared_ptr<UIManager> uiManager, std::function<void()> startButtonClickHandler,
-		std::function<void()> quitButtonClickHandler)
+	MainMenuStateController::MainMenuStateController(std::shared_ptr<UIManager> uiManager)
 	{
 		m_UIManager = uiManager;
+	}
+	void MainMenuStateController::SetCallbacks(std::function<void()> startButtonClickHandler, std::function<void()> quitButtonClickHandler)
+	{
 		m_OnStartButtonClick = startButtonClickHandler;
 		m_OnQuitButtonClick = quitButtonClickHandler;
 	}
