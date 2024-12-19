@@ -23,7 +23,7 @@ namespace BreakoutGame
 		initializeBoundaryObjects();
 		initializeMainCamera();
 
-		m_GameManager = std::make_shared<GameManager>();
+		m_StateManager = std::make_shared<StateManager>();
 		m_UIManager = std::make_shared<UIManager>();
 		m_UIManager->Initialize(viewPortWidth, viewPortHeight, 0, 1, 3);
 
@@ -31,7 +31,7 @@ namespace BreakoutGame
 		inGameStateController->Initialize(m_MainShader, m_UIManager);
 		instantiateEntities(inGameStateController->GetEntities());
 
-		m_GameManager->Initialize(m_UIManager, inGameStateController);
+		m_StateManager->Initialize(m_UIManager, inGameStateController);
 		LOG_INFO("Breakout scene initialized!");
 
 		Scene::Initialize(viewPortWidth, viewPortHeight);
@@ -40,13 +40,13 @@ namespace BreakoutGame
 	void BreakoutScene::Start()
 	{
 		m_UIManager->Start();
-		m_GameManager->Start();
+		m_StateManager->Start();
 	}
 
 	void BreakoutScene::Update(GLfloat deltaTime)
 	{
 		m_DeltaTime = deltaTime;
-		m_GameManager->Tick(deltaTime);
+		m_StateManager->Tick(deltaTime);
 	}
 
 	void BreakoutScene::initializeInputCallbacks()
@@ -179,6 +179,6 @@ namespace BreakoutGame
 
 	void BreakoutScene::onInputCallback(InputType inputType)
 	{
-		m_GameManager->GetController()->HandleInputs(inputType);
+		m_StateManager->GetController()->HandleInputs(inputType);
 	}
 }

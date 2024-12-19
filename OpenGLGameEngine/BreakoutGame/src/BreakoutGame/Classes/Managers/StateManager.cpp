@@ -1,4 +1,4 @@
-#include "GameManager.h"
+#include "StateManager.h"
 
 namespace BreakoutGame
 {
@@ -19,19 +19,19 @@ namespace BreakoutGame
         }
     }
 
-    void GameManager::Initialize(std::shared_ptr<UIManager> uiManager, std::shared_ptr<InGameStateController> inGameStateController)
+    void StateManager::Initialize(std::shared_ptr<UIManager> uiManager, std::shared_ptr<InGameStateController> inGameStateController)
     {
         m_ScorePoint = 0;
         m_PlayerLives = 3;
         m_CurrentGameState = GameState::MainMenu;
 
-        std::function<void()> onStartButtonHandler = std::bind(&GameManager::onMainMenuStartButtonClick, this);
-        std::function<void()> onQuitButtonHandler = std::bind(&GameManager::onMainMenuQuitButtonClick, this);
+        std::function<void()> onStartButtonHandler = std::bind(&StateManager::onMainMenuStartButtonClick, this);
+        std::function<void()> onQuitButtonHandler = std::bind(&StateManager::onMainMenuQuitButtonClick, this);
         m_StateControllerMap[GameState::MainMenu] = std::make_shared<MainMenuStateController>(uiManager, onStartButtonHandler, onQuitButtonHandler);
 
         m_StateControllerMap[GameState::InGame] = inGameStateController;
     }
-    void GameManager::Start()
+    void StateManager::Start()
     {
         for (auto it = m_StateControllerMap.begin(); it != m_StateControllerMap.end(); ++it)
         {
@@ -39,34 +39,34 @@ namespace BreakoutGame
         }
         changeGameState(m_CurrentGameState);
     }
-    void GameManager::Tick(float deltaTime)
+    void StateManager::Tick(float deltaTime)
     {
         if (m_StateControllerMap.find(m_CurrentGameState) != m_StateControllerMap.end())
         {
             m_StateControllerMap[m_CurrentGameState]->Tick(deltaTime);
         }
     }
-    int GameManager::GetScorePoint()
+    int StateManager::GetScorePoint()
     {
         return m_ScorePoint;
     }
-    int GameManager::GetPlayerLive()
+    int StateManager::GetPlayerLive()
     {
         return m_PlayerLives;
     }
-    void GameManager::ProcessBallHitBrickData(BallHitBrickData hitData)
+    void StateManager::ProcessBallHitBrickData(BallHitBrickData hitData)
     {
         m_ScorePoint += hitData.gainedScorePoint;
     }
-    GameState GameManager::GetGameState()
+    GameState StateManager::GetGameState()
     {
         return m_CurrentGameState;
     }
-    std::shared_ptr<StateController> GameManager::GetController()
+    std::shared_ptr<StateController> StateManager::GetController()
     {
         return m_StateControllerMap[m_CurrentGameState];
     }
-    void GameManager::changeGameState(GameState newState)
+    void StateManager::changeGameState(GameState newState)
     {
         if (m_CurrentGameState != GameState::None)
             m_StateControllerMap[m_CurrentGameState]->HandleOnDeactivated();
@@ -78,15 +78,15 @@ namespace BreakoutGame
         }
         else
         {
-            std::string logStr = "GameManager | changeGameState | state not exist in map: " + ToString(m_CurrentGameState);
+            std::string logStr = "StateManager | changeGameState | state not exist in map: " + ToString(m_CurrentGameState);
             LOG_INFO(logStr);
         }
     }
-    void GameManager::onMainMenuStartButtonClick()
+    void StateManager::onMainMenuStartButtonClick()
     {
         changeGameState(GameState::InGame);
     }
-    void GameManager::onMainMenuQuitButtonClick()
+    void StateManager::onMainMenuQuitButtonClick()
     {
     }
 }

@@ -6,7 +6,7 @@
 #include "../StateControllers/InGameStateController.h"
 namespace BreakoutGame
 {
-	class GameManager
+	class StateManager
 	{
 	public:
 		void Initialize(std::shared_ptr<UIManager> uiManager, std::shared_ptr<InGameStateController> inGameStateController);

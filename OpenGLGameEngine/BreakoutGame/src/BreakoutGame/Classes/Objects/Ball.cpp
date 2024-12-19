@@ -32,7 +32,7 @@ namespace BreakoutGame
 
 	void Ball::Start()
 	{
-		m_Speed = 30.0f;
+		m_Speed = 50.0f;
 		m_Entity->transform->SetPosition(glm::vec3(5.0f, 0.0f, 1.1f));
 	}
 
@@ -99,7 +99,9 @@ namespace BreakoutGame
 	void Ball::onCollisionEnter(std::shared_ptr<CollisionData> collisionData)
 	{
 		if (!m_Entity->getActive())
+		{
 			return;
+		}
 
 		/*std::cout << "Ball HandleOnCollision Enter pos, x: " << collisionData->collidedNodePos.x << " y: " << collisionData->collidedNodePos.y << std::endl;*/
 
@@ -135,7 +137,7 @@ namespace BreakoutGame
 			else if (Vector2::IsAligned(normalVec, m_MovementVector, 0.2f))
 			{
 				if (IS_LOGS_ACTIVE)
-					LOG_ERROR("Normal vector and movement vector is aligned");
+					LOG_ERROR_STREAM("Normal vector: " << normalVec.toString() << " and movement vector : " << m_MovementVector.x << m_MovementVector.y << "is aligned");
 				return;
 			}
 

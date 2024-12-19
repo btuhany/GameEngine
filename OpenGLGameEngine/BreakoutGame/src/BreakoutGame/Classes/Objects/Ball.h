@@ -34,7 +34,7 @@ namespace BreakoutGame
 		float m_DeltaTime;
 
 		//FOR DEBUG
-		const bool IS_LOGS_ACTIVE = false;
+		const bool IS_LOGS_ACTIVE = true;
 	};
 }
 

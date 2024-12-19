@@ -6,7 +6,7 @@
 
 #include "../Managers/UIManager.h"
 
-#include "../Managers/GameManager.h"
+#include "../Managers/StateManager.h"
 #include "../Data/InputTypeEnum.h"
 #include "../StateControllers/InGameStateController.h"
 namespace BreakoutGame
@@ -39,7 +39,7 @@ namespace BreakoutGame
 		void onInputCallback(InputType inputType);
 
 		std::shared_ptr<UIManager> m_UIManager;
-		std::shared_ptr<GameManager> m_GameManager;
+		std::shared_ptr<StateManager> m_StateManager;
 		std::shared_ptr<Shader> m_MainShader;
 	};
 

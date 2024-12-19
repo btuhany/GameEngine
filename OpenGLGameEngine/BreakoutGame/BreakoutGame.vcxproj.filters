@@ -39,7 +39,7 @@
     <ClInclude Include="src\BreakoutGame\Classes\Objects\IMovable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BreakoutGame\Classes\Managers\GameManager.h">
+    <ClInclude Include="src\BreakoutGame\Classes\Managers\StateManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\BreakoutGame\Classes\Managers\BrickManager.h">
@@ -119,7 +119,7 @@
     <ClCompile Include="src\BreakoutGame\Classes\Objects\IMovable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BreakoutGame\Classes\Managers\GameManager.cpp">
+    <ClCompile Include="src\BreakoutGame\Classes\Managers\StateManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\BreakoutGame\Classes\Managers\BrickManager.cpp">

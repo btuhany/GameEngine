@@ -39,6 +39,12 @@ namespace GameEngine {
         oss << content;                                   \
         LOG_INFO(oss.str());                              \
     }
+#define LOG_ERROR_STREAM(content)                          \
+    {                                                     \
+        std::ostringstream oss;                           \
+        oss << content;                                   \
+        LOG_ERROR(oss.str());                              \
+    }
 #define LOG_CORE_INFO_STREAM(content)                          \
     {                                                     \
         std::ostringstream oss;                           \
