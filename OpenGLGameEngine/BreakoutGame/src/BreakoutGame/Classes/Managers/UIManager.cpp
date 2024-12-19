@@ -20,8 +20,8 @@ namespace BreakoutGame
 		initScoreText(std::to_string(initalScore));
 		initLevelText(std::to_string(initialLevel));
 		initHeartSpriteEntities(maxPlayerLive);
-
 		initMainMenuPanelObjects();
+		initPausePanelObjects();
 	}
 	void UIManager::Start()
 	{
@@ -29,6 +29,7 @@ namespace BreakoutGame
 		startLevelText();
 		startHeartSpriteEntities();
 		startMainMenuPanelObjects();
+		startPausePanelObjects();
 	}
 	void UIManager::ShowPlayerHUD(int playerLiveCount)
 	{
@@ -47,6 +48,14 @@ namespace BreakoutGame
 		{
 			m_HeartSpriteEntities[i]->setActive(false);
 		}
+	}
+	void UIManager::ShowPausePanel()
+	{
+		m_PauseText->getEntity().lock()->setActive(true);
+	}
+	void UIManager::HidePausePanel()
+	{
+		m_PauseText->getEntity().lock()->setActive(false);
 	}
 	void UIManager::initMainMenuPanelObjects()
 	{
@@ -81,12 +90,32 @@ namespace BreakoutGame
 		m_StartButton->Start();
 		m_QuitButton->Start();
 
-		float breakoutTextHeaderOffsetY = 150.0f;
+		float textOffsetY = 150.0f;
 		m_BreakoutText->getEntity().lock()->transform->
 			SetPosition(
 				Vector3(
 					(m_ViewPortWidth - m_BreakoutText->calculatedTextWidth) / 2.0f, 
-					m_ViewPortHeight / 2.0f + breakoutTextHeaderOffsetY, 
+					m_ViewPortHeight / 2.0f + textOffsetY, 
+					0.0f));
+	}
+	void UIManager::initPausePanelObjects()
+	{
+		m_PauseText = std::make_shared<UITextRendererComponent>();
+		m_PauseText->text = "Paused";
+		m_PauseText->shader = m_TextShader;
+		m_PauseText->textSize = TextSize::Large;
+		m_PauseText->color = glm::vec3(1.0f, 0.0f, 0.0f);
+		auto breakoutTextEntity = std::make_shared<GameEntity>();
+		breakoutTextEntity->AddComponent(m_PauseText);
+		m_GameEntityList.push_back(breakoutTextEntity);
+	}
+	void UIManager::startPausePanelObjects()
+	{
+		m_PauseText->getEntity().lock()->transform->
+			SetPosition(
+				Vector3(
+					(m_ViewPortWidth - m_PauseText->calculatedTextWidth) / 2.0f,
+					m_ViewPortHeight / 2.0f,
 					0.0f));
 	}
 	void UIManager::ShowMainMenuPanel()
@@ -160,6 +189,7 @@ namespace BreakoutGame
 		textEntity->AddComponent(textComp);
 		m_GameEntityList.push_back(textEntity);
 	}
+	
 	void UIManager::startLevelText()
 	{
 		auto textEntity = m_LevelTextComponent->getEntity().lock();

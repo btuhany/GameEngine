@@ -88,6 +88,10 @@ namespace BreakoutGame
 			m_Ball->IsOnPaddle = false;
 			m_Ball->StartMovement(Vector3(0.4f, 1.0f, 0.0f));
 		}
+		else if (inputType == InputType::PauseKey)
+		{
+			m_UIManager->ShowPausePanel();
+		}
 	}
 	void InGameStateController::onBallColliderEnter(std::shared_ptr<GameEntity> gameEntity)
 	{

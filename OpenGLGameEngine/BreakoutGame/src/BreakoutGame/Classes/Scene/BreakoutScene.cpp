@@ -27,6 +27,7 @@ namespace BreakoutGame
 		m_UIManager = std::make_shared<UIManager>();
 		m_UIManager->Initialize(viewPortWidth, viewPortHeight, 0, 1, 3);
 
+		auto mainMenuStateController = std::make_shared<MainMenuStateController>(m_UIManager);
 		auto inGameStateController = std::make_shared<InGameStateController>();
 		inGameStateController->Initialize(m_MainShader, m_UIManager);
 
@@ -38,12 +39,10 @@ namespace BreakoutGame
 		entityList.insert(entityList.end(), inGameStateEntities.begin(), inGameStateEntities.end());
 
 		instantiateEntities(entityList);
-
-		auto mainMenuStateController = std::make_shared<MainMenuStateController>(m_UIManager);
-		
 		m_StateManager->Initialize(mainMenuStateController, inGameStateController);
-		LOG_INFO("Breakout scene initialized!");
+		
 
+		LOG_INFO("Breakout scene initialized!");
 		Scene::Initialize(viewPortWidth, viewPortHeight);
 	}
 

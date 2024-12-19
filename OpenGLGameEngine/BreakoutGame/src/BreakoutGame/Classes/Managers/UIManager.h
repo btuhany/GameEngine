@@ -15,6 +15,9 @@ namespace BreakoutGame
 		void ShowPlayerHUD(int playerLiveCount);
 		void HidePlayerHUD();
 
+		void ShowPausePanel();
+		void HidePausePanel();
+
 		void ShowMainMenuPanel();
 		void HideMainMenuPanel();
 		void SelectMainMenuButton(MainMenuButtonType buttonType);
@@ -27,6 +30,8 @@ namespace BreakoutGame
 		void startHeartSpriteEntities();
 		void initMainMenuPanelObjects();
 		void startMainMenuPanelObjects();
+		void initPausePanelObjects();
+		void startPausePanelObjects();
 
 		float m_ViewPortWidth, m_ViewPortHeight;
 		std::shared_ptr<Shader> m_TextShader;
@@ -36,6 +41,8 @@ namespace BreakoutGame
 		std::shared_ptr<UITextRendererComponent> m_ScoreCounterTextComponent;
 		std::shared_ptr<UITextRendererComponent> m_LevelTextComponent;
 		std::vector<std::shared_ptr<GameEntity>> m_HeartSpriteEntities;
+
+		std::shared_ptr<UITextRendererComponent> m_PauseText;
 
 		std::shared_ptr<UITextRendererComponent> m_BreakoutText;
 		std::shared_ptr<UIButton> m_StartButton;
