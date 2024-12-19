@@ -4,6 +4,7 @@ namespace BreakoutGame
 {
 	void InGameStateController::Initialize(std::shared_ptr<Shader> mainShader, std::shared_ptr<UIManager> uiManager)
 	{
+		m_IsGamePaused = false;
 		m_UIManager = uiManager;
 
 		LevelBrickGridData::Initialize();
@@ -27,6 +28,9 @@ namespace BreakoutGame
 	}
 	void InGameStateController::Tick(float deltaTime)
 	{
+		if (m_IsGamePaused)
+			return;
+
 		m_Paddle->Tick(deltaTime);
 		m_Ball->Tick(deltaTime);
 		if (m_Ball->IsOnPaddle)
@@ -90,7 +94,7 @@ namespace BreakoutGame
 		}
 		else if (inputType == InputType::PauseKey)
 		{
-			m_UIManager->ShowPausePanel();
+			onPause();
 		}
 	}
 	void InGameStateController::onBallColliderEnter(std::shared_ptr<GameEntity> gameEntity)
@@ -100,6 +104,22 @@ namespace BreakoutGame
 			auto hitData = m_BrickManager->HandleOnGotHitByBall(gameEntity);
 			//m_StateManager->ProcessBallHitBrickData(hitData);
 			//m_UIManager->SetScorePoint(m_StateManager->GetScorePoint());
+		}
+	}
+	void InGameStateController::onPause()
+	{
+		if (m_IsGamePaused)
+		{
+			m_IsGamePaused = false;
+			m_UIManager->HidePausePanel();
+		}
+		else
+		{
+			m_IsGamePaused = true;
+			m_UIManager->ShowPausePanel();
+			//bad
+			m_Ball->Tick(0.0f);
+			m_Paddle->Tick(0.0f);
 		}
 	}
 	void InGameStateController::onLevelStarted()

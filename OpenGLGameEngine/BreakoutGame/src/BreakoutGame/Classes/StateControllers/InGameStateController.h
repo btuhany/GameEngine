@@ -18,8 +18,9 @@ namespace BreakoutGame
 		void HandleOnDeactivated() override;
 		void HandleOnActivated() override;
 		void HandleInputs(InputType inputType) override;
-
 	private:
+		bool m_IsGamePaused = false;
+		void onPause();
 		void onLevelStarted();
 		void onLevelEnded();
 		void onThereIsNoBrickLeft();
