@@ -22,6 +22,7 @@ namespace BreakoutGame
 		void SetPosition(glm::vec3 position);
 		//debug purposes
 		void SetSpeed(float value);
+		void SetDefaultSpeed();
 		void DisableMovement();
 		void EnableMovement();
 		bool IsOnPaddle = false;
@@ -33,7 +34,7 @@ namespace BreakoutGame
 		void handleMovement();
 		glm::vec3 m_MovementVector = glm::vec3(0.0f);
 		float m_DeltaTime;
-
+		const float SPEED = 40.0f;
 		//FOR DEBUG
 		const bool IS_LOGS_ACTIVE = true;
 	};

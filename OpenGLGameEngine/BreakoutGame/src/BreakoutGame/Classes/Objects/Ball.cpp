@@ -32,7 +32,7 @@ namespace BreakoutGame
 
 	void Ball::Start()
 	{
-		m_Speed = 50.0f;
+		m_Speed = SPEED;
 		m_Entity->transform->SetPosition(glm::vec3(5.0f, 0.0f, 1.1f));
 	}
 
@@ -55,6 +55,7 @@ namespace BreakoutGame
 	}
 	void Ball::Reset()
 	{
+		SetDefaultSpeed();
 		IsOnPaddle = true;
 	}
 	void Ball::StopMovement()
@@ -106,6 +107,10 @@ namespace BreakoutGame
 	void Ball::SetSpeed(float value)
 	{
 		m_Speed = value;
+	}
+	void Ball::SetDefaultSpeed()
+	{
+		m_Speed = SPEED;
 	}
 	void Ball::DisableMovement()
 	{

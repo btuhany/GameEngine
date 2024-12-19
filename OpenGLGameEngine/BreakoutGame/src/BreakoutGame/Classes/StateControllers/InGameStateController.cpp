@@ -155,6 +155,7 @@ namespace BreakoutGame
 	}
 	void InGameStateController::onThereIsNoBrickLeft()
 	{
+		m_Ball->SetSpeed(100.0f);
 		m_UIManager->ShowLevelCompletedPanel();
 		m_LevelCompletedDelayTimeCounter = 0.0f;
 		m_InLevelCompletedDelay = true;
