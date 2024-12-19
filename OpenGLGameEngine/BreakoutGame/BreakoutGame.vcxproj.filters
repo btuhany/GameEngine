@@ -93,6 +93,9 @@
     <ClInclude Include="src\BreakoutGame\Classes\StateControllers\InGameStateController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Managers\PlayerDataManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BreakoutGame\Classes\App\BreakoutApp.cpp">
@@ -141,6 +144,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\BreakoutGame\Classes\StateControllers\InGameStateController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BreakoutGame\Classes\Managers\PlayerDataManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

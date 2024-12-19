@@ -21,8 +21,7 @@ namespace BreakoutGame
 
     void StateManager::Initialize(std::shared_ptr<MainMenuStateController> mainMenuStateController, std::shared_ptr<InGameStateController> inGameStateController)
     {
-        m_ScorePoint = 0;
-        m_PlayerLives = 3;
+
         m_CurrentGameState = GameState::MainMenu;
 
         std::function<void()> onStartButtonHandler = std::bind(&StateManager::onMainMenuStartButtonClick, this);
@@ -48,18 +47,7 @@ namespace BreakoutGame
             m_StateControllerMap[m_CurrentGameState]->Tick(deltaTime);
         }
     }
-    int StateManager::GetScorePoint()
-    {
-        return m_ScorePoint;
-    }
-    int StateManager::GetPlayerLive()
-    {
-        return m_PlayerLives;
-    }
-    void StateManager::ProcessBallHitBrickData(BallHitBrickData hitData)
-    {
-        m_ScorePoint += hitData.gainedScorePoint;
-    }
+  
     GameState StateManager::GetGameState()
     {
         return m_CurrentGameState;

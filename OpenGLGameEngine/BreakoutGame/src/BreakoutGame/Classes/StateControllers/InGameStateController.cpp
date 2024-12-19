@@ -8,6 +8,8 @@ namespace BreakoutGame
 		m_UIManager = uiManager;
 
 		LevelBrickGridData::Initialize();
+		m_PlayerDataManager = std::make_shared<PlayerDataManager>();
+
 		m_Ball = std::make_shared<Ball>();
 		m_Paddle = std::make_shared<Paddle>();
 		m_BrickManager = std::make_shared<BrickManager>();
@@ -102,8 +104,8 @@ namespace BreakoutGame
 		if (gameEntity->getTag() == (int)Tag::Brick)
 		{
 			auto hitData = m_BrickManager->HandleOnGotHitByBall(gameEntity);
-			//m_StateManager->ProcessBallHitBrickData(hitData);
-			//m_UIManager->SetScorePoint(m_StateManager->GetScorePoint());
+			m_PlayerDataManager->ProcessBallHitBrickData(hitData);
+			m_UIManager->SetScorePoint(m_PlayerDataManager->GetScorePoint());
 		}
 	}
 	void InGameStateController::onPause()

@@ -5,6 +5,7 @@
 #include "../Objects/Paddle.h"
 #include "../Managers/BrickManager.h"
 #include "../Managers/UIManager.h"
+#include "../Managers/PlayerDataManager.h"
 #include "../Data/LevelBrickGridData.h"
 namespace BreakoutGame
 {
@@ -19,6 +20,7 @@ namespace BreakoutGame
 		void HandleOnActivated() override;
 		void HandleInputs(InputType inputType) override;
 	private:
+		std::shared_ptr<PlayerDataManager> m_PlayerDataManager;
 		bool m_IsGamePaused = false;
 		void onPause();
 		void onLevelStarted();
