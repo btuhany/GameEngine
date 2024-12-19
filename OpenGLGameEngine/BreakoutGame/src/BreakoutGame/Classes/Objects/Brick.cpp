@@ -44,5 +44,15 @@ namespace BreakoutGame
     void Brick::ResetHitCount()
     {
         hitCount = 0;
+    } 
+    void Brick::TickAnimation(float lerpValue)
+    {
+        auto newPos = Vector3::UnclampedLerp(m_EnterAnimStartPosition, m_EnterAnimStopPosition, lerpValue);
+        m_Entity->transform->SetPosition(newPos);
+    }
+    void Brick::InitializeEnterAnimStart(Vector3 startPos)
+    {
+        m_EnterAnimStopPosition = VectorUtility::GlmVec3ToVector3(m_Entity->transform->getPosition());
+        m_EnterAnimStartPosition = startPos;
     }
 }
