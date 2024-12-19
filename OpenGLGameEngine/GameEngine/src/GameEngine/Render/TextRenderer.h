@@ -37,6 +37,8 @@ namespace GameEngine
 		void HandleOnComponentRemoved(std::shared_ptr<UITextRendererComponent> textRenderer);
 		bool isAbleToRender(std::shared_ptr<UITextRendererComponent> rendererComponent);
 		std::vector<std::shared_ptr<UITextRendererComponent>> m_Components;
-		std::unordered_map<TextSize, std::map<char, TextCharacter>> sizeCharactersMap;
+		static std::unordered_map<TextSize, std::map<char, TextCharacter>> sizeCharactersMap;
+
+		static void CalculateTextWidthAndHeight(std::shared_ptr<UITextRendererComponent> textComp);
 	};
 }

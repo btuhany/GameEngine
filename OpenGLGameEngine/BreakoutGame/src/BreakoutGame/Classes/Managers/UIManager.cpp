@@ -31,7 +31,7 @@ namespace BreakoutGame
 		startHeartSpriteEntities();
 		startMainMenuPanelObjects();
 		startPausePanelObjects();
-		startLevelCompletedObjects();
+
 	}
 	void UIManager::ShowPlayerHUD()
 	{
@@ -132,23 +132,14 @@ namespace BreakoutGame
 	}
 	void UIManager::initLevelCompletedObjects()
 	{
-		m_BreakoutCongratsText = std::make_shared<UITextRendererComponent>();
-		m_BreakoutCongratsText->text = "Breakout!";
-		m_BreakoutCongratsText->shader = m_TextShader;
-		m_BreakoutCongratsText->textSize = TextSize::Large;
-		m_BreakoutCongratsText->color = glm::vec3(0.0f, 0.0f, 1.0f);
+		m_CenteredText = std::make_shared<UITextRendererComponent>();
+		m_CenteredText->text = "Breakout!";
+		m_CenteredText->shader = m_TextShader;
+		m_CenteredText->textSize = TextSize::Large;
+		m_CenteredText->color = glm::vec3(0.0f, 0.0f, 1.0f);
 		auto breakoutTextEntity = std::make_shared<GameEntity>();
-		breakoutTextEntity->AddComponent(m_BreakoutCongratsText);
+		breakoutTextEntity->AddComponent(m_CenteredText);
 		m_GameEntityList.push_back(breakoutTextEntity);
-	}
-	void UIManager::startLevelCompletedObjects()
-	{
-		m_BreakoutCongratsText->getEntity().lock()->transform->
-			SetPosition(
-				Vector3(
-					(m_ViewPortWidth - m_BreakoutCongratsText->calculatedTextWidth) / 2.0f,
-					m_ViewPortHeight / 2.0f,
-					0.0f));
 	}
 	void UIManager::HideHelpPanel()
 	{
@@ -171,13 +162,22 @@ namespace BreakoutGame
 		m_HelpButton->Hide();
 		m_QuitButton->Hide();
 	}
-	void UIManager::ShowLevelCompletedPanel()
+	void UIManager::ShowCenteredText(std::string text, glm::vec3 color)
 	{
-		m_BreakoutCongratsText->getEntity().lock()->setActive(true);
+		m_CenteredText->text = text;
+		m_CenteredText->color = color;
+		TextRenderer::CalculateTextWidthAndHeight(m_CenteredText);
+		m_CenteredText->getEntity().lock()->transform->
+			SetPosition(
+				Vector3(
+					(m_ViewPortWidth - m_CenteredText->calculatedTextWidth) / 2.0f,
+					m_ViewPortHeight / 2.0f,
+					0.0f));
+		m_CenteredText->getEntity().lock()->setActive(true);
 	}
-	void UIManager::HideLevelCompletedPanel()
+	void UIManager::HideCenteredText()
 	{
-		m_BreakoutCongratsText->getEntity().lock()->setActive(false);
+		m_CenteredText->getEntity().lock()->setActive(false);
 	}
 	void UIManager::SelectMainMenuButton(MainMenuButtonType buttonType)
 	{

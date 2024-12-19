@@ -53,6 +53,7 @@ namespace BreakoutGame
 	void UIButton::UpdateText(std::string text)
 	{
 		m_TextComp->text = text;
+		TextRenderer::CalculateTextWidthAndHeight(m_TextComp);
 		auto textEntity = m_TextComp->getEntity().lock();
 		float textWidth = m_TextComp->calculatedTextWidth;
 		float textHeight = m_TextComp->calculatedTextHeight;

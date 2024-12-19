@@ -54,6 +54,7 @@ namespace BreakoutGame
 				m_InLevelCompletedDelay = false;
 				if (isAllLevelsCompleted())
 				{
+					m_UIManager->HideCenteredText();
 					m_UIManager->UpdateMainMenuStartButtonText("Restart");
 					m_OnAllLevelsCompleted();
 					return;
@@ -176,7 +177,7 @@ namespace BreakoutGame
 	void InGameStateController::initLevel(int level)
 	{
 		m_UIManager->UpdatePlayerHUDLevel(m_PlayerDataManager->GetPlayerLevel());
-		m_UIManager->HideLevelCompletedPanel();
+		m_UIManager->HideCenteredText();
 		m_Paddle->Reset();
 		m_Paddle->DisableMovement();
 		m_Ball->Reset();
@@ -190,7 +191,11 @@ namespace BreakoutGame
 	{
 		if (!isAllLevelsCompleted())
 		{
-			m_UIManager->ShowLevelCompletedPanel();
+			m_UIManager->ShowCenteredText("Level Completed!", glm::vec3(0.0f, 0.0f, 1.0f));
+		}
+		else
+		{
+			m_UIManager->ShowCenteredText("Game Completed!", glm::vec3(0.0f, 1.0f, 0.0f));
 		}
 		m_Ball->SetSpeed(100.0f);
 		m_LevelCompletedDelayTimeCounter = 0.0f;
