@@ -41,6 +41,8 @@ namespace BreakoutGame
 
 		int m_ActiveBrickCount;
 		std::function<void()> m_OnThereIsNoActiveBricksLeft;
+
+		const float ENTER_ANIMATION_OFFSET_X = 40.0f;
 	};
 }
 

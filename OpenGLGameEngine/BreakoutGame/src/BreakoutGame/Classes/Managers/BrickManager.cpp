@@ -114,7 +114,15 @@ namespace BreakoutGame
 				if (brick->getType() != BrickType::None)
 				{
 					auto position = VectorUtility::GlmVec3ToVector3(brick->getEntity()->transform->getPosition());
-					Vector3 startOffset = Vector3(-50.0f, 0.0f, 0.0f);
+					Vector3 startOffset = Vector3(0.0f);
+					if (col > (COLUMN_SIZE / 2))
+					{
+						startOffset.x = ENTER_ANIMATION_OFFSET_X;
+					}
+					else
+					{
+						startOffset.x = -ENTER_ANIMATION_OFFSET_X;
+					}
 					brick->InitializeEnterAnimStart(position + startOffset);
 				}
 			}
