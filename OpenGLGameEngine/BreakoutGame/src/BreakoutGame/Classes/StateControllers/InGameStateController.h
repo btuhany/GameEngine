@@ -32,6 +32,11 @@ namespace BreakoutGame
 		std::shared_ptr<Paddle> m_Paddle;
 		std::shared_ptr<BrickManager> m_BrickManager;
 		std::shared_ptr<UIManager> m_UIManager;
+
+
+		bool m_InLevelCompletedDelay;
+		float m_LevelCompletedDelayTimeCounter = 0.0f;
+		const float DELAY_BETWEEN_LEVELS = 2.5f;
 	};
 }
 

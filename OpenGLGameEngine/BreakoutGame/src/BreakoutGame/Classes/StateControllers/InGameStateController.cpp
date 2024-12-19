@@ -4,6 +4,8 @@ namespace BreakoutGame
 {
 	void InGameStateController::Initialize(std::shared_ptr<Shader> mainShader, std::shared_ptr<UIManager> uiManager)
 	{
+		m_InLevelCompletedDelay = false;
+		m_LevelCompletedDelayTimeCounter = 0.0f;
 		m_IsGamePaused = false;
 		m_UIManager = uiManager;
 
@@ -39,6 +41,17 @@ namespace BreakoutGame
 			m_Ball->SetPosition(m_Paddle->GetBallHolderPosition());
 		}
 		m_BrickManager->Tick(deltaTime);
+
+		if (m_InLevelCompletedDelay)
+		{
+			m_LevelCompletedDelayTimeCounter += deltaTime;
+			if (m_LevelCompletedDelayTimeCounter > DELAY_BETWEEN_LEVELS)
+			{
+				initLevel(1);
+				m_LevelCompletedDelayTimeCounter = 0.0f;
+				m_InLevelCompletedDelay = false;
+			}
+		}
 	}
 	std::vector<std::shared_ptr<GameEntity>> InGameStateController::GetEntities()
 	{
@@ -121,7 +134,7 @@ namespace BreakoutGame
 		m_Ball->getEntity()->setActive(true);
 		m_UIManager->ShowPlayerHUD(m_PlayerDataManager->GetPlayerLive());
 
-		initLevel(m_PlayerDataManager->GetPlayerLevel());
+		initLevel(0);
 	}
 	void InGameStateController::onLevelInitializationCompleted()
 	{
@@ -130,6 +143,7 @@ namespace BreakoutGame
 	}
 	void InGameStateController::initLevel(int level)
 	{
+		m_UIManager->HideLevelCompletedPanel();
 		m_Paddle->Reset();
 		m_Paddle->DisableMovement();
 		m_Ball->Reset();
@@ -141,5 +155,8 @@ namespace BreakoutGame
 	}
 	void InGameStateController::onThereIsNoBrickLeft()
 	{
+		m_UIManager->ShowLevelCompletedPanel();
+		m_LevelCompletedDelayTimeCounter = 0.0f;
+		m_InLevelCompletedDelay = true;
 	}
 }

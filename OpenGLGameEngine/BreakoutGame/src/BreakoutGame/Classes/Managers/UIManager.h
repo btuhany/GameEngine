@@ -23,6 +23,10 @@ namespace BreakoutGame
 
 		void ShowMainMenuPanel();
 		void HideMainMenuPanel();
+
+		void ShowLevelCompletedPanel();
+		void HideLevelCompletedPanel();
+
 		void SelectMainMenuButton(MainMenuButtonType buttonType);
 	private:
 		void initScoreText(std::string initialScoreStr);
@@ -35,6 +39,8 @@ namespace BreakoutGame
 		void startMainMenuPanelObjects();
 		void initPausePanelObjects();
 		void startPausePanelObjects();
+		void initLevelCompletedObjects();
+		void startLevelCompletedObjects();
 
 		float m_ViewPortWidth, m_ViewPortHeight;
 		std::shared_ptr<Shader> m_TextShader;
@@ -46,6 +52,8 @@ namespace BreakoutGame
 		std::vector<std::shared_ptr<GameEntity>> m_HeartSpriteEntities;
 
 		std::shared_ptr<UITextRendererComponent> m_PauseText;
+
+		std::shared_ptr<UITextRendererComponent> m_BreakoutCongratsText;
 
 		std::shared_ptr<UITextRendererComponent> m_BreakoutText;
 		std::shared_ptr<UIButton> m_StartButton;

@@ -63,7 +63,8 @@ namespace BreakoutGame
 
 			if (m_AnimationLerpValue >= 1.0f)
 			{
-				finalizeEnterAnimation();
+				m_AnimationLerpValue = 0.0f;
+				finalizeActiveBricksEnterAnimation();
 				m_IsEnterAnimationPlaying = false;
 				if (m_OnEnterAnimationEnd != nullptr)
 				{
@@ -73,7 +74,7 @@ namespace BreakoutGame
 			}
 			else
 			{
-				tickHandleEnterAnimation(m_AnimationLerpValue);
+				tickActiveBricksEnterAnimation(m_AnimationLerpValue);
 			}
 		}
 	}
@@ -102,6 +103,7 @@ namespace BreakoutGame
 	}
 	void BrickManager::PlayBrickGridEnterAnimation(std::function<void()> onAnimationEndCallback)
 	{
+		m_AnimationLerpValue = 0.0f;
 		m_OnEnterAnimationEnd = onAnimationEndCallback;
 		m_IsEnterAnimationPlaying = true;
 		for (size_t row = 0; row < ROW_SIZE; row++)
@@ -112,13 +114,13 @@ namespace BreakoutGame
 				if (brick->getType() != BrickType::None)
 				{
 					auto position = VectorUtility::GlmVec3ToVector3(brick->getEntity()->transform->getPosition());
-					Vector3 startOffset = Vector3(0.0f, -50.0f, 0.0f);
+					Vector3 startOffset = Vector3(-50.0f, 0.0f, 0.0f);
 					brick->InitializeEnterAnimStart(position + startOffset);
 				}
 			}
 		}
 	}
-	void BrickManager::tickHandleEnterAnimation(float animationLerpValue)
+	void BrickManager::tickActiveBricksEnterAnimation(float animationLerpValue)
 	{
 		for (size_t row = 0; row < ROW_SIZE; row++)
 		{
@@ -133,7 +135,7 @@ namespace BreakoutGame
 			}
 		}
 	}
-	void BrickManager::finalizeEnterAnimation()
+	void BrickManager::finalizeActiveBricksEnterAnimation()
 	{
 		for (size_t row = 0; row < ROW_SIZE; row++)
 		{
