@@ -25,6 +25,7 @@ namespace BreakoutGame
 		void HideHelpPanel();
 
 		void ShowMainMenuPanel();
+		void UpdateMainMenuStartButtonText(std::string text);
 		void HideMainMenuPanel();
 
 		void ShowLevelCompletedPanel();

@@ -160,6 +160,10 @@ namespace BreakoutGame
 		m_HelpButton->SetSelected(false);
 		m_QuitButton->SetSelected(false);
 	}
+	void UIManager::UpdateMainMenuStartButtonText(std::string text)
+	{
+		m_StartButton->UpdateText(text);
+	}
 	void UIManager::HideMainMenuPanel()
 	{
 		m_BreakoutText->getEntity().lock()->setActive(false);

@@ -84,7 +84,7 @@
     <ClInclude Include="src\BreakoutGame\Classes\Data\InputTypeEnum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BreakoutGame\Classes\StateControllers\StateController.h">
+    <ClInclude Include="src\BreakoutGame\Classes\StateControllers\StateBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\BreakoutGame\Classes\Data\MainMenuButtonType.h">

@@ -34,6 +34,7 @@ namespace BreakoutGame
 		if (m_IsGamePaused)
 			return;
 
+		//TICK OBJECTS
 		m_Paddle->Tick(deltaTime);
 		m_Ball->Tick(deltaTime);
 		if (m_Ball->IsOnPaddle)
@@ -42,14 +43,27 @@ namespace BreakoutGame
 		}
 		m_BrickManager->Tick(deltaTime);
 
+
+		//ON LEVEL COMPLETED DELAY
 		if (m_InLevelCompletedDelay)
 		{
 			m_LevelCompletedDelayTimeCounter += deltaTime;
 			if (m_LevelCompletedDelayTimeCounter > DELAY_BETWEEN_LEVELS)
 			{
-				initLevel(m_PlayerDataManager->GetPlayerLevel());
 				m_LevelCompletedDelayTimeCounter = 0.0f;
 				m_InLevelCompletedDelay = false;
+				if (isAllLevelsCompleted())
+				{
+					m_UIManager->UpdateMainMenuStartButtonText("Restart");
+					m_OnAllLevelsCompleted();
+					return;
+				}
+				else
+				{
+					//STARTING A LEVEL OTHER THAN FIRST
+					m_PlayerDataManager->IncreasePlayerLevel(1);
+					initLevel(m_PlayerDataManager->GetPlayerLevel());
+				}
 			}
 		}
 	}
@@ -64,11 +78,15 @@ namespace BreakoutGame
 	}
 	void InGameStateController::HandleOnDeactivated()
 	{
+		m_Ball->getEntity()->setActive(false);
+		m_Paddle->getEntity()->setActive(false);
+		m_UIManager->HidePlayerHUD();
 	}
 
 	void InGameStateController::HandleOnActivated()
 	{
 		m_PlayerDataManager = std::make_shared<PlayerDataManager>();
+		m_UIManager->ShowPlayerHUD();
 		startGame();
 	}
 
@@ -101,6 +119,10 @@ namespace BreakoutGame
 			onPause();
 		}
 	}
+	void InGameStateController::SetCallbacks(std::function<void()> onAllLevelsCompletedHandler)
+	{
+		m_OnAllLevelsCompleted = onAllLevelsCompletedHandler;
+	}
 	void InGameStateController::onBallColliderEnter(std::shared_ptr<GameEntity> gameEntity)
 	{
 		if (gameEntity->getTag() == (int)Tag::Brick)
@@ -109,6 +131,14 @@ namespace BreakoutGame
 			m_PlayerDataManager->ProcessBallHitBrickData(hitData);
 			m_UIManager->UpdatePlayerHUDScorePoint(m_PlayerDataManager->GetScorePoint());
 		}
+	}
+	bool InGameStateController::isAllLevelsCompleted()
+	{
+		if (m_PlayerDataManager->GetPlayerLevel() + 1 >= LevelBrickGridData::GetLevelCount())
+		{
+			return true;
+		}
+		return false;
 	}
 	void InGameStateController::onPause()
 	{
@@ -132,7 +162,6 @@ namespace BreakoutGame
 	{
 		m_Paddle->getEntity()->setActive(true);
 		m_Ball->getEntity()->setActive(true);
-		m_UIManager->ShowPlayerHUD();
 		m_UIManager->UpdatePlayerHUDLevel(m_PlayerDataManager->GetPlayerLevel());
 		m_UIManager->UpdatePlayerHUDLive(m_PlayerDataManager->GetPlayerLive());
 		m_UIManager->UpdatePlayerHUDScorePoint(m_PlayerDataManager->GetScorePoint());
@@ -146,6 +175,7 @@ namespace BreakoutGame
 	}
 	void InGameStateController::initLevel(int level)
 	{
+		m_UIManager->UpdatePlayerHUDLevel(m_PlayerDataManager->GetPlayerLevel());
 		m_UIManager->HideLevelCompletedPanel();
 		m_Paddle->Reset();
 		m_Paddle->DisableMovement();
@@ -158,10 +188,11 @@ namespace BreakoutGame
 	}
 	void InGameStateController::onThereIsNoBrickLeft() //ON LEVEL COMPLETED
 	{
+		if (!isAllLevelsCompleted())
+		{
+			m_UIManager->ShowLevelCompletedPanel();
+		}
 		m_Ball->SetSpeed(100.0f);
-		m_UIManager->ShowLevelCompletedPanel();
-		m_PlayerDataManager->IncreasePlayerLevel(1);
-		m_UIManager->UpdatePlayerHUDLevel(m_PlayerDataManager->GetPlayerLevel());
 		m_LevelCompletedDelayTimeCounter = 0.0f;
 		m_InLevelCompletedDelay = true;
 	}

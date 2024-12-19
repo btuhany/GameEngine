@@ -101,6 +101,11 @@ namespace BreakoutGame
         return brickGridDataArr[index];
     }
 
+    int LevelBrickGridData::GetLevelCount()
+    {
+        return LEVEL_COUNT;
+    }
+
     BrickType LevelBrickGridData::getBrickType(std::string str)
     {
         auto it = m_StringToBrickTypeMap.find(str);

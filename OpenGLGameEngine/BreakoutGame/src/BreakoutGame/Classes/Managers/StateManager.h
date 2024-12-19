@@ -13,14 +13,15 @@ namespace BreakoutGame
 		void Start();
 		void Tick(float deltaTime);
 		GameState GetGameState();
-		std::shared_ptr<StateController> GetController();
+		std::shared_ptr<StateBase> GetController();
 	private:
 		GameState m_CurrentGameState;
 
 		void changeGameState(GameState newState);
 		void onMainMenuStartButtonClick();
 		void onMainMenuQuitButtonClick();
-		std::unordered_map<GameState, std::shared_ptr<StateController>> m_StateControllerMap;
+		void onAllLevelsCompleted();
+		std::unordered_map<GameState, std::shared_ptr<StateBase>> m_StateControllerMap;
 
 
 

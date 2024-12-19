@@ -14,6 +14,7 @@ namespace BreakoutGame
 		static void Initialize();
 		static void ConvertLevelBrickDataToBrickTypeMatrix();
 		static BrickGridData GetBrickGridData(int index);
+		static int GetLevelCount();
 	private:
 		static BrickType getBrickType(std::string str);
 		static BrickGridData brickGridDataArr[LEVEL_COUNT];

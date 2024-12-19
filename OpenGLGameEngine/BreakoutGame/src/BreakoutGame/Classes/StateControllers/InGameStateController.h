@@ -1,6 +1,6 @@
 #pragma once
 #include <GameEngine.h>
-#include "StateController.h"
+#include "StateBase.h"
 #include "../Objects/Ball.h"
 #include "../Objects/Paddle.h"
 #include "../Managers/BrickManager.h"
@@ -9,7 +9,7 @@
 #include "../Data/LevelBrickGridData.h"
 namespace BreakoutGame
 {
-	class InGameStateController : public StateController
+	class InGameStateController : public StateBase
 	{
 	public:
 		void Initialize(std::shared_ptr<Shader> mainShader, std::shared_ptr<UIManager> uiManager);
@@ -19,6 +19,7 @@ namespace BreakoutGame
 		void HandleOnDeactivated() override;
 		void HandleOnActivated() override;
 		void HandleInputs(InputType inputType) override;
+		void SetCallbacks(std::function<void()> onAllLevelsCompletedHandler);
 	private:
 		std::shared_ptr<PlayerDataManager> m_PlayerDataManager;
 		bool m_IsGamePaused = false;
@@ -28,11 +29,13 @@ namespace BreakoutGame
 		void initLevel(int level);
 		void onThereIsNoBrickLeft();
 		void onBallColliderEnter(std::shared_ptr<GameEntity> gameEntity);
+		bool isAllLevelsCompleted();
 		std::shared_ptr<Ball> m_Ball;
 		std::shared_ptr<Paddle> m_Paddle;
 		std::shared_ptr<BrickManager> m_BrickManager;
 		std::shared_ptr<UIManager> m_UIManager;
 
+		std::function<void()> m_OnAllLevelsCompleted;
 
 		bool m_InLevelCompletedDelay;
 		float m_LevelCompletedDelayTimeCounter = 0.0f;

@@ -166,7 +166,7 @@
   <ItemGroup>
     <ClInclude Include="src\BreakoutGame\Classes\Managers\PlayerDataManager.h" />
     <ClInclude Include="src\BreakoutGame\Classes\StateControllers\InGameStateController.h" />
-    <ClInclude Include="src\BreakoutGame\Classes\StateControllers\StateController.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\StateControllers\StateBase.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\InputTypeEnum.h" />
     <ClInclude Include="src\BreakoutGame\Classes\StateControllers\MainMenuStateController.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\BrickData.h" />

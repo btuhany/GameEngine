@@ -28,6 +28,9 @@ namespace BreakoutGame
         std::function<void()> onQuitButtonHandler = std::bind(&StateManager::onMainMenuQuitButtonClick, this);
         mainMenuStateController->SetCallbacks(onStartButtonHandler, onQuitButtonHandler);
 
+        std::function<void()> onAllLevelsCompletedHandler = std::bind(&StateManager::onAllLevelsCompleted, this);
+        inGameStateController->SetCallbacks(onAllLevelsCompletedHandler);
+
 
         m_StateControllerMap[GameState::MainMenu] = mainMenuStateController;
         m_StateControllerMap[GameState::InGame] = inGameStateController;
@@ -52,7 +55,7 @@ namespace BreakoutGame
     {
         return m_CurrentGameState;
     }
-    std::shared_ptr<StateController> StateManager::GetController()
+    std::shared_ptr<StateBase> StateManager::GetController()
     {
         return m_StateControllerMap[m_CurrentGameState];
     }
@@ -78,5 +81,9 @@ namespace BreakoutGame
     }
     void StateManager::onMainMenuQuitButtonClick()
     {
+    }
+    void StateManager::onAllLevelsCompleted()
+    {
+        changeGameState(GameState::MainMenu);
     }
 }

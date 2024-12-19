@@ -1,11 +1,11 @@
 #pragma once
 #include <functional>
-#include "StateController.h"
+#include "StateBase.h"
 #include "../Data/MainMenuButtonType.h"
 #include "../Managers/UIManager.h"
 namespace BreakoutGame
 {
-	class MainMenuStateController : public StateController
+	class MainMenuStateController : public StateBase
 	{	
 	public:
 		MainMenuStateController(
@@ -35,7 +35,7 @@ namespace BreakoutGame
 		void handleHelpPanel();
 		void openHelpPanel();
 		void hideHelpPanel();
-		// Inherited via StateController
+		// Inherited via StateBase
 		void Start() override;
 	};
 }
