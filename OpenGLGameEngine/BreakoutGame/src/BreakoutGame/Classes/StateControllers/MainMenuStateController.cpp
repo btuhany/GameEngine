@@ -76,4 +76,10 @@ namespace BreakoutGame
 		m_CanSelectButtons = false;
 		m_IsAnyButtonClick = false;
 	}
+	void MainMenuStateController::Tick(float deltaTime)
+	{
+	}
+	void MainMenuStateController::Start()
+	{
+	}
 }

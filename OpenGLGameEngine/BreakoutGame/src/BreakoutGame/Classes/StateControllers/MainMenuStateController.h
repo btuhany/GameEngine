@@ -29,6 +29,11 @@ namespace BreakoutGame
 			MainMenuButtonType::Help,
 			MainMenuButtonType::Quit,
 		};
+
+		void Tick(float deltaTime) override;
+
+		// Inherited via StateController
+		void Start() override;
 	};
 }
 

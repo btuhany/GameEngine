@@ -19,7 +19,7 @@ namespace BreakoutGame
         }
     }
 
-    void GameManager::Initialize(std::shared_ptr<UIManager> uiManager)
+    void GameManager::Initialize(std::shared_ptr<UIManager> uiManager, std::shared_ptr<InGameStateController> inGameStateController)
     {
         m_ScorePoint = 0;
         m_PlayerLives = 3;
@@ -28,10 +28,23 @@ namespace BreakoutGame
         std::function<void()> onStartButtonHandler = std::bind(&GameManager::onMainMenuStartButtonClick, this);
         std::function<void()> onQuitButtonHandler = std::bind(&GameManager::onMainMenuQuitButtonClick, this);
         m_StateControllerMap[GameState::MainMenu] = std::make_shared<MainMenuStateController>(uiManager, onStartButtonHandler, onQuitButtonHandler);
+
+        m_StateControllerMap[GameState::InGame] = inGameStateController;
     }
     void GameManager::Start()
     {
+        for (auto it = m_StateControllerMap.begin(); it != m_StateControllerMap.end(); ++it)
+        {
+            it->second->Start();
+        }
         changeGameState(m_CurrentGameState);
+    }
+    void GameManager::Tick(float deltaTime)
+    {
+        if (m_StateControllerMap.find(m_CurrentGameState) != m_StateControllerMap.end())
+        {
+            m_StateControllerMap[m_CurrentGameState]->Tick(deltaTime);
+        }
     }
     int GameManager::GetScorePoint()
     {

@@ -3,13 +3,15 @@
 #include "../Data/BallHitBrickData.h"
 #include "../Data/GameStateEnum.h"
 #include "../StateControllers/MainMenuStateController.h"
+#include "../StateControllers/InGameStateController.h"
 namespace BreakoutGame
 {
 	class GameManager
 	{
 	public:
-		void Initialize(std::shared_ptr<UIManager> uiManager);
+		void Initialize(std::shared_ptr<UIManager> uiManager, std::shared_ptr<InGameStateController> inGameStateController);
 		void Start();
+		void Tick(float deltaTime);
 		int GetScorePoint();
 		int GetPlayerLive();
 		void ProcessBallHitBrickData(BallHitBrickData hitData);
