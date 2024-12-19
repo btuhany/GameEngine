@@ -9,10 +9,13 @@ namespace BreakoutGame
 	{
 	public:
 		void Initialize(float viewPortWidth, float viewPortHeight, int initalScore, int initialLevel, int maxPlayerLive);
-		void SetScorePoint(int scorePoint);
 		std::vector<std::shared_ptr<GameEntity>> getEntityList();
 		void Start();
-		void ShowPlayerHUD(int playerLiveCount);
+
+		void ShowPlayerHUD();
+		void UpdatePlayerHUDScorePoint(int scorePoint);
+		void UpdatePlayerHUDLevel(int level);
+		void UpdatePlayerHUDLive(int live);
 		void HidePlayerHUD();
 
 		void ShowPausePanel();

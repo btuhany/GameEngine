@@ -1,6 +1,9 @@
 #include "PlayerDataManager.h"
 namespace BreakoutGame
 {
+    const int INITAL_LIVES = 3;
+    const int INITIAL_SCORE_POINT = 0;
+    const int INITAL_LEVEL = 0;
     PlayerDataManager::PlayerDataManager()
     {
         ResetData();
@@ -8,9 +11,9 @@ namespace BreakoutGame
     void PlayerDataManager::ResetData()
     {
         //TODO Initial data
-        m_Level = 1;
-        m_ScorePoint = 0;
-        m_Lives = 3;
+        m_Level = INITAL_LEVEL;
+        m_ScorePoint = INITIAL_SCORE_POINT;
+        m_Lives = INITAL_LIVES;
     }
     int PlayerDataManager::GetScorePoint()
     {
@@ -23,6 +26,10 @@ namespace BreakoutGame
     int PlayerDataManager::GetPlayerLevel()
     {
         return m_Level;
+    }
+    void PlayerDataManager::IncreasePlayerLevel(int value)
+    {
+        m_Level += value;
     }
     void PlayerDataManager::ProcessBallHitBrickData(BallHitBrickData hitData)
     {

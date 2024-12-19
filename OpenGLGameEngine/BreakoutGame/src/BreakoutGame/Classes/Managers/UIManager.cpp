@@ -18,7 +18,7 @@ namespace BreakoutGame
 		m_UIScreenSpaceShader->CreateFromFiles(vUIShaderLocation, fUIShaderLocation);
 
 		initScoreText(std::to_string(initalScore));
-		initLevelText(std::to_string(initialLevel));
+		initLevelText(std::to_string(initialLevel + 1));
 		initHeartSpriteEntities(maxPlayerLive);
 		initMainMenuPanelObjects();
 		initPausePanelObjects();
@@ -33,11 +33,11 @@ namespace BreakoutGame
 		startPausePanelObjects();
 		startLevelCompletedObjects();
 	}
-	void UIManager::ShowPlayerHUD(int playerLiveCount)
+	void UIManager::ShowPlayerHUD()
 	{
 		m_ScoreCounterTextComponent->getEntity().lock()->setActive(true);
 		m_LevelTextComponent->getEntity().lock()->setActive(true);
-		for (size_t i = 0; i < playerLiveCount; i++)
+		for (size_t i = 0; i < m_HeartSpriteEntities.size(); i++)
 		{
 			m_HeartSpriteEntities[i]->setActive(true);
 		}
@@ -200,9 +200,20 @@ namespace BreakoutGame
 			break;
 		}
 	}
-	void UIManager::SetScorePoint(int scorePoint)
+	void UIManager::UpdatePlayerHUDScorePoint(int scorePoint)
 	{
 		m_ScoreCounterTextComponent->text = "Score: " + std::to_string(scorePoint);
+	}
+	void UIManager::UpdatePlayerHUDLevel(int level)
+	{
+		m_LevelTextComponent->text = "Level " + std::to_string(level + 1);
+	}
+	void UIManager::UpdatePlayerHUDLive(int live)
+	{
+		for (size_t i = 0; i < live; i++)
+		{
+			m_HeartSpriteEntities[i]->setActive(true);
+		}
 	}
 	std::vector<std::shared_ptr<GameEntity>> UIManager::getEntityList()
 	{

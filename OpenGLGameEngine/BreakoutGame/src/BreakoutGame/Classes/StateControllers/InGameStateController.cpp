@@ -47,7 +47,7 @@ namespace BreakoutGame
 			m_LevelCompletedDelayTimeCounter += deltaTime;
 			if (m_LevelCompletedDelayTimeCounter > DELAY_BETWEEN_LEVELS)
 			{
-				initLevel(1);
+				initLevel(m_PlayerDataManager->GetPlayerLevel());
 				m_LevelCompletedDelayTimeCounter = 0.0f;
 				m_InLevelCompletedDelay = false;
 			}
@@ -107,7 +107,7 @@ namespace BreakoutGame
 		{
 			auto hitData = m_BrickManager->HandleOnGotHitByBall(gameEntity);
 			m_PlayerDataManager->ProcessBallHitBrickData(hitData);
-			m_UIManager->SetScorePoint(m_PlayerDataManager->GetScorePoint());
+			m_UIManager->UpdatePlayerHUDScorePoint(m_PlayerDataManager->GetScorePoint());
 		}
 	}
 	void InGameStateController::onPause()
@@ -132,9 +132,12 @@ namespace BreakoutGame
 	{
 		m_Paddle->getEntity()->setActive(true);
 		m_Ball->getEntity()->setActive(true);
-		m_UIManager->ShowPlayerHUD(m_PlayerDataManager->GetPlayerLive());
+		m_UIManager->ShowPlayerHUD();
+		m_UIManager->UpdatePlayerHUDLevel(m_PlayerDataManager->GetPlayerLevel());
+		m_UIManager->UpdatePlayerHUDLive(m_PlayerDataManager->GetPlayerLive());
+		m_UIManager->UpdatePlayerHUDScorePoint(m_PlayerDataManager->GetScorePoint());
 
-		initLevel(0);
+		initLevel(m_PlayerDataManager->GetPlayerLevel());
 	}
 	void InGameStateController::onLevelInitializationCompleted()
 	{
@@ -153,10 +156,12 @@ namespace BreakoutGame
 		std::function<void()> levelInitHandler = std::bind(&InGameStateController::onLevelInitializationCompleted, this);
 		m_BrickManager->PlayBrickGridEnterAnimation(levelInitHandler);
 	}
-	void InGameStateController::onThereIsNoBrickLeft()
+	void InGameStateController::onThereIsNoBrickLeft() //ON LEVEL COMPLETED
 	{
 		m_Ball->SetSpeed(100.0f);
 		m_UIManager->ShowLevelCompletedPanel();
+		m_PlayerDataManager->IncreasePlayerLevel(1);
+		m_UIManager->UpdatePlayerHUDLevel(m_PlayerDataManager->GetPlayerLevel());
 		m_LevelCompletedDelayTimeCounter = 0.0f;
 		m_InLevelCompletedDelay = true;
 	}

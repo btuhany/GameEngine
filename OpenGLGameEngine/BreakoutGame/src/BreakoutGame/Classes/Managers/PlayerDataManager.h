@@ -10,7 +10,12 @@ namespace BreakoutGame
 		int GetScorePoint();
 		int GetPlayerLive();
 		int GetPlayerLevel();
+		void IncreasePlayerLevel(int value);
 		void ProcessBallHitBrickData(BallHitBrickData hitData);
+
+		static const int INITAL_LIVES = 3;
+		static const int INITIAL_SCORE_POINT = 0;
+		static const int INITAL_LEVEL = 0;
 	private:
 		int m_ScorePoint;
 		int m_Lives;
