@@ -12,7 +12,8 @@ namespace BreakoutGame
 		void ProcessBallHitBrickData(BallHitBrickData hitData);
 	private:
 		int m_ScorePoint;
-		int m_PlayerLives;
+		int m_Lives;
+		int m_Level;
 	};
 }
 
