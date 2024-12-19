@@ -9,6 +9,7 @@ namespace BreakoutGame
 		void ResetData();
 		int GetScorePoint();
 		int GetPlayerLive();
+		int GetPlayerLevel();
 		void ProcessBallHitBrickData(BallHitBrickData hitData);
 	private:
 		int m_ScorePoint;

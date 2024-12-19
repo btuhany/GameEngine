@@ -32,6 +32,7 @@ namespace BreakoutGame
 
 	void Ball::Start()
 	{
+		DisableMovement();
 		m_Speed = 50.0f;
 		m_Entity->transform->SetPosition(glm::vec3(5.0f, 0.0f, 1.1f));
 	}
@@ -60,12 +61,11 @@ namespace BreakoutGame
 	void Ball::StopMovement()
 	{
 		m_MovementVector = glm::vec3(0.0f);
-		m_IsMoving = false;
 	}
 	void Ball::StartMovement(Vector3 movementVector)
 	{
 		m_MovementVector = glm::normalize(glm::vec3(movementVector.x, movementVector.y, movementVector.z));
-		m_IsMoving = true;
+		m_CanMove = true;
 	}
 	void Ball::SetPosition(glm::vec3 position)
 	{
@@ -74,27 +74,47 @@ namespace BreakoutGame
 
 	void Ball::MoveLeft()
 	{
+		if (!m_CanMove)
+			return;
+
 		auto leftVector = glm::vec3(-10.0f, 0.0f, 0.0f);
 		m_Entity->transform->Translate(leftVector * m_DeltaTime);
 	}
 	void Ball::MoveRight()
 	{
+		if (!m_CanMove)
+			return;
+
 		auto rightVector = glm::vec3(10.0f, 0.0f, 0.0f);
 		m_Entity->transform->Translate(rightVector* m_DeltaTime);
 	}
 	void Ball::MoveUp()
 	{
+		if (!m_CanMove)
+			return;
+
 		auto upVector = glm::vec3(0.0f, 10.0f, 0.0f);
 		m_Entity->transform->Translate(upVector* m_DeltaTime);
 	}
 	void Ball::MoveDown()
 	{
+		if (!m_CanMove)
+			return;
+
 		auto downVector = glm::vec3(0.0f, -10.0f, 0.0f);
 		m_Entity->transform->Translate(downVector* m_DeltaTime);
 	}
 	void Ball::SetSpeed(float value)
 	{
 		m_Speed = value;
+	}
+	void Ball::DisableMovement()
+	{
+		m_CanMove = false;
+	}
+	void Ball::EnableMovement()
+	{
+		m_CanMove = true;
 	}
 	void Ball::onCollisionEnter(std::shared_ptr<CollisionData> collisionData)
 	{
@@ -166,7 +186,7 @@ namespace BreakoutGame
 	}
 	void Ball::handleMovement()
 	{
-		if (!m_IsMoving)
+		if (!m_CanMove)
 			return;
 
 		m_Entity->transform->Translate(m_MovementVector * m_DeltaTime * m_Speed);

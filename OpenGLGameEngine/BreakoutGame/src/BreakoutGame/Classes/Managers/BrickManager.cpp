@@ -74,6 +74,12 @@ namespace BreakoutGame
 			}
 		}
 	}
+
+	void BrickManager::PlayBrickGridEnterAnimation(std::function<void()> onAnimationEndCallback)
+	{
+		onAnimationEndCallback();
+	}
+
 	std::vector<std::shared_ptr<GameEntity>> BrickManager::getEntityList()
 	{
 		auto entities = std::vector<std::shared_ptr<GameEntity>>();

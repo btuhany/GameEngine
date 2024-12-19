@@ -7,6 +7,7 @@ namespace BreakoutGame
     }
     void PlayerDataManager::ResetData()
     {
+        //TODO Initial data
         m_Level = 1;
         m_ScorePoint = 0;
         m_Lives = 3;
@@ -18,6 +19,10 @@ namespace BreakoutGame
     int PlayerDataManager::GetPlayerLive()
     {
         return m_Lives;
+    }
+    int PlayerDataManager::GetPlayerLevel()
+    {
+        return m_Level;
     }
     void PlayerDataManager::ProcessBallHitBrickData(BallHitBrickData hitData)
     {

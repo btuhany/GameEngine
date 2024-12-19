@@ -16,6 +16,7 @@ namespace BreakoutGame
 		void HandleOnAfterBricksInstantiated();
 		void Reset();
 		void UpdateBrickGrid(BrickGridData brickTypeGridData);
+		void PlayBrickGridEnterAnimation(std::function<void()> onAnimationEndCallback);
 		std::vector<std::shared_ptr<GameEntity>> getEntityList();
 		BallHitBrickData HandleOnGotHitByBall(std::shared_ptr<GameEntity> brickEntity);
 		std::shared_ptr<BrickData> GetBrickData(BrickType brickType);

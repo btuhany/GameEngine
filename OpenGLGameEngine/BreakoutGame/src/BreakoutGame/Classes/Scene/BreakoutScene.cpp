@@ -179,7 +179,7 @@ namespace BreakoutGame
 	//	}
 	//	else
 	//	{
-	//		onLevelStarted();
+	//		startGame();
 	//		isControllingBall = true;
 	//	}
 	//}

@@ -15,11 +15,13 @@ namespace BreakoutGame
 		void MoveUp() override;
 		void MoveDown() override;
 		void Reset();
+		void DisableMovement();
+		void EnableMovement();
 		glm::vec3 GetBallHolderPosition();
 	private:
+		bool m_CanMove;
 		float m_Speed;
 		float m_DeltaTime;
-
 		glm::vec3 m_BallHolderOffset;
 		const glm::vec3 START_POS = glm::vec3(0.0f, -20.0f, 0.0f);
 	};

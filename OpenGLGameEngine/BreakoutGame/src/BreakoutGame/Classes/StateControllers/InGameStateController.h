@@ -23,7 +23,9 @@ namespace BreakoutGame
 		std::shared_ptr<PlayerDataManager> m_PlayerDataManager;
 		bool m_IsGamePaused = false;
 		void onPause();
-		void onLevelStarted();
+		void startGame();
+		void onLevelInitializationCompleted();
+		void initLevel(int level, std::function<void()> onLevelInitializedCallback);
 		void onLevelEnded();
 		void onThereIsNoBrickLeft();
 		void onBallColliderEnter(std::shared_ptr<GameEntity> gameEntity);
