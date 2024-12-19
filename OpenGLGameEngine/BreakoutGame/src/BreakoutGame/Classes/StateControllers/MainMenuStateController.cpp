@@ -5,6 +5,7 @@ namespace BreakoutGame
 	const int BUTTON_COUNT = 3;
 	MainMenuStateController::MainMenuStateController(std::shared_ptr<UIManager> uiManager)
 	{
+		m_IsHelpPanelActive = false;
 		m_UIManager = uiManager;
 	}
 	void MainMenuStateController::SetCallbacks(std::function<void()> startButtonClickHandler, std::function<void()> quitButtonClickHandler)
@@ -24,6 +25,15 @@ namespace BreakoutGame
 	}
 	void MainMenuStateController::HandleInputs(InputType inputType)
 	{
+		if (m_IsHelpPanelActive)
+		{
+			if (inputType == InputType::EnterKey_Release)
+			{
+				handleHelpPanel();
+			}
+			return;
+		}
+
 		if (!m_CanSelectButtons)
 		{
 			if (inputType == InputType::EnterKey_Release || inputType == InputType::DownArrow_Release)
@@ -63,6 +73,7 @@ namespace BreakoutGame
 			else if (m_ButtonOrder[m_CurrentButtonIndex] == MainMenuButtonType::Help)
 			{
 				m_IsAnyButtonClick = true;
+				handleHelpPanel();
 			}
 			else if (m_ButtonOrder[m_CurrentButtonIndex] == MainMenuButtonType::Quit)
 			{
@@ -80,6 +91,30 @@ namespace BreakoutGame
 	}
 	void MainMenuStateController::Tick(float deltaTime)
 	{
+	}
+	void MainMenuStateController::handleHelpPanel()
+	{
+		if (m_IsHelpPanelActive)
+		{
+			m_IsHelpPanelActive = false;
+			hideHelpPanel();
+		}
+		else
+		{
+			m_IsHelpPanelActive = true;
+			openHelpPanel();
+		}
+	}
+	void MainMenuStateController::openHelpPanel()
+	{
+		m_UIManager->HideMainMenuPanel();
+		m_UIManager->ShowHelpPanel();
+	}
+	void MainMenuStateController::hideHelpPanel()
+	{
+		m_UIManager->HideHelpPanel();
+		m_UIManager->ShowMainMenuPanel();
+		resetState();
 	}
 	void MainMenuStateController::Start()
 	{

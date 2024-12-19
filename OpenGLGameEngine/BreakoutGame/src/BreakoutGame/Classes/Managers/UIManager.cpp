@@ -57,6 +57,9 @@ namespace BreakoutGame
 	{
 		m_PauseText->getEntity().lock()->setActive(false);
 	}
+	void UIManager::ShowHelpPanel()
+	{
+	}
 	void UIManager::initMainMenuPanelObjects()
 	{
 		auto backgroundTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/button_square_gradient.PNG");
@@ -70,7 +73,13 @@ namespace BreakoutGame
 		auto startButtonEntities = m_StartButton->getEntities();
 		m_GameEntityList.insert(m_GameEntityList.end(), startButtonEntities.begin(), startButtonEntities.end());
 
-		float quitButtonOffset = 150.0f;
+		float helpButtonOffset = 150.0f;
+		m_HelpButton = std::make_shared<UIButton>();
+		m_HelpButton->Initialize(m_UIScreenSpaceShader, m_TextShader, backgroundTexture, selectedSpriteTexture, "Help", Vector3(1.0f, 0.0f, 0.0f), Vector2(m_ViewPortWidth / 2.0f, m_ViewPortHeight / 2.0f - helpButtonOffset), Vector2(300.0f, 100.0f), m_ViewPortWidth, m_ViewPortHeight);
+		auto helpButtonEntities = m_HelpButton->getEntities();
+		m_GameEntityList.insert(m_GameEntityList.end(), helpButtonEntities.begin(), helpButtonEntities.end());
+
+		float quitButtonOffset = 300.0f;
 		m_QuitButton = std::make_shared<UIButton>();
 		m_QuitButton->Initialize(m_UIScreenSpaceShader, m_TextShader, backgroundTexture, selectedSpriteTexture, "Quit", Vector3(1.0f, 0.0f, 0.0f), Vector2(m_ViewPortWidth / 2.0f, m_ViewPortHeight / 2.0f - quitButtonOffset), Vector2(300.0f, 100.0f), m_ViewPortWidth, m_ViewPortHeight);
 		auto quitButtonEntities = m_QuitButton->getEntities();
@@ -88,6 +97,7 @@ namespace BreakoutGame
 	void UIManager::startMainMenuPanelObjects()
 	{
 		m_StartButton->Start();
+		m_HelpButton->Start();
 		m_QuitButton->Start();
 
 		float textOffsetY = 150.0f;
@@ -118,16 +128,21 @@ namespace BreakoutGame
 					m_ViewPortHeight / 2.0f,
 					0.0f));
 	}
+	void UIManager::HideHelpPanel()
+	{
+	}
 	void UIManager::ShowMainMenuPanel()
 	{
 		m_BreakoutText->getEntity().lock()->setActive(true);
 		m_StartButton->SetSelected(false);
+		m_HelpButton->SetSelected(false);
 		m_QuitButton->SetSelected(false);
 	}
 	void UIManager::HideMainMenuPanel()
 	{
 		m_BreakoutText->getEntity().lock()->setActive(false);
 		m_StartButton->Hide();
+		m_HelpButton->Hide();
 		m_QuitButton->Hide();
 	}
 	void UIManager::SelectMainMenuButton(MainMenuButtonType buttonType)
@@ -138,14 +153,17 @@ namespace BreakoutGame
 			break;
 		case MainMenuButtonType::Start:
 			m_StartButton->SetSelected(true);
+			m_HelpButton->SetSelected(false);
 			m_QuitButton->SetSelected(false);
 			break;
 		case MainMenuButtonType::Help:
 			m_StartButton->SetSelected(false);
 			m_QuitButton->SetSelected(false);
+			m_HelpButton->SetSelected(true);
 			break;
 		case MainMenuButtonType::Quit:
 			m_StartButton->SetSelected(false);
+			m_HelpButton->SetSelected(false);
 			m_QuitButton->SetSelected(true);
 			break;
 		default:

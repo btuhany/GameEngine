@@ -18,6 +18,9 @@ namespace BreakoutGame
 		void ShowPausePanel();
 		void HidePausePanel();
 
+		void ShowHelpPanel();
+		void HideHelpPanel();
+
 		void ShowMainMenuPanel();
 		void HideMainMenuPanel();
 		void SelectMainMenuButton(MainMenuButtonType buttonType);
@@ -46,6 +49,7 @@ namespace BreakoutGame
 
 		std::shared_ptr<UITextRendererComponent> m_BreakoutText;
 		std::shared_ptr<UIButton> m_StartButton;
+		std::shared_ptr<UIButton> m_HelpButton;
 		std::shared_ptr<UIButton> m_QuitButton;
 		const float MARGIN_TOP = 50.0f;
 		const float MARGIN_LEFT = 50.0f;
