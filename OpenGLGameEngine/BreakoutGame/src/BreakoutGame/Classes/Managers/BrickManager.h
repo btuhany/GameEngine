@@ -15,17 +15,18 @@ namespace BreakoutGame
 		void PoolBricks();
 		void HandleOnAfterBricksInstantiated();
 		void Reset();
+		void Tick(float deltaTime);
 		void UpdateBrickGrid(BrickGridData brickTypeGridData);
 		void PlayBrickGridEnterAnimation(std::function<void()> onAnimationEndCallback);
 		std::vector<std::shared_ptr<GameEntity>> getEntityList();
 		BallHitBrickData HandleOnGotHitByBall(std::shared_ptr<GameEntity> brickEntity);
 		std::shared_ptr<BrickData> GetBrickData(BrickType brickType);
 	private:
+		void tickEnterAnimation(float deltaTime);
 		BallHitBrickData processBrick(std::shared_ptr<Brick> brick);
 		void initializeEasyBrickData(std::shared_ptr<Shader> shader);
 		void initializeMediumBrickData(std::shared_ptr<Shader> shader);
 		void initializeHardBrickData(std::shared_ptr<Shader> shader);
-
 		std::shared_ptr<Brick> findBrick(std::shared_ptr<GameEntity> brickEntity);
 		std::vector<std::vector<std::shared_ptr<Brick>>> m_BrickGrid;
 		const Vector2 SPACING = Vector2(7.0f, 3.0f);
@@ -33,7 +34,9 @@ namespace BreakoutGame
 
 		std::unordered_map<BrickType, std::shared_ptr<BrickData>> m_BrickDataMap;
 
-
+		float m_AnimationLerpValue;
+		bool m_IsEnterAnimationPlaying;
+		
 		int m_ActiveBrickCount;
 		std::function<void()> m_OnThereIsNoActiveBricksLeft;
 	};

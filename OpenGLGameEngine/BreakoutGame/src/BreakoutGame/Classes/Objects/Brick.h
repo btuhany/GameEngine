@@ -20,7 +20,6 @@ namespace BreakoutGame
 		std::shared_ptr<SpriteEntity> getEntity();
 		BrickType getType();
 		void ResetHitCount();
-
 		int hitCount;
 	private:
 		std::shared_ptr<SpriteEntity> m_Entity;

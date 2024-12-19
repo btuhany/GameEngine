@@ -38,6 +38,7 @@ namespace BreakoutGame
 		{
 			m_Ball->SetPosition(m_Paddle->GetBallHolderPosition());
 		}
+		m_BrickManager->Tick(deltaTime);
 		//PADDLE ANIMATION FOR JUST TESTING
 		//if (m_Paddle->getEntity()->getActive())
 		//{

@@ -3,6 +3,8 @@ namespace BreakoutGame
 {
 	void BrickManager::Initialize(std::shared_ptr<Shader> mainShader, std::function<void()> onThereIsNoActiveBricksLeftHandler)
 	{
+		m_IsEnterAnimationPlaying = false;
+		m_AnimationLerpValue = 0.0f;
 		m_ActiveBrickCount = 0;
 		m_OnThereIsNoActiveBricksLeft = onThereIsNoActiveBricksLeftHandler;
 
@@ -51,6 +53,13 @@ namespace BreakoutGame
 	{
 		m_ActiveBrickCount = 0;
 	}
+	void BrickManager::Tick(float deltaTime)
+	{
+		if (m_IsEnterAnimationPlaying)
+		{
+			tickEnterAnimation(deltaTime);
+		}
+	}
 	void BrickManager::UpdateBrickGrid(BrickGridData brickTypeGridData)
 	{
 		m_ActiveBrickCount = 0;
@@ -74,10 +83,10 @@ namespace BreakoutGame
 			}
 		}
 	}
-
 	void BrickManager::PlayBrickGridEnterAnimation(std::function<void()> onAnimationEndCallback)
 	{
-		onAnimationEndCallback();
+		m_IsEnterAnimationPlaying = true;
+
 	}
 
 	std::vector<std::shared_ptr<GameEntity>> BrickManager::getEntityList()
@@ -103,6 +112,25 @@ namespace BreakoutGame
 		}
 		
 		return processBrick(brick);
+	}
+	void BrickManager::tickEnterAnimation(float deltaTime)
+	{
+		m_AnimationLerpValue += deltaTime;;
+		m_AnimationLerpValue = std::min(m_AnimationLerpValue, 1.0f);
+		for (size_t row = 0; row < ROW_SIZE; row++)
+		{
+			for (size_t col = 0; col < COLUMN_SIZE; col++)
+			{
+				auto brickTransform = m_BrickGrid[row][col]->getEntity()->transform;
+
+				auto brickCurrentPos = brickTransform->getPosition();
+				auto lastPos = Vector3(0.0f, 0.0f, 0.0f); //current position
+				auto firstPos = Vector3(-15.0f, 0.0f, 0.0f); //current position with offset
+				float timeValue = TweenEase::Linear(m_AnimationLerpValue);
+				auto newPos = Vector3::UnclampedLerp(firstPos, lastPos, timeValue);
+				brickTransform->SetPosition(newPos);
+			}
+		}
 	}
 	BallHitBrickData BrickManager::processBrick(std::shared_ptr<Brick> brick)
 	{
