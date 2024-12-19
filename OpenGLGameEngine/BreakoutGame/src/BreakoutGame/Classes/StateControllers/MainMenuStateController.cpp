@@ -1,26 +1,26 @@
-#include "MainMenuController.h"
+#include "MainMenuStateController.h"
 
 namespace BreakoutGame
 {
 	const int BUTTON_COUNT = 3;
-	MainMenuController::MainMenuController(std::shared_ptr<UIManager> uiManager, std::function<void()> startButtonClickHandler,
+	MainMenuStateController::MainMenuStateController(std::shared_ptr<UIManager> uiManager, std::function<void()> startButtonClickHandler,
 		std::function<void()> quitButtonClickHandler)
 	{
 		m_UIManager = uiManager;
 		m_OnStartButtonClick = startButtonClickHandler;
 		m_OnQuitButtonClick = quitButtonClickHandler;
 	}
-	void MainMenuController::HandleOnActivated()
+	void MainMenuStateController::HandleOnActivated()
 	{
 		resetState();
 		m_UIManager->ShowMainMenuPanel();
 	}
-	void MainMenuController::HandleOnDeactivated()
+	void MainMenuStateController::HandleOnDeactivated()
 	{
 		resetState();
 		m_UIManager->HideMainMenuPanel();;
 	}
-	void MainMenuController::HandleInputs(InputType inputType)
+	void MainMenuStateController::HandleInputs(InputType inputType)
 	{
 		if (!m_CanSelectButtons)
 		{
@@ -70,7 +70,7 @@ namespace BreakoutGame
 			return;
 		}
 	}
-	void MainMenuController::resetState()
+	void MainMenuStateController::resetState()
 	{
 		m_CurrentButtonIndex = -1;
 		m_CanSelectButtons = false;

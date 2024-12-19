@@ -2,8 +2,7 @@
 #include <GameEngine.h>
 #include "../Data/BallHitBrickData.h"
 #include "../Data/GameStateEnum.h"
-#include "../Controllers/InputController.h"
-#include "../Controllers/MainMenuController.h"
+#include "../StateControllers/MainMenuStateController.h"
 namespace BreakoutGame
 {
 	class GameManager
@@ -15,14 +14,14 @@ namespace BreakoutGame
 		int GetPlayerLive();
 		void ProcessBallHitBrickData(BallHitBrickData hitData);
 		GameState GetGameState();
-		std::shared_ptr<InputController> GetController();
+		std::shared_ptr<StateController> GetController();
 	private:
 		GameState m_CurrentGameState;
 
 		void changeGameState(GameState newState);
 		void onMainMenuStartButtonClick();
 		void onMainMenuQuitButtonClick();
-		std::unordered_map<GameState, std::shared_ptr<InputController>> m_StateControllerMap;
+		std::unordered_map<GameState, std::shared_ptr<StateController>> m_StateControllerMap;
 
 
 		//PLAYER DATA

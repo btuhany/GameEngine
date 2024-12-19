@@ -3,7 +3,7 @@
 namespace BreakoutGame
 {
 	//TODO name refactor to state controller
-	class InputController
+	class StateController
 	{
 	public:
 		virtual void HandleOnDeactivated() = 0;

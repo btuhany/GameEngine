@@ -27,7 +27,7 @@ namespace BreakoutGame
 
         std::function<void()> onStartButtonHandler = std::bind(&GameManager::onMainMenuStartButtonClick, this);
         std::function<void()> onQuitButtonHandler = std::bind(&GameManager::onMainMenuQuitButtonClick, this);
-        m_StateControllerMap[GameState::MainMenu] = std::make_shared<MainMenuController>(uiManager, onStartButtonHandler, onQuitButtonHandler);
+        m_StateControllerMap[GameState::MainMenu] = std::make_shared<MainMenuStateController>(uiManager, onStartButtonHandler, onQuitButtonHandler);
     }
     void GameManager::Start()
     {
@@ -49,7 +49,7 @@ namespace BreakoutGame
     {
         return m_CurrentGameState;
     }
-    std::shared_ptr<InputController> GameManager::GetController()
+    std::shared_ptr<StateController> GameManager::GetController()
     {
         return m_StateControllerMap[m_CurrentGameState];
     }

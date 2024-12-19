@@ -78,13 +78,13 @@
     <ClInclude Include="src\BreakoutGame\Classes\Data\GameStateEnum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BreakoutGame\Classes\Controllers\MainMenuController.h">
+    <ClInclude Include="src\BreakoutGame\Classes\StateControllers\MainMenuStateController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\BreakoutGame\Classes\Data\InputTypeEnum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BreakoutGame\Classes\Controllers\InputController.h">
+    <ClInclude Include="src\BreakoutGame\Classes\StateControllers\StateController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\BreakoutGame\Classes\Data\MainMenuButtonType.h">
@@ -134,7 +134,7 @@
     <ClCompile Include="src\BreakoutGame\Classes\Objects\UIButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BreakoutGame\Classes\Controllers\MainMenuController.cpp">
+    <ClCompile Include="src\BreakoutGame\Classes\StateControllers\MainMenuStateController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

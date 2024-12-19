@@ -1,14 +1,14 @@
 #pragma once
 #include <functional>
-#include "InputController.h"
+#include "StateController.h"
 #include "../Data/MainMenuButtonType.h"
 #include "../Managers/UIManager.h"
 namespace BreakoutGame
 {
-	class MainMenuController : public InputController
+	class MainMenuStateController : public StateController
 	{	
 	public:
-		MainMenuController(
+		MainMenuStateController(
 			std::shared_ptr<UIManager> uiManager,
 			std::function<void()> startButtonClickHandler,
 			std::function<void()> quitButtonClickHandler);
