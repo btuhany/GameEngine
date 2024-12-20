@@ -18,10 +18,11 @@ namespace BreakoutGame
 		m_UIScreenSpaceShader->CreateFromFiles(vUIShaderLocation, fUIShaderLocation);
 
 		initScoreText(std::to_string(initalScore));
-		initLevelText(std::to_string(initialLevel));
+		initLevelText(std::to_string(initialLevel + 1));
 		initHeartSpriteEntities(maxPlayerLive);
-
 		initMainMenuPanelObjects();
+		initPausePanelObjects();
+		initLevelCompletedObjects();
 	}
 	void UIManager::Start()
 	{
@@ -29,12 +30,14 @@ namespace BreakoutGame
 		startLevelText();
 		startHeartSpriteEntities();
 		startMainMenuPanelObjects();
+		startPausePanelObjects();
+
 	}
-	void UIManager::ShowPlayerHUD(int playerLiveCount)
+	void UIManager::ShowPlayerHUD()
 	{
 		m_ScoreCounterTextComponent->getEntity().lock()->setActive(true);
 		m_LevelTextComponent->getEntity().lock()->setActive(true);
-		for (size_t i = 0; i < playerLiveCount; i++)
+		for (size_t i = 0; i < m_HeartSpriteEntities.size(); i++)
 		{
 			m_HeartSpriteEntities[i]->setActive(true);
 		}
@@ -47,6 +50,17 @@ namespace BreakoutGame
 		{
 			m_HeartSpriteEntities[i]->setActive(false);
 		}
+	}
+	void UIManager::ShowPausePanel()
+	{
+		m_PauseText->getEntity().lock()->setActive(true);
+	}
+	void UIManager::HidePausePanel()
+	{
+		m_PauseText->getEntity().lock()->setActive(false);
+	}
+	void UIManager::ShowHelpPanel()
+	{
 	}
 	void UIManager::initMainMenuPanelObjects()
 	{
@@ -61,7 +75,13 @@ namespace BreakoutGame
 		auto startButtonEntities = m_StartButton->getEntities();
 		m_GameEntityList.insert(m_GameEntityList.end(), startButtonEntities.begin(), startButtonEntities.end());
 
-		float quitButtonOffset = 150.0f;
+		float helpButtonOffset = 150.0f;
+		m_HelpButton = std::make_shared<UIButton>();
+		m_HelpButton->Initialize(m_UIScreenSpaceShader, m_TextShader, backgroundTexture, selectedSpriteTexture, "Help", Vector3(1.0f, 0.0f, 0.0f), Vector2(m_ViewPortWidth / 2.0f, m_ViewPortHeight / 2.0f - helpButtonOffset), Vector2(300.0f, 100.0f), m_ViewPortWidth, m_ViewPortHeight);
+		auto helpButtonEntities = m_HelpButton->getEntities();
+		m_GameEntityList.insert(m_GameEntityList.end(), helpButtonEntities.begin(), helpButtonEntities.end());
+
+		float quitButtonOffset = 300.0f;
 		m_QuitButton = std::make_shared<UIButton>();
 		m_QuitButton->Initialize(m_UIScreenSpaceShader, m_TextShader, backgroundTexture, selectedSpriteTexture, "Quit", Vector3(1.0f, 0.0f, 0.0f), Vector2(m_ViewPortWidth / 2.0f, m_ViewPortHeight / 2.0f - quitButtonOffset), Vector2(300.0f, 100.0f), m_ViewPortWidth, m_ViewPortHeight);
 		auto quitButtonEntities = m_QuitButton->getEntities();
@@ -79,27 +99,85 @@ namespace BreakoutGame
 	void UIManager::startMainMenuPanelObjects()
 	{
 		m_StartButton->Start();
+		m_HelpButton->Start();
 		m_QuitButton->Start();
 
-		float breakoutTextHeaderOffsetY = 150.0f;
+		float textOffsetY = 150.0f;
 		m_BreakoutText->getEntity().lock()->transform->
 			SetPosition(
 				Vector3(
 					(m_ViewPortWidth - m_BreakoutText->calculatedTextWidth) / 2.0f, 
-					m_ViewPortHeight / 2.0f + breakoutTextHeaderOffsetY, 
+					m_ViewPortHeight / 2.0f + textOffsetY, 
 					0.0f));
+	}
+	void UIManager::initPausePanelObjects()
+	{
+		m_PauseText = std::make_shared<UITextRendererComponent>();
+		m_PauseText->text = "Paused";
+		m_PauseText->shader = m_TextShader;
+		m_PauseText->textSize = TextSize::Large;
+		m_PauseText->color = glm::vec3(1.0f, 0.0f, 0.0f);
+		auto breakoutTextEntity = std::make_shared<GameEntity>();
+		breakoutTextEntity->AddComponent(m_PauseText);
+		m_GameEntityList.push_back(breakoutTextEntity);
+	}
+	void UIManager::startPausePanelObjects()
+	{
+		m_PauseText->getEntity().lock()->transform->
+			SetPosition(
+				Vector3(
+					(m_ViewPortWidth - m_PauseText->calculatedTextWidth) / 2.0f,
+					m_ViewPortHeight / 2.0f,
+					0.0f));
+	}
+	void UIManager::initLevelCompletedObjects()
+	{
+		m_CenteredText = std::make_shared<UITextRendererComponent>();
+		m_CenteredText->text = "Breakout!";
+		m_CenteredText->shader = m_TextShader;
+		m_CenteredText->textSize = TextSize::Large;
+		m_CenteredText->color = glm::vec3(0.0f, 0.0f, 1.0f);
+		auto breakoutTextEntity = std::make_shared<GameEntity>();
+		breakoutTextEntity->AddComponent(m_CenteredText);
+		m_GameEntityList.push_back(breakoutTextEntity);
+	}
+	void UIManager::HideHelpPanel()
+	{
 	}
 	void UIManager::ShowMainMenuPanel()
 	{
 		m_BreakoutText->getEntity().lock()->setActive(true);
 		m_StartButton->SetSelected(false);
+		m_HelpButton->SetSelected(false);
 		m_QuitButton->SetSelected(false);
+	}
+	void UIManager::UpdateMainMenuStartButtonText(std::string text)
+	{
+		m_StartButton->UpdateText(text);
 	}
 	void UIManager::HideMainMenuPanel()
 	{
 		m_BreakoutText->getEntity().lock()->setActive(false);
 		m_StartButton->Hide();
+		m_HelpButton->Hide();
 		m_QuitButton->Hide();
+	}
+	void UIManager::ShowCenteredText(std::string text, glm::vec3 color)
+	{
+		m_CenteredText->text = text;
+		m_CenteredText->color = color;
+		TextRenderer::CalculateTextWidthAndHeight(m_CenteredText);
+		m_CenteredText->getEntity().lock()->transform->
+			SetPosition(
+				Vector3(
+					(m_ViewPortWidth - m_CenteredText->calculatedTextWidth) / 2.0f,
+					m_ViewPortHeight / 2.0f,
+					0.0f));
+		m_CenteredText->getEntity().lock()->setActive(true);
+	}
+	void UIManager::HideCenteredText()
+	{
+		m_CenteredText->getEntity().lock()->setActive(false);
 	}
 	void UIManager::SelectMainMenuButton(MainMenuButtonType buttonType)
 	{
@@ -109,23 +187,37 @@ namespace BreakoutGame
 			break;
 		case MainMenuButtonType::Start:
 			m_StartButton->SetSelected(true);
+			m_HelpButton->SetSelected(false);
 			m_QuitButton->SetSelected(false);
 			break;
 		case MainMenuButtonType::Help:
 			m_StartButton->SetSelected(false);
 			m_QuitButton->SetSelected(false);
+			m_HelpButton->SetSelected(true);
 			break;
 		case MainMenuButtonType::Quit:
 			m_StartButton->SetSelected(false);
+			m_HelpButton->SetSelected(false);
 			m_QuitButton->SetSelected(true);
 			break;
 		default:
 			break;
 		}
 	}
-	void UIManager::SetScorePoint(int scorePoint)
+	void UIManager::UpdatePlayerHUDScorePoint(int scorePoint)
 	{
 		m_ScoreCounterTextComponent->text = "Score: " + std::to_string(scorePoint);
+	}
+	void UIManager::UpdatePlayerHUDLevel(int level)
+	{
+		m_LevelTextComponent->text = "Level " + std::to_string(level + 1);
+	}
+	void UIManager::UpdatePlayerHUDLive(int live)
+	{
+		for (size_t i = 0; i < live; i++)
+		{
+			m_HeartSpriteEntities[i]->setActive(true);
+		}
 	}
 	std::vector<std::shared_ptr<GameEntity>> UIManager::getEntityList()
 	{
@@ -160,6 +252,7 @@ namespace BreakoutGame
 		textEntity->AddComponent(textComp);
 		m_GameEntityList.push_back(textEntity);
 	}
+	
 	void UIManager::startLevelText()
 	{
 		auto textEntity = m_LevelTextComponent->getEntity().lock();

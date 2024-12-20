@@ -58,9 +58,10 @@ void BreakoutSceneInputHandler::HandleKeys(int* keys, GLfloat deltaTime)
 	{
 		ProcessInputCallback(BreakoutGame::InputType::EnterKey_Release);
 	}
-
-	if (!IsPlayerControlsActive)
-		return;
+	if (keys[GLFW_KEY_P] == KEY_STATE_RELEASE)
+	{
+		ProcessInputCallback(BreakoutGame::InputType::PauseKey);
+	}
 }
 
 void BreakoutSceneInputHandler::HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY)

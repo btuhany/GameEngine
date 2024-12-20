@@ -39,7 +39,7 @@
     <ClInclude Include="src\BreakoutGame\Classes\Objects\IMovable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BreakoutGame\Classes\Managers\GameManager.h">
+    <ClInclude Include="src\BreakoutGame\Classes\Managers\StateManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\BreakoutGame\Classes\Managers\BrickManager.h">
@@ -78,16 +78,22 @@
     <ClInclude Include="src\BreakoutGame\Classes\Data\GameStateEnum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BreakoutGame\Classes\Controllers\MainMenuController.h">
+    <ClInclude Include="src\BreakoutGame\Classes\StateControllers\MainMenuStateController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\BreakoutGame\Classes\Data\InputTypeEnum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BreakoutGame\Classes\Controllers\InputController.h">
+    <ClInclude Include="src\BreakoutGame\Classes\StateControllers\StateBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\BreakoutGame\Classes\Data\MainMenuButtonType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\StateControllers\InGameStateController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Managers\PlayerDataManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -116,7 +122,7 @@
     <ClCompile Include="src\BreakoutGame\Classes\Objects\IMovable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BreakoutGame\Classes\Managers\GameManager.cpp">
+    <ClCompile Include="src\BreakoutGame\Classes\Managers\StateManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\BreakoutGame\Classes\Managers\BrickManager.cpp">
@@ -134,7 +140,13 @@
     <ClCompile Include="src\BreakoutGame\Classes\Objects\UIButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BreakoutGame\Classes\Controllers\MainMenuController.cpp">
+    <ClCompile Include="src\BreakoutGame\Classes\StateControllers\MainMenuStateController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BreakoutGame\Classes\StateControllers\InGameStateController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BreakoutGame\Classes\Managers\PlayerDataManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -12,7 +12,7 @@ namespace BreakoutGame
             { ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "." },
             { ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "." },
             { ".", ".", ".", ".", ".", "e", ".", ".", ".", ".", "." },
-            { ".", ".", ".", ".", ".", "e", ".", ".", ".", ".", "." },
+            { ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "." },
             { ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "." },
             { ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "." }
         },
@@ -99,6 +99,11 @@ namespace BreakoutGame
         }
 
         return brickGridDataArr[index];
+    }
+
+    int LevelBrickGridData::GetLevelCount()
+    {
+        return LEVEL_COUNT;
     }
 
     BrickType LevelBrickGridData::getBrickType(std::string str)

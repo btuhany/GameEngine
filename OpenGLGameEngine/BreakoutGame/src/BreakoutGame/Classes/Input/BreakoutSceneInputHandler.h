@@ -16,7 +16,6 @@ public:
 	SimpleEvent<> OnBallReleaseKeyEvent;
 	void HandleKeys(int* keys, GLfloat deltaTime) override;
 	void HandleMouse(GLfloat mouseDeltaX, GLfloat mouseDeltaY) override;
-	bool IsPlayerControlsActive = false;
 	std::function<void(BreakoutGame::InputType)> onInputCallback;
 private:
 	void ProcessInputCallback(BreakoutGame::InputType inputType);

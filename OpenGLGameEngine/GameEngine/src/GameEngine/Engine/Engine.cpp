@@ -129,7 +129,7 @@ namespace GameEngine {
 			GLfloat frameTime = glfwGetTime() - timeNow;
 			if (frameTime < targetFrameDurationSec)
 			{
-				std::this_thread::sleep_for(std::chrono::duration<float>(targetFrameDurationSec - frameTime));
+				//std::this_thread::sleep_for(std::chrono::duration<float>(targetFrameDurationSec - frameTime));
 			}
 		}
 	}

@@ -27,6 +27,7 @@ get and set functions -> getOrSetFunction()
 - [] Not instantiated components still contained in manager vector lists (for example: RendererComponent and Renderer)
 - [] Camera space ui canvas
 - [] JSON Serialization/Deserialization
+- [] Application quit handler
 ************************************************************
 
 08.24
@@ -95,16 +96,16 @@ daily
 
 BREAKOUT GAME
 - Game Manager [X]
-- Paddle Collider Normals fine tuning fix [X]
+- Paddle Collider Normals fine tuning fix []
 - Fix temp isInCollider bool for ball [X]
 - Process all colliders at once [CHANGED]
-- Main menu -> Play and Quit []
+- Main menu -> Play and Quit [X]
 - Ball rotation animation []
-- Bricks transition animation []
+- Bricks transition animation [X]
 - Finalizing design []
 - Overall level transitions logic []
 - Player lost lives logic []
-- Pause logic -> Back to main menu []
+- Pause logic -> Back to main menu [X] (CHANGED)
 - Tiles calculating normals based on ball movement vector []
 - Initializing data with config classes (without magic numbers) []
 - Starting ball movement vector based on paddle speed []

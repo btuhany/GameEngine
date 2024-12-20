@@ -164,9 +164,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\BreakoutGame\Classes\Controllers\InputController.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\Managers\PlayerDataManager.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\StateControllers\InGameStateController.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\StateControllers\StateBase.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\InputTypeEnum.h" />
-    <ClInclude Include="src\BreakoutGame\Classes\Controllers\MainMenuController.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\StateControllers\MainMenuStateController.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\BrickData.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\BallHitBrickData.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\BrickGridData.h" />
@@ -179,7 +181,7 @@
     <ClInclude Include="src\BreakoutGame\Classes\Objects\Brick.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Managers\IEntityProvider.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Managers\BrickManager.h" />
-    <ClInclude Include="src\BreakoutGame\Classes\Managers\GameManager.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\Managers\StateManager.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Objects\IMovable.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Managers\UIManager.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Objects\BreakoutObject.h" />
@@ -191,12 +193,14 @@
     <ClInclude Include="src\BreakoutGame\Classes\Objects\UIButton.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\BreakoutGame\Classes\Controllers\MainMenuController.cpp" />
+    <ClCompile Include="src\BreakoutGame\Classes\Managers\PlayerDataManager.cpp" />
+    <ClCompile Include="src\BreakoutGame\Classes\StateControllers\InGameStateController.cpp" />
+    <ClCompile Include="src\BreakoutGame\Classes\StateControllers\MainMenuStateController.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Data\LevelBrickGridData.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Objects\Brick.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Managers\IEntityProvider.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Managers\BrickManager.cpp" />
-    <ClCompile Include="src\BreakoutGame\Classes\Managers\GameManager.cpp" />
+    <ClCompile Include="src\BreakoutGame\Classes\Managers\StateManager.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Objects\IMovable.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Managers\UIManager.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Objects\BreakoutObject.cpp" />

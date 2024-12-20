@@ -21,8 +21,13 @@ namespace BreakoutGame
 		BrickType getType();
 		void ResetHitCount();
 
+		void TickAnimation(float lerpValue);
+		void InitializeEnterAnimStart(Vector3 startPos);
+		void StopAnimationResetPos();
 		int hitCount;
 	private:
+		Vector3 m_EnterAnimStartPosition;
+		Vector3 m_EnterAnimStopPosition;
 		std::shared_ptr<SpriteEntity> m_Entity;
 		BrickType m_Type;
 	};

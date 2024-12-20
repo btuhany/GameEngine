@@ -1,6 +1,7 @@
 #include "TextRenderer.h"
 namespace GameEngine
 {
+    std::unordered_map<TextSize, std::map<char, TextCharacter>> TextRenderer::sizeCharactersMap;
     //TODO Renderer comp events functions before initialization.
 	void TextRenderer::Initialize()
 	{
@@ -20,42 +21,7 @@ namespace GameEngine
     {
         for (size_t i = 0; i < m_Components.size(); i++)
         {
-            auto textComp = m_Components[i];
-            auto ownerEntity = textComp->getEntity();
-
-            if (ownerEntity.expired())
-            {
-                LOG_CORE_WARN("TextRenderer:: Post init owner entity is exprired!");
-                continue;
-            }
-
-            auto transform = ownerEntity.lock()->transform;
-            float textStartPosX = transform->getPosition().x;
-            float textStartPosY = transform->getPosition().y;
-
-            float startPos = textStartPosX; //for calculating the total text width;
-
-            auto scale = transform->getScale();
-
-            std::string text = textComp->text;
-            std::string::const_iterator c;
-            for (c = text.begin(); c != text.end(); c++)
-            {
-                TextCharacter ch = sizeCharactersMap[textComp->textSize][*c];
-                float xpos = textStartPosX + ch.bearing.x * scale.x;
-                float ypos = textStartPosY - (ch.size.y - ch.bearing.y) * scale.y;
-
-                float w = ch.size.x * scale.x;
-                float h = ch.size.y * scale.y;
-
-                textStartPosX += (ch.advance >> 6) * scale.x; // bitshift by 6 to get value in pixels (2^6 = 64)
-
-                if (h > textComp->calculatedTextHeight)
-                {
-                    textComp->calculatedTextHeight = h;
-                }
-            }
-            textComp->calculatedTextWidth = textStartPosX - startPos;
+            CalculateTextWidthAndHeight(m_Components[i]);
         }
     }
     void TextRenderer::LoadCharMap(TextSize textSize, int size)
@@ -256,5 +222,43 @@ namespace GameEngine
         auto ownerEntity = rendererComponent->getEntity().lock();
         //std::cout << "renderer object name: " << ownerEntity->getName() << ", object active: " << ownerEntity->getActive() << " , compnentEnabled: " << rendererComponent->getEnabled() << std::endl;
         return rendererComponent->getEnabled() && ownerEntity->getActive();  //Scene control in the future
+    }
+    void TextRenderer::CalculateTextWidthAndHeight(std::shared_ptr<UITextRendererComponent> textComp)
+    {
+        auto ownerEntity = textComp->getEntity();
+
+        if (ownerEntity.expired())
+        {
+            LOG_CORE_WARN("CalculateTextWidthAndHeight:: owner entity is exprired!");
+            return;
+        }
+
+        auto transform = ownerEntity.lock()->transform;
+        float textStartPosX = transform->getPosition().x;
+        float textStartPosY = transform->getPosition().y;
+
+        float startPos = textStartPosX; //for calculating the total text width;
+
+        auto scale = transform->getScale();
+
+        std::string text = textComp->text;
+        std::string::const_iterator c;
+        for (c = text.begin(); c != text.end(); c++)
+        {
+            TextCharacter ch = sizeCharactersMap[textComp->textSize][*c];
+            float xpos = textStartPosX + ch.bearing.x * scale.x;
+            float ypos = textStartPosY - (ch.size.y - ch.bearing.y) * scale.y;
+
+            float w = ch.size.x * scale.x;
+            float h = ch.size.y * scale.y;
+
+            textStartPosX += (ch.advance >> 6) * scale.x; // bitshift by 6 to get value in pixels (2^6 = 64)
+
+            if (h > textComp->calculatedTextHeight)
+            {
+                textComp->calculatedTextHeight = h;
+            }
+        }
+        textComp->calculatedTextWidth = textStartPosX - startPos;
     }
 }

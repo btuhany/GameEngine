@@ -50,6 +50,19 @@ namespace BreakoutGame
 		m_SelectedStateEntity->setActive(isSelected);
 		m_TextComp->getEntity().lock()->setActive(true);
 	}
+	void UIButton::UpdateText(std::string text)
+	{
+		m_TextComp->text = text;
+		TextRenderer::CalculateTextWidthAndHeight(m_TextComp);
+		auto textEntity = m_TextComp->getEntity().lock();
+		float textWidth = m_TextComp->calculatedTextWidth;
+		float textHeight = m_TextComp->calculatedTextHeight;
+		float scaleX = scale.x;
+		float scaleY = scale.y;
+		float posX = pos.x - scaleX / 2.0f;
+		float posY = pos.y - scaleY / 2.0f;
+		textEntity->transform->SetPosition(glm::vec3(posX + (scaleX - textWidth) / 2.0f, posY + (scaleY - textHeight) / 2.0f, 0.0f));
+	}
 	void UIButton::Hide()
 	{
 		m_BackgroundSpriteEntity->setActive(false);

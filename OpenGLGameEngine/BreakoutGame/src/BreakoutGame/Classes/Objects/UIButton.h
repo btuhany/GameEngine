@@ -8,6 +8,7 @@ namespace BreakoutGame
 		void Initialize(std::shared_ptr<Shader> uiShader, std::shared_ptr<Shader> textShader, std::shared_ptr<Texture> backgroundTex, std::shared_ptr<Texture> selectedTex, std::string text, Vector3 textColor, Vector2 posVal, Vector2 scaleVal, float viewPortWidth, float viewPortHeight);
 		void Start();
 		void SetSelected(bool isSelected);
+		void UpdateText(std::string text);
 		void Hide();
 		std::vector<std::shared_ptr<GameEntity>> getEntities();
 		Vector2 pos;

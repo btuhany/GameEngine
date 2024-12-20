@@ -3,13 +3,12 @@
 #include <unordered_map>
 #include <GameEngine.h>
 #include "../Input/BreakoutSceneInputHandler.h"
-#include "../Objects/Ball.h"
-#include "../Objects/Paddle.h"
+
 #include "../Managers/UIManager.h"
-#include "../Managers/BrickManager.h"
-#include "../Managers/GameManager.h"
-#include "../Data/LevelBrickGridData.h"
+
+#include "../Managers/StateManager.h"
 #include "../Data/InputTypeEnum.h"
+#include "../StateControllers/InGameStateController.h"
 namespace BreakoutGame
 {
 	class BreakoutScene : public Scene
@@ -30,46 +29,18 @@ namespace BreakoutGame
 		void initializeBoundaryObjects();
 		void initializeMainShader();
 		void initializeMainCamera();
-		void initializeBreakoutObjects(float viewPortWidth, float viewPortHeight);
 
 		void changeCameraType();
 
-		void onBallColliderEnter(std::shared_ptr<GameEntity> gameEntity);
-		void onThereIsNoBrickLeft();
 
-		void handleOnLeftKey();
-		void handleOnRightKey();
-		void handleOnDownKey();
-		void handleOnUpKey();
-		void handleOnBallDebugKey();
-		void handleOnBallReleasedKey();
-
-		void getAndInstantiateEntities();
-		void onLevelStarted();
-		void onLevelEnded();
+		void instantiateEntities(std::vector<std::shared_ptr<GameEntity>> entityList);
+	
 		
-		void onMainMenuStartButtonClick();
-		void onMainMenuQuitButtonClick();
-		void onMainMenuHelpButtonClick();
-		void onMainMenuButtonSelected(MainMenuButtonType buttonType);
-		std::unordered_map<GameState, std::shared_ptr<InputController>> m_StateControllerMap;
-
-		void startGame();
-
-
 		void onInputCallback(InputType inputType);
-		std::shared_ptr<Ball> m_Ball;
-		std::shared_ptr<Paddle> m_Paddle;
+
 		std::shared_ptr<UIManager> m_UIManager;
-		std::shared_ptr<BrickManager> m_BrickManager;
-		std::shared_ptr<GameManager> m_GameManager;
-		
+		std::shared_ptr<StateManager> m_StateManager;
 		std::shared_ptr<Shader> m_MainShader;
-		//For debug purposes
-		std::shared_ptr<IMovable> m_ControlledMovableObject;
-
-
-
 	};
 
 

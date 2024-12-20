@@ -80,12 +80,6 @@ namespace GameEngine
             return t * t * ((s + 1) * t + s) + 1;
         }
 
-        static float EaseInOutBack(float t, float s = 1.70158f) {
-            s *= 1.525f;
-            if (t < 0.5f) return 0.5f * (t * t * ((s + 1) * t - s));
-            float p = t - 1;
-            return 0.5f * (p * p * ((s + 1) * p + s) + 2);
-        }
 
         // Back easing
         static float EaseInElastic(float t) {

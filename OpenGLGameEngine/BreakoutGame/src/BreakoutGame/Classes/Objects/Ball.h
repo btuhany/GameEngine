@@ -20,21 +20,23 @@ namespace BreakoutGame
 		void StopMovement();
 		void StartMovement(Vector3 movementVector);
 		void SetPosition(glm::vec3 position);
-		void SetOnBallColliderEnterHandler(std::function<void(std::shared_ptr<GameEntity>)> handler);
 		//debug purposes
 		void SetSpeed(float value);
+		void SetDefaultSpeed();
+		void DisableMovement();
+		void EnableMovement();
 		bool IsOnPaddle = false;
 	private:
+		bool m_CanMove;
 		std::function<void(std::shared_ptr<GameEntity>)> m_OnBallColliderEnterHandler;
 		void onCollisionEnter(std::shared_ptr<CollisionData> collisionData);
 		void onCollisionExit(std::shared_ptr<CollisionData> collisionData);
 		void handleMovement();
-		bool m_IsMoving = false;
 		glm::vec3 m_MovementVector = glm::vec3(0.0f);
 		float m_DeltaTime;
-
+		const float SPEED = 40.0f;
 		//FOR DEBUG
-		const bool IS_LOGS_ACTIVE = false;
+		const bool IS_LOGS_ACTIVE = true;
 	};
 }
 

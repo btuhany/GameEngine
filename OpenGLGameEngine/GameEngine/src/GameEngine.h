@@ -19,5 +19,6 @@
 #include "GameEngine/Math/Vector2.h"
 #include "GameEngine/Components/UITextRendererComponent.h"
 #include "GameEngine/Math/TweenEase.hpp"
+#include "GameEngine/Math/VectorUtility.hpp"
 
 using namespace GameEngine;

@@ -29,27 +29,47 @@ namespace BreakoutGame
 	}
 	void Paddle::MoveLeft()
 	{
+		if (!m_CanMove)
+			return;
+
 		auto leftVector = glm::vec3(-1.0f, 0.0f, 0.0f);
 		m_Entity->transform->Translate(leftVector * m_Speed * m_DeltaTime);
 	}
 	void Paddle::MoveRight()
 	{
+		if (!m_CanMove)
+			return;
+
 		auto rightVector = glm::vec3(1.0f, 0.0f, 0.0f);
 		m_Entity->transform->Translate(rightVector * m_Speed * m_DeltaTime);
 	}
 	void Paddle::MoveUp()
 	{
+		if (!m_CanMove)
+			return;
+
 		auto upVector = glm::vec3(0.0f, 1.0f, 0.0f);
 		m_Entity->transform->Translate(upVector * m_Speed * m_DeltaTime);
 	}
 	void Paddle::MoveDown()
 	{
+		if (!m_CanMove)
+			return;
+
 		auto downVector = glm::vec3(0.0f, -1.0f, 0.0f);
 		m_Entity->transform->Translate(downVector * m_Speed * m_DeltaTime);
 	}
 	void Paddle::Reset()
 	{
 		m_Entity->transform->SetPosition(START_POS);
+	}
+	void Paddle::DisableMovement()
+	{
+		m_CanMove = false;
+	}
+	void Paddle::EnableMovement()
+	{
+		m_CanMove = true;
 	}
 	glm::vec3 Paddle::GetBallHolderPosition()
 	{

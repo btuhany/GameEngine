@@ -89,6 +89,7 @@
   <ItemGroup>
     <ClInclude Include="src\GameEngine\Engine\EngineConfig.h" />
     <ClInclude Include="src\GameEngine\Math\TweenEase.hpp" />
+    <ClInclude Include="src\GameEngine\Math\VectorUtility.hpp" />
     <ClInclude Include="src\GameEngine\Resource\MeshDataCreator.h" />
     <ClInclude Include="src\GameEngine\Collision\CollisionData.h" />
     <ClInclude Include="src\GameEngine\Render\DebugRenderData.h" />
