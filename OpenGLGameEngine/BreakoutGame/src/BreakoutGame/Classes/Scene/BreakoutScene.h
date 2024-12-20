@@ -35,7 +35,7 @@ namespace BreakoutGame
 
 		void instantiateEntities(std::vector<std::shared_ptr<GameEntity>> entityList);
 	
-		
+		void onGameQuitCallback();
 		void onInputCallback(InputType inputType);
 
 		std::shared_ptr<UIManager> m_UIManager;

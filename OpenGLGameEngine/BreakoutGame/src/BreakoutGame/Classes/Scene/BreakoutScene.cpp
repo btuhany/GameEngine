@@ -39,7 +39,8 @@ namespace BreakoutGame
 		entityList.insert(entityList.end(), inGameStateEntities.begin(), inGameStateEntities.end());
 
 		instantiateEntities(entityList);
-		m_StateManager->Initialize(mainMenuStateController, inGameStateController);
+		auto onGameQuitHandler = std::bind(&BreakoutScene::onGameQuitCallback, this);
+		m_StateManager->Initialize(mainMenuStateController, inGameStateController, onGameQuitHandler);
 		
 
 		LOG_INFO("Breakout scene initialized!");
@@ -183,6 +184,11 @@ namespace BreakoutGame
 	//		isControllingBall = true;
 	//	}
 	//}
+
+	void BreakoutScene::onGameQuitCallback()
+	{
+		setIsSceneEnd(true);
+	}
 
 	void BreakoutScene::onInputCallback(InputType inputType)
 	{
