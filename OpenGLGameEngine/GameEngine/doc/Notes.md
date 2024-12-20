@@ -27,6 +27,7 @@ get and set functions -> getOrSetFunction()
 - [] Not instantiated components still contained in manager vector lists (for example: RendererComponent and Renderer)
 - [] Camera space ui canvas
 - [] JSON Serialization/Deserialization
+- [] Application quit handler
 ************************************************************
 
 08.24
