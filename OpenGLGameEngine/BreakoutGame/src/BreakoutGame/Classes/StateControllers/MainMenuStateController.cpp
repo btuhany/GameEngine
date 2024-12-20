@@ -114,7 +114,7 @@ namespace BreakoutGame
 	{
 		m_UIManager->HideHelpPanel();
 		m_UIManager->ShowMainMenuPanel();
-		resetState();
+		m_UIManager->SelectMainMenuButton(MainMenuButtonType::Help);
 	}
 	void MainMenuStateController::Start()
 	{
