@@ -53,10 +53,11 @@ namespace BreakoutGame
 	{
 		return m_Entity;
 	}
-	void Ball::Reset()
+	void Ball::Reset(Vector3 pos)
 	{
 		SetDefaultSpeed();
 		IsOnPaddle = true;
+		m_Entity->transform->SetPosition(pos);
 	}
 	void Ball::StopMovement()
 	{

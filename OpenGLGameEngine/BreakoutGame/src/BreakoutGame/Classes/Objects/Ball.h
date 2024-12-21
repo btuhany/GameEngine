@@ -16,7 +16,7 @@ namespace BreakoutGame
 		void MoveUp() override;
 		void MoveDown() override;
 
-		void Reset();
+		void Reset(Vector3 pos);
 		void StopMovement();
 		void StartMovement(Vector3 movementVector);
 		void SetPosition(glm::vec3 position);

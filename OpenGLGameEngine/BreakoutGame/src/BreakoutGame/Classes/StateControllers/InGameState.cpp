@@ -47,6 +47,7 @@ namespace BreakoutGame
 		{
 			m_Ball->SetPosition(m_Paddle->GetBallHolderPosition());
 		}
+
 		m_BrickManager->Tick(deltaTime);
 		m_PerkManager->Tick(deltaTime);
 		m_CloneBallController->Tick(deltaTime);
@@ -59,27 +60,13 @@ namespace BreakoutGame
 			{
 				m_LevelCompletedDelayTimeCounter = 0.0f;
 				m_InLevelCompletedDelay = false;
-				if (isAllLevelsCompleted())
+				if (isAllLevelsCompleted() || isGameOver()) //IS GAME END
 				{
-					m_UIManager->HideCenteredText();
-					m_UIManager->UpdateMainMenuStartButtonText("Restart");
-					m_Paddle->SetToDefault();
-					m_OnAllLevelsCompleted();
-					return;
-				}
-				else if (m_PlayerDataManager->GetPlayerLive() <= 0)
-				{
-					m_BrickManager->HideAllBricks();
-					m_UIManager->HideCenteredText();
-					m_UIManager->UpdateMainMenuStartButtonText("Restart");
-					m_Paddle->SetToDefault();
-					m_OnAllLevelsCompleted();
+					endGame();
 				}
 				else
 				{
-					//STARTING A LEVEL OTHER THAN FIRST
-					m_PlayerDataManager->IncreasePlayerLevel(1);
-					initLevel(m_PlayerDataManager->GetPlayerLevel());
+					transitNextLevel();
 				}
 			}
 		}
@@ -140,7 +127,7 @@ namespace BreakoutGame
 	}
 	void InGameState::SetCallbacks(std::function<void()> onAllLevelsCompletedHandler)
 	{
-		m_OnAllLevelsCompleted = onAllLevelsCompletedHandler;
+		m_OnGameEnd = onAllLevelsCompletedHandler;
 	}
 	void InGameState::onBallColliderEnter(std::shared_ptr<GameEntity> gameEntity)
 	{
@@ -150,7 +137,9 @@ namespace BreakoutGame
 			auto hitData = m_BrickManager->HandleOnGotHitByBall(gameEntity);
 			m_PlayerDataManager->ProcessBallHitBrickData(hitData);
 			m_UIManager->UpdatePlayerHUDScorePoint(m_PlayerDataManager->GetScorePoint());
-			m_PerkManager->HandleOnBallHitBrick(hitData, m_BrickManager->GetBrickData(hitData.brickType)->data);
+
+			if (!m_InLevelCompletedDelay)  //TODO: transition is handled first, ball collider callback should be handled first.
+				m_PerkManager->HandleOnBallHitBrick(hitData, m_BrickManager->GetBrickData(hitData.brickType)->data);
 		}
 		else if (tagIndex == (int)Tag::DeathBoundary && !m_InLevelCompletedDelay)
 		{
@@ -162,11 +151,7 @@ namespace BreakoutGame
 			}
 			else
 			{
-				m_Paddle->DisableMovement();
-				m_UIManager->ShowCenteredText("Game Over", glm::vec3(1.0f, 0.0f, 0.0f));
-				m_LevelCompletedDelayTimeCounter = 0.0f;
-				m_Ball->getEntity()->setActive(false);
-				m_InLevelCompletedDelay = true;
+				startTransition();
 			}
 		}
 	}
@@ -208,6 +193,35 @@ namespace BreakoutGame
 		}
 		return false;
 	}
+	bool InGameState::isGameOver()
+	{
+		return m_PlayerDataManager->GetPlayerLive() <= 0;
+	}
+	void InGameState::startTransition()
+	{
+		if (isGameOver())
+		{
+			m_Paddle->DisableMovement();
+			m_UIManager->ShowCenteredText("Game Over", glm::vec3(1.0f, 0.0f, 0.0f));
+			m_Ball->getEntity()->setActive(false);
+		}
+		else
+		{
+			if (!isAllLevelsCompleted())
+			{
+				m_UIManager->ShowCenteredText("Level Completed!", glm::vec3(0.0f, 0.0f, 1.0f));
+			}
+			else
+			{
+				m_UIManager->ShowCenteredText("Game Completed!", glm::vec3(0.0f, 1.0f, 0.0f));
+			}
+			m_Ball->SetSpeed(100.0f);
+		}
+
+		m_PerkManager->HidePerks();
+		m_LevelCompletedDelayTimeCounter = 0.0f;
+		m_InLevelCompletedDelay = true;
+	}
 	void InGameState::onPause()
 	{
 		if (m_IsGamePaused)
@@ -225,6 +239,14 @@ namespace BreakoutGame
 			m_Ball->DisableMovement();
 			m_Paddle->DisableMovement();
 		}
+	}
+	void InGameState::endGame()
+	{
+		m_BrickManager->HideAllBricks();
+		m_UIManager->HideCenteredText();
+		m_UIManager->UpdateMainMenuStartButtonText("Restart");
+		m_Paddle->SetToDefault();
+		m_OnGameEnd();
 	}
 	void InGameState::startGame()
 	{
@@ -249,25 +271,20 @@ namespace BreakoutGame
 		m_UIManager->HideCenteredText();
 		m_Paddle->ResetPos();
 		m_Paddle->DisableMovement();
-		m_Ball->Reset();
+		m_Ball->Reset(VectorUtility::GlmVec3ToVector3(m_Paddle->GetBallHolderPosition()));
 		m_Ball->DisableMovement();
 		m_BrickManager->Reset();
 		m_BrickManager->UpdateBrickGrid(LevelBrickGridData::GetBrickGridData(level));
 		std::function<void()> levelInitHandler = std::bind(&InGameState::onLevelInitializationCompleted, this);
 		m_BrickManager->PlayBrickGridEnterAnimation(levelInitHandler);
 	}
+	void InGameState::transitNextLevel()
+	{
+		m_PlayerDataManager->IncreasePlayerLevel(1);
+		initLevel(m_PlayerDataManager->GetPlayerLevel());
+	}
 	void InGameState::onThereIsNoBrickLeft() //ON LEVEL COMPLETED
 	{
-		if (!isAllLevelsCompleted())
-		{
-			m_UIManager->ShowCenteredText("Level Completed!", glm::vec3(0.0f, 0.0f, 1.0f));
-		}
-		else
-		{
-			m_UIManager->ShowCenteredText("Game Completed!", glm::vec3(0.0f, 1.0f, 0.0f));
-		}
-		m_Ball->SetSpeed(100.0f);
-		m_LevelCompletedDelayTimeCounter = 0.0f;
-		m_InLevelCompletedDelay = true;
+		startTransition();
 	}
 }

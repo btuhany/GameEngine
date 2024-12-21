@@ -62,6 +62,13 @@ namespace BreakoutGame
 				perkEntity->setActive(false);
 		}
 	}
+	void PerkManager::HidePerks()
+	{
+		for (size_t i = 0; i < m_PerkPool.size(); i++)
+		{
+			m_PerkPool[i]->getEntity()->setActive(false);
+		}
+	}
 	std::shared_ptr<Perk> PerkManager::findPerk(std::shared_ptr<GameEntity> entity)
 	{
 		std::shared_ptr<Perk> perk = nullptr;

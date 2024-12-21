@@ -20,7 +20,7 @@ namespace BreakoutGame
 		void changeGameState(GameState newState);
 		void onMainMenuStartButtonClick();
 		void onMainMenuQuitButtonClick();
-		void onAllLevelsCompleted();
+		void onGameEnd();
 		std::unordered_map<GameState, std::shared_ptr<StateBase>> m_StateControllerMap;
 
 

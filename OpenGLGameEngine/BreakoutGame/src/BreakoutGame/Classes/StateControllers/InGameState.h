@@ -26,20 +26,24 @@ namespace BreakoutGame
 		std::shared_ptr<PlayerDataManager> m_PlayerDataManager;
 		bool m_IsGamePaused = false;
 		void onPause();
+		void endGame();
 		void startGame();
 		void onLevelInitializationCompleted();
 		void initLevel(int level);
+		void transitNextLevel();
 		void onThereIsNoBrickLeft();
 		void onBallColliderEnter(std::shared_ptr<GameEntity> gameEntity);
 		void onPerkGained(PerkType perkType);
 		bool isAllLevelsCompleted();
+		bool isGameOver();
+		void startTransition();
 		std::shared_ptr<Ball> m_Ball;
 		std::shared_ptr<Paddle> m_Paddle;
 		std::shared_ptr<BrickManager> m_BrickManager;
 		std::shared_ptr<PerkManager> m_PerkManager;
 		std::shared_ptr<UIManager> m_UIManager;
 		std::shared_ptr<CloneBallController> m_CloneBallController;
-		std::function<void()> m_OnAllLevelsCompleted;
+		std::function<void()> m_OnGameEnd;
 
 		bool m_InLevelCompletedDelay;
 		float m_LevelCompletedDelayTimeCounter = 0.0f;

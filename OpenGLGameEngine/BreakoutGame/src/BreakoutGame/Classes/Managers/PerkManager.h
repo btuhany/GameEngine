@@ -15,7 +15,7 @@ namespace BreakoutGame
 		std::vector<std::shared_ptr<GameEntity>> getEntityList();
 		void HandleOnBallHitBrick(BallHitBrickData hitData, BrickData brickData);
 		void HandleOnLevelInit();
-
+		void HidePerks();
 		const float PADDLE_SCALE_CHANGE_VALUE = 0.7f;
 		const float PADDLE_SPEED_CHANGE_VALUE = 10.0f;
 	private:
