@@ -34,13 +34,14 @@ namespace BreakoutGame
 	}
 	void Perk::Start()
 	{
+		m_Entity->setActive(true);
 	}
 	void Perk::Tick(float deltaTime)
 	{
 	}
 	std::shared_ptr<SpriteEntity> Perk::getEntity()
 	{
-		return std::shared_ptr<SpriteEntity>();
+		return m_Entity;
 	}
 	PerkType Perk::getType()
 	{

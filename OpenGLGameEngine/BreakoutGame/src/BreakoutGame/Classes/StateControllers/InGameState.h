@@ -5,6 +5,7 @@
 #include "../Objects/Paddle.h"
 #include "../Managers/BrickManager.h"
 #include "../Managers/UIManager.h"
+#include "../Managers/PerkManager.h"
 #include "../Managers/PlayerDataManager.h"
 #include "../Data/LevelBrickGridData.h"
 namespace BreakoutGame
@@ -33,6 +34,7 @@ namespace BreakoutGame
 		std::shared_ptr<Ball> m_Ball;
 		std::shared_ptr<Paddle> m_Paddle;
 		std::shared_ptr<BrickManager> m_BrickManager;
+		std::shared_ptr<PerkManager> m_PerkManager;
 		std::shared_ptr<UIManager> m_UIManager;
 
 		std::function<void()> m_OnAllLevelsCompleted;

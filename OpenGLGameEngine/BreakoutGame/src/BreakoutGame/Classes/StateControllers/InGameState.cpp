@@ -14,7 +14,8 @@ namespace BreakoutGame
 		m_Ball = std::make_shared<Ball>();
 		m_Paddle = std::make_shared<Paddle>();
 		m_BrickManager = std::make_shared<BrickManager>();
-
+		m_PerkManager = std::make_shared<PerkManager>();
+		m_PerkManager->Initialize(mainShader);
 		m_Paddle->Initialize(mainShader);
 
 		std::function<void(std::shared_ptr<GameEntity> entity)> ballHandler = std::bind(&InGameState::onBallColliderEnter, this, std::placeholders::_1);
@@ -28,6 +29,7 @@ namespace BreakoutGame
 	{
 		m_Ball->Start();
 		m_Paddle->Start();
+		m_PerkManager->Start();
 	}
 	void InGameState::Tick(float deltaTime)
 	{
@@ -42,7 +44,7 @@ namespace BreakoutGame
 			m_Ball->SetPosition(m_Paddle->GetBallHolderPosition());
 		}
 		m_BrickManager->Tick(deltaTime);
-
+		m_PerkManager->Tick(deltaTime);
 
 		//ON LEVEL COMPLETED DELAY
 		if (m_InLevelCompletedDelay)
@@ -75,6 +77,8 @@ namespace BreakoutGame
 		entityList.push_back(m_Ball->getEntity());
 		auto brickManagerEntityList = m_BrickManager->getEntityList();
 		entityList.insert(entityList.end(), brickManagerEntityList.begin(), brickManagerEntityList.end());
+		auto perkEntityList = m_PerkManager->getEntityList();
+		entityList.insert(entityList.end(), perkEntityList.begin(), perkEntityList.end());
 		return entityList;
 	}
 	void InGameState::HandleOnDeactivated()

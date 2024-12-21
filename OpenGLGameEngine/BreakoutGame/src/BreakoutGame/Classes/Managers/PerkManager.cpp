@@ -20,7 +20,7 @@ namespace BreakoutGame
 			m_PerkPool[i]->Tick(deltaTime);
 		}
 	}
-	std::vector<std::shared_ptr<GameEntity>> PerkManager::getEntities()
+	std::vector<std::shared_ptr<GameEntity>> PerkManager::getEntityList()
 	{
 		auto entityList = std::vector<std::shared_ptr<GameEntity>>();
 		for (size_t i = 0; i < m_PerkPool.size(); i++)

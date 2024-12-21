@@ -8,7 +8,7 @@ namespace BreakoutGame
 	public:
 		virtual void Start() = 0;
 		virtual void Tick(float deltaTime) = 0;
-		virtual std::shared_ptr<SpriteEntity> getEntity() = 0;
+		virtual std::shared_ptr<SpriteEntity> getEntity() = 0;  //TODO shouldnt be virtual
 	protected:
 		std::shared_ptr<SpriteEntity> m_Entity;
 	};

@@ -10,7 +10,7 @@ namespace BreakoutGame
 		void Initialize(std::shared_ptr<Shader> shader);
 		void Start();
 		void Tick(float deltaTime);
-		std::vector<std::shared_ptr<GameEntity>> getEntities();
+		std::vector<std::shared_ptr<GameEntity>> getEntityList();
 	private:
 		void initializePerkSpriteRenderDataMap(std::shared_ptr<Shader> shader);
 		void loadSpriteIncreaseLiveToMap(std::shared_ptr<Shader> shader);
