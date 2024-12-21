@@ -36,6 +36,7 @@ namespace BreakoutGame
 
 		m_Entity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp);
 		m_Entity->transform->SetPosition(glm::vec3(0.0f, 0.0f, 0.5f));
+		
 	}
 	void Perk::UpdateData(PerkType perkType, std::shared_ptr<SpriteRenderData> spriteRenderData)
 	{
@@ -43,6 +44,11 @@ namespace BreakoutGame
 		m_Entity->renderer->setSpriteRenderData(spriteRenderData);
 
 		auto aspectRatio = spriteRenderData->texture->GetAspectRatio();
+		//BAD
+		if (perkType != PerkType::IncreaseLive && perkType != PerkType::DecreaseLive)
+		{
+			aspectRatio *= 0.6f;
+		}
 		m_Entity->transform->SetScale(glm::vec3(aspectRatio, 1.0f, 1.0f));
 
 		float height = m_Collider->getHeight();
@@ -51,6 +57,7 @@ namespace BreakoutGame
 	}
 	void Perk::Start()
 	{
+
 	}
 	void Perk::Tick(float deltaTime)
 	{
