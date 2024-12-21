@@ -12,7 +12,7 @@ namespace GameEngine
 	public:
 		void Translate(glm::vec3 translateVector);
 		void Rotate(float angle, glm::vec3 rotateVector);
-		void Scale(glm::vec3 scaleVector);
+		void SetScale(glm::vec3 scaleVector);
 		void Scale(float xVal, float yVal, float zVal);
 		void SetPosition(glm::vec3 newPosition);
 		void SetPosition(Vector3 newPos);

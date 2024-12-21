@@ -283,7 +283,7 @@ namespace BreakoutGame
 			uiRendererComp->setUIRenderData(uiRenderData);
 			uiEntity->AddComponent(uiRendererComp);
 			uiEntity->transform->Translate(glm::vec3(startPointX + i * (width + spacingX), startPointY, 0.0f));
-			uiEntity->transform->Scale(glm::vec3(width, width, 1.0f));
+			uiEntity->transform->SetScale(glm::vec3(width, width, 1.0f));
 			m_HeartSpriteEntities.push_back(uiEntity);
 			m_GameEntityList.push_back(uiEntity);
 		}
