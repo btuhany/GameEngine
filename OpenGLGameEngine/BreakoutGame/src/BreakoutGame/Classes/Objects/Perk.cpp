@@ -24,7 +24,16 @@ namespace BreakoutGame
 		m_Entity = std::make_shared<SpriteEntity>(initialSprite);
 		m_Entity->setName(ToString(m_Type));
 		m_Entity->setTag((int)Tag::Perk);
-		auto boxCollider2DComp = std::make_shared<BoxCollider2DComponent>(3.0f, 3.0f, CollisionType::Static);
+
+		auto detector = std::make_shared<CollisionDetector>();
+		auto boxCollider2DComp = std::make_shared<BoxCollider2DComponent>(2.0f, 2.0f, CollisionType::Dynamic, detector);
+		detector->AddCollisionCallback(CollisionState::Enter,
+			[this](std::shared_ptr<CollisionData> collider) {
+				onCollisionEnter(collider);
+			});
+
+
+
 		m_Entity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp);
 		m_Entity->transform->SetPosition(glm::vec3(0.0f, 0.0f, -0.5f));
 	}
@@ -38,6 +47,8 @@ namespace BreakoutGame
 	}
 	void Perk::Tick(float deltaTime)
 	{
+		if (!m_Entity->getActive())
+			return;
 		MoveDown(deltaTime);
 	}
 	std::shared_ptr<SpriteEntity> Perk::getEntity()
@@ -52,5 +63,21 @@ namespace BreakoutGame
 	{
 		auto downVector = glm::vec3(0.0f, -1.0f, 0.0f);
 		m_Entity->transform->Translate(downVector * SPEED * deltaTime);
+	}
+	void Perk::onCollisionEnter(std::shared_ptr<CollisionData> collisionData)
+	{
+		auto otherCollider = collisionData->otherCollider;
+		auto colliderEntityWeakPtr = otherCollider->getEntity();
+		if (colliderEntityWeakPtr.expired())
+		{
+			LOG_ERROR("Perk | onCollisionEnter | Entity is expired!");
+			return;
+		}
+		auto colliderEntity = colliderEntityWeakPtr.lock();
+		
+		if (colliderEntity->getTag() != (int)Tag::Brick)
+		{
+			m_Entity->setActive(false);
+		}
 	}
 }

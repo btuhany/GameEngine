@@ -1,4 +1,5 @@
 #pragma once
+#include <GameEngine.h>
 #include "BreakoutObject.h"
 #include "IMovable.h"
 #include "../Data/PerkTypeEnum.h"
@@ -16,6 +17,7 @@ namespace BreakoutGame
 		PerkType getType();
 		void MoveDown(float deltaTime);
 	private:
+		void onCollisionEnter(std::shared_ptr<CollisionData> collisionData);
 		PerkType m_Type;
 		const float SPEED = 2.0f;
 	};
