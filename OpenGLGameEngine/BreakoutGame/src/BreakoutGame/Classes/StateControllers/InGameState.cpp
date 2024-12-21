@@ -60,7 +60,7 @@ namespace BreakoutGame
 				{
 					m_UIManager->HideCenteredText();
 					m_UIManager->UpdateMainMenuStartButtonText("Restart");
-					m_Paddle->Reset();
+					m_Paddle->ResetPos();
 					m_OnAllLevelsCompleted();
 					return;
 				}
@@ -215,7 +215,7 @@ namespace BreakoutGame
 		m_PerkManager->HandleOnLevelInit();
 		m_UIManager->UpdatePlayerHUDLevel(m_PlayerDataManager->GetPlayerLevel());
 		m_UIManager->HideCenteredText();
-		m_Paddle->Reset();
+		m_Paddle->ResetPos();
 		m_Paddle->DisableMovement();
 		m_Ball->Reset();
 		m_Ball->DisableMovement();

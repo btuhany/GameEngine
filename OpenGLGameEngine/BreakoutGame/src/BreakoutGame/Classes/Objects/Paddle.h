@@ -14,13 +14,13 @@ namespace BreakoutGame
 		void MoveRight() override;
 		void MoveUp() override;
 		void MoveDown() override;
-		void Reset();
+		void ResetPos();
 		void DisableMovement();
 		void EnableMovement();
 		glm::vec3 GetBallHolderPosition();
 		void ScaleUpWidth(float value);
 		void ScaleDownWidth(float value);
-		void Reset();
+		void SetToDefault();
 	private:
 		Vector2 m_DefaultScale;
 		std::shared_ptr<BoxCollider2DComponent> m_Collider;
@@ -29,6 +29,7 @@ namespace BreakoutGame
 		float m_DeltaTime;
 		glm::vec3 m_BallHolderOffset;
 		const glm::vec3 START_POS = glm::vec3(0.0f, -20.0f, 0.0f);
+		const float DEFAULT_SPEED = 35.0f;
 	};
 }
 

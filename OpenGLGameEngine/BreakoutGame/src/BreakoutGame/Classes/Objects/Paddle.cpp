@@ -18,7 +18,7 @@ namespace BreakoutGame
 		m_Collider = boxCollider;
 		m_Entity->AddComponent(boxCollider);
 	}
-	void Paddle::Reset()
+	void Paddle::SetToDefault()
 	{
 		m_Entity->transform->SetScale(glm::vec3(m_DefaultScale.x, m_DefaultScale.y, m_Entity->transform->getScale().z));
 		m_Collider->SetWidthAndHeight(7.5f, 2.0f);
@@ -27,7 +27,7 @@ namespace BreakoutGame
 	{
 		auto pos = m_Entity->transform->getPosition();
 		m_DefaultScale = Vector2(pos.x, pos.y);
-		m_Speed = 35.0f;
+		m_Speed = DEFAULT_SPEED;
 		m_BallHolderOffset = glm::vec3(0.0f, 2.0f, 0.1f);
 		m_Entity->transform->SetPosition(START_POS);
 	}
@@ -67,7 +67,7 @@ namespace BreakoutGame
 		auto downVector = glm::vec3(0.0f, -1.0f, 0.0f);
 		m_Entity->transform->Translate(downVector * m_Speed * m_DeltaTime);
 	}
-	void Paddle::Reset()
+	void Paddle::ResetPos()
 	{
 		m_Entity->transform->SetPosition(START_POS);
 	}
