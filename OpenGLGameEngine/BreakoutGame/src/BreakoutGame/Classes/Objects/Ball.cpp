@@ -137,6 +137,10 @@ namespace BreakoutGame
 		}
 		auto colliderEntity = colliderEntityPtr.lock();
 
+		if (colliderEntity->getTag() == (int)Tag::Perk)
+		{
+			return;
+		}
 
 		if (otherCollider->getColliderType() == ColliderType::BoxCollider2D)
 		{

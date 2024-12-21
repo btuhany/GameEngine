@@ -62,7 +62,7 @@ namespace BreakoutGame
 	void PerkManager::trySpawnPerk(Vector3 pos)
 	{
 		//Try get inactive entity
-		std::shared_ptr<Perk> perk;
+		std::shared_ptr<Perk> perk = nullptr;
 		for (size_t i = 0; i < m_PerkPool.size(); i++)
 		{
 			auto entity = m_PerkPool[i]->getEntity();
@@ -73,9 +73,15 @@ namespace BreakoutGame
 			}
 		}
 
+		if (perk == nullptr)
+			return;
+
+		PerkType perkType = PerkType::IncreaseLive;
+		auto perkEntity = perk->getEntity();
+		perkEntity->transform->SetPosition(pos);
+		perk->UpdateData(perkType, m_PerkSpriteRenderDataMap[perkType]);
 		//UPDATE PERK DATA
-		//UPDATE POS
-		perk->getEntity()->setActive(true);
+		perkEntity->setActive(true);
 	}
 	void PerkManager::initializePerkSpriteRenderDataMap(std::shared_ptr<Shader> shader)
 	{

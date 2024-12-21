@@ -33,11 +33,12 @@ namespace BreakoutGame
 			});
 
 		m_Entity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp);
-		m_Entity->transform->SetPosition(glm::vec3(0.0f, 0.0f, -0.5f));
+		m_Entity->transform->SetPosition(glm::vec3(0.0f, 0.0f, 0.5f));
 	}
 	void Perk::UpdateData(PerkType perkType, std::shared_ptr<SpriteRenderData> spriteRenderData)
 	{
 		m_Type = perkType;
+		m_Entity->renderer->setSpriteRenderData(spriteRenderData);
 	}
 	void Perk::Start()
 	{
@@ -72,7 +73,8 @@ namespace BreakoutGame
 		}
 		auto colliderEntity = colliderEntityWeakPtr.lock();
 		
-		if (colliderEntity->getTag() != (int)Tag::Brick)
+		if (colliderEntity->getTag() == (int)Tag::Paddle || 
+			colliderEntity->getTag() == (int)Tag::Boundary)
 		{
 			m_Entity->setActive(false);
 		}
