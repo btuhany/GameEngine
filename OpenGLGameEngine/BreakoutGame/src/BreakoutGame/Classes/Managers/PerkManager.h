@@ -13,6 +13,7 @@ namespace BreakoutGame
 		void Tick(float deltaTime);
 		std::vector<std::shared_ptr<GameEntity>> getEntityList();
 		void HandleOnBallHitBrick(BallHitBrickData hitData);
+		void HandleOnLevelInit();
 	private:
 		void initializePerkSpriteRenderDataMap(std::shared_ptr<Shader> shader);
 		void loadSpriteIncreaseLiveToMap(std::shared_ptr<Shader> shader);

@@ -185,6 +185,7 @@ namespace BreakoutGame
 	}
 	void InGameState::initLevel(int level)
 	{
+		m_PerkManager->HandleOnLevelInit();
 		m_UIManager->UpdatePlayerHUDLevel(m_PlayerDataManager->GetPlayerLevel());
 		m_UIManager->HideCenteredText();
 		m_Paddle->Reset();

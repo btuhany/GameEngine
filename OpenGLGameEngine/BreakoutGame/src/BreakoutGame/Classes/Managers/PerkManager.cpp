@@ -33,6 +33,15 @@ namespace BreakoutGame
 	{
 
 	}
+	void PerkManager::HandleOnLevelInit()
+	{
+		for (size_t i = 0; i < m_PerkPool.size(); i++)
+		{
+			auto perkEntity = m_PerkPool[i]->getEntity();
+			if (perkEntity->getActive())
+				perkEntity->setActive(false);
+		}
+	}
 	void PerkManager::initializePerkSpriteRenderDataMap(std::shared_ptr<Shader> shader)
 	{
 		loadSpriteIncreaseLiveToMap(shader);
