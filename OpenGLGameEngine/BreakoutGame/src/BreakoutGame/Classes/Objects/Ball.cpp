@@ -109,6 +109,10 @@ namespace BreakoutGame
 	{
 		m_Speed = value;
 	}
+	float Ball::getSpeed()
+	{
+		return m_Speed;
+	}
 	void Ball::SetDefaultSpeed()
 	{
 		m_Speed = SPEED;

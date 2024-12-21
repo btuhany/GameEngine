@@ -22,6 +22,7 @@ namespace BreakoutGame
 		void SetPosition(glm::vec3 position);
 		//debug purposes
 		void SetSpeed(float value);
+		float getSpeed();
 		void SetDefaultSpeed();
 		void DisableMovement();
 		void EnableMovement();

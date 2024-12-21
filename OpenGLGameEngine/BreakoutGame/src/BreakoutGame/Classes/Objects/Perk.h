@@ -20,7 +20,7 @@ namespace BreakoutGame
 		std::shared_ptr<BoxCollider2DComponent> m_Collider;
 		void onCollisionEnter(std::shared_ptr<CollisionData> collisionData);
 		PerkType m_Type;
-		const float SPEED = 2.0f;
+		const float SPEED = 10.0f;
 	};
 }
 
