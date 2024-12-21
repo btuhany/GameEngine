@@ -15,6 +15,8 @@ namespace BreakoutGame
 		std::vector<std::shared_ptr<GameEntity>> getEntityList();
 		void HandleOnBallHitBrick(BallHitBrickData hitData, BrickData brickData);
 		void HandleOnLevelInit();
+
+		const float PADDLE_SCALE_CHANGE_VALUE = 0.7f;
 	private:
 		std::function<void(PerkType)> m_OnPerkGainedHandler;
 		std::shared_ptr<Perk> findPerk(std::shared_ptr<GameEntity> entity);
@@ -32,13 +34,13 @@ namespace BreakoutGame
 		std::vector<float> m_CumulativePerkTypeProbabilityList;
 		const int MAX_PERK_COUNT_INGAME = 5;
 		const std::unordered_map<PerkType, float> m_PerkProbabilityMap = {
-			{ PerkType::IncreaseLive, 0.1f },
-			{ PerkType::DecreaseLive, 0.1f },
-			{ PerkType::ThreeBall, 0.16f },
-			{ PerkType::PaddleScaleUp, 0.16f },
-			{ PerkType::PaddleScaleDown, 0.16f },
-			{ PerkType::PaddleSpeedUp, 0.16f },
-			{ PerkType::PaddleSpeedDown, 0.16f },
+			{ PerkType::IncreaseLive, 0.0f },
+			{ PerkType::DecreaseLive, 0.0f },
+			{ PerkType::ThreeBall, 0.0f },
+			{ PerkType::PaddleScaleUp, 0.5f },
+			{ PerkType::PaddleScaleDown, 0.5f },
+			{ PerkType::PaddleSpeedUp, 0.0f },
+			{ PerkType::PaddleSpeedDown, 0.0f },
 		};
 		const std::array<PerkType, 7> m_AllPerkTypeArr = {
 			PerkType::IncreaseLive,

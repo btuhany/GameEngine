@@ -18,7 +18,12 @@ namespace BreakoutGame
 		void DisableMovement();
 		void EnableMovement();
 		glm::vec3 GetBallHolderPosition();
+		void ScaleUpWidth(float value);
+		void ScaleDownWidth(float value);
+		void Reset();
 	private:
+		Vector2 m_DefaultScale;
+		std::shared_ptr<BoxCollider2DComponent> m_Collider;
 		bool m_CanMove;
 		float m_Speed;
 		float m_DeltaTime;
