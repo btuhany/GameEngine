@@ -26,6 +26,10 @@ namespace BreakoutGame
 		void DisableMovement();
 		void EnableMovement();
 		bool IsOnPaddle = false;
+		std::shared_ptr<Ball> Clone()
+		{
+			return std::make_shared<Ball>(*this);
+		}
 	private:
 		bool m_CanMove;
 		std::function<void(std::shared_ptr<GameEntity>)> m_OnBallColliderEnterHandler;

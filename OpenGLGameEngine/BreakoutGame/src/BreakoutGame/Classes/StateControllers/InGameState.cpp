@@ -15,6 +15,7 @@ namespace BreakoutGame
 		m_Paddle = std::make_shared<Paddle>();
 		m_BrickManager = std::make_shared<BrickManager>();
 		m_PerkManager = std::make_shared<PerkManager>();
+		m_CloneBallController = std::make_shared<CloneBallController>();
 
 		std::function<void(PerkType perk)> perkGainedHandler = std::bind(&InGameState::onPerkGained, this, std::placeholders::_1);
 		m_PerkManager->Initialize(mainShader, perkGainedHandler);
@@ -32,6 +33,7 @@ namespace BreakoutGame
 		m_Ball->Start();
 		m_Paddle->Start();
 		m_PerkManager->Start();
+		m_CloneBallController->Initialize(m_Ball);
 	}
 	void InGameState::Tick(float deltaTime)
 	{
@@ -47,6 +49,7 @@ namespace BreakoutGame
 		}
 		m_BrickManager->Tick(deltaTime);
 		m_PerkManager->Tick(deltaTime);
+		m_CloneBallController->Tick(deltaTime);
 
 		//ON LEVEL COMPLETED DELAY
 		if (m_InLevelCompletedDelay)

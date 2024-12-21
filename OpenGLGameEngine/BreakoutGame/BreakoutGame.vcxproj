@@ -164,6 +164,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\BreakoutGame\Classes\Objects\CloneBallController.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\BrickData.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\PerkTypeEnum.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\PerkData.h" />
@@ -198,6 +199,7 @@
     <ClInclude Include="src\BreakoutGame\Classes\Objects\UIButton.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\BreakoutGame\Classes\Objects\CloneBallController.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Data\PerkData.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Objects\Perk.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Managers\PerkManager.cpp" />

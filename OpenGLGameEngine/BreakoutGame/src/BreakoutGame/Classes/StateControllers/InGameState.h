@@ -8,6 +8,7 @@
 #include "../Managers/PerkManager.h"
 #include "../Managers/PlayerDataManager.h"
 #include "../Data/LevelBrickGridData.h"
+#include "../Objects/CloneBallController.h"
 namespace BreakoutGame
 {
 	class InGameState : public StateBase
@@ -37,7 +38,7 @@ namespace BreakoutGame
 		std::shared_ptr<BrickManager> m_BrickManager;
 		std::shared_ptr<PerkManager> m_PerkManager;
 		std::shared_ptr<UIManager> m_UIManager;
-
+		std::shared_ptr<CloneBallController> m_CloneBallController;
 		std::function<void()> m_OnAllLevelsCompleted;
 
 		bool m_InLevelCompletedDelay;
