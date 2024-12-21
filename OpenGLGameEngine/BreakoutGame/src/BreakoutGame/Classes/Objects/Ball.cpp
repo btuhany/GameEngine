@@ -144,6 +144,11 @@ namespace BreakoutGame
 			return;
 		}
 
+		if (IsClone && tagIndex == (int)Tag::DeathBoundary) //BAD PRACTICE 
+		{
+			m_Entity->setActive(false);
+		}
+
 		if (otherCollider->getColliderType() == ColliderType::BoxCollider2D)
 		{
 			if (IS_LOGS_ACTIVE)

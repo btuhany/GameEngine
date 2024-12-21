@@ -27,13 +27,16 @@ namespace BreakoutGame
 
 		std::function<void()> brickManagerHandler = std::bind(&InGameState::onThereIsNoBrickLeft, this);
 		m_BrickManager->Initialize(mainShader, brickManagerHandler);
+
+		std::function<void(std::shared_ptr<GameEntity> entity)> cloneBallHandler = std::bind(&InGameState::onCloneBallColliderEnter, this, std::placeholders::_1);
+		m_CloneBallController->Initialize(mainShader, cloneBallHandler);
 	}
 	void InGameState::Start()
 	{
 		m_Ball->Start();
 		m_Paddle->Start();
 		m_PerkManager->Start();
-		m_CloneBallController->Initialize(m_Ball);
+
 	}
 	void InGameState::Tick(float deltaTime)
 	{
@@ -80,6 +83,8 @@ namespace BreakoutGame
 		entityList.insert(entityList.end(), brickManagerEntityList.begin(), brickManagerEntityList.end());
 		auto perkEntityList = m_PerkManager->getEntityList();
 		entityList.insert(entityList.end(), perkEntityList.begin(), perkEntityList.end());
+		auto clonedBallEntityList = m_CloneBallController->getEntitiyList();
+		entityList.insert(entityList.end(), clonedBallEntityList.begin(), clonedBallEntityList.end());
 		return entityList;
 	}
 	void InGameState::HandleOnDeactivated()
@@ -134,12 +139,7 @@ namespace BreakoutGame
 		int tagIndex = gameEntity->getTag();
 		if (tagIndex == (int)Tag::Brick)
 		{
-			auto hitData = m_BrickManager->HandleOnGotHitByBall(gameEntity);
-			m_PlayerDataManager->ProcessBallHitBrickData(hitData);
-			m_UIManager->UpdatePlayerHUDScorePoint(m_PlayerDataManager->GetScorePoint());
-
-			if (!m_InLevelCompletedDelay)  //TODO: transition is handled first, ball collider callback should be handled first.
-				m_PerkManager->HandleOnBallHitBrick(hitData, m_BrickManager->GetBrickData(hitData.brickType)->data);
+			handleOnBallHitBrick(gameEntity);
 		}
 		else if (tagIndex == (int)Tag::DeathBoundary && !m_InLevelCompletedDelay)
 		{
@@ -155,6 +155,23 @@ namespace BreakoutGame
 			}
 		}
 	}
+	void InGameState::onCloneBallColliderEnter(std::shared_ptr<GameEntity> gameEntity)
+	{
+		int tagIndex = gameEntity->getTag();
+		if (tagIndex == (int)Tag::Brick)
+		{
+			handleOnBallHitBrick(gameEntity);
+		}
+	}
+	void InGameState::handleOnBallHitBrick(std::shared_ptr<GameEntity> gameEntity)
+	{
+		auto hitData = m_BrickManager->HandleOnGotHitByBall(gameEntity);
+		m_PlayerDataManager->ProcessBallHitBrickData(hitData);
+		m_UIManager->UpdatePlayerHUDScorePoint(m_PlayerDataManager->GetScorePoint());
+
+		if (!m_InLevelCompletedDelay)  //TODO: transition is handled first, ball collider callback should be handled first.
+			m_PerkManager->HandleOnBallHitBrick(hitData, m_BrickManager->GetBrickData(hitData.brickType)->data);
+	}
 	void InGameState::onPerkGained(PerkType perkType)
 	{
 		switch (perkType)
@@ -168,6 +185,9 @@ namespace BreakoutGame
 			m_UIManager->UpdatePlayerHUDLive(m_PlayerDataManager->GetPlayerLive());
 			break;
 		case BreakoutGame::PerkType::ThreeBall:
+			m_CloneBallController->ActivateClones(
+				VectorUtility::GlmVec3ToVector3(
+					m_Paddle->GetBallHolderPosition()));
 			break;
 		case BreakoutGame::PerkType::PaddleScaleUp:
 			m_Paddle->ScaleUpWidth(m_PerkManager->PADDLE_SCALE_CHANGE_VALUE);
