@@ -33,6 +33,7 @@ namespace BreakoutGame
 		const Vector2 SPACING = Vector2(7.0f, 3.0f);
 		const Vector2 START_POS = Vector2(-35.0f, 18.0f);
 
+		//TODO: fixing brick data also contains brick type 
 		std::unordered_map<BrickType, std::shared_ptr<BrickData>> m_BrickDataMap;
 
 		float m_AnimationLerpValue;

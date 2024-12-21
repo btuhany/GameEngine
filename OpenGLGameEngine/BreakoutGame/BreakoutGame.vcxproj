@@ -164,6 +164,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\BreakoutGame\Classes\Data\PerkTypeEnum.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\Data\PerkData.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\Objects\Perk.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\Managers\PerkManager.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Managers\PlayerDataManager.h" />
     <ClInclude Include="src\BreakoutGame\Classes\StateControllers\InGameStateController.h" />
     <ClInclude Include="src\BreakoutGame\Classes\StateControllers\StateBase.h" />
@@ -193,6 +197,9 @@
     <ClInclude Include="src\BreakoutGame\Classes\Objects\UIButton.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\BreakoutGame\Classes\Data\PerkData.cpp" />
+    <ClCompile Include="src\BreakoutGame\Classes\Objects\Perk.cpp" />
+    <ClCompile Include="src\BreakoutGame\Classes\Managers\PerkManager.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Managers\PlayerDataManager.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\StateControllers\InGameStateController.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\StateControllers\MainMenuStateController.cpp" />
