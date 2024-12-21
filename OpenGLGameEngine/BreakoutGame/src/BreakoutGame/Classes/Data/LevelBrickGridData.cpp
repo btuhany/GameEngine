@@ -9,7 +9,7 @@ namespace BreakoutGame
     const std::array<std::string[ROW_SIZE][COLUMN_SIZE], LEVEL_COUNT> LevelBrickGridData::m_LevelBrickDataList =
     {{
         {
-            { ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "." },
+            { "h", "h", "h", "h", "h", "h", "h", "h", "h", "h", "h" },
             { ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "." },
             { ".", ".", ".", ".", ".", "e", ".", ".", ".", ".", "." },
             { ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "." },

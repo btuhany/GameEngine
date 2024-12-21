@@ -221,6 +221,18 @@ namespace BreakoutGame
 	{
 		return m_BrickDataMap[brickType];
 	}
+	void BrickManager::HideAllBricks()
+	{
+		for (size_t i = 0; i < m_BrickGrid.size(); i++)
+		{
+			auto rowList = m_BrickGrid[i];
+			for (size_t j = 0; j < rowList.size(); j++)
+			{
+				auto brick = rowList[j];
+				brick->getEntity()->setActive(false);
+			}
+		}
+	}
 	std::shared_ptr<Brick> BrickManager::findBrick(std::shared_ptr<GameEntity> brickEntity)
 	{
 		std::shared_ptr<Brick> brick = nullptr;
@@ -246,8 +258,8 @@ namespace BreakoutGame
 		brickProperties->data.scorePointOnHit = 0;
 		brickProperties->data.scorePointOnBreak = 10;
 		brickProperties->data.brickType = BrickType::Easy;
-		brickProperties->data.perkDropRateOnBreak = 0.0f;
-		brickProperties->data.perkDropRateOnHit = 0.0f;
+		brickProperties->data.perkDropRateOnBreak = 1.0f;
+		brickProperties->data.perkDropRateOnHit = 1.0f;
 
 		std::shared_ptr<Texture> brickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/03-Breakout-Tiles.PNG");
 		brickTexture->LoadTextureWithAlpha();
@@ -263,8 +275,8 @@ namespace BreakoutGame
 		brickProperties->data.scorePointOnHit = 5;
 		brickProperties->data.scorePointOnBreak = 10;
 		brickProperties->data.brickType = BrickType::Medium;
-		brickProperties->data.perkDropRateOnBreak = 0.6f;
-		brickProperties->data.perkDropRateOnHit = 0.3f;
+		brickProperties->data.perkDropRateOnBreak = 1.6f;
+		brickProperties->data.perkDropRateOnHit = 1.3f;
 
 		std::shared_ptr<Texture> brickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/05-Breakout-Tiles.PNG");
 		brickTexture->LoadTextureWithAlpha();
@@ -285,8 +297,8 @@ namespace BreakoutGame
 		brickProperties->data.scorePointOnHit = 5;
 		brickProperties->data.scorePointOnBreak = 15;
 		brickProperties->data.brickType = BrickType::Hard;
-		brickProperties->data.perkDropRateOnBreak = 0.9f;
-		brickProperties->data.perkDropRateOnHit = 0.4f;
+		brickProperties->data.perkDropRateOnBreak = 0.0f;
+		brickProperties->data.perkDropRateOnHit = 0.0f;
 
 		std::shared_ptr<Texture> brickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/07-Breakout-Tiles.PNG");
 		brickTexture->LoadTextureWithAlpha();

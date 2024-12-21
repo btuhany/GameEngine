@@ -122,8 +122,6 @@ namespace BreakoutGame
 		if (perk == nullptr)
 			return;
 
-		//BAD PRACTICE
-		
 		PerkType perkType = getRandomPerkType();
 		if (perkType == PerkType::None)
 		{
