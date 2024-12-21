@@ -2,7 +2,7 @@
 #include <memory>
 #include <string>
 #include <GameEngine.h>
-#include "../Data/BrickData.h"
+#include "../Data/BrickProperties.h"
 #include "../Data/TagEnum.h"
 #include "../Data/BrickTypeEnum.h"
 #include "BreakoutObject.h"
@@ -12,8 +12,8 @@ namespace BreakoutGame
 	class Brick
 	{
 	public:
-		void Initialize(std::string entityName, std::shared_ptr<BrickData> brickData);
-		void ResetUpdateData(std::shared_ptr<BrickData> brickData);
+		void Initialize(std::string entityName, std::shared_ptr<BrickProperties> brickData);
+		void ResetUpdateData(std::shared_ptr<BrickProperties> brickData);
 		void UpdateSprite(std::shared_ptr<SpriteRenderData> spriteRenderData);
 		void SetPosition(Vector2 pos);
 		void HandleOnBallHit();

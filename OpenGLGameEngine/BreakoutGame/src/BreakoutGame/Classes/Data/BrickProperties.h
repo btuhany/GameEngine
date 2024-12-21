@@ -4,7 +4,7 @@
 #include "BrickTypeEnum.h"
 namespace BreakoutGame
 {
-	class BrickData
+	class BrickProperties
 	{
 	public:
 		int hitCountToBreak = 0;

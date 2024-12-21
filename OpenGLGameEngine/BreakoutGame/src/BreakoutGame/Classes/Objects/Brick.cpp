@@ -1,7 +1,7 @@
 #include "Brick.h"
 namespace BreakoutGame
 {
-    void Brick::Initialize(std::string entityName, std::shared_ptr<BrickData> brickData)
+    void Brick::Initialize(std::string entityName, std::shared_ptr<BrickProperties> brickData)
     {
         hitCount = 0;
         m_Entity = std::make_shared<SpriteEntity>(brickData->spriteRenderDataListOrderedHitCountAscending[hitCount]);
@@ -12,7 +12,7 @@ namespace BreakoutGame
         m_Entity->transform->SetPosition(glm::vec3(0.0f, 0.0f, -0.5f));
         m_Type = brickData->brickType;
     }
-    void Brick::ResetUpdateData(std::shared_ptr<BrickData> brickData)
+    void Brick::ResetUpdateData(std::shared_ptr<BrickProperties> brickData)
     {
         hitCount = 0;
         m_Type = brickData->brickType;

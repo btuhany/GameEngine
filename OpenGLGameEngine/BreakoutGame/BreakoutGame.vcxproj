@@ -173,7 +173,7 @@
     <ClInclude Include="src\BreakoutGame\Classes\StateControllers\StateBase.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\InputTypeEnum.h" />
     <ClInclude Include="src\BreakoutGame\Classes\StateControllers\MainMenuState.h" />
-    <ClInclude Include="src\BreakoutGame\Classes\Data\BrickData.h" />
+    <ClInclude Include="src\BreakoutGame\Classes\Data\BrickProperties.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\BallHitBrickData.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\BrickGridData.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\BrickTypeEnum.h" />

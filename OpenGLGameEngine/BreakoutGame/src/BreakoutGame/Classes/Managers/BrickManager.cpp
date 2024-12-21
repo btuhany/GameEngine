@@ -216,7 +216,7 @@ namespace BreakoutGame
 
 		return hitData;
 	}
-	std::shared_ptr<BrickData> BrickManager::GetBrickData(BrickType brickType)
+	std::shared_ptr<BrickProperties> BrickManager::GetBrickData(BrickType brickType)
 	{
 		return m_BrickDataMap[brickType];
 	}
@@ -240,7 +240,7 @@ namespace BreakoutGame
 	}
 	void BrickManager::initializeEasyBrickData(std::shared_ptr<Shader> shader)
 	{
-		auto easyBrickData = std::make_shared<BrickData>();
+		auto easyBrickData = std::make_shared<BrickProperties>();
 		easyBrickData->hitCountToBreak = 1;
 		easyBrickData->scorePointOnHit = 0;
 		easyBrickData->scorePointOnBreak = 10;
@@ -256,7 +256,7 @@ namespace BreakoutGame
 	}
 	void BrickManager::initializeMediumBrickData(std::shared_ptr<Shader> shader)
 	{
-		auto mediumBrickData = std::make_shared<BrickData>();
+		auto mediumBrickData = std::make_shared<BrickProperties>();
 		mediumBrickData->hitCountToBreak = 2;
 		mediumBrickData->scorePointOnHit = 5;
 		mediumBrickData->scorePointOnBreak = 10;
@@ -277,7 +277,7 @@ namespace BreakoutGame
 	}
 	void BrickManager::initializeHardBrickData(std::shared_ptr<Shader> shader)
 	{
-		auto hardBrickData = std::make_shared<BrickData>();
+		auto hardBrickData = std::make_shared<BrickProperties>();
 		hardBrickData->hitCountToBreak = 3;
 		hardBrickData->scorePointOnHit = 5;
 		hardBrickData->scorePointOnBreak = 15;

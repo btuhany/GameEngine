@@ -1,7 +1,7 @@
 #pragma once
 #include <GameEngine.h>
 #include "IEntityProvider.h"
-#include "../Data/BrickData.h"
+#include "../Data/BrickProperties.h"
 #include "../Objects/Brick.h"
 #include "../Data/BallHitBrickData.h"
 #include "../Data/BrickGridData.h"
@@ -20,7 +20,7 @@ namespace BreakoutGame
 		void PlayBrickGridEnterAnimation(std::function<void()> onAnimationEndCallback);
 		std::vector<std::shared_ptr<GameEntity>> getEntityList();
 		BallHitBrickData HandleOnGotHitByBall(std::shared_ptr<GameEntity> brickEntity);
-		std::shared_ptr<BrickData> GetBrickData(BrickType brickType);
+		std::shared_ptr<BrickProperties> GetBrickData(BrickType brickType);
 	private:
 		void tickActiveBricksEnterAnimation(float animationLerpValue);
 		void finalizeActiveBricksEnterAnimation();
@@ -34,7 +34,7 @@ namespace BreakoutGame
 		const Vector2 START_POS = Vector2(-35.0f, 18.0f);
 
 		//TODO: fixing brick data also contains brick type 
-		std::unordered_map<BrickType, std::shared_ptr<BrickData>> m_BrickDataMap;
+		std::unordered_map<BrickType, std::shared_ptr<BrickProperties>> m_BrickDataMap;
 
 		float m_AnimationLerpValue;
 		bool m_IsEnterAnimationPlaying;

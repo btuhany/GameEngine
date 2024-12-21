@@ -51,7 +51,7 @@
     <ClInclude Include="src\BreakoutGame\Classes\Objects\Brick.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BreakoutGame\Classes\Data\BrickData.h">
+    <ClInclude Include="src\BreakoutGame\Classes\Data\BrickProperties.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\BreakoutGame\Classes\Data\TagEnum.h">
