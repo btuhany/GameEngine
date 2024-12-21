@@ -13,7 +13,6 @@ namespace BreakoutGame
 		void Start() override;
 		void Tick(float deltaTime) override;
 		std::shared_ptr<SpriteEntity> getEntity() override;
-
 		PerkType getType();
 		void MoveDown(float deltaTime);
 	private:

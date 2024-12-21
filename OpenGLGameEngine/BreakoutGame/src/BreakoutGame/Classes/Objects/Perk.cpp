@@ -32,8 +32,6 @@ namespace BreakoutGame
 				onCollisionEnter(collider);
 			});
 
-
-
 		m_Entity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp);
 		m_Entity->transform->SetPosition(glm::vec3(0.0f, 0.0f, -0.5f));
 	}

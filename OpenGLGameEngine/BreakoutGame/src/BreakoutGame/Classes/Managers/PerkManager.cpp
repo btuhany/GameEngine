@@ -48,7 +48,7 @@ namespace BreakoutGame
 		if (probabilityNumber < randomNumber)
 			return;
 
-		spawnPerk(hitData.brickPos);
+		trySpawnPerk(hitData.brickPos);
 	}
 	void PerkManager::HandleOnLevelInit()
 	{
@@ -59,8 +59,23 @@ namespace BreakoutGame
 				perkEntity->setActive(false);
 		}
 	}
-	void PerkManager::spawnPerk(Vector3 pos)
+	void PerkManager::trySpawnPerk(Vector3 pos)
 	{
+		//Try get inactive entity
+		std::shared_ptr<Perk> perk;
+		for (size_t i = 0; i < m_PerkPool.size(); i++)
+		{
+			auto entity = m_PerkPool[i]->getEntity();
+			if (!entity->getActive())
+			{
+				perk = m_PerkPool[i];
+				break;
+			}
+		}
+
+		//UPDATE PERK DATA
+		//UPDATE POS
+		perk->getEntity()->setActive(true);
 	}
 	void PerkManager::initializePerkSpriteRenderDataMap(std::shared_ptr<Shader> shader)
 	{
