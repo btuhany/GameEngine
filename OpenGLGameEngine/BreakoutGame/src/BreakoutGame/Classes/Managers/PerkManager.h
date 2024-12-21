@@ -9,13 +9,16 @@ namespace BreakoutGame
 	class PerkManager
 	{
 	public:
-		void Initialize(std::shared_ptr<Shader> shader);
+		void Initialize(std::shared_ptr<Shader> shader, std::function<void(PerkType)> onPerkGainedCallback);
 		void Start();
 		void Tick(float deltaTime);
 		std::vector<std::shared_ptr<GameEntity>> getEntityList();
 		void HandleOnBallHitBrick(BallHitBrickData hitData, BrickData brickData);
 		void HandleOnLevelInit();
 	private:
+		std::function<void(PerkType)> m_OnPerkGainedHandler;
+		std::shared_ptr<Perk> findPerk(std::shared_ptr<GameEntity> entity);
+		void onPerkCollideWithPaddle(std::shared_ptr<GameEntity> entity);
 		float getPerkProbability(PerkType perkType, float multiplier);
 		void trySpawnPerk(Vector3 pos);
 		void initializePerkSpriteRenderDataMap(std::shared_ptr<Shader> shader);

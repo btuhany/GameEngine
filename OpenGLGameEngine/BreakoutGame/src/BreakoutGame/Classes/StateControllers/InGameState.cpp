@@ -15,7 +15,9 @@ namespace BreakoutGame
 		m_Paddle = std::make_shared<Paddle>();
 		m_BrickManager = std::make_shared<BrickManager>();
 		m_PerkManager = std::make_shared<PerkManager>();
-		m_PerkManager->Initialize(mainShader);
+
+		std::function<void(PerkType perk)> perkGainedHandler = std::bind(&InGameState::onPerkGained, this, std::placeholders::_1);
+		m_PerkManager->Initialize(mainShader, perkGainedHandler);
 		m_Paddle->Initialize(mainShader);
 
 		std::function<void(std::shared_ptr<GameEntity> entity)> ballHandler = std::bind(&InGameState::onBallColliderEnter, this, std::placeholders::_1);
@@ -137,9 +139,27 @@ namespace BreakoutGame
 			m_UIManager->UpdatePlayerHUDScorePoint(m_PlayerDataManager->GetScorePoint());
 			m_PerkManager->HandleOnBallHitBrick(hitData, m_BrickManager->GetBrickData(hitData.brickType)->data);
 		}
-		else if (gameEntity->getTag() == (int)Tag::Perk)
+	}
+	void InGameState::onPerkGained(PerkType perkType)
+	{
+		switch (perkType)
 		{
-
+		case BreakoutGame::PerkType::IncreaseLive:
+			break;
+		case BreakoutGame::PerkType::DecreaseLive:
+			break;
+		case BreakoutGame::PerkType::ThreeBall:
+			break;
+		case BreakoutGame::PerkType::PaddleScaleUp:
+			break;
+		case BreakoutGame::PerkType::PaddleScaleDown:
+			break;
+		case BreakoutGame::PerkType::PaddleSpeedUp:
+			break;
+		case BreakoutGame::PerkType::PaddleSpeedDown:
+			break;
+		default:
+			break;
 		}
 	}
 	bool InGameState::isAllLevelsCompleted()

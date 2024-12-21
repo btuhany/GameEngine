@@ -30,6 +30,7 @@ namespace BreakoutGame
 		void initLevel(int level);
 		void onThereIsNoBrickLeft();
 		void onBallColliderEnter(std::shared_ptr<GameEntity> gameEntity);
+		void onPerkGained(PerkType perkType);
 		bool isAllLevelsCompleted();
 		std::shared_ptr<Ball> m_Ball;
 		std::shared_ptr<Paddle> m_Paddle;

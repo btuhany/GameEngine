@@ -14,8 +14,9 @@ namespace BreakoutGame
 		}
 	}
 
-	void Perk::CreateEntity(std::shared_ptr<Shader> shader)
+	void Perk::CreateEntity(std::shared_ptr<Shader> shader, std::function<void(std::shared_ptr<GameEntity>)> onPaddleCollideCallback)
 	{
+		m_OnPaddleCollideCallbackHandler = onPaddleCollideCallback;
 		std::shared_ptr<Texture> tex = std::make_shared<Texture>("src/BreakoutGame/Textures/21-Breakout-Tiles.PNG");
 		tex->LoadTextureWithAlpha();
 		std::shared_ptr<SpriteRenderData> initialSprite = std::make_shared<SpriteRenderData>(tex, nullptr, shader);
@@ -89,8 +90,11 @@ namespace BreakoutGame
 		}
 		auto colliderEntity = colliderEntityWeakPtr.lock();
 		
-		if (colliderEntity->getTag() == (int)Tag::Paddle || 
-			colliderEntity->getTag() == (int)Tag::Boundary)
+		if (colliderEntity->getTag() == (int)Tag::Paddle)
+		{
+			m_OnPaddleCollideCallbackHandler(m_Entity);
+		}
+		else if (colliderEntity->getTag() == (int)Tag::Boundary)
 		{
 			m_Entity->setActive(false);
 		}

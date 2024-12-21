@@ -1,8 +1,9 @@
 #include "PerkManager.h"
 namespace BreakoutGame
 {
-	void PerkManager::Initialize(std::shared_ptr<Shader> shader)
+	void PerkManager::Initialize(std::shared_ptr<Shader> shader, std::function<void(PerkType)> onPerkGainedCallback)
 	{
+		m_OnPerkGainedHandler = onPerkGainedCallback;
 		poolPerks(shader);
 		initializePerkSpriteRenderDataMap(shader);
 		initCumulativePerkTypeProbabilities();
@@ -60,6 +61,38 @@ namespace BreakoutGame
 			if (perkEntity->getActive())
 				perkEntity->setActive(false);
 		}
+	}
+	std::shared_ptr<Perk> PerkManager::findPerk(std::shared_ptr<GameEntity> entity)
+	{
+		std::shared_ptr<Perk> perk = nullptr;
+		for (size_t i = 0; i < m_PerkPool.size(); i++)
+		{
+			if (m_PerkPool[i]->getEntity() == entity)
+			{
+				perk = m_PerkPool[i];
+				break;
+			}
+		}
+		return perk;
+	}
+	void PerkManager::onPerkCollideWithPaddle(std::shared_ptr<GameEntity> entity)
+	{
+		auto perk = findPerk(entity);
+		if (perk == nullptr)
+		{
+			LOG_ERROR("PerkManager | onPerkCollideWithPaddle | perk is empty!");
+			return;
+		}
+
+		PerkType type = perk->getType();
+		if (type == PerkType::None)
+		{
+			LOG_ERROR("PerkManager | onPerkCollideWithPaddle | perk type is empty!");
+			return;
+		}
+
+		entity->setActive(false);
+		m_OnPerkGainedHandler(type);
 	}
 	float PerkManager::getPerkProbability(PerkType perkType, float multiplier)
 	{
@@ -131,7 +164,8 @@ namespace BreakoutGame
 		{
 			std::string name = "Perk_" + std::to_string(i);
 			auto perk = std::make_shared<Perk>();
-			perk->CreateEntity(shader);
+			std::function<void(std::shared_ptr<GameEntity> entity)> onPaddleCollideHandler = std::bind(&PerkManager::onPerkCollideWithPaddle, this, std::placeholders::_1);
+			perk->CreateEntity(shader, onPaddleCollideHandler);
 			m_PerkPool.push_back(perk);
 		}
 	}
