@@ -39,6 +39,9 @@ namespace BreakoutGame
 	{
 		m_Type = perkType;
 		m_Entity->renderer->setSpriteRenderData(spriteRenderData);
+
+		auto aspectRatio = spriteRenderData->texture->GetAspectRatio();
+		m_Entity->transform->SetScale(glm::vec3(aspectRatio, 1.0f, 1.0f));
 	}
 	void Perk::Start()
 	{

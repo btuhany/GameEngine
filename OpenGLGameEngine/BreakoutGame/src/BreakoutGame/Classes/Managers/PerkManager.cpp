@@ -97,14 +97,29 @@ namespace BreakoutGame
 	}
 	void PerkManager::initializePerkSpriteRenderDataMap(std::shared_ptr<Shader> shader)
 	{
-		loadSpriteIncreaseLiveToMap(shader);
-	}
-	void PerkManager::loadSpriteIncreaseLiveToMap(std::shared_ptr<Shader> shader)
-	{
 		std::shared_ptr<Texture> tex = std::make_shared<Texture>("src/BreakoutGame/Textures/60-Breakout-Tiles.PNG");
 		tex->LoadTextureWithAlpha();
-		std::shared_ptr<SpriteRenderData> spriteRenderData = std::make_shared<SpriteRenderData>(tex, nullptr, shader);
-		m_PerkSpriteRenderDataMap[PerkType::IncreaseLive] = spriteRenderData;
+		m_PerkSpriteRenderDataMap[PerkType::IncreaseLive] = std::make_shared<SpriteRenderData>(tex, nullptr, shader);
+
+		tex = std::make_shared<Texture>("src/BreakoutGame/Textures/43-Breakout-Tiles.PNG");
+		tex->LoadTextureWithAlpha();
+		m_PerkSpriteRenderDataMap[PerkType::ThreeBall] = std::make_shared<SpriteRenderData>(tex, nullptr, shader);
+
+		tex = std::make_shared<Texture>("src/BreakoutGame/Textures/47-Breakout-Tiles.PNG");
+		tex->LoadTextureWithAlpha();
+		m_PerkSpriteRenderDataMap[PerkType::PaddleScaleUp] = std::make_shared<SpriteRenderData>(tex, nullptr, shader);
+
+		tex = std::make_shared<Texture>("src/BreakoutGame/Textures/46-Breakout-Tiles.PNG");
+		tex->LoadTextureWithAlpha();
+		m_PerkSpriteRenderDataMap[PerkType::PaddleScaleDown] = std::make_shared<SpriteRenderData>(tex, nullptr, shader);
+
+		tex = std::make_shared<Texture>("src/BreakoutGame/Textures/42-Breakout-Tiles.PNG");
+		tex->LoadTextureWithAlpha();
+		m_PerkSpriteRenderDataMap[PerkType::PaddleSpeedUp] = std::make_shared<SpriteRenderData>(tex, nullptr, shader);
+
+		tex = std::make_shared<Texture>("src/BreakoutGame/Textures/41-Breakout-Tiles.PNG");
+		tex->LoadTextureWithAlpha();
+		m_PerkSpriteRenderDataMap[PerkType::PaddleSpeedDown] = std::make_shared<SpriteRenderData>(tex, nullptr, shader);
 	}
 	void PerkManager::poolPerks(std::shared_ptr<Shader> shader)
 	{

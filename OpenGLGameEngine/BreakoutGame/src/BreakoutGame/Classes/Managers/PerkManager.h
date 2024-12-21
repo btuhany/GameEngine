@@ -19,7 +19,6 @@ namespace BreakoutGame
 		float getPerkProbability(PerkType perkType, float multiplier);
 		void trySpawnPerk(Vector3 pos);
 		void initializePerkSpriteRenderDataMap(std::shared_ptr<Shader> shader);
-		void loadSpriteIncreaseLiveToMap(std::shared_ptr<Shader> shader);
 		void poolPerks(std::shared_ptr<Shader> shader);
 		std::unordered_map<PerkType, std::shared_ptr<SpriteRenderData>> m_PerkSpriteRenderDataMap;
 		std::vector<std::shared_ptr<Perk>> m_PerkPool;
@@ -30,12 +29,12 @@ namespace BreakoutGame
 		std::vector<float> m_CumulativePerkTypeProbabilityList;
 		const int MAX_PERK_COUNT_INGAME = 5;
 		const std::unordered_map<PerkType, float> m_PerkProbabilityMap = {
-			{ PerkType::IncreaseLive, 0.00f },
-			{ PerkType::ThreeBall, 0.50f },
-			{ PerkType::PaddleScaleUp, 0.30f },
-			{ PerkType::PaddleScaleDown, 0.00f },
-			{ PerkType::PaddleSpeedUp, 0.20f },
-			{ PerkType::PaddleSpeedDown, 0.00f },
+			{ PerkType::IncreaseLive, 0.2f },
+			{ PerkType::ThreeBall, 0.16f },
+			{ PerkType::PaddleScaleUp, 0.16f },
+			{ PerkType::PaddleScaleDown, 0.16f },
+			{ PerkType::PaddleSpeedUp, 0.16f },
+			{ PerkType::PaddleSpeedDown, 0.16f },
 		};
 		const std::array<PerkType, 6> m_AllPerkTypeArr = {
 			PerkType::IncreaseLive,
