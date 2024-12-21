@@ -5,6 +5,8 @@ namespace BreakoutGame
 	{
 		poolPerks(shader);
 		initializePerkSpriteRenderDataMap(shader);
+		initCumulativePerkTypeProbabilities();
+		//printProbabilities();
 	}
 	void PerkManager::Start()
 	{
@@ -59,6 +61,10 @@ namespace BreakoutGame
 				perkEntity->setActive(false);
 		}
 	}
+	float PerkManager::getPerkProbability(PerkType perkType, float multiplier)
+	{
+		return m_PerkProbabilityMap.at(perkType) * multiplier;
+	}
 	void PerkManager::trySpawnPerk(Vector3 pos)
 	{
 		//Try get inactive entity
@@ -76,11 +82,17 @@ namespace BreakoutGame
 		if (perk == nullptr)
 			return;
 
-		PerkType perkType = PerkType::IncreaseLive;
+		//BAD PRACTICE
+		
+		PerkType perkType = getRandomPerkType();
+		if (perkType == PerkType::None)
+		{
+			LOG_ERROR("trySpawnPerk | getRandomPerkType | perk type is null");
+			return;
+		}
 		auto perkEntity = perk->getEntity();
 		perkEntity->transform->SetPosition(pos);
 		perk->UpdateData(perkType, m_PerkSpriteRenderDataMap[perkType]);
-		//UPDATE PERK DATA
 		perkEntity->setActive(true);
 	}
 	void PerkManager::initializePerkSpriteRenderDataMap(std::shared_ptr<Shader> shader)
@@ -102,6 +114,57 @@ namespace BreakoutGame
 			auto perk = std::make_shared<Perk>();
 			perk->CreateEntity(shader);
 			m_PerkPool.push_back(perk);
+		}
+	}
+	PerkType PerkManager::getRandomPerkType()
+	{
+		PerkType perkType = PerkType::None;
+		int randomNumber = RandomGenerator::GetInt(1, 100);
+		for (size_t i = 0; i < m_CumulativePerkTypeProbabilityList.size(); i++)
+		{
+			if (randomNumber <= m_CumulativePerkTypeProbabilityList[i] * 100.0f)
+			{
+				perkType = m_AllPerkTypeArr[i];
+				break;
+			}
+		}
+		return perkType;
+	}
+	void PerkManager::initCumulativePerkTypeProbabilities()
+	{
+		float cumulativeSum = 0.0f;
+		for (const auto& perk : m_AllPerkTypeArr) {
+			float probability = m_PerkProbabilityMap.at(perk);
+			cumulativeSum += probability;
+			m_CumulativePerkTypeProbabilityList.push_back(cumulativeSum);
+		}
+	}
+	void PerkManager::printProbabilities()
+	{
+		std::unordered_map<int, int> numberMap;
+		for (size_t i = 0; i < 100; i++)
+		{
+			PerkType perkType = PerkType::None;
+			int randomNumber = RandomGenerator::GetInt(1, 100);
+			for (size_t i = 0; i < m_CumulativePerkTypeProbabilityList.size(); i++)
+			{
+				if (randomNumber <= m_CumulativePerkTypeProbabilityList[i] * 100.0f)
+				{
+					perkType = m_AllPerkTypeArr[i];
+					if (numberMap.find(i) != numberMap.end())
+					{
+						numberMap[i]++;
+					}
+					else
+					{
+						numberMap[i] = 1;
+					}
+					break;
+				}
+			}
+		}
+		for (const auto& pair : numberMap) {
+			LOG_ERROR("\n index: " + std::to_string(pair.first) + " , count: " + std::to_string(pair.second));
 		}
 	}
 }
