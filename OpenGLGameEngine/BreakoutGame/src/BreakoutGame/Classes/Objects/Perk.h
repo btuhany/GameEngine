@@ -16,6 +16,7 @@ namespace BreakoutGame
 		PerkType getType();
 		void MoveDown(float deltaTime);
 	private:
+		std::shared_ptr<BoxCollider2DComponent> m_Collider;
 		void onCollisionEnter(std::shared_ptr<CollisionData> collisionData);
 		PerkType m_Type;
 		const float SPEED = 2.0f;

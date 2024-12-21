@@ -32,6 +32,8 @@ namespace GameEngine
 		ColliderType getColliderType() override;
 		Vector2 ProcessGetNormalVector(Vector2 collisionPos);
 		void SetEnableStaticSingleNormalVector(bool enabled, Vector2 normalVector = Vector2::zero);
+		void SetWidthAndHeight(float width, float height);
+		void UpdateDebugMesh();
 	private:
 		float m_Width;
 		float m_Height;

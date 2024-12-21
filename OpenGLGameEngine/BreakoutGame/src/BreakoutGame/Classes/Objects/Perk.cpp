@@ -32,6 +32,8 @@ namespace BreakoutGame
 				onCollisionEnter(collider);
 			});
 
+		m_Collider = boxCollider2DComp;
+
 		m_Entity->AddComponent<BoxCollider2DComponent>(boxCollider2DComp);
 		m_Entity->transform->SetPosition(glm::vec3(0.0f, 0.0f, 0.5f));
 	}
@@ -42,6 +44,10 @@ namespace BreakoutGame
 
 		auto aspectRatio = spriteRenderData->texture->GetAspectRatio();
 		m_Entity->transform->SetScale(glm::vec3(aspectRatio, 1.0f, 1.0f));
+
+		float height = m_Collider->getHeight();
+		m_Collider->SetWidthAndHeight(aspectRatio * height, height);
+		//m_Collider->UpdateDebugMesh();
 	}
 	void Perk::Start()
 	{

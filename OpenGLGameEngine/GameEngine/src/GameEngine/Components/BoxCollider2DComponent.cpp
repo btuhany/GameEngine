@@ -170,6 +170,19 @@ namespace GameEngine
 		m_StaticSingleNormalVector = normalVector;
 	}
 
+	void BoxCollider2DComponent::SetWidthAndHeight(float width, float height)
+	{
+		m_Width = width;
+		m_Height = height;
+	}
+
+	void BoxCollider2DComponent::UpdateDebugMesh()
+	{
+#if _DEBUG
+		m_DebugMeshRenderData->mesh = createDebugMesh();
+#endif
+	}
+
 	void BoxCollider2DComponent::HandleOnAfterOwnerInstantiated()
 	{
 #if _DEBUG
