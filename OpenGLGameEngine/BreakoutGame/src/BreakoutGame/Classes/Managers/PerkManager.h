@@ -17,6 +17,7 @@ namespace BreakoutGame
 		void HandleOnLevelInit();
 
 		const float PADDLE_SCALE_CHANGE_VALUE = 0.7f;
+		const float PADDLE_SPEED_CHANGE_VALUE = 10.0f;
 	private:
 		std::function<void(PerkType)> m_OnPerkGainedHandler;
 		std::shared_ptr<Perk> findPerk(std::shared_ptr<GameEntity> entity);
@@ -37,10 +38,10 @@ namespace BreakoutGame
 			{ PerkType::IncreaseLive, 0.0f },
 			{ PerkType::DecreaseLive, 0.0f },
 			{ PerkType::ThreeBall, 0.0f },
-			{ PerkType::PaddleScaleUp, 0.5f },
-			{ PerkType::PaddleScaleDown, 0.5f },
-			{ PerkType::PaddleSpeedUp, 0.0f },
-			{ PerkType::PaddleSpeedDown, 0.0f },
+			{ PerkType::PaddleScaleUp, 0.0f },
+			{ PerkType::PaddleScaleDown, 0.0f },
+			{ PerkType::PaddleSpeedUp, 0.5f },
+			{ PerkType::PaddleSpeedDown, 0.5f },
 		};
 		const std::array<PerkType, 7> m_AllPerkTypeArr = {
 			PerkType::IncreaseLive,

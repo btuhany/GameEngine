@@ -23,6 +23,10 @@ namespace BreakoutGame
 		m_Entity->transform->SetScale(glm::vec3(m_DefaultScale.x, m_DefaultScale.y, m_Entity->transform->getScale().z));
 		m_Collider->SetWidthAndHeight(7.5f, 2.0f);
 	}
+	void Paddle::IncreaseSpeed(float value)
+	{
+		m_Speed += value;
+	}
 	void Paddle::Start()
 	{
 		auto pos = m_Entity->transform->getPosition();

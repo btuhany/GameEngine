@@ -60,7 +60,7 @@ namespace BreakoutGame
 				{
 					m_UIManager->HideCenteredText();
 					m_UIManager->UpdateMainMenuStartButtonText("Restart");
-					m_Paddle->ResetPos();
+					m_Paddle->SetToDefault();
 					m_OnAllLevelsCompleted();
 					return;
 				}
@@ -162,8 +162,10 @@ namespace BreakoutGame
 			m_Paddle->ScaleDownWidth(m_PerkManager->PADDLE_SCALE_CHANGE_VALUE);
 			break;
 		case BreakoutGame::PerkType::PaddleSpeedUp:
+			m_Paddle->IncreaseSpeed(m_PerkManager->PADDLE_SPEED_CHANGE_VALUE);
 			break;
 		case BreakoutGame::PerkType::PaddleSpeedDown:
+			m_Paddle->IncreaseSpeed(m_PerkManager->PADDLE_SPEED_CHANGE_VALUE * (-1.0f));
 			break;
 		default:
 			break;

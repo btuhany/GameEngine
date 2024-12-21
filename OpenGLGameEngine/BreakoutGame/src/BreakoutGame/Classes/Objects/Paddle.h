@@ -21,6 +21,7 @@ namespace BreakoutGame
 		void ScaleUpWidth(float value);
 		void ScaleDownWidth(float value);
 		void SetToDefault();
+		void IncreaseSpeed(float value);
 	private:
 		Vector2 m_DefaultScale;
 		std::shared_ptr<BoxCollider2DComponent> m_Collider;
