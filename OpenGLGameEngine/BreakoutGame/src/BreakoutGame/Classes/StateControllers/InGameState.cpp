@@ -135,7 +135,7 @@ namespace BreakoutGame
 			auto hitData = m_BrickManager->HandleOnGotHitByBall(gameEntity);
 			m_PlayerDataManager->ProcessBallHitBrickData(hitData);
 			m_UIManager->UpdatePlayerHUDScorePoint(m_PlayerDataManager->GetScorePoint());
-			m_PerkManager->HandleOnBallHitBrick(hitData);
+			m_PerkManager->HandleOnBallHitBrick(hitData, m_BrickManager->GetBrickData(hitData.brickType)->data);
 		}
 		else if (gameEntity->getTag() == (int)Tag::Perk)
 		{

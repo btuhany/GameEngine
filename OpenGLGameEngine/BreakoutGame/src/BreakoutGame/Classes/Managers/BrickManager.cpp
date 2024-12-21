@@ -246,7 +246,8 @@ namespace BreakoutGame
 		brickProperties->data.scorePointOnHit = 0;
 		brickProperties->data.scorePointOnBreak = 10;
 		brickProperties->data.brickType = BrickType::Easy;
-		brickProperties->data.isAbleToDropPerk = false;
+		brickProperties->data.perkDropRateOnBreak = 0.0f;
+		brickProperties->data.perkDropRateOnHit = 0.0f;
 
 		std::shared_ptr<Texture> brickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/03-Breakout-Tiles.PNG");
 		brickTexture->LoadTextureWithAlpha();
@@ -261,8 +262,9 @@ namespace BreakoutGame
 		brickProperties->data.hitCountToBreak = 2;
 		brickProperties->data.scorePointOnHit = 5;
 		brickProperties->data.scorePointOnBreak = 10;
-		brickProperties->data.isAbleToDropPerk = false;
 		brickProperties->data.brickType = BrickType::Medium;
+		brickProperties->data.perkDropRateOnBreak = 0.6f;
+		brickProperties->data.perkDropRateOnHit = 0.3f;
 
 		std::shared_ptr<Texture> brickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/05-Breakout-Tiles.PNG");
 		brickTexture->LoadTextureWithAlpha();
@@ -282,8 +284,9 @@ namespace BreakoutGame
 		brickProperties->data.hitCountToBreak = 3;
 		brickProperties->data.scorePointOnHit = 5;
 		brickProperties->data.scorePointOnBreak = 15;
-		brickProperties->data.isAbleToDropPerk = false;
 		brickProperties->data.brickType = BrickType::Hard;
+		brickProperties->data.perkDropRateOnBreak = 0.9f;
+		brickProperties->data.perkDropRateOnHit = 0.4f;
 
 		std::shared_ptr<Texture> brickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/07-Breakout-Tiles.PNG");
 		brickTexture->LoadTextureWithAlpha();

@@ -29,9 +29,26 @@ namespace BreakoutGame
 		}
 		return entityList;
 	}
-	void PerkManager::HandleOnBallHitBrick(BallHitBrickData hitData)
+	void PerkManager::HandleOnBallHitBrick(BallHitBrickData hitData, BrickData brickData)
 	{
+		if (hitData.isBroken)
+		{
+			if (brickData.perkDropRateOnBreak <= 0.0f)
+				return;
+		}
+		else
+		{
+			if (brickData.perkDropRateOnHit <= 0.0f)
+				return;
+		}
 
+
+		int randomNumber = RandomGenerator::GetInt(1, 100);
+		int probabilityNumber = 100 * brickData.perkDropRateOnHit;
+		if (probabilityNumber < randomNumber)
+			return;
+
+		spawnPerk(hitData.brickPos);
 	}
 	void PerkManager::HandleOnLevelInit()
 	{
@@ -41,6 +58,9 @@ namespace BreakoutGame
 			if (perkEntity->getActive())
 				perkEntity->setActive(false);
 		}
+	}
+	void PerkManager::spawnPerk(Vector3 pos)
+	{
 	}
 	void PerkManager::initializePerkSpriteRenderDataMap(std::shared_ptr<Shader> shader)
 	{

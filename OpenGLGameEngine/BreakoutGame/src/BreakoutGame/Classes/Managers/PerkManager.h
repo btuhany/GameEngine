@@ -3,6 +3,7 @@
 #include "../Data/PerkData.h"
 #include "../Objects/Perk.h"
 #include "../Data/BallHitBrickData.h"
+#include "../Data/BrickData.h"
 namespace BreakoutGame
 {
 	class PerkManager
@@ -12,9 +13,10 @@ namespace BreakoutGame
 		void Start();
 		void Tick(float deltaTime);
 		std::vector<std::shared_ptr<GameEntity>> getEntityList();
-		void HandleOnBallHitBrick(BallHitBrickData hitData);
+		void HandleOnBallHitBrick(BallHitBrickData hitData, BrickData brickData);
 		void HandleOnLevelInit();
 	private:
+		void spawnPerk(Vector3 pos);
 		void initializePerkSpriteRenderDataMap(std::shared_ptr<Shader> shader);
 		void loadSpriteIncreaseLiveToMap(std::shared_ptr<Shader> shader);
 		void poolPerks(std::shared_ptr<Shader> shader);
