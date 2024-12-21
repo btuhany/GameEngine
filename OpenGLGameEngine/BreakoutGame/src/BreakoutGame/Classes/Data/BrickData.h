@@ -11,8 +11,6 @@ namespace BreakoutGame
 		int scorePointOnHit = 0;
 		int scorePointOnBreak = 0;
 		bool isAbleToDropPerk = false;
-		bool isAbleToDropExtraScorePoint = false;
-		bool isAbleToDropHealthPoint = false;
 		std::vector<std::shared_ptr<SpriteRenderData>> spriteRenderDataListOrderedHitCountAscending;
 		BrickType brickType;
 	};

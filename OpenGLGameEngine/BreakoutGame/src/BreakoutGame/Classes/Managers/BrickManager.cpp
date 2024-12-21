@@ -241,9 +241,7 @@ namespace BreakoutGame
 		easyBrickData->hitCountToBreak = 1;
 		easyBrickData->scorePointOnHit = 0;
 		easyBrickData->scorePointOnBreak = 10;
-		easyBrickData->isAbleToDropHealthPoint = false;
 		easyBrickData->isAbleToDropPerk = false;
-		easyBrickData->isAbleToDropExtraScorePoint = false;
 		easyBrickData->brickType = BrickType::Easy;
 
 		std::shared_ptr<Texture> brickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/03-Breakout-Tiles.PNG");
@@ -259,9 +257,7 @@ namespace BreakoutGame
 		mediumBrickData->hitCountToBreak = 2;
 		mediumBrickData->scorePointOnHit = 5;
 		mediumBrickData->scorePointOnBreak = 10;
-		mediumBrickData->isAbleToDropHealthPoint = false;
 		mediumBrickData->isAbleToDropPerk = false;
-		mediumBrickData->isAbleToDropExtraScorePoint = false;
 		mediumBrickData->brickType = BrickType::Medium;
 
 		std::shared_ptr<Texture> brickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/05-Breakout-Tiles.PNG");
@@ -282,9 +278,7 @@ namespace BreakoutGame
 		hardBrickData->hitCountToBreak = 3;
 		hardBrickData->scorePointOnHit = 5;
 		hardBrickData->scorePointOnBreak = 15;
-		hardBrickData->isAbleToDropHealthPoint = false;
 		hardBrickData->isAbleToDropPerk = false;
-		hardBrickData->isAbleToDropExtraScorePoint = false;
 		hardBrickData->brickType = BrickType::Hard;
 
 		std::shared_ptr<Texture> brickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/07-Breakout-Tiles.PNG");
