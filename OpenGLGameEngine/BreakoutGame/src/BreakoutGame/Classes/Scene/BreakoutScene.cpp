@@ -96,6 +96,7 @@ namespace BreakoutGame
 		instantiateGameEntity(upBoundaryEntity, true);
 
 		auto downBoundaryEntity = std::make_shared<GameEntity>();
+		downBoundaryEntity->setTag((int)Tag::DeathBoundary);
 		downBoundaryEntity->setName("left_boundary_collider_object");
 		auto downBoundaryColliderComp = std::make_shared<BoxCollider2DComponent>(87.0f, 5.0f, CollisionType::Static);
 		downBoundaryColliderComp->SetEnableStaticSingleNormalVector(true, Vector2::up);
