@@ -6,6 +6,13 @@ namespace BreakoutGame
 		poolPerks(shader);
 		initializePerkSpriteRenderDataMap(shader);
 	}
+	void PerkManager::Start()
+	{
+		for (size_t i = 0; i < m_PerkPool.size(); i++)
+		{
+			m_PerkPool[i]->Start();
+		}
+	}
 	void PerkManager::Tick(float deltaTime)
 	{
 		for (size_t i = 0; i < m_PerkPool.size(); i++)

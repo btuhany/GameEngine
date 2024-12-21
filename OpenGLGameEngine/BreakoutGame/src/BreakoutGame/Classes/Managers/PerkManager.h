@@ -8,6 +8,7 @@ namespace BreakoutGame
 	{
 	public:
 		void Initialize(std::shared_ptr<Shader> shader);
+		void Start();
 		void Tick(float deltaTime);
 		std::vector<std::shared_ptr<GameEntity>> getEntities();
 	private:
@@ -17,7 +18,7 @@ namespace BreakoutGame
 
 		std::unordered_map<PerkType, std::shared_ptr<SpriteRenderData>> m_PerkSpriteRenderDataMap;
 		std::vector<std::shared_ptr<Perk>> m_PerkPool;
-		const int MAX_PERK_COUNT_INGAME = 5;
+		const int MAX_PERK_COUNT_INGAME = 1;
 	};
 }
 
