@@ -2,6 +2,7 @@
 #include "../Data/PerkTypeEnum.h"
 #include "../Data/PerkData.h"
 #include "../Objects/Perk.h"
+#include "../Data/BallHitBrickData.h"
 namespace BreakoutGame
 {
 	class PerkManager
@@ -11,6 +12,7 @@ namespace BreakoutGame
 		void Start();
 		void Tick(float deltaTime);
 		std::vector<std::shared_ptr<GameEntity>> getEntityList();
+		void HandleOnBallHitBrick(BallHitBrickData hitData);
 	private:
 		void initializePerkSpriteRenderDataMap(std::shared_ptr<Shader> shader);
 		void loadSpriteIncreaseLiveToMap(std::shared_ptr<Shader> shader);

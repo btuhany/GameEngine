@@ -29,6 +29,10 @@ namespace BreakoutGame
 		}
 		return entityList;
 	}
+	void PerkManager::HandleOnBallHitBrick(BallHitBrickData hitData)
+	{
+
+	}
 	void PerkManager::initializePerkSpriteRenderDataMap(std::shared_ptr<Shader> shader)
 	{
 		loadSpriteIncreaseLiveToMap(shader);

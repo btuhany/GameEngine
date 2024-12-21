@@ -43,7 +43,6 @@ namespace BreakoutGame
 	}
 	void Perk::Start()
 	{
-		m_Entity->setActive(true);
 	}
 	void Perk::Tick(float deltaTime)
 	{
