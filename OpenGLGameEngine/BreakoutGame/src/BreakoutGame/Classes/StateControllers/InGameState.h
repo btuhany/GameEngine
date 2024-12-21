@@ -9,7 +9,7 @@
 #include "../Data/LevelBrickGridData.h"
 namespace BreakoutGame
 {
-	class InGameStateController : public StateBase
+	class InGameState : public StateBase
 	{
 	public:
 		void Initialize(std::shared_ptr<Shader> mainShader, std::shared_ptr<UIManager> uiManager);

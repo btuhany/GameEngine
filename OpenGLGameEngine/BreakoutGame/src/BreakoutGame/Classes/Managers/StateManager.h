@@ -2,14 +2,14 @@
 #include <GameEngine.h>
 
 #include "../Data/GameStateEnum.h"
-#include "../StateControllers/MainMenuStateController.h"
-#include "../StateControllers/InGameStateController.h"
+#include "../StateControllers/MainMenuState.h"
+#include "../StateControllers/InGameState.h"
 namespace BreakoutGame
 {
 	class StateManager
 	{
 	public:
-		void Initialize(std::shared_ptr<MainMenuStateController> mainMenuStateController, std::shared_ptr<InGameStateController> inGameStateController, std::function<void()> onGameQuitCallback);
+		void Initialize(std::shared_ptr<MainMenuState> mainMenuStateController, std::shared_ptr<InGameState> inGameStateController, std::function<void()> onGameQuitCallback);
 		void Start();
 		void Tick(float deltaTime);
 		GameState GetGameState();

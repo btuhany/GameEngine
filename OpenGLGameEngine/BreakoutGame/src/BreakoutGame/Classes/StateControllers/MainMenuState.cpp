@@ -1,29 +1,29 @@
-#include "MainMenuStateController.h"
+#include "MainMenuState.h"
 
 namespace BreakoutGame
 {
 	const int BUTTON_COUNT = 3;
-	MainMenuStateController::MainMenuStateController(std::shared_ptr<UIManager> uiManager)
+	MainMenuState::MainMenuState(std::shared_ptr<UIManager> uiManager)
 	{
 		m_IsHelpPanelActive = false;
 		m_UIManager = uiManager;
 	}
-	void MainMenuStateController::SetCallbacks(std::function<void()> startButtonClickHandler, std::function<void()> quitButtonClickHandler)
+	void MainMenuState::SetCallbacks(std::function<void()> startButtonClickHandler, std::function<void()> quitButtonClickHandler)
 	{
 		m_OnStartButtonClick = startButtonClickHandler;
 		m_OnQuitButtonClick = quitButtonClickHandler;
 	}
-	void MainMenuStateController::HandleOnActivated()
+	void MainMenuState::HandleOnActivated()
 	{
 		resetState();
 		m_UIManager->ShowMainMenuPanel();
 	}
-	void MainMenuStateController::HandleOnDeactivated()
+	void MainMenuState::HandleOnDeactivated()
 	{
 		resetState();
 		m_UIManager->HideMainMenuPanel();;
 	}
-	void MainMenuStateController::HandleInputs(InputType inputType)
+	void MainMenuState::HandleInputs(InputType inputType)
 	{
 		if (m_IsHelpPanelActive)
 		{
@@ -83,16 +83,16 @@ namespace BreakoutGame
 			return;
 		}
 	}
-	void MainMenuStateController::resetState()
+	void MainMenuState::resetState()
 	{
 		m_CurrentButtonIndex = -1;
 		m_CanSelectButtons = false;
 		m_IsAnyButtonClick = false;
 	}
-	void MainMenuStateController::Tick(float deltaTime)
+	void MainMenuState::Tick(float deltaTime)
 	{
 	}
-	void MainMenuStateController::handleHelpPanel()
+	void MainMenuState::handleHelpPanel()
 	{
 		if (m_IsHelpPanelActive)
 		{
@@ -105,18 +105,18 @@ namespace BreakoutGame
 			openHelpPanel();
 		}
 	}
-	void MainMenuStateController::openHelpPanel()
+	void MainMenuState::openHelpPanel()
 	{
 		m_UIManager->HideMainMenuPanel();
 		m_UIManager->ShowHelpPanel();
 	}
-	void MainMenuStateController::hideHelpPanel()
+	void MainMenuState::hideHelpPanel()
 	{
 		m_UIManager->HideHelpPanel();
 		m_UIManager->ShowMainMenuPanel();
 		m_UIManager->SelectMainMenuButton(MainMenuButtonType::Help);
 	}
-	void MainMenuStateController::Start()
+	void MainMenuState::Start()
 	{
 	}
 }

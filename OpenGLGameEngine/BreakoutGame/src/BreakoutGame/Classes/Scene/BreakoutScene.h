@@ -8,7 +8,6 @@
 
 #include "../Managers/StateManager.h"
 #include "../Data/InputTypeEnum.h"
-#include "../StateControllers/InGameStateController.h"
 namespace BreakoutGame
 {
 	class BreakoutScene : public Scene

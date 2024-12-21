@@ -19,7 +19,7 @@ namespace BreakoutGame
         }
     }
 
-    void StateManager::Initialize(std::shared_ptr<MainMenuStateController> mainMenuStateController, std::shared_ptr<InGameStateController> inGameStateController, std::function<void()> onGameQuitCallback)
+    void StateManager::Initialize(std::shared_ptr<MainMenuState> mainMenuStateController, std::shared_ptr<InGameState> inGameStateController, std::function<void()> onGameQuitCallback)
     {
 
         m_CurrentGameState = GameState::MainMenu;

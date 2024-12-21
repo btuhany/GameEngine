@@ -1,8 +1,8 @@
-#include "InGameStateController.h"
+#include "InGameState.h"
 
 namespace BreakoutGame
 {
-	void InGameStateController::Initialize(std::shared_ptr<Shader> mainShader, std::shared_ptr<UIManager> uiManager)
+	void InGameState::Initialize(std::shared_ptr<Shader> mainShader, std::shared_ptr<UIManager> uiManager)
 	{
 		m_InLevelCompletedDelay = false;
 		m_LevelCompletedDelayTimeCounter = 0.0f;
@@ -17,19 +17,19 @@ namespace BreakoutGame
 
 		m_Paddle->Initialize(mainShader);
 
-		std::function<void(std::shared_ptr<GameEntity> entity)> ballHandler = std::bind(&InGameStateController::onBallColliderEnter, this, std::placeholders::_1);
+		std::function<void(std::shared_ptr<GameEntity> entity)> ballHandler = std::bind(&InGameState::onBallColliderEnter, this, std::placeholders::_1);
 		m_Ball->Initialize(mainShader, ballHandler);
 
 
-		std::function<void()> brickManagerHandler = std::bind(&InGameStateController::onThereIsNoBrickLeft, this);
+		std::function<void()> brickManagerHandler = std::bind(&InGameState::onThereIsNoBrickLeft, this);
 		m_BrickManager->Initialize(mainShader, brickManagerHandler);
 	}
-	void InGameStateController::Start()
+	void InGameState::Start()
 	{
 		m_Ball->Start();
 		m_Paddle->Start();
 	}
-	void InGameStateController::Tick(float deltaTime)
+	void InGameState::Tick(float deltaTime)
 	{
 		if (m_IsGamePaused)
 			return;
@@ -68,7 +68,7 @@ namespace BreakoutGame
 			}
 		}
 	}
-	std::vector<std::shared_ptr<GameEntity>> InGameStateController::GetEntities()
+	std::vector<std::shared_ptr<GameEntity>> InGameState::GetEntities()
 	{
 		auto entityList = std::vector<std::shared_ptr<GameEntity>>();
 		entityList.push_back(m_Paddle->getEntity());
@@ -77,21 +77,21 @@ namespace BreakoutGame
 		entityList.insert(entityList.end(), brickManagerEntityList.begin(), brickManagerEntityList.end());
 		return entityList;
 	}
-	void InGameStateController::HandleOnDeactivated()
+	void InGameState::HandleOnDeactivated()
 	{
 		m_Ball->getEntity()->setActive(false);
 		m_Paddle->getEntity()->setActive(false);
 		m_UIManager->HidePlayerHUD();
 	}
 
-	void InGameStateController::HandleOnActivated()
+	void InGameState::HandleOnActivated()
 	{
 		m_PlayerDataManager = std::make_shared<PlayerDataManager>();
 		m_UIManager->ShowPlayerHUD();
 		startGame();
 	}
 
-	void InGameStateController::HandleInputs(InputType inputType)
+	void InGameState::HandleInputs(InputType inputType)
 	{
 		if (inputType == InputType::LeftArrow)
 		{
@@ -120,11 +120,11 @@ namespace BreakoutGame
 			onPause();
 		}
 	}
-	void InGameStateController::SetCallbacks(std::function<void()> onAllLevelsCompletedHandler)
+	void InGameState::SetCallbacks(std::function<void()> onAllLevelsCompletedHandler)
 	{
 		m_OnAllLevelsCompleted = onAllLevelsCompletedHandler;
 	}
-	void InGameStateController::onBallColliderEnter(std::shared_ptr<GameEntity> gameEntity)
+	void InGameState::onBallColliderEnter(std::shared_ptr<GameEntity> gameEntity)
 	{
 		if (gameEntity->getTag() == (int)Tag::Brick)
 		{
@@ -133,7 +133,7 @@ namespace BreakoutGame
 			m_UIManager->UpdatePlayerHUDScorePoint(m_PlayerDataManager->GetScorePoint());
 		}
 	}
-	bool InGameStateController::isAllLevelsCompleted()
+	bool InGameState::isAllLevelsCompleted()
 	{
 		if (m_PlayerDataManager->GetPlayerLevel() + 1 >= LevelBrickGridData::GetLevelCount())
 		{
@@ -141,7 +141,7 @@ namespace BreakoutGame
 		}
 		return false;
 	}
-	void InGameStateController::onPause()
+	void InGameState::onPause()
 	{
 		if (m_IsGamePaused)
 		{
@@ -159,7 +159,7 @@ namespace BreakoutGame
 			m_Paddle->DisableMovement();
 		}
 	}
-	void InGameStateController::startGame()
+	void InGameState::startGame()
 	{
 		m_Paddle->getEntity()->setActive(true);
 		m_Ball->getEntity()->setActive(true);
@@ -169,12 +169,12 @@ namespace BreakoutGame
 
 		initLevel(m_PlayerDataManager->GetPlayerLevel());
 	}
-	void InGameStateController::onLevelInitializationCompleted()
+	void InGameState::onLevelInitializationCompleted()
 	{
 		m_Paddle->EnableMovement();
 		m_Ball->EnableMovement();
 	}
-	void InGameStateController::initLevel(int level)
+	void InGameState::initLevel(int level)
 	{
 		m_UIManager->UpdatePlayerHUDLevel(m_PlayerDataManager->GetPlayerLevel());
 		m_UIManager->HideCenteredText();
@@ -184,10 +184,10 @@ namespace BreakoutGame
 		m_Ball->DisableMovement();
 		m_BrickManager->Reset();
 		m_BrickManager->UpdateBrickGrid(LevelBrickGridData::GetBrickGridData(level));
-		std::function<void()> levelInitHandler = std::bind(&InGameStateController::onLevelInitializationCompleted, this);
+		std::function<void()> levelInitHandler = std::bind(&InGameState::onLevelInitializationCompleted, this);
 		m_BrickManager->PlayBrickGridEnterAnimation(levelInitHandler);
 	}
-	void InGameStateController::onThereIsNoBrickLeft() //ON LEVEL COMPLETED
+	void InGameState::onThereIsNoBrickLeft() //ON LEVEL COMPLETED
 	{
 		if (!isAllLevelsCompleted())
 		{

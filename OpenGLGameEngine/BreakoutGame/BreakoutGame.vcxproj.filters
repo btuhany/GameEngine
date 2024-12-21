@@ -78,7 +78,7 @@
     <ClInclude Include="src\BreakoutGame\Classes\Data\GameStateEnum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BreakoutGame\Classes\StateControllers\MainMenuStateController.h">
+    <ClInclude Include="src\BreakoutGame\Classes\StateControllers\MainMenuState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\BreakoutGame\Classes\Data\InputTypeEnum.h">
@@ -90,7 +90,7 @@
     <ClInclude Include="src\BreakoutGame\Classes\Data\MainMenuButtonType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BreakoutGame\Classes\StateControllers\InGameStateController.h">
+    <ClInclude Include="src\BreakoutGame\Classes\StateControllers\InGameState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\BreakoutGame\Classes\Managers\PlayerDataManager.h">
@@ -152,10 +152,10 @@
     <ClCompile Include="src\BreakoutGame\Classes\Objects\UIButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BreakoutGame\Classes\StateControllers\MainMenuStateController.cpp">
+    <ClCompile Include="src\BreakoutGame\Classes\StateControllers\MainMenuState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BreakoutGame\Classes\StateControllers\InGameStateController.cpp">
+    <ClCompile Include="src\BreakoutGame\Classes\StateControllers\InGameState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\BreakoutGame\Classes\Managers\PlayerDataManager.cpp">
