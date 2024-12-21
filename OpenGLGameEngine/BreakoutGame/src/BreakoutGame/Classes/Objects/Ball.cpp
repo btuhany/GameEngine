@@ -136,8 +136,9 @@ namespace BreakoutGame
 			return;
 		}
 		auto colliderEntity = colliderEntityPtr.lock();
-
-		if (colliderEntity->getTag() == (int)Tag::Perk)
+		int tagIndex = colliderEntity->getTag();
+		
+		if (tagIndex == (int)Tag::Perk)
 		{
 			return;
 		}

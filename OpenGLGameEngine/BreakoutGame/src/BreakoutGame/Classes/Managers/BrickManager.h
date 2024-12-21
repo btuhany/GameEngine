@@ -21,6 +21,7 @@ namespace BreakoutGame
 		std::vector<std::shared_ptr<GameEntity>> getEntityList();
 		BallHitBrickData HandleOnGotHitByBall(std::shared_ptr<GameEntity> brickEntity);
 		std::shared_ptr<BrickProperties> GetBrickData(BrickType brickType);
+		void HideAllBricks();
 	private:
 		void tickActiveBricksEnterAnimation(float animationLerpValue);
 		void finalizeActiveBricksEnterAnimation();

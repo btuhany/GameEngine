@@ -216,10 +216,18 @@ namespace BreakoutGame
 	}
 	void UIManager::UpdatePlayerHUDLive(int live)
 	{
-		for (size_t i = 0; i < live; i++)
+		for (size_t i = 0; i < m_HeartSpriteEntities.size(); i++)
 		{
-			m_HeartSpriteEntities[i]->setActive(true);
+			if (live > i)
+			{
+				m_HeartSpriteEntities[i]->setActive(true);
+			}
+			else
+			{
+				m_HeartSpriteEntities[i]->setActive(false);
+			}
 		}
+
 	}
 	std::vector<std::shared_ptr<GameEntity>> UIManager::getEntityList()
 	{

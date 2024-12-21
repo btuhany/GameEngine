@@ -67,6 +67,14 @@ namespace BreakoutGame
 					m_OnAllLevelsCompleted();
 					return;
 				}
+				else if (m_PlayerDataManager->GetPlayerLive() <= 0)
+				{
+					m_BrickManager->HideAllBricks();
+					m_UIManager->HideCenteredText();
+					m_UIManager->UpdateMainMenuStartButtonText("Restart");
+					m_Paddle->SetToDefault();
+					m_OnAllLevelsCompleted();
+				}
 				else
 				{
 					//STARTING A LEVEL OTHER THAN FIRST
@@ -136,12 +144,30 @@ namespace BreakoutGame
 	}
 	void InGameState::onBallColliderEnter(std::shared_ptr<GameEntity> gameEntity)
 	{
-		if (gameEntity->getTag() == (int)Tag::Brick)
+		int tagIndex = gameEntity->getTag();
+		if (tagIndex == (int)Tag::Brick)
 		{
 			auto hitData = m_BrickManager->HandleOnGotHitByBall(gameEntity);
 			m_PlayerDataManager->ProcessBallHitBrickData(hitData);
 			m_UIManager->UpdatePlayerHUDScorePoint(m_PlayerDataManager->GetScorePoint());
 			m_PerkManager->HandleOnBallHitBrick(hitData, m_BrickManager->GetBrickData(hitData.brickType)->data);
+		}
+		else if (tagIndex == (int)Tag::DeathBoundary && !m_InLevelCompletedDelay)
+		{
+			m_PlayerDataManager->DecreasePlayerLives(1);
+			m_UIManager->UpdatePlayerHUDLive(m_PlayerDataManager->GetPlayerLive());
+			if (m_PlayerDataManager->GetPlayerLive() > 0)
+			{
+				m_Ball->IsOnPaddle = true;
+			}
+			else
+			{
+				m_Paddle->DisableMovement();
+				m_UIManager->ShowCenteredText("Game Over", glm::vec3(1.0f, 0.0f, 0.0f));
+				m_LevelCompletedDelayTimeCounter = 0.0f;
+				m_Ball->getEntity()->setActive(false);
+				m_InLevelCompletedDelay = true;
+			}
 		}
 	}
 	void InGameState::onPerkGained(PerkType perkType)
@@ -202,6 +228,7 @@ namespace BreakoutGame
 	}
 	void InGameState::startGame()
 	{
+		m_Paddle->EnableMovement();
 		m_Paddle->getEntity()->setActive(true);
 		m_Ball->getEntity()->setActive(true);
 		m_UIManager->UpdatePlayerHUDLevel(m_PlayerDataManager->GetPlayerLevel());

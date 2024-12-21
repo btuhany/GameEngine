@@ -29,8 +29,8 @@ namespace BreakoutGame
 	}
 	void Paddle::Start()
 	{
-		auto pos = m_Entity->transform->getPosition();
-		m_DefaultScale = Vector2(pos.x, pos.y);
+		auto scale = m_Entity->transform->getScale();
+		m_DefaultScale = Vector2(scale.x, scale.y);
 		m_Speed = DEFAULT_SPEED;
 		m_BallHolderOffset = glm::vec3(0.0f, 2.0f, 0.1f);
 		m_Entity->transform->SetPosition(START_POS);
