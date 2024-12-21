@@ -35,6 +35,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameEngine\Math\RandomGenerator.cpp" />
     <ClCompile Include="src\GameEngine\Resource\MeshDataCreator.cpp" />
     <ClCompile Include="src\GameEngine\Render\DebugRenderData.cpp" />
     <ClCompile Include="src\GameEngine\Collision\CollisionDetector.cpp" />
@@ -87,6 +88,7 @@
     <ClCompile Include="src\GameEngine\Render\UIRenderData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameEngine\Math\RandomGenerator.h" />
     <ClInclude Include="src\GameEngine\Engine\EngineConfig.h" />
     <ClInclude Include="src\GameEngine\Math\TweenEase.hpp" />
     <ClInclude Include="src\GameEngine\Math\VectorUtility.hpp" />

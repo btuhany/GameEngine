@@ -20,5 +20,6 @@
 #include "GameEngine/Components/UITextRendererComponent.h"
 #include "GameEngine/Math/TweenEase.hpp"
 #include "GameEngine/Math/VectorUtility.hpp"
+#include "GameEngine/Math/RandomGenerator.h"
 
 using namespace GameEngine;
