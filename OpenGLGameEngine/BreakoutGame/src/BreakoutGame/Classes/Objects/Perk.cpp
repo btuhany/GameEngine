@@ -38,6 +38,7 @@ namespace BreakoutGame
 	}
 	void Perk::Tick(float deltaTime)
 	{
+		MoveDown(deltaTime);
 	}
 	std::shared_ptr<SpriteEntity> Perk::getEntity()
 	{
@@ -47,16 +48,9 @@ namespace BreakoutGame
 	{
 		return m_Type;
 	}
-	void Perk::MoveLeft()
+	void Perk::MoveDown(float deltaTime)
 	{
-	}
-	void Perk::MoveRight()
-	{
-	}
-	void Perk::MoveUp()
-	{
-	}
-	void Perk::MoveDown()
-	{
+		auto downVector = glm::vec3(0.0f, -1.0f, 0.0f);
+		m_Entity->transform->Translate(downVector * SPEED * deltaTime);
 	}
 }

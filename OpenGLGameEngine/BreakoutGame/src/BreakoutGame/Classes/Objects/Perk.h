@@ -4,7 +4,7 @@
 #include "../Data/PerkTypeEnum.h"
 namespace BreakoutGame
 {
-	class Perk : public BreakoutObject, public IMovable
+	class Perk : public BreakoutObject
 	{
 	public:
 		void CreateEntity(std::shared_ptr<Shader> shader);
@@ -14,12 +14,10 @@ namespace BreakoutGame
 		std::shared_ptr<SpriteEntity> getEntity() override;
 
 		PerkType getType();
-		void MoveLeft() override;
-		void MoveRight() override;
-		void MoveUp() override;
-		void MoveDown() override;
+		void MoveDown(float deltaTime);
 	private:
 		PerkType m_Type;
+		const float SPEED = 2.0f;
 	};
 }
 
