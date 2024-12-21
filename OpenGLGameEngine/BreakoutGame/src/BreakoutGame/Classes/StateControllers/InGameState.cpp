@@ -239,6 +239,7 @@ namespace BreakoutGame
 		}
 
 		m_PerkManager->HidePerks();
+		m_CloneBallController->DeactivateClones();
 		m_LevelCompletedDelayTimeCounter = 0.0f;
 		m_InLevelCompletedDelay = true;
 	}

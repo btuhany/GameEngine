@@ -33,6 +33,13 @@ namespace BreakoutGame
 			m_CloneBallList[i]->StartMovement(randomNormalizedVec);
 		}
 	}
+	void CloneBallController::DeactivateClones()
+	{
+		for (size_t i = 0; i < m_CloneBallList.size(); i++)
+		{
+			m_CloneBallList[i]->getEntity()->setActive(false);
+		}
+	}
 	std::vector<std::shared_ptr<GameEntity>> CloneBallController::getEntitiyList()
 	{
 		std::vector<std::shared_ptr<GameEntity>> entities;
