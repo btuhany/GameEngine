@@ -47,7 +47,7 @@ namespace BreakoutGame
 
 		float height = m_Collider->getHeight();
 		m_Collider->SetWidthAndHeight(aspectRatio * height, height);
-		//m_Collider->UpdateDebugMesh();
+		m_Collider->UpdateDebugMesh();
 	}
 	void Perk::Start()
 	{
