@@ -164,6 +164,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\BreakoutGame\Classes\Data\BrickData.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\PerkTypeEnum.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\PerkData.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Objects\Perk.h" />

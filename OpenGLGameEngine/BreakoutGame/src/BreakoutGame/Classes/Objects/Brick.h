@@ -12,8 +12,8 @@ namespace BreakoutGame
 	class Brick
 	{
 	public:
-		void Initialize(std::string entityName, std::shared_ptr<BrickProperties> brickData);
-		void ResetUpdateData(std::shared_ptr<BrickProperties> brickData);
+		void Initialize(std::string entityName, std::shared_ptr<BrickProperties> properties);
+		void ResetUpdateData(std::shared_ptr<BrickProperties> properties);
 		void UpdateSprite(std::shared_ptr<SpriteRenderData> spriteRenderData);
 		void SetPosition(Vector2 pos);
 		void HandleOnBallHit();
