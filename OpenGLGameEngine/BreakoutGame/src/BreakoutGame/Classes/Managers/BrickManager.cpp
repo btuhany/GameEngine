@@ -192,6 +192,9 @@ namespace BreakoutGame
 		auto brickData = GetBrickData(brick->getType());
 		brick->hitCount++;
 
+		hitData.brickPos =  VectorUtility::GlmVec3ToVector3(
+			brick->getEntity()->transform->getPosition());
+		hitData.brickType = brick->getType();
 		hitData.gainedScorePoint = brickData->scorePointOnHit;
 
 		if (brick->hitCount == brickData->hitCountToBreak)
