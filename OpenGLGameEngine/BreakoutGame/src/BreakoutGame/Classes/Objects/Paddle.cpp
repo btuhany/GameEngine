@@ -38,12 +38,21 @@ namespace BreakoutGame
 	void Paddle::Tick(float deltaTime)
 	{
 		m_DeltaTime = deltaTime;
+
+		float fakeSpeedMagnitude = std::abs(m_FakeSpeed);
+		if (fakeSpeedMagnitude > 0.0f)
+		{
+			float axisMultiplier = m_FakeSpeed / fakeSpeedMagnitude;
+			m_FakeSpeed = std::max((fakeSpeedMagnitude - (m_FakeFrictionMultiplier * deltaTime)), 0.0f) * axisMultiplier;
+		}
+		//LOG_INFO("FakeSpeed: " + std::to_string(m_FakeSpeed));
 	}
 	void Paddle::MoveLeft()
 	{
 		if (!m_CanMove)
 			return;
 
+		m_FakeSpeed = -1.0f;
 		auto leftVector = glm::vec3(-1.0f, 0.0f, 0.0f);
 		m_Entity->transform->Translate(leftVector * m_Speed * m_DeltaTime);
 	}
@@ -52,6 +61,7 @@ namespace BreakoutGame
 		if (!m_CanMove)
 			return;
 
+		m_FakeSpeed = 1.0f;
 		auto rightVector = glm::vec3(1.0f, 0.0f, 0.0f);
 		m_Entity->transform->Translate(rightVector * m_Speed * m_DeltaTime);
 	}

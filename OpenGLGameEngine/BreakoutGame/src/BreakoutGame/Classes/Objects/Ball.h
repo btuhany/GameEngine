@@ -38,7 +38,7 @@ namespace BreakoutGame
 		float m_DeltaTime;
 		const float SPEED = 40.0f;
 		//FOR DEBUG
-		const bool IS_LOGS_ACTIVE = true;
+		const bool IS_LOGS_ACTIVE = false;
 	};
 }
 
