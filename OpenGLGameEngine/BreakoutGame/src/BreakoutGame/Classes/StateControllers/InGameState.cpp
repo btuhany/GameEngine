@@ -136,6 +136,10 @@ namespace BreakoutGame
 			m_PlayerDataManager->ProcessBallHitBrickData(hitData);
 			m_UIManager->UpdatePlayerHUDScorePoint(m_PlayerDataManager->GetScorePoint());
 		}
+		else if (gameEntity->getTag() == (int)Tag::Perk)
+		{
+
+		}
 	}
 	bool InGameState::isAllLevelsCompleted()
 	{
