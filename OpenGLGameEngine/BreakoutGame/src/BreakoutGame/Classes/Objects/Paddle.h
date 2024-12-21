@@ -22,6 +22,8 @@ namespace BreakoutGame
 		void ScaleDownWidth(float value);
 		void SetToDefault();
 		void IncreaseSpeed(float value);
+		float getFakeSpeed();
+		bool getCanMove();
 	private:
 		Vector2 m_DefaultScale;
 		std::shared_ptr<BoxCollider2DComponent> m_Collider;
@@ -33,7 +35,7 @@ namespace BreakoutGame
 		const float DEFAULT_SPEED = 35.0f;
 
 		float m_FakeSpeed = 0.0f; //for transfering momentum into the ball
-		float m_FakeFrictionMultiplier = 1.5f;
+		float m_FakeFrictionMultiplier = 3.0f;
 	};
 }
 

@@ -121,9 +121,11 @@ namespace BreakoutGame
 		}
 		else if (inputType == InputType::SpaceKey)
 		{
-			LOG_INFO("Ball Released!");
-			m_Ball->IsOnPaddle = false;
-			m_Ball->StartMovement(Vector3(0.4f, 1.0f, 0.0f));
+			if (m_Ball->IsOnPaddle && m_Paddle->getCanMove())
+			{
+				m_Ball->IsOnPaddle = false;
+				m_Ball->StartMovement(Vector3(m_Paddle->getFakeSpeed(), 1.0f, 0.0f));
+			}
 		}
 		else if (inputType == InputType::PauseKey)
 		{
@@ -140,6 +142,10 @@ namespace BreakoutGame
 		if (tagIndex == (int)Tag::Brick)
 		{
 			handleOnBallHitBrick(gameEntity);
+		}
+		else if (tagIndex == (int)Tag::Paddle)
+		{
+			m_Ball->ApplyImpulseToMovement(Vector3(m_Paddle->getFakeSpeed(), 0.0f, 0.0f), 0.15f);
 		}
 		else if (tagIndex == (int)Tag::DeathBoundary && !m_InLevelCompletedDelay)
 		{

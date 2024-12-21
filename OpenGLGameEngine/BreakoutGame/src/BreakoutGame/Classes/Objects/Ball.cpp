@@ -65,8 +65,15 @@ namespace BreakoutGame
 	}
 	void Ball::StartMovement(Vector3 movementVector)
 	{
-		m_MovementVector = glm::normalize(glm::vec3(movementVector.x, movementVector.y, movementVector.z));
+		m_MovementVector = glm::normalize(VectorUtility::Vector3ToGlmVec3(movementVector));
 		m_CanMove = true;
+	}
+	void Ball::ApplyImpulseToMovement(Vector3 impulseVector, float impulseMultiplier)
+	{
+		auto impulseVec = glm::normalize(VectorUtility::Vector3ToGlmVec3(impulseVector));
+		m_MovementVector += impulseVec * impulseMultiplier;
+		m_MovementVector.z = 0.0f;
+		m_MovementVector = glm::normalize(m_MovementVector);
 	}
 	void Ball::SetPosition(glm::vec3 position)
 	{
@@ -192,7 +199,7 @@ namespace BreakoutGame
 			if (IS_LOGS_ACTIVE)
 				LOG_INFO_STREAM("Ball After Reflect New Movement vector, x: " << newMovementVector.x << " y: " << newMovementVector.y);
 
-			m_MovementVector = newMovementVector;
+			m_MovementVector = glm::normalize(newMovementVector);
 
 			if (m_OnBallColliderEnterHandler != nullptr)
 				m_OnBallColliderEnterHandler(colliderEntity);

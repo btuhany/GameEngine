@@ -19,6 +19,7 @@ namespace BreakoutGame
 		void Reset(Vector3 pos);
 		void StopMovement();
 		void StartMovement(Vector3 movementVector);
+		void ApplyImpulseToMovement(Vector3 impulseVector, float impulseMultiplier);
 		void SetPosition(glm::vec3 position);
 		//debug purposes
 		void SetSpeed(float value);
@@ -38,7 +39,7 @@ namespace BreakoutGame
 		float m_DeltaTime;
 		const float SPEED = 40.0f;
 		//FOR DEBUG
-		const bool IS_LOGS_ACTIVE = false;
+		const bool IS_LOGS_ACTIVE = true;
 	};
 }
 

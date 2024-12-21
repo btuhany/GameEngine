@@ -27,6 +27,14 @@ namespace BreakoutGame
 	{
 		m_Speed += value;
 	}
+	float Paddle::getFakeSpeed()
+	{
+		return m_FakeSpeed;
+	}
+	bool Paddle::getCanMove()
+	{
+		return m_CanMove;
+	}
 	void Paddle::Start()
 	{
 		auto scale = m_Entity->transform->getScale();
@@ -39,13 +47,15 @@ namespace BreakoutGame
 	{
 		m_DeltaTime = deltaTime;
 
-		float fakeSpeedMagnitude = std::abs(m_FakeSpeed);
-		if (fakeSpeedMagnitude > 0.0f)
+		if (m_FakeSpeed > 0)
 		{
-			float axisMultiplier = m_FakeSpeed / fakeSpeedMagnitude;
-			m_FakeSpeed = std::max((fakeSpeedMagnitude - (m_FakeFrictionMultiplier * deltaTime)), 0.0f) * axisMultiplier;
+			m_FakeSpeed = std::max((m_FakeSpeed - (m_FakeFrictionMultiplier * deltaTime)), 0.0f);
 		}
-		//LOG_INFO("FakeSpeed: " + std::to_string(m_FakeSpeed));
+		else if (m_FakeSpeed < 0)
+		{
+			m_FakeSpeed = std::min((m_FakeSpeed + (m_FakeFrictionMultiplier * deltaTime)), 0.0f);
+		}
+		LOG_INFO("FakeSpeed: " + std::to_string(m_FakeSpeed));
 	}
 	void Paddle::MoveLeft()
 	{
