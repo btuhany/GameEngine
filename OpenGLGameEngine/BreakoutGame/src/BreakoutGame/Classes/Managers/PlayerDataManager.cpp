@@ -31,6 +31,22 @@ namespace BreakoutGame
     {
         m_Level += value;
     }
+    void PlayerDataManager::IncreasePlayerLives(int value)
+    {
+        m_Lives += value;
+        if (m_Lives > INITAL_LIVES)
+        {
+            m_Lives = INITAL_LIVES;
+        }
+    }
+    void PlayerDataManager::DecreasePlayerLives(int value)
+    {
+        m_Lives -= value;
+        if (m_Lives <= 0)
+        {
+            m_Lives = 0;
+        }
+    }
     void PlayerDataManager::ProcessBallHitBrickData(BallHitBrickData hitData)
     {
         m_ScorePoint += hitData.gainedScorePoint;

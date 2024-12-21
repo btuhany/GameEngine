@@ -145,8 +145,12 @@ namespace BreakoutGame
 		switch (perkType)
 		{
 		case BreakoutGame::PerkType::IncreaseLive:
+			m_PlayerDataManager->IncreasePlayerLives(1);
+			m_UIManager->UpdatePlayerHUDLive(m_PlayerDataManager->GetPlayerLive());
 			break;
 		case BreakoutGame::PerkType::DecreaseLive:
+			m_PlayerDataManager->DecreasePlayerLives(1);
+			m_UIManager->UpdatePlayerHUDLive(m_PlayerDataManager->GetPlayerLive());
 			break;
 		case BreakoutGame::PerkType::ThreeBall:
 			break;
