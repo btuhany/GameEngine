@@ -55,7 +55,7 @@ namespace BreakoutGame
 		{
 			m_FakeSpeed = std::min((m_FakeSpeed + (m_FakeFrictionMultiplier * deltaTime)), 0.0f);
 		}
-		LOG_INFO("FakeSpeed: " + std::to_string(m_FakeSpeed));
+		//LOG_INFO("FakeSpeed: " + std::to_string(m_FakeSpeed));
 	}
 	void Paddle::MoveLeft()
 	{

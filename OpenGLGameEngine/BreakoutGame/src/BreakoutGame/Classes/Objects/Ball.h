@@ -37,7 +37,7 @@ namespace BreakoutGame
 		void handleMovement();
 		glm::vec3 m_MovementVector = glm::vec3(0.0f);
 		float m_DeltaTime;
-		const float SPEED = 40.0f;
+		const float SPEED = 37.0f;
 		//FOR DEBUG
 		const bool IS_LOGS_ACTIVE = true;
 	};

@@ -70,10 +70,15 @@ namespace BreakoutGame
 	}
 	void Ball::ApplyImpulseToMovement(Vector3 impulseVector, float impulseMultiplier)
 	{
-		auto impulseVec = glm::normalize(VectorUtility::Vector3ToGlmVec3(impulseVector));
-		m_MovementVector += impulseVec * impulseMultiplier;
-		m_MovementVector.z = 0.0f;
-		m_MovementVector = glm::normalize(m_MovementVector);
+		auto glmVec = VectorUtility::Vector3ToGlmVec3(impulseVector);
+		float length = glm::length(glmVec);
+		if (length > 0) //normalize bug
+		{
+			auto impulseVec = glm::normalize(glmVec);
+			m_MovementVector += impulseVec * impulseMultiplier;
+			m_MovementVector.z = 0.0f;
+			m_MovementVector = glm::normalize(m_MovementVector);
+		}
 	}
 	void Ball::SetPosition(glm::vec3 position)
 	{
@@ -194,6 +199,25 @@ namespace BreakoutGame
 				LOG_INFO_STREAM("Ball Normal vector, x: " << normalVec.x << " y: " << normalVec.y);
 			}
 
+			//FINE TUNING FOR PADDLE
+			if (colliderEntity->getTag() == (int)Tag::Paddle && avarageCollidedNodePos.y > colliderEntity->transform->getPosition().y)
+			{
+				if (normalVec.y == 0 && std::abs(normalVec.x) == 1)
+				{
+					normalVec.y = 1.0f;
+					if (normalVec.x > 0)
+					{
+						normalVec.x = 0.8f;
+					}
+					else
+					{
+						normalVec.x = -0.8f;
+					}
+					
+					normalVec = normalVec.normalize();
+					LOG_INFO("Ball collide paddle normal calculated with fine tuning");
+				}
+			}
 			auto newMovementVector = glm::reflect(m_MovementVector, glm::vec3(normalVec.x, normalVec.y, 0.0f));
 
 			if (IS_LOGS_ACTIVE)
