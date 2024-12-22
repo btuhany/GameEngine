@@ -39,6 +39,10 @@ namespace GameEngine
 	{
 		SetPosition(glm::vec3(newPos.x, newPos.y, newPos.z));
 	}
+	void Transform::ResetRotation()
+	{
+		m_Rotation = glm::mat4(1.0f);
+	}
 	glm::mat4 Transform::GetModelMatrix()
 	{
 		return m_ModelMatrix;

@@ -35,11 +35,13 @@ namespace BreakoutGame
 		void onCollisionEnter(std::shared_ptr<CollisionData> collisionData);
 		void onCollisionExit(std::shared_ptr<CollisionData> collisionData);
 		void handleMovement();
+		void handleRotationAnimation(float deltaTime);
 		glm::vec3 m_MovementVector = glm::vec3(0.0f);
 		float m_DeltaTime;
 		const float SPEED = 37.0f;
 		//FOR DEBUG
 		const bool IS_LOGS_ACTIVE = true;
+		const float ROTATE_ANIM_SPEED = 1.8f;
 	};
 }
 

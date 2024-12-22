@@ -47,6 +47,7 @@ namespace BreakoutGame
 			return;
 
 		handleMovement();
+		handleRotationAnimation(deltaTime);
 	}
 
 	std::shared_ptr<SpriteEntity> Ball::getEntity()
@@ -57,10 +58,12 @@ namespace BreakoutGame
 	{
 		SetDefaultSpeed();
 		IsOnPaddle = true;
+		m_Entity->transform->ResetRotation();
 		m_Entity->transform->SetPosition(pos);
 	}
 	void Ball::StopMovement()
 	{
+		m_Entity->transform->ResetRotation();
 		m_MovementVector = glm::vec3(0.0f);
 	}
 	void Ball::StartMovement(Vector3 movementVector)
@@ -240,5 +243,19 @@ namespace BreakoutGame
 			return;
 
 		m_Entity->transform->Translate(m_MovementVector * m_DeltaTime * m_Speed);
+	}
+	void Ball::handleRotationAnimation(float deltaTime)
+	{
+		if (!m_CanMove)
+			return;
+
+		if (m_MovementVector.x < 0)
+		{
+			m_Entity->transform->Rotate(ROTATE_ANIM_SPEED, glm::vec3(0.0f, 0.0f, 1.0f));
+		}
+		else
+		{
+			m_Entity->transform->Rotate(ROTATE_ANIM_SPEED * -1.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+		}
 	}
 }
