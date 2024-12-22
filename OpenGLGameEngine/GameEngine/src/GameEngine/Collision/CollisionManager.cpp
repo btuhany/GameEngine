@@ -26,6 +26,7 @@ namespace GameEngine
 		}
 		m_TimeCounter = 0.0f;
 
+		std::unordered_multimap<std::shared_ptr<CollisionDetector>, std::shared_ptr<CollisionData>> detectorDataProcessBufferMap;
 		for (size_t i = 0; i < m_ColliderComponents.size(); i++)
 		{
 			if (!isAbleToCollide(m_ColliderComponents[i]))
@@ -35,6 +36,7 @@ namespace GameEngine
 			if (controlledCollider->getCollisionType() != CollisionType::Dynamic)
 				continue;
 
+			
 			for (size_t j = 0; j < m_ColliderComponents.size(); j++)
 			{
 				if (!isAbleToCollide(m_ColliderComponents[j]))
@@ -58,9 +60,16 @@ namespace GameEngine
 
 				if (controlledCollider->detector != nullptr)
 				{
-					controlledCollider->detector->ProcessCollisionResult(collisionData);
+					detectorDataProcessBufferMap.emplace(controlledCollider->detector, collisionData);
 				}
 			}
+		}
+
+		for (const auto& pair : detectorDataProcessBufferMap) 
+		{
+			auto detector = pair.first;
+			auto collisionData = pair.second;
+			detector->ProcessCollisionResult(collisionData);
 		}
 
 		//processing component events after update, in case of deactivating or destroying objects in collision events
