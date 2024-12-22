@@ -91,6 +91,7 @@ namespace BreakoutGame
 		m_BreakoutText->color = glm::vec3(1.0f, 0.0f, 0.0f);
 		auto breakoutTextEntity = std::make_shared<GameEntity>();
 		breakoutTextEntity->AddComponent(m_BreakoutText);
+		breakoutTextEntity->transform->SetScale(glm::vec3(3.0f, 3.0f, 1.0f));
 		m_GameEntityList.push_back(breakoutTextEntity);
 	}
 	void UIManager::startMainMenuPanelObjects()
