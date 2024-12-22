@@ -53,7 +53,7 @@ namespace GameEngine
 		Vector2 m_BottomLeftCornerNormal = Vector2(-1.0f, -1.0f).normalize();
 #if _DEBUG
 	private:
-		std::shared_ptr<DebugRenderData> m_DebugMeshRenderData;
+		std::shared_ptr<DebugRenderData> m_DebugMeshRenderData = nullptr;
 #endif
 	};
 }
