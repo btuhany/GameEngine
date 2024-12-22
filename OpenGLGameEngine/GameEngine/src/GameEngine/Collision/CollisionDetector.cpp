@@ -62,7 +62,19 @@ namespace GameEngine
 		}
 	}
 
-	void CollisionDetector::ProcessCollisionResult(std::shared_ptr<CollisionData> collisionData)
+	void CollisionDetector::ProcessCollisionBuffer()
+	{
+		for (size_t i = 0; i < m_CollisionDataBuffer.size(); i++)
+		{
+			auto& collisionData = m_CollisionDataBuffer[i];
+			if (collisionData->isInBounds)
+				processOnDetectionSuccess(collisionData);
+			else
+				processOnDetectionFailed(collisionData);
+		}
+	}
+
+	void CollisionDetector::ProcessCollisionData(std::shared_ptr<CollisionData> collisionData)
 	{
 		if (collisionData->isInBounds)
 			processOnDetectionSuccess(collisionData);
@@ -137,6 +149,16 @@ namespace GameEngine
 		{
 			it->second(collisionData);
 		}
+	}
+
+	void CollisionDetector::AddToProcessBuffer(std::shared_ptr<CollisionData> collisionData)
+	{
+		m_CollisionDataBuffer.push_back(collisionData);
+	}
+
+	void CollisionDetector::ClearProcessBuffer()
+	{
+		m_CollisionDataBuffer.clear();
 	}
 
 	void CollisionDetector::updateCollisionState(std::shared_ptr<CollisionData> collisionData, CollisionState state)

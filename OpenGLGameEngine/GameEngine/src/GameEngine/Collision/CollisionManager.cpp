@@ -26,7 +26,7 @@ namespace GameEngine
 		}
 		m_TimeCounter = 0.0f;
 
-		std::unordered_multimap<std::shared_ptr<CollisionDetector>, std::shared_ptr<CollisionData>> detectorDataProcessBufferMap;
+		//DETECT COLLISIONS
 		for (size_t i = 0; i < m_ColliderComponents.size(); i++)
 		{
 			if (!isAbleToCollide(m_ColliderComponents[i]))
@@ -60,16 +60,21 @@ namespace GameEngine
 
 				if (controlledCollider->detector != nullptr)
 				{
-					detectorDataProcessBufferMap.emplace(controlledCollider->detector, collisionData);
+					controlledCollider->detector->AddToProcessBuffer(collisionData);
 				}
 			}
 		}
 
-		for (const auto& pair : detectorDataProcessBufferMap) 
+
+		//PROCESSING COLLISION DATA IN BUFFER
+		for (size_t i = 0; i < m_ColliderComponents.size(); i++)
 		{
-			auto detector = pair.first;
-			auto collisionData = pair.second;
-			detector->ProcessCollisionResult(collisionData);
+			auto colliderComp = m_ColliderComponents[i];
+			if (colliderComp->detector != nullptr)
+			{
+				colliderComp->detector->ProcessCollisionBuffer();
+				colliderComp->detector->ClearProcessBuffer();
+			}
 		}
 
 		//processing component events after update, in case of deactivating or destroying objects in collision events
@@ -115,7 +120,7 @@ namespace GameEngine
 							collisionData->isInBounds = false;
 							collisionData->collidedNodePosList = std::vector<Vector3>();
 							collisionData->otherCollider = colliderComp;
-							controlledCollider->detector->ProcessCollisionResult(collisionData);
+							controlledCollider->detector->ProcessCollisionData(collisionData);
 							controlledCollider->detector->RemoveColliderFromCurrentCollisions(colliderComp); 	//not sure if this function should be called
 						}
 					}
