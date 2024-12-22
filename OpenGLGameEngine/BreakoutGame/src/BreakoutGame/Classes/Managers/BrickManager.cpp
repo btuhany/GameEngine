@@ -189,14 +189,18 @@ namespace BreakoutGame
 		}
 		BallHitBrickData hitData;
 
-		auto brickData = GetBrickData(brick->getType());
+		auto brickProperties = GetBrickData(brick->getType());
+		auto brickData = brickProperties->data;
 		brick->hitCount++;
 
-		hitData.gainedScorePoint = brickData->scorePointOnHit;
+		hitData.brickPos =  VectorUtility::GlmVec3ToVector3(
+			brick->getEntity()->transform->getPosition());
+		hitData.brickType = brick->getType();
+		hitData.gainedScorePoint = brickData.scorePointOnHit;
 
-		if (brick->hitCount == brickData->hitCountToBreak)
+		if (brick->hitCount == brickData.hitCountToBreak)
 		{
-			hitData.gainedScorePoint += brickData->scorePointOnBreak;
+			hitData.gainedScorePoint += brickData.scorePointOnBreak;
 			hitData.isBroken = true;
 			brick->getEntity()->setActive(false);
 			m_ActiveBrickCount--;
@@ -208,14 +212,26 @@ namespace BreakoutGame
 		else
 		{
 			hitData.isBroken = false;
-			brick->UpdateSprite(brickData->spriteRenderDataListOrderedHitCountAscending[brick->hitCount]);
+			brick->UpdateSprite(brickProperties->spriteRenderDataListOrderedHitCountAscending[brick->hitCount]);
 		}
 
 		return hitData;
 	}
-	std::shared_ptr<BrickData> BrickManager::GetBrickData(BrickType brickType)
+	std::shared_ptr<BrickProperties> BrickManager::GetBrickData(BrickType brickType)
 	{
 		return m_BrickDataMap[brickType];
+	}
+	void BrickManager::HideAllBricks()
+	{
+		for (size_t i = 0; i < m_BrickGrid.size(); i++)
+		{
+			auto rowList = m_BrickGrid[i];
+			for (size_t j = 0; j < rowList.size(); j++)
+			{
+				auto brick = rowList[j];
+				brick->getEntity()->setActive(false);
+			}
+		}
 	}
 	std::shared_ptr<Brick> BrickManager::findBrick(std::shared_ptr<GameEntity> brickEntity)
 	{
@@ -237,72 +253,69 @@ namespace BreakoutGame
 	}
 	void BrickManager::initializeEasyBrickData(std::shared_ptr<Shader> shader)
 	{
-		auto easyBrickData = std::make_shared<BrickData>();
-		easyBrickData->hitCountToBreak = 1;
-		easyBrickData->scorePointOnHit = 0;
-		easyBrickData->scorePointOnBreak = 10;
-		easyBrickData->isAbleToDropHealthPoint = false;
-		easyBrickData->isAbleToDropPerk = false;
-		easyBrickData->isAbleToDropExtraScorePoint = false;
-		easyBrickData->brickType = BrickType::Easy;
+		auto brickProperties = std::make_shared<BrickProperties>();
+		brickProperties->data.hitCountToBreak = 1;
+		brickProperties->data.scorePointOnHit = 0;
+		brickProperties->data.scorePointOnBreak = 10;
+		brickProperties->data.brickType = BrickType::Easy;
+		brickProperties->data.perkDropRateOnBreak = 1.0f;
+		brickProperties->data.perkDropRateOnHit = 1.0f;
 
 		std::shared_ptr<Texture> brickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/03-Breakout-Tiles.PNG");
 		brickTexture->LoadTextureWithAlpha();
 		std::shared_ptr<SpriteRenderData> brickSpriteRenderData = std::make_shared<SpriteRenderData>(brickTexture, nullptr, shader);
-		easyBrickData->spriteRenderDataListOrderedHitCountAscending.push_back(brickSpriteRenderData);
+		brickProperties->spriteRenderDataListOrderedHitCountAscending.push_back(brickSpriteRenderData);
 
-		m_BrickDataMap[BrickType::Easy] = easyBrickData;
+		m_BrickDataMap[BrickType::Easy] = brickProperties;
 	}
 	void BrickManager::initializeMediumBrickData(std::shared_ptr<Shader> shader)
 	{
-		auto mediumBrickData = std::make_shared<BrickData>();
-		mediumBrickData->hitCountToBreak = 2;
-		mediumBrickData->scorePointOnHit = 5;
-		mediumBrickData->scorePointOnBreak = 10;
-		mediumBrickData->isAbleToDropHealthPoint = false;
-		mediumBrickData->isAbleToDropPerk = false;
-		mediumBrickData->isAbleToDropExtraScorePoint = false;
-		mediumBrickData->brickType = BrickType::Medium;
+		auto brickProperties = std::make_shared<BrickProperties>();
+		brickProperties->data.hitCountToBreak = 2;
+		brickProperties->data.scorePointOnHit = 5;
+		brickProperties->data.scorePointOnBreak = 10;
+		brickProperties->data.brickType = BrickType::Medium;
+		brickProperties->data.perkDropRateOnBreak = 1.6f;
+		brickProperties->data.perkDropRateOnHit = 1.3f;
 
 		std::shared_ptr<Texture> brickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/05-Breakout-Tiles.PNG");
 		brickTexture->LoadTextureWithAlpha();
 		std::shared_ptr<SpriteRenderData> brickSpriteRenderData = std::make_shared<SpriteRenderData>(brickTexture, nullptr, shader);
-		mediumBrickData->spriteRenderDataListOrderedHitCountAscending.push_back(brickSpriteRenderData);
+		brickProperties->spriteRenderDataListOrderedHitCountAscending.push_back(brickSpriteRenderData);
 
 		std::shared_ptr<Texture> brokenBrickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/06-Breakout-Tiles.PNG");
 		brokenBrickTexture->LoadTextureWithAlpha();
 		std::shared_ptr<SpriteRenderData> brokenSpriteRenderData = std::make_shared<SpriteRenderData>(brokenBrickTexture, nullptr, shader);
-		mediumBrickData->spriteRenderDataListOrderedHitCountAscending.push_back(brokenSpriteRenderData);
+		brickProperties->spriteRenderDataListOrderedHitCountAscending.push_back(brokenSpriteRenderData);
 
-		m_BrickDataMap[BrickType::Medium] = mediumBrickData;
+		m_BrickDataMap[BrickType::Medium] = brickProperties;
 	}
 	void BrickManager::initializeHardBrickData(std::shared_ptr<Shader> shader)
 	{
-		auto hardBrickData = std::make_shared<BrickData>();
-		hardBrickData->hitCountToBreak = 3;
-		hardBrickData->scorePointOnHit = 5;
-		hardBrickData->scorePointOnBreak = 15;
-		hardBrickData->isAbleToDropHealthPoint = false;
-		hardBrickData->isAbleToDropPerk = false;
-		hardBrickData->isAbleToDropExtraScorePoint = false;
-		hardBrickData->brickType = BrickType::Hard;
+		auto brickProperties = std::make_shared<BrickProperties>();
+		brickProperties->data.hitCountToBreak = 3;
+		brickProperties->data.scorePointOnHit = 5;
+		brickProperties->data.scorePointOnBreak = 15;
+		brickProperties->data.brickType = BrickType::Hard;
+		brickProperties->data.perkDropRateOnBreak = 0.0f;
+		brickProperties->data.perkDropRateOnHit = 0.0f;
 
 		std::shared_ptr<Texture> brickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/07-Breakout-Tiles.PNG");
 		brickTexture->LoadTextureWithAlpha();
 		std::shared_ptr<SpriteRenderData> brickSpriteRenderData = std::make_shared<SpriteRenderData>(brickTexture, nullptr, shader);
-		hardBrickData->spriteRenderDataListOrderedHitCountAscending.push_back(brickSpriteRenderData);
+		brickProperties->spriteRenderDataListOrderedHitCountAscending.push_back(brickSpriteRenderData);
 
 		std::shared_ptr<Texture> brokenBrickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/08-Breakout-Tiles.PNG");
 		brokenBrickTexture->LoadTextureWithAlpha();
 		std::shared_ptr<SpriteRenderData> brokenSpriteRenderData = std::make_shared<SpriteRenderData>(brokenBrickTexture, nullptr, shader);
-		hardBrickData->spriteRenderDataListOrderedHitCountAscending.push_back(brokenSpriteRenderData);
+		brickProperties->spriteRenderDataListOrderedHitCountAscending.push_back(brokenSpriteRenderData);
 
 		std::shared_ptr<Texture> broken2BrickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/081-Breakout-Tiles.PNG");
 		broken2BrickTexture->LoadTextureWithAlpha();
 		std::shared_ptr<SpriteRenderData> broken2SpriteRenderData = std::make_shared<SpriteRenderData>(broken2BrickTexture, nullptr, shader);
-		hardBrickData->spriteRenderDataListOrderedHitCountAscending.push_back(broken2SpriteRenderData);
+		brickProperties->spriteRenderDataListOrderedHitCountAscending.push_back(broken2SpriteRenderData);
 
-		m_BrickDataMap[BrickType::Hard] = hardBrickData;
+		m_BrickDataMap[BrickType::Hard] = brickProperties;
 	}
 
 }

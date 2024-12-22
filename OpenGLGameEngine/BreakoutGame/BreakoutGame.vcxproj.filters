@@ -51,7 +51,7 @@
     <ClInclude Include="src\BreakoutGame\Classes\Objects\Brick.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BreakoutGame\Classes\Data\BrickData.h">
+    <ClInclude Include="src\BreakoutGame\Classes\Data\BrickProperties.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\BreakoutGame\Classes\Data\TagEnum.h">
@@ -78,7 +78,7 @@
     <ClInclude Include="src\BreakoutGame\Classes\Data\GameStateEnum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BreakoutGame\Classes\StateControllers\MainMenuStateController.h">
+    <ClInclude Include="src\BreakoutGame\Classes\StateControllers\MainMenuState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\BreakoutGame\Classes\Data\InputTypeEnum.h">
@@ -90,10 +90,28 @@
     <ClInclude Include="src\BreakoutGame\Classes\Data\MainMenuButtonType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\BreakoutGame\Classes\StateControllers\InGameStateController.h">
+    <ClInclude Include="src\BreakoutGame\Classes\StateControllers\InGameState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\BreakoutGame\Classes\Managers\PlayerDataManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Managers\PerkManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Objects\Perk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Data\PerkData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Data\PerkTypeEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Data\BrickData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Objects\CloneBallController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -140,13 +158,25 @@
     <ClCompile Include="src\BreakoutGame\Classes\Objects\UIButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BreakoutGame\Classes\StateControllers\MainMenuStateController.cpp">
+    <ClCompile Include="src\BreakoutGame\Classes\StateControllers\MainMenuState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BreakoutGame\Classes\StateControllers\InGameStateController.cpp">
+    <ClCompile Include="src\BreakoutGame\Classes\StateControllers\InGameState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\BreakoutGame\Classes\Managers\PlayerDataManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BreakoutGame\Classes\Managers\PerkManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BreakoutGame\Classes\Objects\Perk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BreakoutGame\Classes\Data\PerkData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BreakoutGame\Classes\Objects\CloneBallController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

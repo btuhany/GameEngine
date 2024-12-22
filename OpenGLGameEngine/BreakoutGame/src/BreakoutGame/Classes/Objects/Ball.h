@@ -16,27 +16,32 @@ namespace BreakoutGame
 		void MoveUp() override;
 		void MoveDown() override;
 
-		void Reset();
+		void Reset(Vector3 pos);
 		void StopMovement();
 		void StartMovement(Vector3 movementVector);
+		void ApplyImpulseToMovement(Vector3 impulseVector, float impulseMultiplier);
 		void SetPosition(glm::vec3 position);
 		//debug purposes
 		void SetSpeed(float value);
+		float getSpeed();
 		void SetDefaultSpeed();
 		void DisableMovement();
 		void EnableMovement();
 		bool IsOnPaddle = false;
+		bool IsClone = false;  //Bad :(
 	private:
 		bool m_CanMove;
 		std::function<void(std::shared_ptr<GameEntity>)> m_OnBallColliderEnterHandler;
 		void onCollisionEnter(std::shared_ptr<CollisionData> collisionData);
 		void onCollisionExit(std::shared_ptr<CollisionData> collisionData);
 		void handleMovement();
+		void handleRotationAnimation(float deltaTime);
 		glm::vec3 m_MovementVector = glm::vec3(0.0f);
 		float m_DeltaTime;
-		const float SPEED = 40.0f;
+		const float SPEED = 37.0f;
 		//FOR DEBUG
 		const bool IS_LOGS_ACTIVE = true;
+		const float ROTATE_ANIM_SPEED = 1.8f;
 	};
 }
 

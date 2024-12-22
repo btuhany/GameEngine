@@ -27,8 +27,8 @@ namespace BreakoutGame
 		m_UIManager = std::make_shared<UIManager>();
 		m_UIManager->Initialize(viewPortWidth, viewPortHeight, PlayerDataManager::INITIAL_SCORE_POINT, PlayerDataManager::INITAL_LEVEL, PlayerDataManager::INITAL_LIVES);
 
-		auto mainMenuStateController = std::make_shared<MainMenuStateController>(m_UIManager);
-		auto inGameStateController = std::make_shared<InGameStateController>();
+		auto mainMenuStateController = std::make_shared<MainMenuState>(m_UIManager);
+		auto inGameStateController = std::make_shared<InGameState>();
 		inGameStateController->Initialize(m_MainShader, m_UIManager);
 
 		auto entityList = std::vector<std::shared_ptr<GameEntity>>();
@@ -39,7 +39,8 @@ namespace BreakoutGame
 		entityList.insert(entityList.end(), inGameStateEntities.begin(), inGameStateEntities.end());
 
 		instantiateEntities(entityList);
-		m_StateManager->Initialize(mainMenuStateController, inGameStateController);
+		auto onGameQuitHandler = std::bind(&BreakoutScene::onGameQuitCallback, this);
+		m_StateManager->Initialize(mainMenuStateController, inGameStateController, onGameQuitHandler);
 		
 
 		LOG_INFO("Breakout scene initialized!");
@@ -95,6 +96,7 @@ namespace BreakoutGame
 		instantiateGameEntity(upBoundaryEntity, true);
 
 		auto downBoundaryEntity = std::make_shared<GameEntity>();
+		downBoundaryEntity->setTag((int)Tag::DeathBoundary);
 		downBoundaryEntity->setName("left_boundary_collider_object");
 		auto downBoundaryColliderComp = std::make_shared<BoxCollider2DComponent>(87.0f, 5.0f, CollisionType::Static);
 		downBoundaryColliderComp->SetEnableStaticSingleNormalVector(true, Vector2::up);
@@ -183,6 +185,11 @@ namespace BreakoutGame
 	//		isControllingBall = true;
 	//	}
 	//}
+
+	void BreakoutScene::onGameQuitCallback()
+	{
+		setIsSceneEnd(true);
+	}
 
 	void BreakoutScene::onInputCallback(InputType inputType)
 	{

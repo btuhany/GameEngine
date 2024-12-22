@@ -54,7 +54,7 @@ void DemoScene3D::Start()
 	}
 
 
-	ironman->transform->Scale(glm::vec3(0.1f, 0.1f, 0.1f));
+	ironman->transform->SetScale(glm::vec3(0.1f, 0.1f, 0.1f));
 	ironman->transform->Rotate(-60.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 	ironman->transform->SetPosition(glm::vec3(20.0f, 1.0f, -10.0f));
 
@@ -62,7 +62,7 @@ void DemoScene3D::Start()
 	m_HelicopterSmall->transform->Rotate(-90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	m_HelicopterSmall->transform->Rotate(180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-	m_HelicopterBig->transform->Scale(glm::vec3(2.0f, 2.0f, 2.0f));
+	m_HelicopterBig->transform->SetScale(glm::vec3(2.0f, 2.0f, 2.0f));
 	m_HelicopterBig->transform->Rotate(-90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	m_HelicopterBig->transform->Rotate(180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 	m_HelicopterBig->transform->Translate(glm::vec3(-15.0f, -6.0f, -15.0f));
@@ -240,19 +240,19 @@ void DemoScene3D::initializeGameObjects()
 
 	std::shared_ptr<MeshEntity> cubeMeshEntity = std::make_shared<MeshEntity>(meshRenderData);
 	cubeMeshEntity->GetComponent<Transform>()->Translate(glm::vec3(36.0f, -7.0f, -12.0f));
-	cubeMeshEntity->transform->Scale(glm::vec3(3.0f, 3.0f, 1.5f));
+	cubeMeshEntity->transform->SetScale(glm::vec3(3.0f, 3.0f, 1.5f));
 	cubeMeshEntity->setName("spiderManUglyCube");
 	instantiateGameEntity(cubeMeshEntity);
 
 	std::shared_ptr<MeshEntity> spidermanPlainEntity = std::make_shared<MeshEntity>(plainRenderData);
 	spidermanPlainEntity->GetComponent<Transform>()->SetPosition(glm::vec3(0.0f, -10.0f, 0.0f));
-	spidermanPlainEntity->transform->Scale(glm::vec3(1.0f, 1.0f, 1.0f));
+	spidermanPlainEntity->transform->SetScale(glm::vec3(1.0f, 1.0f, 1.0f));
 	spidermanPlainEntity->setName("spiderManPlain");
 	instantiateGameEntity(spidermanPlainEntity);
 
 	std::shared_ptr<MeshEntity> spidermanCubeEntity = std::make_shared<MeshEntity>(meshRenderData);
 	spidermanCubeEntity->transform->Translate(glm::vec3(15.0f, 10.0f, 15.0f));
-	spidermanCubeEntity->transform->Scale(glm::vec3(3.0f, 3.0f, 3.0f));
+	spidermanCubeEntity->transform->SetScale(glm::vec3(3.0f, 3.0f, 3.0f));
 	spidermanCubeEntity->setName("spiderManCube");
 	instantiateGameEntity(spidermanCubeEntity);
 }
@@ -486,7 +486,7 @@ void DemoScene3D::handleOnScaleUpKey()
 		return;
 	auto gameObjTransform = m_GameEntities[m_CurrentObjectIndex]->transform;
 	auto gameObjScale = gameObjTransform->getScale();
-	gameObjTransform->Scale(gameObjScale + glm::vec3(m_ObjectScaleSpeed));
+	gameObjTransform->SetScale(gameObjScale + glm::vec3(m_ObjectScaleSpeed));
 }
 
 void DemoScene3D::handleOnScaleDownKey()
@@ -495,6 +495,6 @@ void DemoScene3D::handleOnScaleDownKey()
 		return;
 	auto gameObjTransform = m_GameEntities[m_CurrentObjectIndex]->transform;
 	auto gameObjScale = gameObjTransform->getScale();
-	gameObjTransform->Scale(gameObjScale - glm::vec3(m_ObjectScaleSpeed));
+	gameObjTransform->SetScale(gameObjScale - glm::vec3(m_ObjectScaleSpeed));
 }
 

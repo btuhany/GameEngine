@@ -7,6 +7,7 @@ namespace GameEngine {
 		m_DirectionalLight = nullptr;
 		m_Skybox = nullptr;
 		m_OmniShadowShader = nullptr;
+		m_IsSceneEnd = false;
 	}
 
 	Scene::~Scene()
@@ -45,6 +46,11 @@ namespace GameEngine {
 	void Scene::setBackgroundColor(glm::vec3 colour)
 	{
 		m_BackgroundColour = colour;
+	}
+
+	bool Scene::getIsSceneEnd()
+	{
+		return m_IsSceneEnd;
 	}
 
 	void Scene::setSkybox(std::shared_ptr<Skybox> skybox)
@@ -172,5 +178,9 @@ namespace GameEngine {
 			entity->HandleOnPreDestroyed();
 			m_GameEntities.erase(it);
 		}
+	}
+	void Scene::setIsSceneEnd(bool value)
+	{
+		m_IsSceneEnd = value;
 	}
 }

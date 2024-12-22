@@ -32,6 +32,8 @@ namespace GameEngine
 		ColliderType getColliderType() override;
 		Vector2 ProcessGetNormalVector(Vector2 collisionPos);
 		void SetEnableStaticSingleNormalVector(bool enabled, Vector2 normalVector = Vector2::zero);
+		void SetWidthAndHeight(float width, float height);
+		void UpdateDebugMesh();
 	private:
 		float m_Width;
 		float m_Height;
@@ -39,10 +41,16 @@ namespace GameEngine
 		void initializeDebugRender();
 		std::shared_ptr<MeshData> createDebugMesh();
 		Vector2 getNodePosition(BoxColliderPosType position);
-		const float CORNER_ALIGN_CHECK_THRESHOLD = 0.99999f;
+		const float CORNER_ALIGN_CHECK_THRESHOLD = 0.999999f;
 
 		bool m_UseStaticSingleNormalVector = false;
 		Vector2 m_StaticSingleNormalVector = Vector2::zero;
+
+		//TODO should be const
+		Vector2 m_TopRightCornerNormal = Vector2(1.0f, 1.0f).normalize();
+		Vector2 m_TopLeftCornerNormal = Vector2(-1.0f, 1.0f).normalize();
+		Vector2 m_BottomRightCornerNormal = Vector2(1.0f, -1.0f).normalize();
+		Vector2 m_BottomLeftCornerNormal = Vector2(-1.0f, -1.0f).normalize();
 #if _DEBUG
 	private:
 		std::shared_ptr<DebugRenderData> m_DebugMeshRenderData;

@@ -113,7 +113,7 @@ namespace GameEngine
 			auto modelMat = transform->GetModelMatrix();
 			glm::mat4 offsetModel = glm::translate(
 				glm::mat4(1.0f), glm::vec3(transform->getPosition().x, transform->getPosition().y, transform->getPosition().z + 0.1f)) * 
-				glm::mat4(transform->getRotation());
+				glm::mat4(1.0f);
 
 			auto debugMeshRenderData = pair.second;
 			auto debugShader = debugMeshRenderData->shader;

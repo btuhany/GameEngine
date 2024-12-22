@@ -72,6 +72,8 @@ namespace GameEngine
 		auto colliderEntityPos = Vector2(entity.lock()->transform->getPosition());
 		auto collisionVec = (collisionPos - colliderEntityPos);
 
+
+
 		auto collidedNodes = getBoundNodes();
 		auto topRightVec = (collidedNodes[(int)BoxColliderPosType::TopRight] - colliderEntityPos);
 		auto bottomRightVec = (collidedNodes[(int)BoxColliderPosType::BottomRight] - colliderEntityPos);
@@ -84,22 +86,22 @@ namespace GameEngine
 		//std::cout << "Ball collidedPointYPosInLUtoRBVector, x: " << collidedPointYPosInLUtoRBVector << std::endl;
 		//std::cout << "Ball collidedPointYPosInLBtoRUVector, x: " << collidedPointYPosInLBtoRUVector << std::endl;
 
-		if (Vector2::IsAligned(collisionVec, topRightVec, CORNER_ALIGN_CHECK_THRESHOLD))
+		if (Vector2::IsAligned(collisionVec, m_TopRightCornerNormal, CORNER_ALIGN_CHECK_THRESHOLD))
 		{
 			std::cout << "topRightVec" << std::endl;
 			return topRightVec.normalize();
 		}
-		else if (Vector2::IsAligned(collisionVec, topLeftVec, CORNER_ALIGN_CHECK_THRESHOLD))
+		else if (Vector2::IsAligned(collisionVec, m_TopLeftCornerNormal, CORNER_ALIGN_CHECK_THRESHOLD))
 		{
 			std::cout << "topLeftVec" << std::endl;
 			return topLeftVec.normalize();
 		}
-		else if (Vector2::IsAligned(collisionVec, bottomLeftVec, CORNER_ALIGN_CHECK_THRESHOLD))
+		else if (Vector2::IsAligned(collisionVec, m_BottomLeftCornerNormal, CORNER_ALIGN_CHECK_THRESHOLD))
 		{
 			std::cout << "bottomLeftVec" << std::endl;
 			return bottomLeftVec.normalize();
 		}
-		else if (Vector2::IsAligned(collisionVec, bottomRightVec, CORNER_ALIGN_CHECK_THRESHOLD))
+		else if (Vector2::IsAligned(collisionVec, m_BottomRightCornerNormal, CORNER_ALIGN_CHECK_THRESHOLD))
 		{
 			std::cout << "bottomRightVec" << std::endl;
 			return bottomRightVec.normalize();
@@ -168,6 +170,19 @@ namespace GameEngine
 	{
 		m_UseStaticSingleNormalVector = enabled;
 		m_StaticSingleNormalVector = normalVector;
+	}
+
+	void BoxCollider2DComponent::SetWidthAndHeight(float width, float height)
+	{
+		m_Width = width;
+		m_Height = height;
+	}
+
+	void BoxCollider2DComponent::UpdateDebugMesh()
+	{
+#if _DEBUG
+		m_DebugMeshRenderData->mesh = createDebugMesh();
+#endif
 	}
 
 	void BoxCollider2DComponent::HandleOnAfterOwnerInstantiated()

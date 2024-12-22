@@ -44,6 +44,9 @@ namespace GameEngine {
 		std::shared_ptr<GameEntity> FindGameObject(std::string name);
 		PointLight m_PointLightList[MAX_POINT_LIGHTS];
 		SpotLight m_SpotLightList[MAX_SPOT_LIGHTS];
+
+		bool getIsSceneEnd();
+
 	protected:
 		void setSkybox(std::shared_ptr<Skybox> skybox);
 		void setCamera(std::shared_ptr<Camera> camera);
@@ -57,6 +60,8 @@ namespace GameEngine {
 		void destroyGameEntity(std::shared_ptr<GameEntity> entity, bool disableFirst);
 
 		std::vector<std::shared_ptr<GameEntity>> m_GameEntities;
+
+		void setIsSceneEnd(bool value);
 	private:
 		std::shared_ptr<Camera> m_MainCamera;
 		std::shared_ptr<Shader> m_DirLightShadowShader;
@@ -66,7 +71,7 @@ namespace GameEngine {
 
 		glm::vec3 m_BackgroundColour = glm::vec3(0.0f, 0.0f, 0.0f);
 		bool m_IsInitialized = false;
-
+		bool m_IsSceneEnd;
 		int m_SpotLightCount = 0;
 		int m_PointLightCount = 0;
 	};

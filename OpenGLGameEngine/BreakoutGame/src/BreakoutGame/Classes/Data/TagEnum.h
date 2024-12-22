@@ -7,6 +7,8 @@ namespace BreakoutGame
 		Ball = 1,
 		Paddle = 2,
 		Brick = 3,
-		Boundary = 4
+		Boundary = 4,
+		Perk = 5,
+		DeathBoundary = 6
 	};
 }

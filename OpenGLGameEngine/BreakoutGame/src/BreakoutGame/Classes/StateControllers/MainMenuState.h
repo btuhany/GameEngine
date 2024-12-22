@@ -5,10 +5,10 @@
 #include "../Managers/UIManager.h"
 namespace BreakoutGame
 {
-	class MainMenuStateController : public StateBase
+	class MainMenuState : public StateBase
 	{	
 	public:
-		MainMenuStateController(
+		MainMenuState(
 			std::shared_ptr<UIManager> uiManager);
 		void SetCallbacks(std::function<void()> startButtonClickHandler,
 			std::function<void()> quitButtonClickHandler);

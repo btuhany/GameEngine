@@ -59,9 +59,6 @@ namespace BreakoutGame
 	{
 		m_PauseText->getEntity().lock()->setActive(false);
 	}
-	void UIManager::ShowHelpPanel()
-	{
-	}
 	void UIManager::initMainMenuPanelObjects()
 	{
 		auto backgroundTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/button_square_gradient.PNG");
@@ -102,12 +99,12 @@ namespace BreakoutGame
 		m_HelpButton->Start();
 		m_QuitButton->Start();
 
-		float textOffsetY = 150.0f;
+		float textOffsetY = 100.0f;
 		m_BreakoutText->getEntity().lock()->transform->
 			SetPosition(
 				Vector3(
 					(m_ViewPortWidth - m_BreakoutText->calculatedTextWidth) / 2.0f, 
-					m_ViewPortHeight / 2.0f + textOffsetY, 
+					(m_ViewPortHeight + m_BreakoutText->calculatedTextHeight) / 2.0f + textOffsetY, 
 					0.0f));
 	}
 	void UIManager::initPausePanelObjects()
@@ -141,8 +138,13 @@ namespace BreakoutGame
 		breakoutTextEntity->AddComponent(m_CenteredText);
 		m_GameEntityList.push_back(breakoutTextEntity);
 	}
+	void UIManager::ShowHelpPanel()
+	{
+		ShowCenteredText("helpText \n helpText \n helpText \n helpText \n helpText \n helpText \n helpText \n helpText \n helpText \n ", glm::vec3(0.5f, 0.7f, 1.0f));
+	}
 	void UIManager::HideHelpPanel()
 	{
+		HideCenteredText();
 	}
 	void UIManager::ShowMainMenuPanel()
 	{
@@ -171,7 +173,7 @@ namespace BreakoutGame
 			SetPosition(
 				Vector3(
 					(m_ViewPortWidth - m_CenteredText->calculatedTextWidth) / 2.0f,
-					m_ViewPortHeight / 2.0f,
+					(m_ViewPortHeight + m_CenteredText->calculatedTextHeight) / 2.0f,
 					0.0f));
 		m_CenteredText->getEntity().lock()->setActive(true);
 	}
@@ -214,10 +216,18 @@ namespace BreakoutGame
 	}
 	void UIManager::UpdatePlayerHUDLive(int live)
 	{
-		for (size_t i = 0; i < live; i++)
+		for (size_t i = 0; i < m_HeartSpriteEntities.size(); i++)
 		{
-			m_HeartSpriteEntities[i]->setActive(true);
+			if (live > i)
+			{
+				m_HeartSpriteEntities[i]->setActive(true);
+			}
+			else
+			{
+				m_HeartSpriteEntities[i]->setActive(false);
+			}
 		}
+
 	}
 	std::vector<std::shared_ptr<GameEntity>> UIManager::getEntityList()
 	{
@@ -281,7 +291,7 @@ namespace BreakoutGame
 			uiRendererComp->setUIRenderData(uiRenderData);
 			uiEntity->AddComponent(uiRendererComp);
 			uiEntity->transform->Translate(glm::vec3(startPointX + i * (width + spacingX), startPointY, 0.0f));
-			uiEntity->transform->Scale(glm::vec3(width, width, 1.0f));
+			uiEntity->transform->SetScale(glm::vec3(width, width, 1.0f));
 			m_HeartSpriteEntities.push_back(uiEntity);
 			m_GameEntityList.push_back(uiEntity);
 		}

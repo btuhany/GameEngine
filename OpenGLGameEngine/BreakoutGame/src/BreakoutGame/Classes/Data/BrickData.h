@@ -1,20 +1,15 @@
 #pragma once
-#include <GameEngine.h>
-#include <memory>
-#include "BrickTypeEnum.h"
 namespace BreakoutGame
 {
-	class BrickData
+	struct BrickData
 	{
-	public:
+		//HIT DATA
 		int hitCountToBreak = 0;
 		int scorePointOnHit = 0;
 		int scorePointOnBreak = 0;
-		bool isAbleToDropPerk = false;
-		bool isAbleToDropExtraScorePoint = false;
-		bool isAbleToDropHealthPoint = false;
-		std::vector<std::shared_ptr<SpriteRenderData>> spriteRenderDataListOrderedHitCountAscending;
 		BrickType brickType;
+		//PERK DATA
+		float perkDropRateOnHit = 0.0f;
+		float perkDropRateOnBreak = 0.0f;
 	};
 }
-

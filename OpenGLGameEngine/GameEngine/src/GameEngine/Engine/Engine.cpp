@@ -85,6 +85,10 @@ namespace GameEngine {
 			if (m_ShouldPause)
 				continue; //break;
 
+			//TODO: should be controlled from app
+			if (m_Scene->getIsSceneEnd())
+				break;
+
 			GLfloat timeNow = glfwGetTime(); //SDL_GetPerformanceCounter();
 			deltaTime = timeNow - lastTime; // (timeNow - lastTime)*1000 / SDL_GetPerformanceFrequency();
 			lastTime = timeNow;

@@ -47,25 +47,41 @@ namespace BreakoutGame
 			return;
 
 		handleMovement();
+		handleRotationAnimation(deltaTime);
 	}
 
 	std::shared_ptr<SpriteEntity> Ball::getEntity()
 	{
 		return m_Entity;
 	}
-	void Ball::Reset()
+	void Ball::Reset(Vector3 pos)
 	{
 		SetDefaultSpeed();
 		IsOnPaddle = true;
+		m_Entity->transform->ResetRotation();
+		m_Entity->transform->SetPosition(pos);
 	}
 	void Ball::StopMovement()
 	{
+		m_Entity->transform->ResetRotation();
 		m_MovementVector = glm::vec3(0.0f);
 	}
 	void Ball::StartMovement(Vector3 movementVector)
 	{
-		m_MovementVector = glm::normalize(glm::vec3(movementVector.x, movementVector.y, movementVector.z));
+		m_MovementVector = glm::normalize(VectorUtility::Vector3ToGlmVec3(movementVector));
 		m_CanMove = true;
+	}
+	void Ball::ApplyImpulseToMovement(Vector3 impulseVector, float impulseMultiplier)
+	{
+		auto glmVec = VectorUtility::Vector3ToGlmVec3(impulseVector);
+		float length = glm::length(glmVec);
+		if (length > 0) //normalize bug
+		{
+			auto impulseVec = glm::normalize(glmVec);
+			m_MovementVector += impulseVec * impulseMultiplier;
+			m_MovementVector.z = 0.0f;
+			m_MovementVector = glm::normalize(m_MovementVector);
+		}
 	}
 	void Ball::SetPosition(glm::vec3 position)
 	{
@@ -108,6 +124,10 @@ namespace BreakoutGame
 	{
 		m_Speed = value;
 	}
+	float Ball::getSpeed()
+	{
+		return m_Speed;
+	}
 	void Ball::SetDefaultSpeed()
 	{
 		m_Speed = SPEED;
@@ -136,7 +156,17 @@ namespace BreakoutGame
 			return;
 		}
 		auto colliderEntity = colliderEntityPtr.lock();
+		int tagIndex = colliderEntity->getTag();
+		
+		if (tagIndex == (int)Tag::Perk)
+		{
+			return;
+		}
 
+		if (IsClone && tagIndex == (int)Tag::DeathBoundary) //BAD PRACTICE 
+		{
+			m_Entity->setActive(false);
+		}
 
 		if (otherCollider->getColliderType() == ColliderType::BoxCollider2D)
 		{
@@ -172,12 +202,31 @@ namespace BreakoutGame
 				LOG_INFO_STREAM("Ball Normal vector, x: " << normalVec.x << " y: " << normalVec.y);
 			}
 
+			//FINE TUNING FOR PADDLE
+			if (colliderEntity->getTag() == (int)Tag::Paddle && avarageCollidedNodePos.y > colliderEntity->transform->getPosition().y)
+			{
+				if (normalVec.y == 0 && std::abs(normalVec.x) == 1)
+				{
+					normalVec.y = 1.0f;
+					if (normalVec.x > 0)
+					{
+						normalVec.x = 0.8f;
+					}
+					else
+					{
+						normalVec.x = -0.8f;
+					}
+					
+					normalVec = normalVec.normalize();
+					LOG_INFO("Ball collide paddle normal calculated with fine tuning");
+				}
+			}
 			auto newMovementVector = glm::reflect(m_MovementVector, glm::vec3(normalVec.x, normalVec.y, 0.0f));
 
 			if (IS_LOGS_ACTIVE)
 				LOG_INFO_STREAM("Ball After Reflect New Movement vector, x: " << newMovementVector.x << " y: " << newMovementVector.y);
 
-			m_MovementVector = newMovementVector;
+			m_MovementVector = glm::normalize(newMovementVector);
 
 			if (m_OnBallColliderEnterHandler != nullptr)
 				m_OnBallColliderEnterHandler(colliderEntity);
@@ -194,5 +243,19 @@ namespace BreakoutGame
 			return;
 
 		m_Entity->transform->Translate(m_MovementVector * m_DeltaTime * m_Speed);
+	}
+	void Ball::handleRotationAnimation(float deltaTime)
+	{
+		if (!m_CanMove)
+			return;
+
+		if (m_MovementVector.x < 0)
+		{
+			m_Entity->transform->Rotate(ROTATE_ANIM_SPEED, glm::vec3(0.0f, 0.0f, 1.0f));
+		}
+		else
+		{
+			m_Entity->transform->Rotate(ROTATE_ANIM_SPEED * -1.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+		}
 	}
 }

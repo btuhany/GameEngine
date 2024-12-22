@@ -8,7 +8,6 @@
 
 #include "../Managers/StateManager.h"
 #include "../Data/InputTypeEnum.h"
-#include "../StateControllers/InGameStateController.h"
 namespace BreakoutGame
 {
 	class BreakoutScene : public Scene
@@ -35,7 +34,7 @@ namespace BreakoutGame
 
 		void instantiateEntities(std::vector<std::shared_ptr<GameEntity>> entityList);
 	
-		
+		void onGameQuitCallback();
 		void onInputCallback(InputType inputType);
 
 		std::shared_ptr<UIManager> m_UIManager;

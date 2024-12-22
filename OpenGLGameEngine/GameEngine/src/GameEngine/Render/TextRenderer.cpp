@@ -141,9 +141,15 @@ namespace GameEngine
             {
                 std::vector<float> charVertices;
                 std::vector<unsigned int> charIndices;
+
                 TextCharacter ch = sizeCharactersMap[textComp->textSize][*c];
 
-                
+                if (*c == '\n') {
+                    textStartPosX = transform->getPosition().x;
+                    textStartPosY -= (ch.size.y * 1.5f); //lineSpacing
+                    continue;
+                }
+
                 float xpos = textStartPosX + ch.bearing.x * scale.x;
                 float ypos = textStartPosY - (ch.size.y - ch.bearing.y) * scale.y;
 
@@ -237,28 +243,43 @@ namespace GameEngine
         float textStartPosX = transform->getPosition().x;
         float textStartPosY = transform->getPosition().y;
 
-        float startPos = textStartPosX; //for calculating the total text width;
+        float startPosX = textStartPosX; //for calculating the total text width;
+        float startPosY = textStartPosY;
 
         auto scale = transform->getScale();
-
+        float maxWidth = 0.0f;
+        float maxHeight = 0.0f;
         std::string text = textComp->text;
         std::string::const_iterator c;
         for (c = text.begin(); c != text.end(); c++)
         {
             TextCharacter ch = sizeCharactersMap[textComp->textSize][*c];
-            float xpos = textStartPosX + ch.bearing.x * scale.x;
-            float ypos = textStartPosY - (ch.size.y - ch.bearing.y) * scale.y;
 
-            float w = ch.size.x * scale.x;
+            if (*c == '\n') {
+                textStartPosX = transform->getPosition().x;
+                textStartPosY -= (ch.size.y * 1.5f); //lineSpacing
+                continue;
+            }
+
             float h = ch.size.y * scale.y;
 
             textStartPosX += (ch.advance >> 6) * scale.x; // bitshift by 6 to get value in pixels (2^6 = 64)
 
-            if (h > textComp->calculatedTextHeight)
+            if (textStartPosX - startPosX > maxWidth)
             {
-                textComp->calculatedTextHeight = h;
+                maxWidth = textStartPosX - startPosX;
+            }
+
+            if (h > maxHeight)
+            {
+                maxHeight = h;
+            }
+            if (startPosY - textStartPosY > maxHeight)
+            {
+                maxHeight = startPosY - textStartPosY;
             }
         }
-        textComp->calculatedTextWidth = textStartPosX - startPos;
+        textComp->calculatedTextWidth = maxWidth;
+        textComp->calculatedTextHeight = maxHeight;
     }
 }
