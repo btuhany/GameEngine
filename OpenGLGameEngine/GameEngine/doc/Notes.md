@@ -101,13 +101,13 @@ BREAKOUT GAME
 - Fix temp isInCollider bool for ball [X]
 - Process all colliders at once [CHANGED]
 - Main menu -> Play and Quit [X]
-- Ball rotation animation []
+- Ball rotation animation [X]
 - Bricks transition animation [X]
 - Finalizing design []
-- Overall level transitions logic []
-- Player lost lives logic []
+- Overall level transitions logic [X]
+- Player lost lives logic [X]
 - Pause logic -> Back to main menu [X] (CHANGED)
-- Tiles calculating normals based on ball movement vector []
+- Tiles calculating normals based on ball movement vector [X]
 - Initializing data with config classes (without magic numbers) []
-- Starting ball movement vector based on paddle speed []
+- Starting ball movement vector based on paddle speed [X]
 - BreakoutObject refactor (consider Brick)
