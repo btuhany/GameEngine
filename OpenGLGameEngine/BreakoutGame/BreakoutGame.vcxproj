@@ -164,6 +164,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\BreakoutGame\Classes\Objects\Background.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Objects\CloneBallController.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\BrickData.h" />
     <ClInclude Include="src\BreakoutGame\Classes\Data\PerkTypeEnum.h" />
@@ -199,6 +200,7 @@
     <ClInclude Include="src\BreakoutGame\Classes\Objects\UIButton.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\BreakoutGame\Classes\Objects\Background.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Objects\CloneBallController.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Data\PerkData.cpp" />
     <ClCompile Include="src\BreakoutGame\Classes\Objects\Perk.cpp" />
@@ -229,6 +231,8 @@
   <ItemGroup>
     <None Include="assimp-vc143-mt.dll" />
     <None Include="glew32.dll" />
+    <None Include="src\BreakoutGame\Shaders\bg_shader.frag" />
+    <None Include="src\BreakoutGame\Shaders\bg_shader.vert" />
     <None Include="src\BreakoutGame\Shaders\colliderDebugShader.frag" />
     <None Include="src\BreakoutGame\Shaders\colliderDebugShader.vert" />
     <None Include="src\BreakoutGame\Shaders\shader.frag" />

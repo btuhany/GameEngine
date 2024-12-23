@@ -8,6 +8,7 @@
 
 #include "../Managers/StateManager.h"
 #include "../Data/InputTypeEnum.h"
+#include "../Objects/Background.h"
 namespace BreakoutGame
 {
 	class BreakoutScene : public Scene
@@ -40,6 +41,7 @@ namespace BreakoutGame
 		std::shared_ptr<UIManager> m_UIManager;
 		std::shared_ptr<StateManager> m_StateManager;
 		std::shared_ptr<Shader> m_MainShader;
+		std::shared_ptr<Background> m_Background;
 	};
 
 

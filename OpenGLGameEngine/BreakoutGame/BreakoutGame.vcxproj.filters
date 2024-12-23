@@ -114,6 +114,9 @@
     <ClInclude Include="src\BreakoutGame\Classes\Objects\CloneBallController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\BreakoutGame\Classes\Objects\Background.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BreakoutGame\Classes\App\BreakoutApp.cpp">
@@ -179,6 +182,9 @@
     <ClCompile Include="src\BreakoutGame\Classes\Objects\CloneBallController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\BreakoutGame\Classes\Objects\Background.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="assimp-vc143-mt.dll" />
@@ -191,5 +197,7 @@
     <None Include="src\BreakoutGame\Shaders\ui_screen_space_shader.vert" />
     <None Include="src\BreakoutGame\Shaders\text_shader.frag" />
     <None Include="src\BreakoutGame\Shaders\text_shader.vert" />
+    <None Include="src\BreakoutGame\Shaders\bg_shader.frag" />
+    <None Include="src\BreakoutGame\Shaders\bg_shader.vert" />
   </ItemGroup>
 </Project>
