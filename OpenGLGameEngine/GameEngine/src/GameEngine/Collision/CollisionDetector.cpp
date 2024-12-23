@@ -72,10 +72,13 @@ namespace GameEngine
 			else
 				processOnDetectionFailed(collisionData);
 		}
+
+		processCollisionResultBuffer();
 	}
 
 	void CollisionDetector::ProcessCollisionData(std::shared_ptr<CollisionData> collisionData)
 	{
+		//INstant call
 		if (collisionData->isInBounds)
 			processOnDetectionSuccess(collisionData);
 		else
@@ -165,23 +168,44 @@ namespace GameEngine
 	{
 		auto otherCollider = collisionData->otherCollider;
 		m_CurrentCollisions[otherCollider] = state;
-		switch (state)
+		if (state == CollisionState::None)
 		{
-		case GameEngine::CollisionState::None:
 			m_CurrentCollisions.erase(otherCollider);
-			break;
-		case GameEngine::CollisionState::Enter:
-			HandleOnCollisionEnter(collisionData);
-			break;
-		case GameEngine::CollisionState::Stay:
-			HandleOnCollisionStay(collisionData);
-			break;
-		case GameEngine::CollisionState::Exit:
-			HandleOnCollisionExit(collisionData);
-			break;
-		default:
-			break;
 		}
+		bufferCollisionResult(collisionData, state);
+	}
+
+	void CollisionDetector::bufferCollisionResult(std::shared_ptr<CollisionData> collisionData, CollisionState state)
+	{
+		auto bufferData = std::make_shared<CollisionProcessBufferData>();
+		bufferData->collider = collisionData->otherCollider;
+		bufferData->collisionData = collisionData;
+		bufferData->state = state;
+
+		m_CollisionProcessBuffer.push_back(bufferData);
+	}
+
+	void CollisionDetector::processCollisionResultBuffer()
+	{
+		for (size_t i = 0; i < m_CollisionProcessBuffer.size(); i++)
+		{
+			auto state = m_CollisionProcessBuffer[i]->state;
+			switch (state)
+			{
+			case GameEngine::CollisionState::Enter:
+				HandleOnCollisionEnter(m_CollisionProcessBuffer[i]->collisionData);
+				break;
+			case GameEngine::CollisionState::Stay:
+				HandleOnCollisionStay(m_CollisionProcessBuffer[i]->collisionData);
+				break;
+			case GameEngine::CollisionState::Exit:
+				HandleOnCollisionExit(m_CollisionProcessBuffer[i]->collisionData);
+				break;
+			default:
+				break;
+			}
+		}
+		m_CollisionProcessBuffer.clear();
 	}
 	
 }

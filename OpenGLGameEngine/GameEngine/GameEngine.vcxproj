@@ -88,6 +88,7 @@
     <ClCompile Include="src\GameEngine\Render\UIRenderData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameEngine\Collision\CollisionProcessBufferData.h" />
     <ClInclude Include="src\GameEngine\Math\RandomGenerator.h" />
     <ClInclude Include="src\GameEngine\Engine\EngineConfig.h" />
     <ClInclude Include="src\GameEngine\Math\TweenEase.hpp" />

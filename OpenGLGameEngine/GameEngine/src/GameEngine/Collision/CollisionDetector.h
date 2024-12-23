@@ -8,6 +8,7 @@
 #include "../StartModeSettings.h"
 #include "CollisionData.h"
 #include "../Debugging/Log.h"
+#include "CollisionProcessBufferData.h"
 
 namespace GameEngine
 {
@@ -31,10 +32,12 @@ namespace GameEngine
 			CollisionState,
 			std::function<void(std::shared_ptr<CollisionData>)>> m_CollisionCallbacks;
 		void updateCollisionState(std::shared_ptr<CollisionData> collisionData, CollisionState state);
+		void bufferCollisionResult(std::shared_ptr<CollisionData> collisionData, CollisionState state);
+		void processCollisionResultBuffer();
 		void processOnDetectionSuccess(std::shared_ptr<CollisionData> collisionData);
 		void processOnDetectionFailed(std::shared_ptr<CollisionData> collisionData);
 		std::vector<std::shared_ptr<CollisionData>> m_CollisionDataBuffer;
-
+		std::vector<std::shared_ptr< CollisionProcessBufferData>> m_CollisionProcessBuffer;
 		//FOR DEBUG
 		const bool IS_LOGS_ACTIVE = false;
 	};
