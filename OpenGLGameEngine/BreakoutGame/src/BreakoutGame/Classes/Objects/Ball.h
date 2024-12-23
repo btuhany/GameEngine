@@ -41,7 +41,7 @@ namespace BreakoutGame
 		const float SPEED = 37.0f;
 		//FOR DEBUG
 		const bool IS_LOGS_ACTIVE = true;
-		const float ROTATE_ANIM_SPEED = 1.8f;
+		const float ROTATE_ANIM_SPEED = 2.8f;
 	};
 }
 

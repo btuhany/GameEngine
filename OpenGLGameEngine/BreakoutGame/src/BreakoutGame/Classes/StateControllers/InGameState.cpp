@@ -191,9 +191,7 @@ namespace BreakoutGame
 			m_UIManager->UpdatePlayerHUDLive(m_PlayerDataManager->GetPlayerLive());
 			break;
 		case BreakoutGame::PerkType::ThreeBall:
-			m_CloneBallController->ActivateClones(
-				VectorUtility::GlmVec3ToVector3(
-					m_Paddle->GetBallHolderPosition()));
+			m_CloneBallController->ActivateClones(Vector3(0.0f, 0.0f, 0.0f));
 			break;
 		case BreakoutGame::PerkType::PaddleScaleUp:
 			m_Paddle->ScaleUpWidth(m_PerkManager->PADDLE_SCALE_CHANGE_VALUE);

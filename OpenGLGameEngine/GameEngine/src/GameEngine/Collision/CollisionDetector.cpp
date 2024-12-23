@@ -78,7 +78,7 @@ namespace GameEngine
 
 	void CollisionDetector::ProcessCollisionData(std::shared_ptr<CollisionData> collisionData)
 	{
-		//INstant call
+		//Instant call
 		if (collisionData->isInBounds)
 			processOnDetectionSuccess(collisionData);
 		else
