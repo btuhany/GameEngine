@@ -32,7 +32,7 @@ namespace BreakoutGame
 		float m_DeltaTime;
 		glm::vec3 m_BallHolderOffset;
 		const glm::vec3 START_POS = glm::vec3(0.0f, -20.0f, 0.0f);
-		const float DEFAULT_SPEED = 35.0f;
+		const float DEFAULT_SPEED = 42.0f;
 
 		float m_FakeSpeed = 0.0f; //for transfering momentum into the ball
 		float m_FakeFrictionMultiplier = 3.0f;
