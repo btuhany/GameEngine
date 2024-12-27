@@ -97,13 +97,13 @@ daily
 
 BREAKOUT GAME
 - Game Manager [X]
-- Paddle Collider Normals fine tuning fix []
+- Paddle Collider Normals fine tuning fix [X]
 - Fix temp isInCollider bool for ball [X]
 - Process all colliders at once [CHANGED]
 - Main menu -> Play and Quit [X]
 - Ball rotation animation [X]
 - Bricks transition animation [X]
-- Finalizing design []
+- Finalizing design [X]
 - Overall level transitions logic [X]
 - Player lost lives logic [X]
 - Pause logic -> Back to main menu [X] (CHANGED)
