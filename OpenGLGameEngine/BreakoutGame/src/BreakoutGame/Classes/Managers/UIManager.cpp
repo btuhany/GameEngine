@@ -114,13 +114,15 @@ namespace BreakoutGame
 		m_PauseText->text = "Paused";
 		m_PauseText->shader = m_TextShader;
 		m_PauseText->textSize = TextSize::Large;
-		m_PauseText->color = glm::vec3(1.0f, 0.0f, 0.0f);
+		m_PauseText->color = glm::vec3(1.0f, 1.0f, 1.0f);
 		auto breakoutTextEntity = std::make_shared<GameEntity>();
 		breakoutTextEntity->AddComponent(m_PauseText);
 		m_GameEntityList.push_back(breakoutTextEntity);
 	}
 	void UIManager::startPausePanelObjects()
 	{
+		m_PauseText->getEntity().lock()->transform->SetScale(glm::vec3(1.5f, 1.5f, 1.0f));
+		TextRenderer::CalculateTextWidthAndHeight(m_PauseText);
 		m_PauseText->getEntity().lock()->transform->
 			SetPosition(
 				Vector3(
@@ -177,6 +179,7 @@ namespace BreakoutGame
 					(m_ViewPortHeight + m_CenteredText->calculatedTextHeight) / 2.0f,
 					0.0f));
 		m_CenteredText->getEntity().lock()->setActive(true);
+		m_CenteredText->getEntity().lock()->transform->SetScale(glm::vec3(1.5f, 1.5f, 1.0f));
 	}
 	void UIManager::HideCenteredText()
 	{
