@@ -36,6 +36,9 @@ namespace BreakoutGame
 
 		float m_FakeSpeed = 0.0f; //for transfering momentum into the ball
 		float m_FakeFrictionMultiplier = 3.0f;
+
+		float m_RightBoundary = 37.0f;
+		float m_LeftBoundary = -37.0f;
 	};
 }
 
