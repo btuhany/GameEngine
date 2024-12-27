@@ -240,18 +240,18 @@ namespace BreakoutGame
 		if (isGameOver())
 		{
 			m_Paddle->DisableMovement();
-			m_UIManager->ShowCenteredText("Game Over", glm::vec3(1.0f, 0.2f, 0.2f));
+			m_UIManager->ShowCenteredText("Game Over", glm::vec3(1.0f, 0.0f, 0.0f));
 			m_Ball->getEntity()->setActive(false);
 		}
 		else
 		{
 			if (!isAllLevelsCompleted())
 			{
-				m_UIManager->ShowCenteredText("Level Completed!", glm::vec3(0.5f, 1.0f, 0.5f));
+				m_UIManager->ShowCenteredText("Level Completed!", glm::vec3(1.0f, 1.0f, 1.0f));
 			}
 			else
 			{
-				m_UIManager->ShowCenteredText("Game Completed!", glm::vec3(0.5f, 1.0f, 0.5f));
+				m_UIManager->ShowCenteredText("Game Completed!", glm::vec3(0.3f, 1.0f, 0.3f));
 			}
 			m_Ball->SetSpeed(100.0f);
 		}
