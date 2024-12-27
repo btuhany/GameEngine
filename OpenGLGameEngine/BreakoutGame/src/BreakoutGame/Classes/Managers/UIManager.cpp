@@ -134,7 +134,7 @@ namespace BreakoutGame
 		m_CenteredText->text = "Breakout!";
 		m_CenteredText->shader = m_TextShader;
 		m_CenteredText->textSize = TextSize::Large;
-		m_CenteredText->color = glm::vec3(0.9f, 0.8f, 0.35f);
+		m_CenteredText->color = glm::vec3(1.0f, 1.0f, 1.0f);
 		auto breakoutTextEntity = std::make_shared<GameEntity>();
 		breakoutTextEntity->AddComponent(m_CenteredText);
 		m_GameEntityList.push_back(breakoutTextEntity);
@@ -217,16 +217,20 @@ namespace BreakoutGame
 	}
 	void UIManager::UpdatePlayerHUDLive(int live)
 	{
-		for (size_t i = 0; i < m_HeartSpriteEntities.size(); i++)
+		int spriteSize = m_HeartSpriteEntities.size();
+
+		int index = 0;
+		for (int i = spriteSize - 1; i >= 0; i--)
 		{
 			if (live > i)
 			{
-				m_HeartSpriteEntities[i]->setActive(true);
+				m_HeartSpriteEntities[index]->setActive(true);
 			}
 			else
 			{
-				m_HeartSpriteEntities[i]->setActive(false);
+				m_HeartSpriteEntities[index]->setActive(false);
 			}
+			index++;
 		}
 
 	}
@@ -255,10 +259,11 @@ namespace BreakoutGame
 	void UIManager::initLevelText(std::string initialLevelStr)
 	{
 		auto textEntity = std::make_shared<GameEntity>();
+
 		auto textComp = std::make_shared<UITextRendererComponent>();
 		textComp->shader = m_TextShader;
 		textComp->text = "Level: " + initialLevelStr;
-		textComp->color = glm::vec3(0.2f, 1.0f, 0.1f);
+		textComp->color = glm::vec3(0.3f, 1.0f, 0.3f);
 		m_LevelTextComponent = textComp;
 		textEntity->AddComponent(textComp);
 		m_GameEntityList.push_back(textEntity);
@@ -270,6 +275,7 @@ namespace BreakoutGame
 		auto textWidth = m_LevelTextComponent->calculatedTextWidth;
 		float textXOffset = MARGIN_LEFT;
 		textEntity->transform->Translate(glm::vec3(textXOffset, m_ViewPortHeight - MARGIN_TOP, 0.0f));
+		textEntity->transform->SetScale(glm::vec3(1.5f, 1.5f, 1.0f));
 	}
 	void UIManager::initHeartSpriteEntities(int liveCount)
 	{
