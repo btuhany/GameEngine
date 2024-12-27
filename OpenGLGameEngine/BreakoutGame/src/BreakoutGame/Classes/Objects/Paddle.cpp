@@ -22,6 +22,7 @@ namespace BreakoutGame
 	{
 		m_Entity->transform->SetScale(glm::vec3(m_DefaultScale.x, m_DefaultScale.y, m_Entity->transform->getScale().z));
 		m_Collider->SetWidthAndHeight(7.5f, 2.0f);
+		m_Speed = DEFAULT_SPEED;
 	}
 	void Paddle::IncreaseSpeed(float value)
 	{
