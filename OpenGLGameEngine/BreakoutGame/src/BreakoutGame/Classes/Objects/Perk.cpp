@@ -17,7 +17,7 @@ namespace BreakoutGame
 	void Perk::CreateEntity(std::shared_ptr<Shader> shader, std::function<void(std::shared_ptr<GameEntity>)> onPaddleCollideCallback)
 	{
 		m_OnPaddleCollideCallbackHandler = onPaddleCollideCallback;
-		std::shared_ptr<Texture> tex = std::make_shared<Texture>("src/BreakoutGame/Textures/21-Breakout-Tiles.PNG");
+		std::shared_ptr<Texture> tex = std::make_shared<Texture>("src/BreakoutGame/Textures/60-Breakout-Tiles.PNG");
 		tex->LoadTextureWithAlpha();
 		std::shared_ptr<SpriteRenderData> initialSprite = std::make_shared<SpriteRenderData>(tex, nullptr, shader);
 
