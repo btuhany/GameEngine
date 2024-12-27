@@ -65,6 +65,11 @@ namespace BreakoutGame
 		if (!m_Entity->getActive())
 			return;
 		MoveDown(deltaTime);
+
+		if (m_Entity->transform->getPosition().y <= DESPAWN_DOWN_BOUNDARY)
+		{
+			m_Entity->setActive(false);
+		}
 	}
 	std::shared_ptr<SpriteEntity> Perk::getEntity()
 	{
