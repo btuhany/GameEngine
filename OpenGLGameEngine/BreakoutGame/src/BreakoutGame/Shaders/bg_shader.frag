@@ -71,20 +71,19 @@ void main()
 {			
     vec2 uv = TexCoords;
 
-    float wave1 = sin(uv.y * 10.0 + iTime * 1.0) * 0.01;
-    float wave2 = cos(uv.y * 20.0 - iTime * 1.0) * 0.01;
+    float wave1 = sin(uv.y * 5.0 + iTime * 1.0) * 0.01;
+    float wave2 = cos(uv.y * 15.0 - iTime * 1.0) * 0.02;
     vec2 distortedUV = uv + vec2(wave1, wave2);
 
     vec4 textureColor = texture(theTexture, distortedUV);
 
     vec3 neonColor = vec3(0.0);
-    neonColor.r = 0.5 + 0.5 * sin(uv.x * 10.0 + iTime * 0.5);
-    neonColor.g = 0.5 + 0.5 * cos(uv.y * 10.0 - iTime * 0.9);
-    neonColor.b = 0.5 + 0.5 * sin(uv.x * 15.0 - uv.y * 5.0 + iTime * 0.8);
+    neonColor.r = 0.7 + 0.7 * sin(uv.x * 10.0 + iTime * 0.5);
+    neonColor.g = 0.2 + 0.2 * cos(uv.y * 10.0 - iTime * 0.5);
+    neonColor.b = 0.7 + 0.7 * sin(uv.x * 10.0 - uv.y * 3.0 + iTime * 0.8);
 
-    vec3 finalColor = mix(textureColor.rgb, neonColor, 0.5);
+    vec3 finalColor = mix(textureColor.rgb, neonColor, 0.2);
+//    vec3 finalColor = textureColor.rgb;
 
-
-
-    colour = vec4(finalColor, 1.0) * 0.8;  
+    colour = vec4(finalColor, 1.0) * 0.75;  
 }	

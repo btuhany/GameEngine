@@ -88,7 +88,7 @@ namespace BreakoutGame
 		m_BreakoutText->text = "Breakout!";
 		m_BreakoutText->shader = m_TextShader;
 		m_BreakoutText->textSize = TextSize::Large;
-		m_BreakoutText->color = glm::vec3(1.0f, 0.0f, 0.0f);
+		m_BreakoutText->color = glm::vec3(1.0f, 1.0f, 1.0f);
 		auto breakoutTextEntity = std::make_shared<GameEntity>();
 		breakoutTextEntity->AddComponent(m_BreakoutText);
 		breakoutTextEntity->transform->SetScale(glm::vec3(3.0f, 3.0f, 1.0f));
