@@ -137,7 +137,7 @@ namespace BreakoutGame
 				auto brick = m_BrickGrid[row][col];
 				if (brick->getType() != BrickType::None)
 				{
-					float lerpValue = TweenEase::EaseOutBack(animationLerpValue);
+					float lerpValue = TweenEase::EaseInOutQuad(animationLerpValue);
 					brick->TickAnimation(lerpValue);
 				}
 			}
