@@ -66,6 +66,7 @@ namespace BreakoutGame
 			return;
 		MoveDown(deltaTime);
 
+		//return to pool
 		if (m_Entity->transform->getPosition().y <= DESPAWN_DOWN_BOUNDARY)
 		{
 			m_Entity->setActive(false);
