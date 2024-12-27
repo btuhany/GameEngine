@@ -255,6 +255,7 @@ namespace BreakoutGame
 		auto textWidth = m_ScoreCounterTextComponent->calculatedTextWidth;
 		float textExtraXOffset = - (textWidth / 3.0f);
 		textEntity->transform->Translate(glm::vec3(((m_ViewPortWidth - textWidth) / 2.0f) + textExtraXOffset, m_ViewPortHeight - MARGIN_TOP, 0.0f));
+		textEntity->transform->SetScale(glm::vec3(1.5f, 1.5f, 1.0f));
 	}
 	void UIManager::initLevelText(std::string initialLevelStr)
 	{
