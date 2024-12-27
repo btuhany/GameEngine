@@ -39,6 +39,11 @@ namespace BreakoutGame
 		float spacingX = 2.5f;
 		for (size_t i = 0; i < m_CloneBallList.size(); i++)
 		{
+			if (m_CloneBallList[i]->getEntity()->getActive())
+			{
+				m_CloneBallList[i]->CloneHitCount = 0;
+				continue;
+			}
 			pos.x += spacingX * i;
 			m_CloneBallList[i]->getEntity()->setActive(true);
 			m_CloneBallList[i]->getEntity()->transform->SetPosition(pos);
