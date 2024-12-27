@@ -15,7 +15,7 @@ namespace BreakoutGame
 			ball->IsOnPaddle = false;
 			ball->Start();
 			ball->getEntity()->renderer->setSpriteRenderData(renderData);
-			ball->SetSpeed(ball->getSpeed() * 1.5f);
+			ball->SetSpeed(ball->getSpeed() * 1.2f);
 			ball->getEntity()->transform->Scale(scale, scale, scale);
 			auto collider = ball->getEntity()->GetComponent<BoxCollider2DComponent>();
 			auto colliderWidth = collider->getWidth();
