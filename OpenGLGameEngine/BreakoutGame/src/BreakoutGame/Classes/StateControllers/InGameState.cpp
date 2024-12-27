@@ -149,16 +149,8 @@ namespace BreakoutGame
 		}
 		else if (tagIndex == (int)Tag::DeathBoundary && !m_InLevelCompletedDelay)
 		{
-			m_PlayerDataManager->DecreasePlayerLives(1);
-			m_UIManager->UpdatePlayerHUDLive(m_PlayerDataManager->GetPlayerLive());
-			if (m_PlayerDataManager->GetPlayerLive() > 0)
-			{
-				m_Ball->IsOnPaddle = true;
-			}
-			else
-			{
-				startTransition();
-			}
+			updatePlayerLives(-1);
+			checkHandleIsGameOver();
 		}
 	}
 	void InGameState::onCloneBallColliderEnter(std::shared_ptr<GameEntity> gameEntity)
@@ -183,12 +175,10 @@ namespace BreakoutGame
 		switch (perkType)
 		{
 		case BreakoutGame::PerkType::IncreaseLive:
-			m_PlayerDataManager->IncreasePlayerLives(1);
-			m_UIManager->UpdatePlayerHUDLive(m_PlayerDataManager->GetPlayerLive());
+			updatePlayerLives(1);
 			break;
 		case BreakoutGame::PerkType::DecreaseLive:
-			m_PlayerDataManager->DecreasePlayerLives(1);
-			m_UIManager->UpdatePlayerHUDLive(m_PlayerDataManager->GetPlayerLive());
+			updatePlayerLives(-1);
 			break;
 		case BreakoutGame::PerkType::ThreeBall:
 			m_CloneBallController->ActivateClones(Vector3(0.0f, 0.0f, 0.0f));
@@ -220,6 +210,26 @@ namespace BreakoutGame
 	bool InGameState::isGameOver()
 	{
 		return m_PlayerDataManager->GetPlayerLive() <= 0;
+	}
+	void InGameState::checkHandleIsGameOver()
+	{
+		if (isGameOver())
+		{
+			startTransition();
+		}
+		else
+		{
+			m_Ball->IsOnPaddle = true;
+		}
+	}
+	void InGameState::updatePlayerLives(int value)
+	{
+		if (value < 0)
+			m_PlayerDataManager->DecreasePlayerLives(std::abs(value));
+		else
+			m_PlayerDataManager->IncreasePlayerLives(value);
+
+		m_UIManager->UpdatePlayerHUDLive(m_PlayerDataManager->GetPlayerLive());
 	}
 	void InGameState::startTransition()
 	{
