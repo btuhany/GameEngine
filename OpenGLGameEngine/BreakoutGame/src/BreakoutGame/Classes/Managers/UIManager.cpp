@@ -61,31 +61,31 @@ namespace BreakoutGame
 	}
 	void UIManager::initMainMenuPanelObjects()
 	{
-		auto backgroundTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/button_square_gradient.PNG");
+		auto backgroundTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/ui_button_bg.PNG");
 		backgroundTexture->LoadTextureWithAlpha();
 
-		auto selectedSpriteTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/button_square_line.PNG");
+		auto selectedSpriteTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/ui_button_bg_selected.PNG");
 		selectedSpriteTexture->LoadTextureWithAlpha();
 
 		m_StartButton = std::make_shared<UIButton>();
-		m_StartButton->Initialize(m_UIScreenSpaceShader, m_TextShader, backgroundTexture, selectedSpriteTexture, "Start", Vector3(1.0f, 0.0f, 0.0f), Vector2(m_ViewPortWidth, m_ViewPortHeight) / 2.0f, Vector2(300.0f, 100.0f), m_ViewPortWidth, m_ViewPortHeight);
+		m_StartButton->Initialize(m_UIScreenSpaceShader, m_TextShader, backgroundTexture, selectedSpriteTexture, "Start", Vector3(1.0f, 1.0f, 1.0f), Vector2(m_ViewPortWidth, m_ViewPortHeight) / 2.0f, Vector2(300.0f, 100.0f), m_ViewPortWidth, m_ViewPortHeight);
 		auto startButtonEntities = m_StartButton->getEntities();
 		m_GameEntityList.insert(m_GameEntityList.end(), startButtonEntities.begin(), startButtonEntities.end());
 
 		float helpButtonOffset = 150.0f;
 		m_HelpButton = std::make_shared<UIButton>();
-		m_HelpButton->Initialize(m_UIScreenSpaceShader, m_TextShader, backgroundTexture, selectedSpriteTexture, "Help", Vector3(1.0f, 0.0f, 0.0f), Vector2(m_ViewPortWidth / 2.0f, m_ViewPortHeight / 2.0f - helpButtonOffset), Vector2(300.0f, 100.0f), m_ViewPortWidth, m_ViewPortHeight);
+		m_HelpButton->Initialize(m_UIScreenSpaceShader, m_TextShader, backgroundTexture, selectedSpriteTexture, "Help", Vector3(1.0f, 1.0f, 1.0f), Vector2(m_ViewPortWidth / 2.0f, m_ViewPortHeight / 2.0f - helpButtonOffset), Vector2(300.0f, 100.0f), m_ViewPortWidth, m_ViewPortHeight);
 		auto helpButtonEntities = m_HelpButton->getEntities();
 		m_GameEntityList.insert(m_GameEntityList.end(), helpButtonEntities.begin(), helpButtonEntities.end());
 
 		float quitButtonOffset = 300.0f;
 		m_QuitButton = std::make_shared<UIButton>();
-		m_QuitButton->Initialize(m_UIScreenSpaceShader, m_TextShader, backgroundTexture, selectedSpriteTexture, "Quit", Vector3(1.0f, 0.0f, 0.0f), Vector2(m_ViewPortWidth / 2.0f, m_ViewPortHeight / 2.0f - quitButtonOffset), Vector2(300.0f, 100.0f), m_ViewPortWidth, m_ViewPortHeight);
+		m_QuitButton->Initialize(m_UIScreenSpaceShader, m_TextShader, backgroundTexture, selectedSpriteTexture, "Quit", Vector3(1.0f, 1.0f, 1.0f), Vector2(m_ViewPortWidth / 2.0f, m_ViewPortHeight / 2.0f - quitButtonOffset), Vector2(300.0f, 100.0f), m_ViewPortWidth, m_ViewPortHeight);
 		auto quitButtonEntities = m_QuitButton->getEntities();
 		m_GameEntityList.insert(m_GameEntityList.end(), quitButtonEntities.begin(), quitButtonEntities.end());
 
 		m_BreakoutText = std::make_shared<UITextRendererComponent>();
-		m_BreakoutText->text = "Breakout!";
+		m_BreakoutText->text = "BREAKOUT!";
 		m_BreakoutText->shader = m_TextShader;
 		m_BreakoutText->textSize = TextSize::Large;
 		m_BreakoutText->color = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -134,7 +134,7 @@ namespace BreakoutGame
 		m_CenteredText->text = "Breakout!";
 		m_CenteredText->shader = m_TextShader;
 		m_CenteredText->textSize = TextSize::Large;
-		m_CenteredText->color = glm::vec3(0.0f, 0.0f, 1.0f);
+		m_CenteredText->color = glm::vec3(0.9f, 0.8f, 0.35f);
 		auto breakoutTextEntity = std::make_shared<GameEntity>();
 		breakoutTextEntity->AddComponent(m_CenteredText);
 		m_GameEntityList.push_back(breakoutTextEntity);

@@ -78,12 +78,11 @@ void main()
     vec4 textureColor = texture(theTexture, distortedUV);
 
     vec3 neonColor = vec3(0.0);
-    neonColor.r = 0.7 + 0.7 * sin(uv.x * 10.0 + iTime * 0.5);
-    neonColor.g = 0.2 + 0.2 * cos(uv.y * 10.0 - iTime * 0.5);
-    neonColor.b = 0.7 + 0.7 * sin(uv.x * 10.0 - uv.y * 3.0 + iTime * 0.8);
+    neonColor.r = 0.7 + 0.7 * sin(uv.x * 10.0 + iTime * 0.3);
+    neonColor.g = 0.6 + 0.2 * cos(uv.y * 10.0 - iTime * 0.8);
+    neonColor.b = 0.4 + 0.7 * sin(uv.x * 10.0 - uv.y * 3.0 + iTime * 0.3);
 
-    vec3 finalColor = mix(textureColor.rgb, neonColor, 0.2);
-//    vec3 finalColor = textureColor.rgb;
+    vec3 finalColor = mix(textureColor.rgb, neonColor, 0.5);
 
-    colour = vec4(finalColor, 1.0) * 0.75;  
+    colour = vec4(finalColor, 1.0) * 0.6;  
 }	
