@@ -100,16 +100,16 @@ namespace BreakoutGame
 		if (!m_CanMove)
 			return;
 
-		auto upVector = glm::vec3(0.0f, 1.0f, 0.0f);
-		m_Entity->transform->Translate(upVector * m_Speed * m_DeltaTime);
+		//auto upVector = glm::vec3(0.0f, 1.0f, 0.0f);
+		//m_Entity->transform->Translate(upVector * m_Speed * m_DeltaTime);
 	}
 	void Paddle::MoveDown()
 	{
 		if (!m_CanMove)
 			return;
 
-		auto downVector = glm::vec3(0.0f, -1.0f, 0.0f);
-		m_Entity->transform->Translate(downVector * m_Speed * m_DeltaTime);
+		//auto downVector = glm::vec3(0.0f, -1.0f, 0.0f);
+		//m_Entity->transform->Translate(downVector * m_Speed * m_DeltaTime);
 	}
 	void Paddle::ResetPos()
 	{
