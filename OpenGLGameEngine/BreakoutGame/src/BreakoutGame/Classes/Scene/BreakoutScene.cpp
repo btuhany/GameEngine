@@ -26,12 +26,15 @@ namespace BreakoutGame
 		m_StateManager = std::make_shared<StateManager>();
 		m_UIManager = std::make_shared<UIManager>();
 		m_UIManager->Initialize(viewPortWidth, viewPortHeight, PlayerDataManager::INITIAL_SCORE_POINT, PlayerDataManager::INITAL_LEVEL, PlayerDataManager::INITAL_LIVES);
+		m_Background = std::make_shared<Background>();
+		m_Background->Initialize();
 
 		auto mainMenuStateController = std::make_shared<MainMenuState>(m_UIManager);
 		auto inGameStateController = std::make_shared<InGameState>();
 		inGameStateController->Initialize(m_MainShader, m_UIManager);
 
 		auto entityList = std::vector<std::shared_ptr<GameEntity>>();
+		entityList.push_back(m_Background->getEntity());
 		auto uiEntityList = m_UIManager->getEntityList();
 		entityList.insert(entityList.end(), uiEntityList.begin(), uiEntityList.end());
 
@@ -51,12 +54,14 @@ namespace BreakoutGame
 	{
 		m_UIManager->Start();
 		m_StateManager->Start();
+		m_Background->Start();
 	}
 
 	void BreakoutScene::Update(GLfloat deltaTime)
 	{
 		m_DeltaTime = deltaTime;
 		m_StateManager->Tick(deltaTime);
+		m_Background->Tick(deltaTime);
 	}
 
 	void BreakoutScene::initializeInputCallbacks()

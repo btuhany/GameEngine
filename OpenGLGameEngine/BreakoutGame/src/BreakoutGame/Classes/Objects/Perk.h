@@ -21,6 +21,7 @@ namespace BreakoutGame
 		void onCollisionEnter(std::shared_ptr<CollisionData> collisionData);
 		PerkType m_Type;
 		const float SPEED = 10.0f;
+		const float DESPAWN_DOWN_BOUNDARY = -35.0f;
 	};
 }
 

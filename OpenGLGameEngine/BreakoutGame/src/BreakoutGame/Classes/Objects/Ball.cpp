@@ -165,7 +165,12 @@ namespace BreakoutGame
 
 		if (IsClone && tagIndex == (int)Tag::DeathBoundary) //BAD PRACTICE 
 		{
-			m_Entity->setActive(false);
+			CloneHitCount++;
+			if (CloneHitCount > 2)
+			{
+				m_Entity->setActive(false);
+				CloneHitCount = 0;
+			}
 		}
 
 		if (otherCollider->getColliderType() == ColliderType::BoxCollider2D)

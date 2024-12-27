@@ -149,16 +149,8 @@ namespace BreakoutGame
 		}
 		else if (tagIndex == (int)Tag::DeathBoundary && !m_InLevelCompletedDelay)
 		{
-			m_PlayerDataManager->DecreasePlayerLives(1);
-			m_UIManager->UpdatePlayerHUDLive(m_PlayerDataManager->GetPlayerLive());
-			if (m_PlayerDataManager->GetPlayerLive() > 0)
-			{
-				m_Ball->IsOnPaddle = true;
-			}
-			else
-			{
-				startTransition();
-			}
+			updatePlayerLives(-1);
+			checkHandleIsGameOver();
 		}
 	}
 	void InGameState::onCloneBallColliderEnter(std::shared_ptr<GameEntity> gameEntity)
@@ -183,17 +175,17 @@ namespace BreakoutGame
 		switch (perkType)
 		{
 		case BreakoutGame::PerkType::IncreaseLive:
-			m_PlayerDataManager->IncreasePlayerLives(1);
-			m_UIManager->UpdatePlayerHUDLive(m_PlayerDataManager->GetPlayerLive());
+			updatePlayerLives(1);
 			break;
 		case BreakoutGame::PerkType::DecreaseLive:
-			m_PlayerDataManager->DecreasePlayerLives(1);
-			m_UIManager->UpdatePlayerHUDLive(m_PlayerDataManager->GetPlayerLive());
+			updatePlayerLives(-1);
 			break;
 		case BreakoutGame::PerkType::ThreeBall:
-			m_CloneBallController->ActivateClones(
-				VectorUtility::GlmVec3ToVector3(
-					m_Paddle->GetBallHolderPosition()));
+		{
+			auto paddlePos = m_Paddle->getEntity()->transform->getPosition();
+			Vector3 offsetVec = Vector3(0.0f, 10.0f, 0.0f);
+			m_CloneBallController->ActivateClones(VectorUtility::GlmVec3ToVector3(paddlePos) + offsetVec);
+		}
 			break;
 		case BreakoutGame::PerkType::PaddleScaleUp:
 			m_Paddle->ScaleUpWidth(m_PerkManager->PADDLE_SCALE_CHANGE_VALUE);
@@ -223,23 +215,43 @@ namespace BreakoutGame
 	{
 		return m_PlayerDataManager->GetPlayerLive() <= 0;
 	}
+	void InGameState::checkHandleIsGameOver()
+	{
+		if (isGameOver())
+		{
+			startTransition();
+		}
+		else
+		{
+			m_Ball->IsOnPaddle = true;
+		}
+	}
+	void InGameState::updatePlayerLives(int value)
+	{
+		if (value < 0)
+			m_PlayerDataManager->DecreasePlayerLives(std::abs(value));
+		else
+			m_PlayerDataManager->IncreasePlayerLives(value);
+
+		m_UIManager->UpdatePlayerHUDLive(m_PlayerDataManager->GetPlayerLive());
+	}
 	void InGameState::startTransition()
 	{
 		if (isGameOver())
 		{
 			m_Paddle->DisableMovement();
-			m_UIManager->ShowCenteredText("Game Over", glm::vec3(1.0f, 0.0f, 0.0f));
+			m_UIManager->ShowCenteredText("Game Over", glm::vec3(1.0f, 0.2f, 0.2f));
 			m_Ball->getEntity()->setActive(false);
 		}
 		else
 		{
 			if (!isAllLevelsCompleted())
 			{
-				m_UIManager->ShowCenteredText("Level Completed!", glm::vec3(0.0f, 0.0f, 1.0f));
+				m_UIManager->ShowCenteredText("Level Completed!", glm::vec3(0.5f, 1.0f, 0.5f));
 			}
 			else
 			{
-				m_UIManager->ShowCenteredText("Game Completed!", glm::vec3(0.0f, 1.0f, 0.0f));
+				m_UIManager->ShowCenteredText("Game Completed!", glm::vec3(0.5f, 1.0f, 0.5f));
 			}
 			m_Ball->SetSpeed(100.0f);
 		}

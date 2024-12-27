@@ -371,6 +371,9 @@
     <ClInclude Include="src\GameEngine\Math\RandomGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\Collision\CollisionProcessBufferData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Resources\Shaders\shader.vert">

@@ -137,7 +137,7 @@ namespace BreakoutGame
 				auto brick = m_BrickGrid[row][col];
 				if (brick->getType() != BrickType::None)
 				{
-					float lerpValue = TweenEase::EaseOutBack(animationLerpValue);
+					float lerpValue = TweenEase::EaseInOutQuad(animationLerpValue);
 					brick->TickAnimation(lerpValue);
 				}
 			}
@@ -258,8 +258,8 @@ namespace BreakoutGame
 		brickProperties->data.scorePointOnHit = 0;
 		brickProperties->data.scorePointOnBreak = 10;
 		brickProperties->data.brickType = BrickType::Easy;
-		brickProperties->data.perkDropRateOnBreak = 1.0f;
-		brickProperties->data.perkDropRateOnHit = 1.0f;
+		brickProperties->data.perkDropRateOnBreak = 0.0f;
+		brickProperties->data.perkDropRateOnHit = 0.2f;
 
 		std::shared_ptr<Texture> brickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/03-Breakout-Tiles.PNG");
 		brickTexture->LoadTextureWithAlpha();
@@ -275,8 +275,8 @@ namespace BreakoutGame
 		brickProperties->data.scorePointOnHit = 5;
 		brickProperties->data.scorePointOnBreak = 10;
 		brickProperties->data.brickType = BrickType::Medium;
-		brickProperties->data.perkDropRateOnBreak = 1.6f;
-		brickProperties->data.perkDropRateOnHit = 1.3f;
+		brickProperties->data.perkDropRateOnBreak = 0.6f;
+		brickProperties->data.perkDropRateOnHit = 0.3f;
 
 		std::shared_ptr<Texture> brickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/05-Breakout-Tiles.PNG");
 		brickTexture->LoadTextureWithAlpha();
@@ -297,8 +297,8 @@ namespace BreakoutGame
 		brickProperties->data.scorePointOnHit = 5;
 		brickProperties->data.scorePointOnBreak = 15;
 		brickProperties->data.brickType = BrickType::Hard;
-		brickProperties->data.perkDropRateOnBreak = 0.0f;
-		brickProperties->data.perkDropRateOnHit = 0.0f;
+		brickProperties->data.perkDropRateOnBreak = 1.0f;
+		brickProperties->data.perkDropRateOnHit = 0.2f;
 
 		std::shared_ptr<Texture> brickTexture = std::make_shared<Texture>("src/BreakoutGame/Textures/07-Breakout-Tiles.PNG");
 		brickTexture->LoadTextureWithAlpha();

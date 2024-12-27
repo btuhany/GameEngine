@@ -181,7 +181,8 @@ namespace GameEngine
 	void BoxCollider2DComponent::UpdateDebugMesh()
 	{
 #if _DEBUG
-		m_DebugMeshRenderData->mesh = createDebugMesh();
+		if (m_DebugMeshRenderData != nullptr)
+			m_DebugMeshRenderData->mesh = createDebugMesh();
 #endif
 	}
 

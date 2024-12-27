@@ -63,8 +63,18 @@ namespace BreakoutGame
 			return;
 
 		m_FakeSpeed = -1.0f;
+
 		auto leftVector = glm::vec3(-1.0f, 0.0f, 0.0f);
-		m_Entity->transform->Translate(leftVector * m_Speed * m_DeltaTime);
+		auto movementVector = leftVector * m_Speed * m_DeltaTime;
+
+		auto entityPos = m_Entity->transform->getPosition();
+		auto nextPos = entityPos + movementVector;
+		if (nextPos.x <= m_LeftBoundary)
+		{
+			nextPos.x = m_LeftBoundary;
+		}
+
+		m_Entity->transform->Translate(nextPos - entityPos);
 	}
 	void Paddle::MoveRight()
 	{
@@ -73,7 +83,16 @@ namespace BreakoutGame
 
 		m_FakeSpeed = 1.0f;
 		auto rightVector = glm::vec3(1.0f, 0.0f, 0.0f);
-		m_Entity->transform->Translate(rightVector * m_Speed * m_DeltaTime);
+		auto movementVector = rightVector * m_Speed * m_DeltaTime;
+
+		auto entityPos = m_Entity->transform->getPosition();
+		auto nextPos = entityPos + movementVector;
+		if (nextPos.x >= m_RightBoundary)
+		{
+			nextPos.x = m_RightBoundary;
+		}
+
+		m_Entity->transform->Translate(nextPos - entityPos);
 	}
 	void Paddle::MoveUp()
 	{
@@ -116,10 +135,13 @@ namespace BreakoutGame
 
 		auto colliderWidth = m_Collider->getWidth();
 		auto colliderHeight = m_Collider->getHeight();
-		scaleIncrease *= 2;
+		scaleIncrease *= 2; //collider multiplier
 		auto colliderNewWidth = colliderWidth + scaleIncrease;
 		m_Collider->SetWidthAndHeight(colliderNewWidth, colliderHeight);
 		m_Collider->UpdateDebugMesh();
+
+		m_RightBoundary -= value;
+		m_LeftBoundary += value;
 	}
 	void Paddle::ScaleDownWidth(float value)
 	{
@@ -130,11 +152,13 @@ namespace BreakoutGame
 
 		auto colliderWidth = m_Collider->getWidth();
 		auto colliderHeight = m_Collider->getHeight();
-
-		scaleDecrease *= 2;
+		scaleDecrease *= 2; //collider multiplier
 		auto colliderNewWidth = colliderWidth - scaleDecrease;
 		m_Collider->SetWidthAndHeight(colliderNewWidth, colliderHeight);
 		m_Collider->UpdateDebugMesh();
+
+		m_RightBoundary += value;
+		m_LeftBoundary -= value;
 	}
 	std::shared_ptr<SpriteEntity> Paddle::getEntity()
 	{

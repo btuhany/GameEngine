@@ -28,7 +28,9 @@ namespace BreakoutGame
 		void DisableMovement();
 		void EnableMovement();
 		bool IsOnPaddle = false;
+		//FOR CLONE PERK
 		bool IsClone = false;  //Bad :(
+		int CloneHitCount = 0;
 	private:
 		bool m_CanMove;
 		std::function<void(std::shared_ptr<GameEntity>)> m_OnBallColliderEnterHandler;
@@ -41,7 +43,7 @@ namespace BreakoutGame
 		const float SPEED = 37.0f;
 		//FOR DEBUG
 		const bool IS_LOGS_ACTIVE = true;
-		const float ROTATE_ANIM_SPEED = 1.8f;
+		const float ROTATE_ANIM_SPEED = 2.8f;
 	};
 }
 

@@ -26,6 +26,7 @@ namespace GameEngine
 		}
 		m_TimeCounter = 0.0f;
 
+		//DETECT COLLISIONS
 		for (size_t i = 0; i < m_ColliderComponents.size(); i++)
 		{
 			if (!isAbleToCollide(m_ColliderComponents[i]))
@@ -35,6 +36,7 @@ namespace GameEngine
 			if (controlledCollider->getCollisionType() != CollisionType::Dynamic)
 				continue;
 
+			
 			for (size_t j = 0; j < m_ColliderComponents.size(); j++)
 			{
 				if (!isAbleToCollide(m_ColliderComponents[j]))
@@ -58,8 +60,20 @@ namespace GameEngine
 
 				if (controlledCollider->detector != nullptr)
 				{
-					controlledCollider->detector->ProcessCollisionResult(collisionData);
+					controlledCollider->detector->AddToProcessBuffer(collisionData);
 				}
+			}
+		}
+
+
+		//PROCESSING COLLISION DATA IN BUFFER
+		for (size_t i = 0; i < m_ColliderComponents.size(); i++)
+		{
+			auto colliderComp = m_ColliderComponents[i];
+			if (colliderComp->detector != nullptr)
+			{
+				colliderComp->detector->ProcessCollisionBuffer();
+				colliderComp->detector->ClearProcessBuffer();
 			}
 		}
 
@@ -106,7 +120,7 @@ namespace GameEngine
 							collisionData->isInBounds = false;
 							collisionData->collidedNodePosList = std::vector<Vector3>();
 							collisionData->otherCollider = colliderComp;
-							controlledCollider->detector->ProcessCollisionResult(collisionData);
+							controlledCollider->detector->ProcessCollisionData(collisionData);
 							controlledCollider->detector->RemoveColliderFromCurrentCollisions(colliderComp); 	//not sure if this function should be called
 						}
 					}

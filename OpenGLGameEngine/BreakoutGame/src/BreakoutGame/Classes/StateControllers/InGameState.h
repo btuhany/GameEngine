@@ -38,6 +38,8 @@ namespace BreakoutGame
 		void onPerkGained(PerkType perkType);
 		bool isAllLevelsCompleted();
 		bool isGameOver();
+		void checkHandleIsGameOver();
+		void updatePlayerLives(int value);
 		void startTransition();
 		std::shared_ptr<Ball> m_Ball;
 		std::shared_ptr<Paddle> m_Paddle;

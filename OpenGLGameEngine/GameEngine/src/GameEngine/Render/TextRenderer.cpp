@@ -34,7 +34,7 @@ namespace GameEngine
         }
 
         FT_Face face;
-        if (FT_New_Face(ft, "src/BreakoutGame/Fonts/arial.ttf", 0, &face)) //TODO
+        if (FT_New_Face(ft, "src/BreakoutGame/Fonts/monogram-extended.ttf", 0, &face)) //TODO
         {
             LOG_CORE_ERROR("ERROR::FREETYPE: Failed to load font");
             return;

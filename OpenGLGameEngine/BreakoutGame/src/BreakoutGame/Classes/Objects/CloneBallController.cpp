@@ -15,7 +15,7 @@ namespace BreakoutGame
 			ball->IsOnPaddle = false;
 			ball->Start();
 			ball->getEntity()->renderer->setSpriteRenderData(renderData);
-			ball->SetSpeed(ball->getSpeed() * 1.5f);
+			ball->SetSpeed(ball->getSpeed() * 1.2f);
 			ball->getEntity()->transform->Scale(scale, scale, scale);
 			auto collider = ball->getEntity()->GetComponent<BoxCollider2DComponent>();
 			auto colliderWidth = collider->getWidth();
@@ -35,8 +35,8 @@ namespace BreakoutGame
 	}
 	void CloneBallController::ActivateClones(Vector3 pos)
 	{
-		pos.x -= 15.0f;
-		float spacingX = 7.5f;
+		pos.x -= 2.5f;
+		float spacingX = 2.5f;
 		for (size_t i = 0; i < m_CloneBallList.size(); i++)
 		{
 			pos.x += spacingX * i;
