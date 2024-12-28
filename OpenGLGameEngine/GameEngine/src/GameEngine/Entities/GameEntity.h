@@ -46,6 +46,7 @@ namespace GameEngine
         std::string m_Name;
     };
 
+    //TODO: unnecessary T Template?
     template<typename T>
     void GameEntity::AddComponent(std::shared_ptr<T> component)
     {
