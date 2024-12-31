@@ -38,7 +38,7 @@ namespace BreakoutGame
 		float scaleY = scale.y;
 		float posX = pos.x - scaleX / 2.0f;
 		float posY = pos.y - scaleY / 2.0f;
-		m_BackgroundSpriteEntity->transform->SetPosition(glm::vec3(posX, posY, -0.5f));
+		m_BackgroundSpriteEntity->transform->SetPosition(glm::vec3(posX, posY, -0.4f));
 		m_BackgroundSpriteEntity->transform->Scale(scaleX, scaleY, 1.0f);
 		m_SelectedStateEntity->transform->SetPosition(glm::vec3(posX, posY, -0.4f));
 		m_SelectedStateEntity->transform->Scale(scaleX, scaleY, 1.0f);

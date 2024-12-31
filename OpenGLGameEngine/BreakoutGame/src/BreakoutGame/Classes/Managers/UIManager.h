@@ -28,7 +28,7 @@ namespace BreakoutGame
 		void UpdateMainMenuStartButtonText(std::string text);
 		void HideMainMenuPanel();
 
-		void ShowCenteredText(std::string text, glm::vec3 color);
+		void ShowCenteredText(std::string text, glm::vec3 color, Vector3 customScale = Vector3(1.5f, 1.5f, 1.0), Vector3 customOffset = Vector3(0.0f, 0.0f, 0.0f));
 		void HideCenteredText();
 
 		void SelectMainMenuButton(MainMenuButtonType buttonType);

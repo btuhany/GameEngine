@@ -35,8 +35,8 @@ namespace BreakoutGame
 		std::vector<float> m_CumulativePerkTypeProbabilityList;
 		const int MAX_PERK_COUNT_INGAME = 5;
 		const std::unordered_map<PerkType, float> m_PerkProbabilityMap = {
-			{ PerkType::IncreaseLive, 0.1f },
-			{ PerkType::DecreaseLive, 0.1f },
+			{ PerkType::IncreaseLive, 0.12f },
+			{ PerkType::DecreaseLive, 0.08f },
 			{ PerkType::ThreeBall, 0.16f },
 			{ PerkType::PaddleScaleUp, 0.16f },
 			{ PerkType::PaddleScaleDown, 0.16f },

@@ -114,13 +114,15 @@ namespace BreakoutGame
 		m_PauseText->text = "Paused";
 		m_PauseText->shader = m_TextShader;
 		m_PauseText->textSize = TextSize::Large;
-		m_PauseText->color = glm::vec3(1.0f, 0.0f, 0.0f);
+		m_PauseText->color = glm::vec3(1.0f, 1.0f, 1.0f);
 		auto breakoutTextEntity = std::make_shared<GameEntity>();
 		breakoutTextEntity->AddComponent(m_PauseText);
 		m_GameEntityList.push_back(breakoutTextEntity);
 	}
 	void UIManager::startPausePanelObjects()
 	{
+		m_PauseText->getEntity().lock()->transform->SetScale(glm::vec3(1.5f, 1.5f, 1.0f));
+		TextRenderer::CalculateTextWidthAndHeight(m_PauseText);
 		m_PauseText->getEntity().lock()->transform->
 			SetPosition(
 				Vector3(
@@ -141,11 +143,12 @@ namespace BreakoutGame
 	}
 	void UIManager::ShowHelpPanel()
 	{
-		ShowCenteredText("helpText \n helpText \n helpText \n helpText \n helpText \n helpText \n helpText \n helpText \n helpText \n ", glm::vec3(0.5f, 0.7f, 1.0f));
+		ShowCenteredText("Breakout is an arcade game where the goal is to break all the bricks.\nUse arrows to control the paddle in order to keep the ball in play,\nEarn points by breaking bricks, \nClear all the bricks to complete the level.\nYou can always pause the game with 'P'.", glm::vec3(1.0f, 1.0f, 1.0f), Vector3(0.5f, 0.5f, 1.0f), Vector3(0.0f, 0.0f, 0.0f));
 	}
 	void UIManager::HideHelpPanel()
 	{
 		HideCenteredText();
+		m_CenteredText->getEntity().lock()->transform->SetScale(glm::vec3(1.5f, 1.5f, 1.0f));
 	}
 	void UIManager::ShowMainMenuPanel()
 	{
@@ -165,8 +168,12 @@ namespace BreakoutGame
 		m_HelpButton->Hide();
 		m_QuitButton->Hide();
 	}
-	void UIManager::ShowCenteredText(std::string text, glm::vec3 color)
+	void UIManager::ShowCenteredText(std::string text, glm::vec3 color, Vector3 customScale, Vector3 customOffset)
 	{
+		auto entity = m_CenteredText->getEntity().lock();
+		entity->transform->SetScale(VectorUtility::Vector3ToGlmVec3(customScale));
+
+		 
 		m_CenteredText->text = text;
 		m_CenteredText->color = color;
 		TextRenderer::CalculateTextWidthAndHeight(m_CenteredText);
@@ -177,6 +184,7 @@ namespace BreakoutGame
 					(m_ViewPortHeight + m_CenteredText->calculatedTextHeight) / 2.0f,
 					0.0f));
 		m_CenteredText->getEntity().lock()->setActive(true);
+		entity->transform->Translate(VectorUtility::Vector3ToGlmVec3(customOffset));
 	}
 	void UIManager::HideCenteredText()
 	{
