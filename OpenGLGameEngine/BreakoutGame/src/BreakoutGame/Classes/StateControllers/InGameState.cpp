@@ -179,7 +179,10 @@ namespace BreakoutGame
 			break;
 		case BreakoutGame::PerkType::DecreaseLive:
 			updatePlayerLives(-1);
-			checkHandleIsGameOver();
+			if (isGameOver())
+			{
+				startTransition();
+			}
 			break;
 		case BreakoutGame::PerkType::ThreeBall:
 		{
