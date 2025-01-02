@@ -12,7 +12,7 @@ get and set functions -> getOrSetFunction()
 
 ************************************************************
 ******************** TODO **********************************
-- [] Renderer components with render date template
+- [] Renderer components with render date template (or abstract components with data)
 - [] Engine starting settings static class (set DEBUG_MODE and shadow modes from a single place)
 - [] Fixing input lag due to thread sleep
 - [] Fix anonim calls for events
@@ -21,10 +21,10 @@ get and set functions -> getOrSetFunction()
 - [] Abstract managers (renderer, textRenderer, collision manager)
 - [] Check type of component when adding to entity if there is any same type
 - [] MeshData and TextData base class (Abstract mesh data class)
-- [] FPS
+- [] FPS limit fix
 - [] UI Renderer abstraction, polymorphism fix
 - [] Sprite render data material dependency, using the same mesh data instance
-- [] Not instantiated components still contained in manager vector lists (for example: RendererComponent and Renderer)
+- [] Not instantiated components still contained in manager vector lists. Components should be registered to System Manager after instantiated (for example: RendererComponent and Renderer)
 - [] Camera space ui canvas
 - [] JSON Serialization/Deserialization
 - [] Application quit handler
@@ -108,6 +108,7 @@ BREAKOUT GAME
 - Player lost lives logic [X]
 - Pause logic -> Back to main menu [X] (CHANGED)
 - Tiles calculating normals based on ball movement vector [X]
-- Initializing data with config classes (without magic numbers) []
 - Starting ball movement vector based on paddle speed [X]
 - BreakoutObject refactor (consider Brick)
+- Initializing data with config classes (without magic numbers) []
+- Refactor (abstraction, polymorphism) []
