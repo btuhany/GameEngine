@@ -223,7 +223,9 @@ namespace BreakoutGame
 					}
 					
 					normalVec = normalVec.normalize();
-					LOG_INFO("Ball collide paddle normal calculated with fine tuning");
+
+					if (IS_LOGS_ACTIVE)
+						LOG_INFO("Ball collide paddle normal calculated with fine tuning");
 				}
 			}
 			auto newMovementVector = glm::reflect(m_MovementVector, glm::vec3(normalVec.x, normalVec.y, 0.0f));
