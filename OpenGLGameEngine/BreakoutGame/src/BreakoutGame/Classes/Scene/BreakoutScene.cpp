@@ -124,7 +124,7 @@ namespace BreakoutGame
 		setCamera(std::make_shared<Camera>(
 			glm::vec3(0.0f, 0.0f, 40.0f),
 			glm::vec3(0.0f, 1.0f, 0.0f),
-			-90.0f, 0.0f, 5.0f, 0.1f, 46.5, 0.1f, 100.0f, CAMERA_TYPE_ORTHOGONAL));
+			-90.0f, 0.0f, 5.0f, 0.1f, 46.0f, 0.1f, 100.0f, CAMERA_TYPE_ORTHOGONAL));
 	}
 
 
@@ -138,7 +138,7 @@ namespace BreakoutGame
 			setCamera(std::make_shared<Camera>(
 				pos,
 				glm::vec3(0.0f, 1.0f, 0.0f),
-				yaw, pitch, 5.0f, 0.1f, 30.0f, 0.1f, 100.0f, CAMERA_TYPE_ORTHOGONAL));
+				yaw, pitch, 5.0f, 0.1f, 46.0, 0.1f, 100.0f, CAMERA_TYPE_ORTHOGONAL));
 		}
 		else if (getCamera()->getCameraType() == CAMERA_TYPE_ORTHOGONAL)
 		{
