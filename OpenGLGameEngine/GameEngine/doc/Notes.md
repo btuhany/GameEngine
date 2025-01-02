@@ -12,6 +12,7 @@ get and set functions -> getOrSetFunction()
 
 ************************************************************
 ******************** TODO **********************************
+- [] CREATE MAKE FILE
 - [] Renderer components with render date template (or abstract components with data)
 - [] Engine starting settings static class (set DEBUG_MODE and shadow modes from a single place)
 - [] Fixing input lag due to thread sleep
