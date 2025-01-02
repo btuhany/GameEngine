@@ -88,22 +88,22 @@ namespace GameEngine
 
 		if (Vector2::IsAligned(collisionVec, m_TopRightCornerNormal, CORNER_ALIGN_CHECK_THRESHOLD))
 		{
-			std::cout << "topRightVec" << std::endl;
+			//std::cout << "topRightVec" << std::endl;
 			return topRightVec.normalize();
 		}
 		else if (Vector2::IsAligned(collisionVec, m_TopLeftCornerNormal, CORNER_ALIGN_CHECK_THRESHOLD))
 		{
-			std::cout << "topLeftVec" << std::endl;
+			//std::cout << "topLeftVec" << std::endl;
 			return topLeftVec.normalize();
 		}
 		else if (Vector2::IsAligned(collisionVec, m_BottomLeftCornerNormal, CORNER_ALIGN_CHECK_THRESHOLD))
 		{
-			std::cout << "bottomLeftVec" << std::endl;
+			//std::cout << "bottomLeftVec" << std::endl;
 			return bottomLeftVec.normalize();
 		}
 		else if (Vector2::IsAligned(collisionVec, m_BottomRightCornerNormal, CORNER_ALIGN_CHECK_THRESHOLD))
 		{
-			std::cout << "bottomRightVec" << std::endl;
+			//std::cout << "bottomRightVec" << std::endl;
 			return bottomRightVec.normalize();
 		}
 
