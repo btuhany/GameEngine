@@ -8,21 +8,8 @@ uniform mat4 model;
 uniform mat4 projection;
 uniform mat4 view;
 
-uniform mat4 directionalLightTransform;
-
-out vec4 vCol;
-out vec2 TexCoords;
-out vec3 Normal;
-out vec3 FragPos;
-out vec4 DirectionalLightSpacePos;
-
 void main()		
 {	
 	gl_Position = projection * view * model * vec4(pos.x, pos.y, pos.z, 1.0);
-	DirectionalLightSpacePos = directionalLightTransform * model * vec4(pos, 1.0);
-	vCol = vec4(clamp(pos, 0.0, 1.0), 1.0f);	
-	TexCoords = tex;
-	Normal = mat3(transpose(inverse(model))) * norm; //?  //invert the scaling
-	FragPos = (model * vec4(pos, 1.0)).xyz;
 }	
 
