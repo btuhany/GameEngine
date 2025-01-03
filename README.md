@@ -34,8 +34,6 @@ The project currently includes a 3D Sandbox project and a 2D game: Breakout, whi
 ## Plans  
 I plan to continue improving this project from time to time. 
 Instead of focusing on simple games, I aim to add/implement new core systems, architectural designs and mechanics used in current game engines and that can be built using OpenGL to this engine and experiment with the ideas. 
-In summary, I am aiming to use this game engine as a testing ground where I can apply previously discovered techniques and solutions to cleverly solved problems.
-
 
 #### Refactoring/Missing Tasks  
 There are many parts of the project that need refactoring. More detailed version is in the Notes.md file in docs folder.
@@ -72,4 +70,5 @@ Throughout this project, I utilized various resources to improve my knowledge an
 - LearnOpenGL
 - "Computer Graphics with Modern OpenGL and C++" udemy course by Ben Cook
 - The Cherno, YouTube channel
+  
 I am deeply grateful to all the authors, contributors, and communities who made these resources available.
