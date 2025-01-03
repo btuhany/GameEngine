@@ -1,8 +1,8 @@
 # OpenGL Game Engine
 
-This is a 2D/3D game engine developed from scratch using **C++** and the **OpenGL API**. It's designed for learning and experimenting with various game & engine development concepts and techniques, including rendering, physics, and system architecture.
+This is a 2D/3D game engine developed from scratch using **C++** and the **OpenGL API**.
 
-This is my first attempt at developing a game engine. With this project, I started learning OpenGL and improving my fundamental knowledge of C/C++.
+This is my first attempt at developing a game engine for learning and experimenting with various game & engine development concepts and techniques, including rendering, physics, and system architecture. With this project, I started learning OpenGL and improving my fundamental knowledge of C/C++.
 
 The purpose of this project is to
 - Improve my programming skills by learning C++ and OpenGL, 
