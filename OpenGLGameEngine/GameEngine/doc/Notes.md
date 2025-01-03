@@ -29,6 +29,7 @@ get and set functions -> getOrSetFunction()
 - [] JSON Serialization/Deserialization
 - [] Application quit handler
 - [] Multiple scenes / transitions
+- [] Text Renderer custom fonts, refactor
 ************************************************************
 
 08.24
