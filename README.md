@@ -12,7 +12,7 @@ The purpose of this project is to
 The project currently includes a 3D Sandbox project and a 2D game: Breakout, which demonstrate some basic functionality of the engine.
 
 ### Features
-- Basic ECS 
+- Unity-style GameObject/Component System
 	- Components: Collider, BoxCollider2D, MeshRenderer, SpriteRenderer, Transform, UIRenderer, UITextRenderer
 	- Systems: Renderer, Collision
 - Event Bus / Event Manager
